@@ -1,0 +1,122 @@
+# MySQL.  Versions 4.1 and 5.0 are recommended.
+#
+# Install the MYSQL driver
+#   gem install mysql2
+#
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem 'mysql2'
+#
+# And be sure to use new-style password hashing:
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+#
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  charset: utf8mb4
+  collation: utf8mb4_unicode_ci
+  reconnect: false
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: qualipso
+  port: 3306
+  host: 127.0.0.1
+  variables:
+    sql_mode: TRADITIONAL
+
+default_socket: &default_socket
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  socket: /var/run/mysqld/mysqld.sock
+  variables:
+    sql_mode: TRADITIONAL
+
+development:
+  <<: *default
+  database: qualipso_development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: qualipso_test
+
+staging:
+  <<: *default
+  database: qualipso_staging
+
+migration:
+  <<: *default_socket
+  database: qualipso_migration
+
+production:
+  <<: *default_socket
+  database: qualipso
+  pool: 50
+
+vm:
+  <<: *default_socket
+  database: qualipso
+# MySQL.  Versions 4.1 and 5.0 are recommended.
+#
+# Install the MYSQL driver
+#   gem install mysql2
+#
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem 'mysql2'
+#
+# And be sure to use new-style password hashing:
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+#
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  charset: utf8mb4
+  collation: utf8mb4_unicode_ci
+  reconnect: false
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: qualipso
+  port: 3306
+  host: 127.0.0.1
+  variables:
+    sql_mode: TRADITIONAL
+
+default_socket: &default_socket
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  socket: /var/run/mysqld/mysqld.sock
+  variables:
+    sql_mode: TRADITIONAL
+
+development:
+  <<: *default
+  database: qualipso_development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: qualipso_test
+
+staging:
+  <<: *default
+  database: qualipso_staging
+
+migration:
+  <<: *default_socket
+  database: qualipso_migration
+
+production:
+  <<: *default_socket
+  database: qualipso
+  pool: 50
+
+vm:
+  <<: *default_socket
+  database: qualipso

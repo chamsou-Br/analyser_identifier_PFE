@@ -1,0 +1,21 @@
+---
+:es:
+  :activerecord:
+    :attributes:
+      :ldap_setting:
+        :host: Host
+        :port: Puerto
+        :uid: Atributo LDAP para el nombre de usuario (UID)
+        :encryption: Cifrado
+        :base: Grupo base
+        :bind_dn: El nombre distintivo (Bind DN)
+        :password: La contraseña
+        :email_key: Correo electrónico
+        :firstname_key: Nombre
+        :lastname_key: Apellido
+        :phone_key: Teléfono fijo
+        :mobile_phone_key: Teléfono móvil
+        :function_key: Función
+        :service_key: Servicio
+        :groups_key: Grupos (separado por comas)
+        :roles_key: Roles (separado por comas)

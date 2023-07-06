@@ -1,0 +1,21 @@
+---
+:en:
+  :activerecord:
+    :attributes:
+      :ldap_setting:
+        :host: Host
+        :port: Port
+        :uid: LDAP attribute name for the user name in the login form (UID)
+        :encryption: Encryption
+        :base: Base group (Base DN)
+        :bind_dn: Distinguished name (Bind DN)
+        :password: Password
+        :email_key: Email
+        :firstname_key: First name
+        :lastname_key: Last name
+        :function_key: Function
+        :service_key: Service
+        :phone_key: Phone
+        :mobile_phone_key: Mobile Phone
+        :groups_key: Groups (comma-separated)
+        :roles_key: Roles (comma-separated)
