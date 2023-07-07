@@ -18,7 +18,11 @@ Rails.application.routes.draw do
 
   post 'tags/delete/:id', to: 'tags#delete', as: :delete_tag
   post 'tags/rename/:id', to: 'tags#rename'
+  get 'tags/:id', to: 'tags#show'
+  get 'tags/hello/:id', to: 'tags#hello'
+
   get 'tags/new', to: 'tags#new'
+  post 'tags/create', to: 'tags#create'
 
   resources :tags, only: [] do
     collection do

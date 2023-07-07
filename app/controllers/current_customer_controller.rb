@@ -11,7 +11,7 @@ class CurrentCustomerController < ApplicationController
   end
   
   def index
-    session_id = 'c7a7f96de8db07a401666ee20513f93b' # Replace with the actual session ID
+    session_id = '7e67a66ce667fb58b66050bfd6a0d34a' # Replace with the actual session ID
     tags_endpoint = 'get_tags'
     current_customer_endpoint = 'get_current_customer'
     

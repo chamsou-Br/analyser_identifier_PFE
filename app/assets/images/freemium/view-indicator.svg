@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   id="svg8671"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   viewBox="0 0 48 48"
+   sodipodi:docname="view-indicator.svg">
+  <defs
+     id="defs8673" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="21.875"
+     inkscape:cx="16.731429"
+     inkscape:cy="24"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1014"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata8676">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <circle
+       id="circle97"
+       r="24"
+       cy="24.000002"
+       cx="24.000004"
+       class="green-color"
+       style="fill:#b0c64b;fill-opacity:1" />
+    <path
+       d="m 18.024888,36.348555 -7.269709,0 0,-7.070539 7.269709,0 0,7.070539 0,0 z m 9.560166,-10.356846 -7.369294,0 0,10.356846 7.369294,0 0,-10.356846 z m 9.360996,-4.580913 -7.369295,0 0,14.937759 7.369295,0 0,-14.937759 z m 0.19917,-13.0456427 -5.975104,0.9958506 1.294606,1.2946061 -8.962655,8.564315 -3.286307,-3.087137 -9.062241,9.062241 2.190871,2.190871 6.771785,-6.771784 3.385892,3.186722 11.153526,-10.854772 1.294606,1.294606 1.195021,-5.8755187 z"
+       class="white-color"
+       id="bar_chart_4_icon"
+       inkscape:connector-curvature="0"
+       style="fill:#ffffff;fill-opacity:1" />
+  </g>
+</svg>

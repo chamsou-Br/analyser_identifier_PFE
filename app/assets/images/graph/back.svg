@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="24px"
+   version="1.1"
+   viewBox="0 0 24 24"
+   width="24px"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="back.svg">
+  <metadata
+     id="metadata16">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="707"
+     inkscape:window-height="480"
+     id="namedview14"
+     showgrid="false"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="12"
+     inkscape:cy="12"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <title
+     id="title4" />
+  <desc
+     id="desc6" />
+  <defs
+     id="defs8" />
+  <g
+     fill="none"
+     fill-rule="evenodd"
+     id="miu"
+     stroke="none"
+     stroke-width="1"
+     style="fill:#4dbff5;fill-opacity:1">
+    <g
+       id="Artboard-1"
+       transform="translate(-359.000000, -191.000000)"
+       style="fill:#4dbff5;fill-opacity:1">
+      <g
+         id="slice"
+         transform="translate(215.000000, 119.000000)"
+         style="fill:#4dbff5;fill-opacity:1" />
+      <path
+         d="M360,202.5 C360,196.148725 365.148725,191 371.5,191 C377.851275,191 383,196.148725 383,202.5 C383,208.851275 377.851275,214 371.5,214 C365.148725,214 360,208.851275 360,202.5 Z M382,202.5 C382,196.70101 377.29899,192 371.5,192 C365.70101,192 361,196.70101 361,202.5 C361,208.29899 365.70101,213 371.5,213 C377.29899,213 382,208.29899 382,202.5 Z M372.656854,196.843146 L374.071068,198.257359 L369.828427,202.5 L374.071068,206.742641 L372.656854,208.156854 L367,202.5 L372.656854,196.843146 Z"
+         fill="#000000"
+         id="circle-back-arrow-outline-stroke"
+         style="fill:#4dbff5;fill-opacity:1" />
+    </g>
+  </g>
+</svg>

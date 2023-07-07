@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<polygon fill="#DDDDDD" points="224.5,326 283.5,326 283.5,385 224.5,385 135.5,385 135.5,326 "/>
+<rect x="315.5" y="326" fill="#DDDDDD" width="58.9" height="58.9"/>
+<g>
+	<path fill="#DDDDDD" d="M133.7,136.2c10,0,18.2-8.1,18.2-18.2V72.3c0-10-8.1-18.2-18.2-18.2c-10,0-18.2,8.1-18.2,18.2V118
+		C115.5,128,123.6,136.2,133.7,136.2z"/>
+	<path fill="#DDDDDD" d="M422,269.1v148.8H90V195.4h140.9c-4.5-13.3-6.9-27.6-6.9-42.4c0-19.3,4.1-37.6,11.5-54.1h-61.6v18.5
+		c0,22.1-18,40.1-40.1,40.1s-40.1-18-40.1-40.1V98.9H50v359h412V234.6C451.1,248.6,437.5,260.3,422,269.1z"/>
+</g>
+<path fill="#DDDDDD" d="M357,286c-42.1,0-79.5-19.5-103.9-50h-57.6h-59v59h59h89h89v-10C368.1,285.7,362.6,286,357,286z"/>
+<circle id="circle-icon_2_" fill="#F68867" stroke="#FFFFFF" stroke-width="24" stroke-miterlimit="10" cx="357" cy="153" r="133"/>
+<polygon fill="#FFFFFF" points="332.7,223.4 268,158.7 295.6,131.2 332.7,168.3 418.4,82.6 446,110.1 "/>
+</svg>

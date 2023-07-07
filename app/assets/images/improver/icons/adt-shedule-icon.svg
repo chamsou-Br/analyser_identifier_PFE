@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
+<g>
+	<rect x="244.1" y="307.8" opacity="0.5" fill="#B0C64B" width="45.5" height="45.6"/>
+	<polygon opacity="0.5" fill="#B0C64B" points="289.6,241.3 273.2,241.3 250.8,286.9 289.6,286.9 	"/>
+	<path fill="#B0C64B" d="M151.5,163.4c7.8,0,14.1-6.3,14.1-14.1V114c0-7.8-6.3-14.1-14.1-14.1c-7.8,0-14.1,6.3-14.1,14.1v35.3
+		C137.4,157.1,143.7,163.4,151.5,163.4z"/>
+	<polygon fill="#B0C64B" points="200.8,307.8 155.3,307.8 155.3,353.4 198.1,353.4 200.8,347.9 	"/>
+	<polygon fill="#B0C64B" points="224.1,241.3 224.1,286.9 230.8,286.9 253.2,241.3 	"/>
+	<rect x="312.8" y="307.8" opacity="0.5" fill="#B0C64B" width="45.5" height="45.6"/>
+	<rect x="312.8" y="241.3" opacity="0.5" fill="#B0C64B" width="45.5" height="45.6"/>
+	<path opacity="0.5" fill="#B0C64B" d="M347.1,114.2v35.3c0,7.8,6.3,14.1,14.1,14.1s14.1-6.3,14.1-14.1v-35.3
+		c0-7.8-6.3-14.1-14.1-14.1S347.1,106.4,347.1,114.2z"/>
+	<path opacity="0.5" fill="#B0C64B" d="M425.2,134.6h-33v14.4c0,17.1-13.9,31-31,31s-31-13.9-31-31v-14.4h-4.6l-36.7,74.5h105.2v172
+		H204.5L189.3,412h235.9V134.6z"/>
+	<rect x="155.3" y="241.3" fill="#B0C64B" width="45.5" height="45.6"/>
+	<path fill="#B0C64B" d="M117.7,381.1v-172h151.3l36.7-74.5H182.6v14.3c0,17.1-13.9,31-31,31s-31-13.9-31-31v-14.3H86.8V412h82.4
+		l15.2-30.9H117.7z"/>
+</g>
+</svg>
