@@ -7,21 +7,23 @@ Rails.application.routes.draw do
   get '/current_customer', to: 'current_customer#index'
   get '/get_current_customer_tags', to: 'current_customer#get_current_customer_tags'
 
-  resources :tags do
-    member do
-      get "confirm_delete"
-      get "confirm_rename"
-    end
-  end
+  # resources :tags do
+  #   member do
+  #     get "confirm_delete"
+  #     get "confirm_rename"
+  #   end
+  # end
 
+  get 'tags/new', to: 'tags#new'
+  post 'tags/create', to: 'tags#create'
   post 'tags/delete/:id', to: 'tags#delete', as: :delete_tag
+  get 'tags/confirm_delete/:id', to: 'tags#confirm_delete'
   post 'tags/rename/:id', to: 'tags#rename'
+  get 'tags/confirm_rename/:id', to: 'tags#confirm_rename'
+
   get 'tags/:id', to: 'tags#show'
   get 'tags/hello/:id', to: 'tags#hello'
 
-  get 'tags/new', to: 'tags#new'
-  get 'tags/confirm_delete/:id', to: 'tags#confirm_delete'
-  post 'tags/create', to: 'tags#create'
 
   resources :tags, only: [] do
     collection do

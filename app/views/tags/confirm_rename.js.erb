@@ -1,0 +1,5 @@
+var  modal;
+
+modal = $('#modal .md-content div').html("<%=j render :partial => 'form_rename', :content_type => 'text/html' %>");
+modal.find(':text:first').focus();
+modal.find('#label').val("<%= @tag.label %>");
