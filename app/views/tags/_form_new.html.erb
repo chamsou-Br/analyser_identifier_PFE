@@ -1,9 +1,6 @@
 <%= form_for @tag, url: "http://localhost:3001/tags/create", method: "post", :remote => true, html: {class: "mod-form"} do |f| %>
   <div class="row">
     <div class="span12 span-md-12 span-lg-12 span-xs-12">
-      <p>
-        <%= @tag %>
-      </p>
       <p class="heading"><%= t('.title') %></p>
       <div class="error_messages label warning">
         <ul></ul>

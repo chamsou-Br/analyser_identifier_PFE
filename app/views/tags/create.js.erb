@@ -1,0 +1,3 @@
+<% unless @tag.errors.any? %>
+  Turbolinks.visit("<%= tag_path(@tag) %>");
+<% end %>

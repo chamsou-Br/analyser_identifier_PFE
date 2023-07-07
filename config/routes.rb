@@ -11,8 +11,6 @@ Rails.application.routes.draw do
     member do
       get "confirm_delete"
       get "confirm_rename"
-      # post "delete"
-      # post "rename"
     end
   end
 
@@ -22,6 +20,7 @@ Rails.application.routes.draw do
   get 'tags/hello/:id', to: 'tags#hello'
 
   get 'tags/new', to: 'tags#new'
+  get 'tags/confirm_delete/:id', to: 'tags#confirm_delete'
   post 'tags/create', to: 'tags#create'
 
   resources :tags, only: [] do

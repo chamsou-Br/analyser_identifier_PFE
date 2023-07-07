@@ -78,7 +78,6 @@ class TagsController < ApplicationController
     if @tag.save
       flash[:success] = I18n.t("controllers.tags.successes.create")
       # redirect_to "http://localhost:3000/tags/#{@tag.id}"
-      puts "GOOOD"
     else
       puts "NOT GOOD"
       flash[:error] = I18n.t("controllers.tags.errors.create")
@@ -86,7 +85,6 @@ class TagsController < ApplicationController
         format.js { render :error_create, status: :unprocessable_entity }
       end
     end
-    redirect_to "http://localhost:3000/tags/8"
   end
 
   def confirm_rename
