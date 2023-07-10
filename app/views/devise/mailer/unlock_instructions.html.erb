@@ -1,0 +1,26 @@
+<tr>
+    <td valign="top" class="bodyContent">
+      <h1></h1>
+      <p>Hello <%= @resource.email %>!</p>
+    </td>
+</tr>
+
+<tr>
+    <td valign="top" class="bodyContent">
+      <p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
+    </td>
+</tr>
+
+<tr>
+    <td valign="top" class="bodyContent">
+      <p>Click the link below to unlock your account:</p>
+        
+    </td>
+</tr>
+
+<tr>
+    <td valign="top" class="bodyContent">
+        <a class="button" href="unlock_url(@resource, :unlock_token => @resource.unlock_token)" >Unlock my account</a>
+    </td>
+</tr>
+

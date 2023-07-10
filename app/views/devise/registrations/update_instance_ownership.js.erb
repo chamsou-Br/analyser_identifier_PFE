@@ -1,0 +1,4 @@
+<% if @successful %>
+explorer.Behavior.instance.removeWithHighlight("#pass_ownership_button");
+explorer.Flash.instance.success("<%= I18n.t('controllers.registrations.successes.update_instance_ownership') %>");
+<% end %>

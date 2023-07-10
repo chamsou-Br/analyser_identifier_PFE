@@ -1,0 +1,17 @@
+var modal, add_directory_values;
+
+modal = $('#modal .md-content div').html("<%=j render :partial => 'form_deactivate', :content_type => 'text/html' %>");
+
+add_directory_values = $(function() {
+  var inputs_checked = $("tbody .shank :checked[data-class='User']");
+  if ( 1 === inputs_checked.length ){
+    modal.find(':hidden#users_id').val(inputs_checked.data('id'));
+  }else if (1 < inputs_checked.length){
+    modal.find('label[for="users_id"]').text("<%= t('.confirm_deactivation') %>");
+    var id_list = [];
+    inputs_checked.each(function(index, checkbox){
+      id_list.push(checkbox.getAttribute("data-id"));
+    });
+    modal.find(':hidden#users_id').val(id_list);
+  }
+});

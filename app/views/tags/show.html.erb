@@ -1,0 +1,260 @@
+<% content_for :title, "Tags" %>
+<% content_for :sharing_panel do %>
+  <h2><%= t('.title') %></h2>
+  <div class="sharing-panel">
+    <% if !@tag.nil? %>
+    <div id="dd" class="wrapper-dropdown-5" tabindex="1"><%= t('common.other.other') %>
+      <ul class="dropdown">
+        <li id="li_rename">
+          <%= link_to "http://localhost:3001/tags/confirm_rename/#{@tag.id}", method: "get", :class => "md-trigger", :remote => true, :"data-modal" => "modal", :"data-effect" => "effect-1"  do %>
+            <%= image_tag "referential/rename-rep.svg", :size => "16x16" %><span><%= t('common.rename') %></span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+    <% end %>
+    <ul class="sharing-menu">
+      <li>
+        <%= link_to "http://localhost:3001/tags/new/", method: "get", :class => "md-trigger", :remote => true, :"data-modal" => "modal", :"data-effect" => "effect-9" do %>
+          <%= image_tag "tag/add-tags-icon.svg", :size => "32x32" %><span><%= t('.add_tag') %></span>
+        <% end %>
+      </li>
+      <% if !@tag.nil? %>
+      <li id="li_delete">
+        <%= link_to "http://localhost:3001/tags/confirm_delete/#{@tag.id}", method: "get", :class => "md-trigger trash", :remote => true, :"data-modal" => "modal", :"data-effect" => "effect-1"  do %>
+          <i class="fa fa-trash-o"></i><span><%= t('common.delete') %></span>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<% content_for :modals do %>
+  <%= render :partial => "layouts/modal" %>
+<% end %>
+
+<section class="viewer show_tag">
+  <div class="block_content" id="tags">
+    <div class="row">
+      <div class="span12 span-md-12 span-lg-12 span-xs-12">
+        <h3><%= render_for_html(@tag.label) %></h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8 span-md-8 span-lg-8 span-xs-12">
+        <% if @tag.nil? %>
+          <div class="row">
+            <div class="span12 span-md-12 span-lg-12 span-xs-12">
+              <h4 class="collapsible_title">
+                <a href="#"><%= t('.not_found_tag') %></a>
+              </h4>
+              <%= t('.tag_not_exist') %>
+            </div>
+          </div>
+        <% else %>
+          <div class="row">
+            <div class="span12 span-md-12 span-lg-12 span-xs-12">
+              <h4 class="collapsible_title">
+                <a href="#"><%= t('.linked_graphs') %></a>
+              </h4>
+                <% if @graphs.count > 0 %>
+                <div class="block">
+                  <div class="block_head"></div>
+                  <div class="block_content">
+                    <table class="table" cellpadding="0" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th width="50%"><%= t('.thead.elements') %></th>
+                          <th width="25%"><%= t('.thead.creation') %></th>
+                          <th width="25%"><%= t('common.author') %></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @graphs.each do |graph| %>
+                        <tr class="<%= cycle("odd", "even") -%> contents">
+                          <td>
+                            <%= link_to graph do %>
+                            <span>
+                              <%= get_child_image_url(graph["id"], "32x32", "Graph") %>
+                            </span>
+                            <%= render_for_html(graph["title"]) %>
+                            <% end %>
+                          </td>
+                          <td class="start_date"><%= parse_timer(graph["created_at"]) %></td>
+                          <td>
+                            <%= link_to "http://localhost:3000/users/#{graph['author']}/edit" do %>
+                            <%= "khra" %>
+                            <% end %>
+                          </td>
+                        </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+              <% else %>
+                <p class="empty-block"><%= t('.any_linked_graph') %></p>
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span12 span-md-12 span-lg-12 span-xs-12">
+              <h4 class="collapsible_title">
+                <a href="#"><%= t('.linked_documents') %></a>
+              </h4>
+                <% if @documents.count > 0 %>
+                <div class="block">
+                  <div class="block_head"></div>
+                  <div class="block_content">
+                    <table class="table" cellpadding="0" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th width="50%"><%= t('.thead.elements') %></th>
+                          <th width="25%"><%= t('.thead.creation') %></th>
+                          <th width="25%"><%= t('common.author') %></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @documents.each do |document| %>
+                        <tr class="<%= cycle("odd", "even") -%> contents">
+                          <td>
+                            <%= link_to document["actual_url"] do %>
+                            <span>
+                              <%= get_child_image_url(document["id"], "32x32", "Document") %>
+                            </span>
+                            <%= render_for_html(document["title"]) %>
+                            <% end %>
+                          </td>
+                          <td class="start_date"><%= parse_timer(document["created_at"]) %></td>
+                          <td>
+                            <%= link_to "http://localhost:3000/users/#{document['author']}/edit" do %>
+                            <%= "khra" %>
+                            <% end %>
+                          </td>
+                        </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              <% else %>
+                <p class="empty-block"><%= t('.any_linked_document') %></p>
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span12 span-md-12 span-lg-12 span-xs-12">
+              <h4 class="collapsible_title">
+                <a href="#"><%= t('.linked_roles') %></a>
+              </h4>
+                <% if @roles.count > 0 %>
+                <div class="block">
+                  <div class="block_head"></div>
+                  <div class="block_content">
+                    <table class="table" cellpadding="0" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th width="50%"><%= t('.thead.elements') %></th>
+                          <th width="25%"><%= t('.thead.creation') %></th>
+                          <th width="25%"><%= t('common.author') %></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @roles.each do |role| %>
+                        <tr class="<%= cycle("odd", "even") -%> contents">
+                          <td>
+                            <%= link_to role do %>
+                            <span>
+                              <%= get_child_image_url(role["id"], "32x32", "Role") %>
+                            </span>
+                            <%= role["title"] %>
+                            <% end %>
+                          </td>
+                          <td class="start_date"><%= parse_timer(role["created_at"]) %></td>
+                          <td>
+                            <%= link_to "http://localhost:3000/users/#{role['author']}/edit" do %>
+                            <%= "khra" %>
+                            <% end %>
+                          </td>
+                        </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              <% else %>
+                <p class="empty-block"><%= t('.any_linked_role') %></p>
+              <% end %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span12 span-md-12 span-lg-12 span-xs-12">
+              <h4 class="collapsible_title">
+                <a href="#"><%= t('.linked_resources') %></a>
+              </h4>
+                <% if @resources.count > 0 %>
+                <div class="block">
+                  <div class="block_head"></div>
+                  <div class="block_content">
+                    <table class="table" cellpadding="0" cellspacing="0" width="100%">
+                      <thead>
+                        <tr>
+                          <th width="50%"><%= t('.thead.elements') %></th>
+                          <th width="25%"><%= t('.thead.creation') %></th>
+                          <th width="25%"><%= t('common.author') %></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% @resources.each do |resource| %>
+                        <tr class="<%= cycle("odd", "even") -%> contents">
+                          <td>
+                            <%= link_to resource do %>
+                            <span>
+                              <%= get_child_image_url(resource["id"], "32x32", "Resource") %>
+                            </span>
+                            <%= resource["title"] %>
+                            <% end %>
+                          </td>
+                          <td class="start_date"><%= parse_timer(resource["created_at"]) %></td>
+                          <td>
+                            <%= link_to "http://localhost:3000/users/#{resource['author']}/edit" do %>
+                            <%= "khra" %>
+                            <% end %>
+                          </td>
+                        </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              <% else %>
+                <p class="empty-block"><%= t('.any_linked_resource') %></p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div> <!-- End Span -->
+      <div class="span4 span-md-4 span-lg-4 span-xs-12">
+        <h4 class="first_of_type"><%= t('.list_tags') %></h4>
+        <ul class="taglist">
+          <% set_connexion.tags.order(label: :asc).each do |tag| %>
+          <% if !@tag.nil? && @tag.id == tag.id %>
+            <li class='active'>
+          <% else %>
+            <li>
+              <% end %>
+              <%= link_to "http://localhost:3001/tags/#{tag.id}" do %>
+              <span>
+                <%= render_for_html(tag.label) %>&nbsp;&nbsp;
+              </span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>  <!-- End Span -->
+    </div><!-- End Row -->
+  </div>
+  <!-- End block_content -->
+</section>
+<!-- End Section Viewer -->

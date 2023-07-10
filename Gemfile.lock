@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/mmotherwell/best_in_place
+  revision: 88eb3052623a9a6cd346864d2aca05021c2f80d0
+  specs:
+    best_in_place (3.1.1)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -69,6 +77,7 @@ GEM
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
+    bcrypt (3.1.19)
     better_html (2.0.2)
       actionview (>= 6.0)
       activesupport (>= 6.0)
@@ -96,6 +105,20 @@ GEM
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    devise (4.9.2)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
+    devise_invitable (2.0.8)
+      actionmailer (>= 5.0)
+      devise (>= 4.6)
+    devise_saml_authenticatable (1.9.1)
+      devise (> 2.0.0)
+      ruby-saml (~> 1.7)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     elasticsearch (2.0.2)
       elasticsearch-api (= 2.0.2)
       elasticsearch-transport (= 2.0.2)
@@ -113,15 +136,19 @@ GEM
     exception_notification (4.5.0)
       actionmailer (>= 5.2, < 8)
       activesupport (>= 5.2, < 8)
-    faraday (2.7.9)
+    faraday (2.7.10)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    ffi (1.15.5)
     glob (0.4.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
     highline (2.1.0)
+    http-accept (1.7.0)
+    http-cookie (1.0.5)
+      domain_name (~> 0.5)
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
@@ -153,6 +180,14 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jquery-fileupload-rails (1.0.0)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
+      sassc
+    jquery-ui-rails (6.0.1)
+      railties (>= 3.2.16)
+    json (2.6.3)
+    json2-rails (1.15.05.18)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -164,6 +199,9 @@ GEM
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    mime-types (3.4.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2023.0218.1)
     mini_mime (1.1.2)
     minitest (5.18.1)
     msgpack (1.7.1)
@@ -179,15 +217,35 @@ GEM
       timeout
     net-smtp (0.3.3)
       net-protocol
+    netrc (0.11.0)
     nio4r (2.5.9)
-    nokogiri (1.15.2-x86_64-darwin)
+    nokogiri (1.15.3-x86_64-darwin)
       racc (~> 1.4)
+    notification-handler (3.0.2)
+      activerecord (>= 5.0)
+      activesupport (>= 5.0)
+      railties (>= 5.0)
+    notification-pusher (3.0.2)
+      activesupport (>= 5.0)
+      notification-handler (= 3.0.2)
+    notification-pusher-actionmailer (3.0.2)
+      actionmailer (>= 5.0)
+      notification-pusher (= 3.0.2)
+      railties (>= 5.0)
+    notification-renderer (3.0.2)
+      actionview (>= 5.0)
+      activesupport (>= 5.0)
+      notification-handler (= 3.0.2)
+      railties (>= 5.0)
+    orm_adapter (0.5.0)
     parser (3.2.2.3)
       ast (~> 2.4.1)
       racc
     public_suffix (5.0.1)
     puma (5.6.6)
       nio4r (~> 2.0)
+    pundit (2.3.0)
+      activesupport (>= 3.0.0)
     racc (1.7.1)
     rack (2.2.7)
     rack-cors (2.0.1)
@@ -234,12 +292,30 @@ GEM
     rainbow (3.1.1)
     rake (13.0.6)
     redis (3.3.5)
+    redis-session-store (0.11.5)
+      actionpack (>= 6, < 8)
+      redis (>= 3, < 6)
     regexp_parser (2.8.1)
-    reline (0.3.5)
+    reline (0.3.6)
       io-console (~> 0.5)
+    render_csv (2.0.0)
+      rails (>= 3.0)
+    responders (3.1.0)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.2.5)
+    ruby-saml (1.15.0)
+      nokogiri (>= 1.13.10)
+      rexml
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -272,7 +348,12 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.8.2)
     unicode-display_width (2.4.2)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -299,9 +380,13 @@ PLATFORMS
   x86_64-darwin-22
 
 DEPENDENCIES
+  best_in_place!
   bootsnap
   capybara
   debug
+  devise (~> 4.5)
+  devise_invitable
+  devise_saml_authenticatable
   elasticsearch-model (~> 2.0)
   elasticsearch-rails (~> 2.0)
   elasticsearch-transport
@@ -313,11 +398,23 @@ DEPENDENCIES
   i18n-timezones
   importmap-rails
   jbuilder
+  jquery-fileupload-rails
+  jquery-ui-rails
+  json
+  json2-rails
   mysql2 (< 0.6)
+  notification-handler (= 3.0.2)
+  notification-pusher (= 3.0.2)
+  notification-pusher-actionmailer (= 3.0.2)
+  notification-renderer (= 3.0.2)
   puma (~> 5.0)
+  pundit
   rack-cors
   rails (~> 7.0.6)
   rails-i18n-word-count
+  redis-session-store
+  render_csv (~> 2.0.0)
+  rest-client
   selenium-webdriver
   sidekiq (~> 4)
   slack-notifier

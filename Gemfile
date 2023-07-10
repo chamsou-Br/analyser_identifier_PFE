@@ -36,6 +36,22 @@ gem "elasticsearch-rails", "~> 2.0"
 gem "elasticsearch-transport"
 gem "faraday"
 
+gem "pundit"
+
+gem "notification-handler", "3.0.2"
+gem "notification-pusher", "3.0.2"
+gem "notification-pusher-actionmailer", "3.0.2"
+gem "notification-renderer", "3.0.2"
+
+gem "redis-session-store"
+gem "render_csv", "~> 2.0.0" # Export CSV
+gem "rest-client"
+
+gem "jbuilder" # To use Jbuilder templates for JSON
+gem "jquery-fileupload-rails"
+gem "jquery-ui-rails"
+gem "json"
+gem "json2-rails"
 
 
 #i18n
@@ -48,6 +64,12 @@ gem 'rack-cors'
 gem "exception_notification"
 gem "slack-notifier"
 gem "webpacker"
+
+gem "best_in_place", git: "https://github.com/mmotherwell/best_in_place"
+
+gem "devise", "~> 4.5"
+gem "devise_invitable"
+gem "devise_saml_authenticatable" # SAMLv2 SSO
 
 
 

@@ -1,0 +1,32 @@
+<section class="main">
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class =>"form-login" }) do |f| %>
+    <div class="picture_logo">
+      <a href="#" title="<%= t('.go_to_website') %>">
+        <%= customer_logo(current_customer.settings, { version: :show, style: "max-width:156px;max-height:156px"}) %>
+      </a>
+    </div>
+    <!--<h1><span class="sign-up">Se Connecter</span></h1> -->
+    <%= devise_custom_errors %>
+    <div class="browser-uncapable">
+      <%= t('.warning_message').html_safe %>
+    </div>
+
+    <p class="float">
+      <label for="email"><i class="fa fa-user"></i><%= t('.attributs.email.to_s') %></label>
+      <%= f.text_field :email, :type => 'text', :placeholder => t('.attributs.email.placeholder') %>
+    </p>
+    <p class="float">
+      <label for="password"><i class="fa fa-lock"></i><%= t('.attributs.password.to_s') %></label>
+      <%= f.password_field :password, :placeholder => t('.attributs.password.placeholder'), :class => "showpassword" %>
+    </p>
+    <p class="clearfix">
+      <%= f.submit t('.submit'), :style => "float:right;" %>
+    </p>
+    <p class="float">
+      <label class="checkbox"><%= f.check_box :remember_me, :id => "forgotten" %><%= t('.remember_me') %></label>
+    </p>
+    <p class="clearfix">
+      <%= link_to t('.password_forgotten?'), new_password_path(resource_name), :class => "forgot" %>
+    </p>
+  <% end %>
+</section>

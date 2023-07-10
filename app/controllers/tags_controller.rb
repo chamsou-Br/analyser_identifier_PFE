@@ -7,7 +7,7 @@ class TagsController < ApplicationController
   @mstags_url = "http://localhost:3000/"
 
   def set_connexion
-    session_id = '7e67a66ce667fb58b66050bfd6a0d34a'
+    session_id = '77669f7b3a75a28871c4d6de14d586c5'
     current_customer_endpoint = 'get_current_customer'
     api_url = "http://localhost:3000/#{current_customer_endpoint}"
 
@@ -15,10 +15,10 @@ class TagsController < ApplicationController
       'Cookie' => "_qualipso_session=#{session_id}"
     }
     customer = HTTParty.get(api_url, headers: headers)
-    # pp @current_customer['id']
-    @actual_customer = Customer.find(1)
+    puts customer['id']
+    @actual_customer = Customer.find(customer['id'])
     return @actual_customer
-  end  
+  end 
 
 
   def index
@@ -43,31 +43,48 @@ class TagsController < ApplicationController
   def show
     #variables initaition
     mstags_url = "http://localhost:3000/"
-    session_id = '645aa6c2a459890b5673e1d2bb5d6891'
+    session_id = '77669f7b3a75a28871c4d6de14d586c5'
     get_graphs_docs_url = "#{mstags_url}tags/#{params[:id]}/get_graphs_docs"
     get_html_url = "#{mstags_url}tags/show_html/#{params[:id]}"
     headers = {
       'Cookie' => "_qualipso_session=#{session_id}"
     }
 
-
+    puts "HELLOOOOO"
+    
     @tag = set_connexion.tags.find_by_id(params[:id]) # get tag
     
     # get tags
     response = HTTParty.get(get_graphs_docs_url, headers: headers)
-    if response.success?
-      # Retrieve graphs and documents from the response
-      @graphs = response.parsed_response['graphs']
-      @documents = response.parsed_response['documents']
-    else
-      # Handle error response
-      flash[:error] = 'Failed to retrieve graphs and documents from the other service'
-    end
+    @graphs = response.parsed_response['graphs']
+    @documents = response.parsed_response['documents']
+    @roles = response.parsed_response['roles']
+    @resources = response.parsed_response['resources']
+    
     respond_to do |format|
       format.html {}
     end
     # render json: { tag: @tag, graphs: @graphs, documents: @documents }
   end
+
+  def test_get_graph
+    mstags_url = "http://localhost:3000/"
+    session_id = '77669f7b3a75a28871c4d6de14d586c5'
+    get_graphs_docs_url = "#{mstags_url}tags/#{params[:id]}/get_graphs_docs"
+    get_html_url = "#{mstags_url}tags/show_html/#{params[:id]}"
+    headers = {
+      'Cookie' => "_qualipso_session=#{session_id}"
+    }
+
+    response = HTTParty.get(get_graphs_docs_url, headers: headers)
+    @graphs = response.parsed_response['graphs']
+    @documents = response.parsed_response['documents']
+    @roles = response.parsed_response['roles']
+
+
+    render json: @roles
+  end
+
 
   def new
     @tag = Tag.new
@@ -125,7 +142,7 @@ class TagsController < ApplicationController
   # This is for handling the tagging update index method
   def notify_tagging_service(tag_id)
     tagging_service_url = 'http://localhost:3000/taggings/destroy'
-    session_id = '7e67a66ce667fb58b66050bfd6a0d34a'
+    session_id = '77669f7b3a75a28871c4d6de14d586c5'
     headers = {
       'Cookie' => "_qualipso_session=#{session_id}"
     }

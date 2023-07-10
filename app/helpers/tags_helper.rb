@@ -51,4 +51,27 @@ module TagsHelper
       tag.name
     end
   end
+
+  def get_child_image_url(child_id, size, type)
+    api_url = "http://localhost:3000/child_images/#{child_id}?size=#{size}&type=#{type}"
+    session_id = '77669f7b3a75a28871c4d6de14d586c5'
+    headers = {
+      'Cookie' => "_qualipso_session=#{session_id}"
+    }
+    response = HTTParty.get(api_url, headers: headers)
+    if response.success?
+      json = JSON.parse(response.body)
+      json['image_url']
+    else
+      puts 'not found'
+    end
+  end
+
+  date_string = "10-07-2023"
+
+  def parse_timer(date_string)
+    date = DateTime.iso8601(date_string)
+    formatted_date = date.strftime("%e-%m-%Y")
+    return formatted_date
+  end
 end
