@@ -1,9 +1,12 @@
 # frozen_string_literal: true
+
+require "/Users/macbookpro/Desktop/app-inst/mstags2/app/models/concerns/iam_customer_setup.rb"
+
 class CurrentCustomerController < ApplicationController
   
   
   def index
-    session_id = '77669f7b3a75a28871c4d6de14d586c5' # Replace with the actual session ID
+    session_id = '00b8db8c8edd7f06ea1a3a204dc3f38a' # Replace with the actual session ID
     tags_endpoint = 'get_tags'
     current_customer_endpoint = 'get_current_customer'
     api_url = "http://localhost:3000/#{current_customer_endpoint}"

@@ -1,38 +1,3 @@
-<% content_for :title, "Tags" %>
-<% content_for :sharing_panel do %>
-  <h2><%= t('.title') %></h2>
-  <div class="sharing-panel">
-    <% if !@tag.nil? %>
-    <div id="dd" class="wrapper-dropdown-5" tabindex="1"><%= t('common.other.other') %>
-      <ul class="dropdown">
-        <li id="li_rename">
-          <%= link_to "http://localhost:3001/tags/confirm_rename/#{@tag.id}", method: "get", :class => "md-trigger", :remote => true, :"data-modal" => "modal", :"data-effect" => "effect-1"  do %>
-            <%= image_tag "referential/rename-rep.svg", :size => "16x16" %><span><%= t('common.rename') %></span>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-    <% end %>
-    <ul class="sharing-menu">
-      <li>
-        <%= link_to "http://localhost:3001/tags/new/", method: "get", :class => "md-trigger", :remote => true, :"data-modal" => "modal", :"data-effect" => "effect-9" do %>
-          <%= image_tag "tag/add-tags-icon.svg", :size => "32x32" %><span><%= t('.add_tag') %></span>
-        <% end %>
-      </li>
-      <% if !@tag.nil? %>
-      <li id="li_delete">
-        <%= link_to "http://localhost:3001/tags/confirm_delete/#{@tag.id}", method: "get", :class => "md-trigger trash", :remote => true, :"data-modal" => "modal", :"data-effect" => "effect-1"  do %>
-          <i class="fa fa-trash-o"></i><span><%= t('common.delete') %></span>
-        <% end %>
-      </li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-<% content_for :modals do %>
-  <%= render :partial => "layouts/modal" %>
-<% end %>
-
 <section class="viewer show_tag">
   <div class="block_content" id="tags">
     <div class="row">

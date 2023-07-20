@@ -54,7 +54,7 @@ module TagsHelper
 
   def get_child_image_url(child_id, size, type)
     api_url = "http://localhost:3000/child_images/#{child_id}?size=#{size}&type=#{type}"
-    session_id = '77669f7b3a75a28871c4d6de14d586c5'
+    session_id = '00b8db8c8edd7f06ea1a3a204dc3f38a'
     headers = {
       'Cookie' => "_qualipso_session=#{session_id}"
     }

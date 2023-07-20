@@ -4,76 +4,82 @@ require 'httparty'
 class TagsController < ApplicationController
   include TagsHelper
 
-  @mstags_url = "http://localhost:3000/"
+  @@mstags_url = "http://localhost:3000/"
+  @@session_id = '00b8db8c8edd7f06ea1a3a204dc3f38a'
 
   def set_connexion
-    session_id = '77669f7b3a75a28871c4d6de14d586c5'
     current_customer_endpoint = 'get_current_customer'
     api_url = "http://localhost:3000/#{current_customer_endpoint}"
 
     headers = {
-      'Cookie' => "_qualipso_session=#{session_id}"
+      'Cookie' => "_qualipso_session=#{@@session_id}"
     }
-    customer = HTTParty.get(api_url, headers: headers)
+    customer = HTTParty.get(api_url, headers: headers, timeout: 40)
     puts customer['id']
     @actual_customer = Customer.find(customer['id'])
     return @actual_customer
   end 
 
 
-  def index
-    query = params[:q]
-    respond_to do |format|
-      format.json do
-        render json: set_connexion.tags.autocompleter(query)
-      end
-      format.html do
-        tag = set_connexion.tags.order(label: :asc).first
-        if tag.nil?
-          render
-        else
-          redirect_to tag_path(tag)
-        end
-      end
-    end
-  end
+  # def index
+  #   query = params[:q]
+  #   respond_to do |format|
+  #     format.json do
+  #       render json: set_connexion.tags.autocompleter(query)
+  #     end
+  #     format.html do
+  #       tag = set_connexion.tags.order(label: :asc).first
+  #       if tag.nil?
+  #         render
+  #       else
+  #         redirect_to tag_path(tag)
+  #       end
+  #     end
+  #   end
+  # end
 
-  
   ## MAZEL
   def show
-    #variables initaition
-    mstags_url = "http://localhost:3000/"
-    session_id = '77669f7b3a75a28871c4d6de14d586c5'
-    get_graphs_docs_url = "#{mstags_url}tags/#{params[:id]}/get_graphs_docs"
-    get_html_url = "#{mstags_url}tags/show_html/#{params[:id]}"
+    get_graphs_docs_url = "#{@@mstags_url}tags/#{params[:id]}/get_graphs_docs"
     headers = {
-      'Cookie' => "_qualipso_session=#{session_id}"
+      'Cookie' => "_qualipso_session=#{@@session_id}"
     }
-
-    puts "HELLOOOOO"
     
     @tag = set_connexion.tags.find_by_id(params[:id]) # get tag
     
     # get tags
-    response = HTTParty.get(get_graphs_docs_url, headers: headers)
+    response = HTTParty.get(get_graphs_docs_url, headers: headers, timeout: 40)
+
     @graphs = response.parsed_response['graphs']
     @documents = response.parsed_response['documents']
     @roles = response.parsed_response['roles']
     @resources = response.parsed_response['resources']
-    
-    respond_to do |format|
-      format.html {}
+
+    Timeout.timeout(40) do  # Set the timeout value (in seconds) to 5 seconds
+      html_content = render_to_string('show', layout: false)
+      render json: { html_content: html_content, tag: @tag }
     end
-    # render json: { tag: @tag, graphs: @graphs, documents: @documents }
+
+    
+
+    # if response.code == 200
+    #   respond_to do |format|
+    #     format.html {}
+    #   end
+    #   # render "show" layout: false
+    # else
+    #   render json: { error: 'Could not retrieve tag details' }, status: response.code
+    # end
+  end
+
+  def render_html
+
   end
 
   def test_get_graph
-    mstags_url = "http://localhost:3000/"
-    session_id = '77669f7b3a75a28871c4d6de14d586c5'
-    get_graphs_docs_url = "#{mstags_url}tags/#{params[:id]}/get_graphs_docs"
-    get_html_url = "#{mstags_url}tags/show_html/#{params[:id]}"
+    get_graphs_docs_url = "#{@@mstags_url}tags/#{params[:id]}/get_graphs_docs"
     headers = {
-      'Cookie' => "_qualipso_session=#{session_id}"
+      'Cookie' => "_qualipso_session=#{@@session_id}"
     }
 
     response = HTTParty.get(get_graphs_docs_url, headers: headers)
@@ -142,9 +148,8 @@ class TagsController < ApplicationController
   # This is for handling the tagging update index method
   def notify_tagging_service(tag_id)
     tagging_service_url = 'http://localhost:3000/taggings/destroy'
-    session_id = '77669f7b3a75a28871c4d6de14d586c5'
     headers = {
-      'Cookie' => "_qualipso_session=#{session_id}"
+      'Cookie' => "_qualipso_session=#{@@session_id}"
     }
   
     response = HTTParty.post(tagging_service_url, headers: headers, body: { tag_id: tag_id })
