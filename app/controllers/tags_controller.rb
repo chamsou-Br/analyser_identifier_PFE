@@ -5,7 +5,7 @@ class TagsController < ApplicationController
   include TagsHelper
 
   @@mstags_url = "http://localhost:3000/"
-  @@session_id = '00b8db8c8edd7f06ea1a3a204dc3f38a'
+  @@session_id = '52e571948d9902fbfa93493d00c0d9fd'
 
   def set_connexion
     current_customer_endpoint = 'get_current_customer'
@@ -21,22 +21,22 @@ class TagsController < ApplicationController
   end 
 
 
-  # def index
-  #   query = params[:q]
-  #   respond_to do |format|
-  #     format.json do
-  #       render json: set_connexion.tags.autocompleter(query)
-  #     end
-  #     format.html do
-  #       tag = set_connexion.tags.order(label: :asc).first
-  #       if tag.nil?
-  #         render
-  #       else
-  #         redirect_to tag_path(tag)
-  #       end
-  #     end
-  #   end
-  # end
+  def index
+    query = params[:q]
+    respond_to do |format|
+      format.json do
+        render json: set_connexion.tags.autocompleter(query)
+      end
+      format.html do
+        tag = set_connexion.tags.order(label: :asc).first
+        if tag.nil?
+          render
+        else
+          redirect_to tag_path(tag)
+        end
+      end
+    end
+  end
 
   ## MAZEL
   def show
@@ -56,20 +56,9 @@ class TagsController < ApplicationController
     @resources = response.parsed_response['resources']
 
     Timeout.timeout(40) do  # Set the timeout value (in seconds) to 5 seconds
-      html_content = render_to_string('show', layout: false)
+      html_content = render_to_string('show', layout: true)
       render json: { html_content: html_content, tag: @tag }
     end
-
-    
-
-    # if response.code == 200
-    #   respond_to do |format|
-    #     format.html {}
-    #   end
-    #   # render "show" layout: false
-    # else
-    #   render json: { error: 'Could not retrieve tag details' }, status: response.code
-    # end
   end
 
   def render_html

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :set_connexion
 
   def set_connexion(api_url)
-    session_id = '00b8db8c8edd7f06ea1a3a204dc3f38a'
+    session_id = '52e571948d9902fbfa93493d00c0d9fd'
 
     headers = {
       'Cookie' => "_qualipso_session=#{session_id}"

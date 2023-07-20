@@ -6,7 +6,7 @@ class CurrentCustomerController < ApplicationController
   
   
   def index
-    session_id = '00b8db8c8edd7f06ea1a3a204dc3f38a' # Replace with the actual session ID
+    session_id = '52e571948d9902fbfa93493d00c0d9fd' # Replace with the actual session ID
     tags_endpoint = 'get_tags'
     current_customer_endpoint = 'get_current_customer'
     api_url = "http://localhost:3000/#{current_customer_endpoint}"

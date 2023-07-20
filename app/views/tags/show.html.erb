@@ -38,7 +38,7 @@
                         <% @graphs.each do |graph| %>
                         <tr class="<%= cycle("odd", "even") -%> contents">
                           <td>
-                            <%= link_to graph do %>
+                            <%= link_to "http://localhost:3000/graphs/#{graph['id']}" do %>
                             <span>
                               <%= get_child_image_url(graph["id"], "32x32", "Graph") %>
                             </span>
@@ -47,7 +47,7 @@
                           </td>
                           <td class="start_date"><%= parse_timer(graph["created_at"]) %></td>
                           <td>
-                            <%= link_to "http://localhost:3000/users/#{graph['author']}/edit" do %>
+                            <%= link_to "http://localhost:3000/users/#{graph['author_id']}/edit" do %>
                             <%= "khra" %>
                             <% end %>
                           </td>
@@ -84,7 +84,7 @@
                         <% @documents.each do |document| %>
                         <tr class="<%= cycle("odd", "even") -%> contents">
                           <td>
-                            <%= link_to document["actual_url"] do %>
+                            <%= link_to "http://localhost:3000/documents/#{document['id']}" do %>
                             <span>
                               <%= get_child_image_url(document["id"], "32x32", "Document") %>
                             </span>
@@ -93,7 +93,7 @@
                           </td>
                           <td class="start_date"><%= parse_timer(document["created_at"]) %></td>
                           <td>
-                            <%= link_to "http://localhost:3000/users/#{document['author']}/edit" do %>
+                            <%= link_to "http://localhost:3000/users/#{document['author_id']}/edit" do %>
                             <%= "khra" %>
                             <% end %>
                           </td>
@@ -129,7 +129,7 @@
                         <% @roles.each do |role| %>
                         <tr class="<%= cycle("odd", "even") -%> contents">
                           <td>
-                            <%= link_to role do %>
+                            <%= link_to "http://localhost:3000/roles/#{role['id']}" do %>
                             <span>
                               <%= get_child_image_url(role["id"], "32x32", "Role") %>
                             </span>
@@ -138,7 +138,7 @@
                           </td>
                           <td class="start_date"><%= parse_timer(role["created_at"]) %></td>
                           <td>
-                            <%= link_to "http://localhost:3000/users/#{role['author']}/edit" do %>
+                            <%= link_to "http://localhost:3000/users/#{role['author_id']}/edit" do %>
                             <%= "khra" %>
                             <% end %>
                           </td>
@@ -174,7 +174,7 @@
                         <% @resources.each do |resource| %>
                         <tr class="<%= cycle("odd", "even") -%> contents">
                           <td>
-                            <%= link_to resource do %>
+                            <%= link_to "http://localhost:3000/resources/#{resource['id']}" do %>
                             <span>
                               <%= get_child_image_url(resource["id"], "32x32", "Resource") %>
                             </span>
@@ -183,7 +183,7 @@
                           </td>
                           <td class="start_date"><%= parse_timer(resource["created_at"]) %></td>
                           <td>
-                            <%= link_to "http://localhost:3000/users/#{resource['author']}/edit" do %>
+                            <%= link_to "http://localhost:3000/users/#{resource['author_id']}/edit" do %>
                             <%= "khra" %>
                             <% end %>
                           </td>
@@ -209,9 +209,10 @@
           <% else %>
             <li>
               <% end %>
-              <%= link_to "http://localhost:3001/tags/#{tag.id}" do %>
+              <%= link_to "http://localhost:3000/tags/#{tag.id}" do %>
               <span>
                 <%= render_for_html(tag.label) %>&nbsp;&nbsp;
+                <div class="countertags"><%= "5" %></div>
               </span>
               <% end %>
             </li>
