@@ -5,7 +5,7 @@ class TagsController < ApplicationController
   include TagsHelper
 
   @@mstags_url = "http://localhost:3000/"
-  @@session_id = '52e571948d9902fbfa93493d00c0d9fd'
+  @@session_id = '21ad89e89c9ed1989f4db1c22573801e'
 
   def set_connexion
     current_customer_endpoint = 'get_current_customer'

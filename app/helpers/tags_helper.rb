@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module TagsHelper
+  @@mstags_url = "http://localhost:3000/"
+  @@session_id = '21ad89e89c9ed1989f4db1c22573801e'
+
+
   def tags_labels_for_js(tags)
     tags = Tag.all if tags.nil?
     i = 0
@@ -54,14 +58,18 @@ module TagsHelper
 
   def get_child_image_url(child_id, size, type)
     api_url = "http://localhost:3000/child_images/#{child_id}?size=#{size}&type=#{type}"
-    session_id = '52e571948d9902fbfa93493d00c0d9fd'
+    session_id = '21ad89e89c9ed1989f4db1c22573801e'
     headers = {
       'Cookie' => "_qualipso_session=#{session_id}"
     }
     response = HTTParty.get(api_url, headers: headers)
     if response.success?
       json = JSON.parse(response.body)
-      json['image_url']
+      # json['image_url']
+
+      image_url = json['image_url'].match(/<img[^>]*src="([^"]+)"/i)&.captures&.first
+      image_url = image_url.gsub('/images/', '/assets/')
+      return image_url
     else
       puts 'not found'
     end
@@ -73,5 +81,21 @@ module TagsHelper
     date = DateTime.iso8601(date_string)
     formatted_date = date.strftime("%e-%m-%Y")
     return formatted_date
+  end
+
+  def get_child_author_name(child_id, type)
+    api_url = "#{@@mstags_url}get_entity_author/#{child_id}?type=#{type}"
+    puts api_url
+    headers = {
+      'Cookie' => "_qualipso_session=#{@@session_id}"
+    }
+    response = HTTParty.get(api_url, headers: headers)
+
+    if response.success?
+      json = JSON.parse(response.body)
+      json['author_name']
+    else
+      puts 'not found'
+    end
   end
 end
