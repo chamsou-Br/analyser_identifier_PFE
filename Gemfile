@@ -55,7 +55,7 @@ gem "json2-rails"
 
 
 #i18n
-gem "i18n-js"
+gem "i18n-js", "~> 3.0.0.rc"
 gem "i18n-timezones"
 gem "i18n-tasks"
 gem "rails-i18n-word-count" # I18n words count to estimate translation cost

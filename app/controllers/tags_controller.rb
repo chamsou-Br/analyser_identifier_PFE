@@ -5,7 +5,7 @@ class TagsController < ApplicationController
   include TagsHelper
 
   @@mstags_url = "http://localhost:3000/"
-  @@session_id = '21ad89e89c9ed1989f4db1c22573801e'
+  @@session_id = '3e3fba975ace0493aeae75c60b93f1c3'
 
   def set_connexion
     current_customer_endpoint = 'get_current_customer'
@@ -18,7 +18,7 @@ class TagsController < ApplicationController
     puts customer['id']
     @actual_customer = Customer.find(customer['id'])
     return @actual_customer
-  end 
+  end
 
 
   def index
@@ -44,9 +44,9 @@ class TagsController < ApplicationController
     headers = {
       'Cookie' => "_qualipso_session=#{@@session_id}"
     }
-    
+
     @tag = set_connexion.tags.find_by_id(params[:id]) # get tag
-    
+
     # get tags
     response = HTTParty.get(get_graphs_docs_url, headers: headers, timeout: 40)
 
@@ -140,9 +140,9 @@ class TagsController < ApplicationController
     headers = {
       'Cookie' => "_qualipso_session=#{@@session_id}"
     }
-  
+
     response = HTTParty.post(tagging_service_url, headers: headers, body: { tag_id: tag_id })
-  
+
     if response.code == 200
       puts "successfully deleted"
     else

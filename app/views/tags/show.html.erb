@@ -212,7 +212,7 @@
               <%= link_to "http://localhost:3000/tags/#{tag.id}" do %>
               <span>
                 <%= render_for_html(tag.label) %>&nbsp;&nbsp;
-                <div class="countertags"><%= "5" %></div>
+                <div class="countertags"><%= rand(1..8) %></div>
               </span>
               <% end %>
             </li>
