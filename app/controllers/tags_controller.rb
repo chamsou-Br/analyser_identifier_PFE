@@ -5,20 +5,27 @@ class TagsController < ApplicationController
   include TagsHelper
 
   @@mstags_url = "http://localhost:3000/"
-  @@session_id = '3e3fba975ace0493aeae75c60b93f1c3'
-
-  def set_connexion
-    current_customer_endpoint = 'get_current_customer'
-    api_url = "http://localhost:3000/#{current_customer_endpoint}"
-
-    headers = {
-      'Cookie' => "_qualipso_session=#{@@session_id}"
-    }
-    customer = HTTParty.get(api_url, headers: headers, timeout: 40)
-    puts customer['id']
-    @actual_customer = Customer.find(customer['id'])
-    return @actual_customer
+  def my_token
+    @@session_id = get_token
   end
+
+
+
+  # This method is more fast to use the ms-tags
+  # TODO: replace the token manually and use the set_connexion
+  # @@session_id = "put the token manually"
+  # def set_connexion
+  #   current_customer_endpoint = 'get_current_customer'
+  #   api_url = "http://localhost:3000/#{current_customer_endpoint}"
+
+  #   headers = {
+  #     'Cookie' => "_qualipso_session=#{@@session_id}"
+  #   }
+  #   customer = HTTParty.get(api_url, headers: headers, timeout: 40)
+  #   puts customer['id']
+  #   @actual_customer = Customer.find(customer['id'])
+  #   return @actual_customer
+  # end
 
 
   def index
@@ -38,7 +45,6 @@ class TagsController < ApplicationController
     end
   end
 
-  ## MAZEL
   def show
     get_graphs_docs_url = "#{@@mstags_url}tags/#{params[:id]}/get_graphs_docs"
     headers = {
@@ -59,10 +65,6 @@ class TagsController < ApplicationController
       html_content = render_to_string('show', layout: true)
       render json: { html_content: html_content, tag: @tag }
     end
-  end
-
-  def render_html
-
   end
 
   def test_get_graph

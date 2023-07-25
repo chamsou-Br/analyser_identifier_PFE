@@ -2,7 +2,7 @@
 
 module TagsHelper
   @@mstags_url = "http://localhost:3000/"
-  @@session_id = '3e3fba975ace0493aeae75c60b93f1c3'
+  @@session_id = '68aba32a9325cc17601a603a13409d85'
 
 
   def tags_labels_for_js(tags)
@@ -58,7 +58,7 @@ module TagsHelper
 
   def get_child_image_url(child_id, size, type)
     api_url = "http://localhost:3000/child_images/#{child_id}?size=#{size}&type=#{type}"
-    session_id = '3e3fba975ace0493aeae75c60b93f1c3'
+    session_id = '68aba32a9325cc17601a603a13409d85'
     headers = {
       'Cookie' => "_qualipso_session=#{session_id}"
     }

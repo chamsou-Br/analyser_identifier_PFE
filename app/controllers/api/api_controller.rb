@@ -13,7 +13,7 @@ module Api
     end
 
     def current_customer
-      session_id = '3e3fba975ace0493aeae75c60b93f1c3' # Replace with the actual session ID
+      session_id = '43c98da67f85160f0372b32e1fd2ae49' # Replace with the actual session ID
       endpoint = 'get_current_customer'
       api_url = "http://localhost:3000/#{endpoint}"
 

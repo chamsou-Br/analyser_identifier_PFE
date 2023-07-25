@@ -47,6 +47,8 @@ gem "redis-session-store"
 gem "render_csv", "~> 2.0.0" # Export CSV
 gem "rest-client"
 
+gem "redis-namespace"
+
 gem "jbuilder" # To use Jbuilder templates for JSON
 gem "jquery-fileupload-rails"
 gem "jquery-ui-rails"
