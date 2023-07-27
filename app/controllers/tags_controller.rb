@@ -5,8 +5,23 @@ class TagsController < ApplicationController
   include TagsHelper
 
   @@mstags_url = "http://localhost:3000/"
-  def my_token
-    @@session_id = get_token
+
+  def testing_c
+    # Connect to the same Redis database as the other microservice
+    redis_config = {
+      url: ENV.fetch('REDIS_URL', 'redis://localhost:6379'),
+      namespace: "pyx4_#{Rails.env}"
+    }.freeze
+    redis = Redis.new(redis_config) # Establish the connection to Redis
+    session_data = redis.keys("qualipso_#{Rails.env}:session:*") # Retrieve the key
+
+    # Assuming user_session_data contains the user session information, parse it to get the token
+    # You might need to adapt this part based on how your session data is structured
+    # user_session_hash = JSON.parse(user_session_data)
+    # user_session_token = user_session_hash['qualipso_#{Rails.env}:session:'] # Replace 'your_token_key' with the key where the token is stored in the session data
+
+    # Now you have the user session token and can use it as needed in this microservice
+    render json: session_data
   end
 
 
@@ -48,20 +63,20 @@ class TagsController < ApplicationController
   def show
     get_graphs_docs_url = "#{@@mstags_url}tags/#{params[:id]}/get_graphs_docs"
     headers = {
-      'Cookie' => "_qualipso_session=#{@@session_id}"
+      'Cookie' => "_qualipso_session=#{get_token}"
     }
 
     @tag = set_connexion.tags.find_by_id(params[:id]) # get tag
 
     # get tags
-    response = HTTParty.get(get_graphs_docs_url, headers: headers, timeout: 40)
+    response = HTTParty.get(get_graphs_docs_url, headers: headers)
 
     @graphs = response.parsed_response['graphs']
     @documents = response.parsed_response['documents']
     @roles = response.parsed_response['roles']
     @resources = response.parsed_response['resources']
 
-    Timeout.timeout(40) do  # Set the timeout value (in seconds) to 5 seconds
+    Timeout.timeout(20) do  # Set the timeout value (in seconds) to 5 seconds
       html_content = render_to_string('show', layout: true)
       render json: { html_content: html_content, tag: @tag }
     end
@@ -70,7 +85,7 @@ class TagsController < ApplicationController
   def test_get_graph
     get_graphs_docs_url = "#{@@mstags_url}tags/#{params[:id]}/get_graphs_docs"
     headers = {
-      'Cookie' => "_qualipso_session=#{@@session_id}"
+      'Cookie' => "_qualipso_session=#{get_token}"
     }
 
     response = HTTParty.get(get_graphs_docs_url, headers: headers)
@@ -140,7 +155,7 @@ class TagsController < ApplicationController
   def notify_tagging_service(tag_id)
     tagging_service_url = 'http://localhost:3000/taggings/destroy'
     headers = {
-      'Cookie' => "_qualipso_session=#{@@session_id}"
+      'Cookie' => "_qualipso_session=#{get_token}"
     }
 
     response = HTTParty.post(tagging_service_url, headers: headers, body: { tag_id: tag_id })

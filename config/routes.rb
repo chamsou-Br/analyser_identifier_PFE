@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get '/current_customer', to: 'current_customer#index'
   get '/get_current_customer_tags', to: 'current_customer#get_current_customer_tags'
 
+  get '/testing_c', to: 'tags#testing_c'
+
   # resources :tags do
   #   member do
   #     get "confirm_delete"

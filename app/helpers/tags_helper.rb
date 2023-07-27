@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 module TagsHelper
+  include ApplicationHelper
+
   @@mstags_url = "http://localhost:3000/"
-  @@session_id = '68aba32a9325cc17601a603a13409d85'
+  @@session_id = '0a9ed383dd308fa0e2b60bd7488df91b'
 
 
   def tags_labels_for_js(tags)
@@ -58,9 +60,8 @@ module TagsHelper
 
   def get_child_image_url(child_id, size, type)
     api_url = "http://localhost:3000/child_images/#{child_id}?size=#{size}&type=#{type}"
-    session_id = '68aba32a9325cc17601a603a13409d85'
     headers = {
-      'Cookie' => "_qualipso_session=#{session_id}"
+      'Cookie' => "_qualipso_session=#{get_token}"
     }
     response = HTTParty.get(api_url, headers: headers)
     if response.success?
@@ -87,7 +88,7 @@ module TagsHelper
     api_url = "#{@@mstags_url}get_entity_author/#{child_id}?type=#{type}"
     puts api_url
     headers = {
-      'Cookie' => "_qualipso_session=#{@@session_id}"
+      'Cookie' => "_qualipso_session=#{get_token}"
     }
     response = HTTParty.get(api_url, headers: headers)
 
