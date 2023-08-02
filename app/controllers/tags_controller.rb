@@ -6,26 +6,6 @@ class TagsController < ApplicationController
 
   @@mstags_url = "http://localhost:3000/"
 
-  def testing_c
-    # Connect to the same Redis database as the other microservice
-    redis_config = {
-      url: ENV.fetch('REDIS_URL', 'redis://localhost:6379'),
-      namespace: "pyx4_#{Rails.env}"
-    }.freeze
-    redis = Redis.new(redis_config) # Establish the connection to Redis
-    session_data = redis.keys("qualipso_#{Rails.env}:session:*") # Retrieve the key
-
-    # Assuming user_session_data contains the user session information, parse it to get the token
-    # You might need to adapt this part based on how your session data is structured
-    # user_session_hash = JSON.parse(user_session_data)
-    # user_session_token = user_session_hash['qualipso_#{Rails.env}:session:'] # Replace 'your_token_key' with the key where the token is stored in the session data
-
-    # Now you have the user session token and can use it as needed in this microservice
-    render json: session_data
-  end
-
-
-
   # This method is more fast to use the ms-tags
   # TODO: replace the token manually and use the set_connexion
   # @@session_id = "put the token manually"
