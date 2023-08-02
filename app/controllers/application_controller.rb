@@ -3,49 +3,56 @@ class ApplicationController < ActionController::Base
 
   skip_before_action :verify_authenticity_token
 
-  helper_method :get_current_customer
+  helper_method :set_connexion
   helper_method :get_token
 
-  # Initiation of class variables
-  @@session_token = nil
-  @@memorized_session_data_length = 0
+  def initialize
+    @session_token = nil
+    @memorized_session_data_length = 0
+  end
+
   MSQUALIPSO_BASE_URL = "http://localhost:3000".freeze
 
   # Returns the current session token
   def get_token
-    # Checks if we don't have other new tokens, we return directly same token
-    @@session_token &&= @@session_token if redis_session_data_length == @@memorized_session_data_length
+    # Checks if we don't have new tokens, we return directly same token
+    return @session_token if @session_token && redis_session_data_length == @memorized_session_data_length
 
+    puts "New token available we are searching it"
     session_data = redis_connection.keys("qualipso_#{Rails.env}:session:*") # Retrieve the key
-    @@memorized_session_data_length = session_data.length # Memorize the session_data length
+    puts "retrieved all keys"
+    @memorized_session_data_length = session_data.length # Memorize the session_data length
 
     # Test all tokens, retrieve the right token
     if (session_data.length == 1)
-      @@session_token = session_data[0].match(/:session:(\w+)/)[1]
+      @session_token = session_data[0].match(/:session:(\w+)/)[1]
+      return @session_token
     else
       session_data.each do |key|
         current_token = key.match(/:session:(\w+)/)[1]
+        puts "testing: #{current_token}"
         if test_token(current_token)
-          @@session_token = current_token
-          break
+          @session_token = current_token
+          puts "token: #{@session_token} is working"
+          return @session_token
         end
       end
     end
-
-    return @@session_token
   end
 
-  # Tests if the token works
+  # Tests if a token works
   def test_token(token)
+    puts "Testing"
     api_url = "#{MSQUALIPSO_BASE_URL}/api/test_token"
     headers = {'Cookie' => "_qualipso_session=#{token}"}
     customer = HTTParty.get(api_url, headers: headers).to_s
+    puts "Tested"
 
     customer[0] == "w" && customer[1] == "o"
   end
 
   # Retrieves the current_customer
-  def get_current_customer
+  def set_connexion
     session_id = get_token
     headers = {'Cookie' => "_qualipso_session=#{session_id}"}
     api_url = "#{MSQUALIPSO_BASE_URL}/get_current_customer"
@@ -73,4 +80,5 @@ class ApplicationController < ActionController::Base
       Redis.new(redis_config)
     end
   end
+
 end

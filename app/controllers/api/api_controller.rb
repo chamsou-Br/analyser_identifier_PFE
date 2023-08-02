@@ -2,7 +2,7 @@
 
 module Api
   class ApiController < ActionController::Base
-    def get_current_customer(session_id, endpoint)
+    def set_connexion(session_id, endpoint)
       api_url = "http://localhost:3000/#{endpoint}"
 
       headers = {
