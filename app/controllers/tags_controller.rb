@@ -4,24 +4,7 @@ require 'httparty'
 class TagsController < ApplicationController
   include TagsHelper
 
-  @@mstags_url = "http://localhost:3000/"
-
-  # This method is more fast to use the ms-tags
-  # TODO: replace the token manually and use the set_connexion
-  # @@session_id = "put the token manually"
-  # def set_connexion
-  #   current_customer_endpoint = 'get_current_customer'
-  #   api_url = "http://localhost:3000/#{current_customer_endpoint}"
-
-  #   headers = {
-  #     'Cookie' => "_qualipso_session=#{@@session_id}"
-  #   }
-  #   customer = HTTParty.get(api_url, headers: headers, timeout: 40)
-  #   puts customer['id']
-  #   @actual_customer = Customer.find(customer['id'])
-  #   return @actual_customer
-  # end
-
+  MSQUALIPSO_BASE_URL = "http://localhost:3000".freeze
 
   def index
     query = params[:q]
@@ -41,42 +24,23 @@ class TagsController < ApplicationController
   end
 
   def show
-    get_graphs_docs_url = "#{@@mstags_url}tags/#{params[:id]}/get_graphs_docs"
+    get_graphs_docs_url = "#{MSQUALIPSO_BASE_URL}/tags/#{params[:id]}/get_graphs_docs"
     headers = {
       'Cookie' => "_qualipso_session=#{get_token}"
     }
 
-    @tag = set_connexion.tags.find_by_id(params[:id]) # get tag
+    @tag = set_connexion.tags.find_by_id(params[:id])
 
-    # get tags
+    # Retrieve needed data to display tag details
     response = HTTParty.get(get_graphs_docs_url, headers: headers)
-
     @graphs = response.parsed_response['graphs']
     @documents = response.parsed_response['documents']
     @roles = response.parsed_response['roles']
     @resources = response.parsed_response['resources']
 
-    Timeout.timeout(20) do  # Set the timeout value (in seconds) to 5 seconds
-      html_content = render_to_string('show', layout: true)
-      render json: { html_content: html_content, tag: @tag }
-    end
+    html_content = render_to_string('show', layout: true)
+    render json: { html_content: html_content, tag: @tag }
   end
-
-  def test_get_graph
-    get_graphs_docs_url = "#{@@mstags_url}tags/#{params[:id]}/get_graphs_docs"
-    headers = {
-      'Cookie' => "_qualipso_session=#{get_token}"
-    }
-
-    response = HTTParty.get(get_graphs_docs_url, headers: headers)
-    @graphs = response.parsed_response['graphs']
-    @documents = response.parsed_response['documents']
-    @roles = response.parsed_response['roles']
-
-
-    render json: @roles
-  end
-
 
   def new
     @tag = Tag.new
@@ -86,9 +50,7 @@ class TagsController < ApplicationController
     @tag = Tag.create(label: params[:tag][:label], customer_id: set_connexion.id)
     if @tag.save
       flash[:success] = I18n.t("controllers.tags.successes.create")
-      # redirect_to "http://localhost:3000/tags/#{@tag.id}"
     else
-      puts "NOT GOOD"
       flash[:error] = I18n.t("controllers.tags.errors.create")
       respond_to do |format|
         format.js { render :error_create, status: :unprocessable_entity }
@@ -105,7 +67,7 @@ class TagsController < ApplicationController
     @tag.label = params[:label]
     if @tag.save
       flash.now[:success] = I18n.t("controllers.tags.successes.rename")
-      redirect_to "http://localhost:3000/tags/#{params[:id]}"
+      redirect_to "#{MSQUALIPSO_BASE_URL}/tags/#{params[:id]}"
     else
       fill_errors_hash(I18n.t("controllers.tags.errors.rename"), @tag)
     end
@@ -118,22 +80,20 @@ class TagsController < ApplicationController
     if @tag.destroy
       flash[:success] = I18n.t("controllers.tags.successes.delete")
       notify_tagging_service(params[:id])
-      puts "destroyed successfully"
     else
       flash[:error] = I18n.t("controllers.tags.errors.delete")
-      puts "destruction failed"
     end
     if set_connexion.tags.empty?
-      redirect_to "http://localhost:3000/tags"
+      redirect_to "#{MSQUALIPSO_BASE_URL}/tags"
     else
-      redirect_to "http://localhost:3000/tags/#{set_connexion.tags.order(label: :asc).first.id}"
+      redirect_to "#{MSQUALIPSO_BASE_URL}/tags/#{set_connexion.tags.order(label: :asc).first.id}"
     end
   end
 
   # New api calls - this is not working but it is okay
   # This is for handling the tagging update index method
   def notify_tagging_service(tag_id)
-    tagging_service_url = 'http://localhost:3000/taggings/destroy'
+    tagging_service_url = "#{MSQUALIPSO_BASE_URL}/taggings/destroy"
     headers = {
       'Cookie' => "_qualipso_session=#{get_token}"
     }

@@ -17,10 +17,7 @@ Rails.application.routes.draw do
   get 'tags/confirm_delete/:id', to: 'tags#confirm_delete'
   post 'tags/rename/:id', to: 'tags#rename'
   get 'tags/confirm_rename/:id', to: 'tags#confirm_rename'
-  get 'tags/:id/test_get_graph', to: 'tags#test_get_graph'
 
-  # get 'tags/:id', to: 'tags#show'
-  # get 'tags/show', to: 'tags#show'
   get '/tags/:id', to: 'tags#show'
   get '/tags/:id/render_show_html', to: 'tags#render_show_html'
 
