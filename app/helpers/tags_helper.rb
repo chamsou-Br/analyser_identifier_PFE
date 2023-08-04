@@ -3,8 +3,8 @@
 module TagsHelper
   include ApplicationHelper
 
-  @@mstags_url = "http://localhost:3000/"
-  @@session_id = '0a9ed383dd308fa0e2b60bd7488df91b'
+  MSQUALIPSO_BASE_URL = "http://localhost:3000".freeze
+  DATE_FORMAT = "%e-%m-%Y"
 
 
   def tags_labels_for_js(tags)
@@ -59,33 +59,38 @@ module TagsHelper
   end
 
   def get_child_image_url(child_id, size, type)
-    api_url = "http://localhost:3000/child_images/#{child_id}?size=#{size}&type=#{type}"
+    api_url = "#{MSQUALIPSO_BASE_URL}/child_images/#{child_id}?size=#{size}&type=#{type}"
     headers = {
       'Cookie' => "_qualipso_session=#{get_token}"
     }
     response = HTTParty.get(api_url, headers: headers)
+
     if response.success?
       json = JSON.parse(response.body)
-      # json['image_url']
 
       image_url = json['image_url'].match(/<img[^>]*src="([^"]+)"/i)&.captures&.first
       image_url = image_url.gsub('/images/', '/assets/')
       return image_url
     else
-      puts 'not found'
+      raise "Image was not found - Error: #{response.code}, #{response.body}"
     end
+  rescue StandardError => e
+    puts "Error: #{e.message}"
   end
 
   date_string = "10-07-2023"
 
   def parse_timer(date_string)
     date = DateTime.iso8601(date_string)
-    formatted_date = date.strftime("%e-%m-%Y")
-    return formatted_date
+    formatted_date = date.strftime(DATE_FORMAT)
+    formatted_date
+  rescue ArgumentError
+    raise 'Invalid date string'
   end
 
+  # Function to get author name
   def get_child_author_name(child_id, type)
-    api_url = "#{@@mstags_url}get_entity_author/#{child_id}?type=#{type}"
+    api_url = "#{MSQUALIPSO_BASE_URL}/get_entity_author/#{child_id}?type=#{type}"
     puts api_url
     headers = {
       'Cookie' => "_qualipso_session=#{get_token}"
@@ -96,7 +101,9 @@ module TagsHelper
       json = JSON.parse(response.body)
       json['author_name']
     else
-      puts 'not found'
+      raise "Error: #{response.code}, #{response.body}"
     end
+  rescue StandardError => e
+    puts "Error: #{e.message}"
   end
 end
