@@ -1,0 +1,136 @@
+/* Login page */
+
+
+.login {
+    width: 100vw;
+    overflow-y: hidden;
+    height: 100vh;
+    background-color: #F2F0FF;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 600px;
+    background-color: #FFF;
+    box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  
+  
+  .login-form {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0px 50px;
+  }
+  
+  
+  
+  .login-form .title {
+    font-size: 32px;
+    color: #010101;
+    font-weight: bold;
+    letter-spacing: 1.1;
+    margin-bottom: 5px;
+  }
+  
+  .login-form .desc {
+    font-size: 16px;
+    color: #010101;
+    letter-spacing: 1.1;
+    margin-bottom: 30px;
+  }
+  
+  .login-form label {
+    color: #010101;
+    letter-spacing: 1.2;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .login-form input {
+    padding: 15px 10px;
+    border: 1px solid #00000022;
+    font-size: 14px;
+    border-radius: 0.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .login-form input::placeholder {
+    font-size: 12px;
+  }
+  
+  .login-form input:focus {
+    border: 2px solid #cccef3;
+    outline: none;
+  }
+  
+  .login-form .submit {
+    margin-top: 20px;
+    width: 100%;
+    padding: 15px 0 ;
+    background-color: #cccef3;
+    border-radius: 0.2rem;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+  }
+  
+  .login-form .submit:hover {
+    background-color: #FFF;
+    border: 2px solid #cccef3;
+    color: #cccef3;
+    cursor: pointer;
+  }
+  
+  .login-picture {
+    width: 50%;
+    height: 100%;
+    background-color: #F2F0FD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .login-picture img {
+    /**/
+    width: 100%;
+  }
+  
+  @media (max-width : 1024px) {
+    .login-container {
+      height: 550px;
+    }
+    .login-form  {
+      width: 100%;   
+      padding: 0px 30px;
+    }
+    .login-picture  {
+      width: 0;
+    }
+  }
+  
+  @media (max-width :768px) {
+    .login-container {
+      height: 500px;
+    }
+  
+    .login-form {
+      padding: 0px 15px;
+    }
+  
+    .login-container {
+      width: 95%;
+    }
+  }

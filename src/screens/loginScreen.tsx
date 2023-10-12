@@ -4,20 +4,20 @@ import login from "../assets/login.png";
 import { useSelector } from 'react-redux';
 import {  RootState, useAppDispatch } from "../state/store";
 import { FetchTodo, addTodo } from "../state/actions/todoAction";
-
+import "../styles/login.css"
 
 const LoginScreen: React.FC = () => {
 
   const data = useSelector(( state : RootState) => state.todos)
   const dispatch = useAppDispatch()
 
-  const [email, setEmail] = useState<string>("");
+  const [userName, setuserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
 
 
-  const HandlerInputEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const HandlerInputuserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setuserName(e.target.value);
   };
 
   const HandlerInputPasswordChange = (
@@ -27,8 +27,8 @@ const LoginScreen: React.FC = () => {
   };
 
   const HandlerLogin = () => {
-    console.log(password,email)
-    dispatch(addTodo(email , password));
+    console.log(password,userName)
+    dispatch(addTodo(userName , password));
   }
 
   return (
@@ -37,12 +37,12 @@ const LoginScreen: React.FC = () => {
         <div className="login-form">
           <div onClick={()=>console.log(data)} className="title">Login</div>
           <div onClick={()=> dispatch(FetchTodo())} className="desc">Welcom ! Please Enter your details</div>
-          <label>Email</label>
+          <label>userName</label>
           <input
-            placeholder="Enter your Email"
-            type="email"
-            value={email}
-            onChange={HandlerInputEmailChange}
+            placeholder="Enter your userName"
+            type="userName"
+            value={userName}
+            onChange={HandlerInputuserNameChange}
           />
           <label>Password</label>
           <input

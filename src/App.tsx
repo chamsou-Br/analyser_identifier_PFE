@@ -5,12 +5,15 @@ import TransactionScreen from "./screens/transactionScreen"
 import store from "./state/store"
 import LoginScreen from "./screens/loginScreen"
 
+
 function App() {
 
 
+  
+
   return (
     <Provider store={store}>
-        <LoginScreen />
+        <TransactionScreen />
    </Provider>
 
   )
