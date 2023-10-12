@@ -1,0 +1,246 @@
+.card-information-lign {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+ .card-information-lign .information-title {
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 30px;
+    color: #949898;
+    width: 120px;
+}
+
+ .card-information-lign > div {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-right: 20px;
+}
+
+ .card-information-lign > div .icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+    font-size: 14px;
+    color: #01010122;
+    padding: 4px;
+    border-radius: 100%;
+    /* border: 1px solid #00000022; */
+}
+.card-information-lign > div span {
+    color: #010101;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.card-information-lign .status-container {
+    background-color: rgba(110, 241, 141, 0.22);
+    color: rgb(83, 216, 114);
+    padding: 5px 10px;
+    font-size: 8px;
+    font-weight: bold;
+    border-radius: 0.5rem;
+}
+
+.title-card {
+    border-bottom: 1px solid #00000044;
+    padding: 10px 20px;
+}
+
+ .title-card > div {
+    border: 1px solid #00000022;
+    padding: 7px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #010101CC;
+    border-radius: 0.2rem;
+    height: auto;
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+}
+
+ .title-card > div .title-icon-container {
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #01010199;
+    margin-right: 10px;
+}
+
+
+.reclamation-card {
+    margin: 20px 10px;
+    /* border: 1px solid #00000022; */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 0.4rem;
+    padding: 15px 0;
+    position: relative;
+}
+
+.reclamation-card .sender{
+    font-size: 14px;
+    font-weight: 600;
+    color: #010101AA;
+}
+
+.reclamation-card .date  {
+    font-size: 14px;
+    font-weight: 600;
+    color: #010101AA;
+}
+
+.reclamation-card .reclamation-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    padding-top: 10px;
+    border-top: 1px solid #00000022;
+}
+
+.reclamation-card .raison {
+    font-size: 16px;
+    font-weight: 600;
+    color: #010101;
+    margin-bottom: 2px;
+    padding: 0 15px;
+}
+
+.reclamation-card .reclamation-card-descr {
+    font-size: 13px;
+    font-weight: 600;
+    color: #010101AA;
+    padding: 0 15px;
+    margin-bottom: 15px;
+} 
+
+.Seller-buyer-container .content  .details-navigate-icon  {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    background-color: #3782ec;
+    color: #FFF;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+
+.reclamation-card .details-navigate-icon   {
+    background-color: #3782ec;
+    color: #FFF;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+
+.navBar {
+    width: 100%;
+    background-color: white;
+    padding: 18px 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #00000022;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+
+.navBar .navBar-left , .navBar .navBar-right {
+    display: Flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.navBar .navBar-left > div {
+    background-color: #3782ec;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    color: white;
+    font-weight: bold;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+.navBar .navBar-left  > span  {
+    color: #010101;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.navBar .navBar-right span {
+    color: #010101;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 7px;
+}
+
+.navBar .navBar-right .logOut-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navBar .navBar-mid {
+    display: flex;
+}
+
+
+.status .status-container {
+
+    color: #FFF;
+    padding: 5px 10px;
+    font-size: 8px;
+    font-weight: bold;
+    border-radius: 0.5rem;
+}
+
+.Seller-buyer-container .content  .status-seller-buyer {
+    position: absolute;
+    top: 20px;
+    right: 12px;
+    padding: 4px 10px;
+}
+
+.address-buyer-and-seller {
+    font-size: 12px;
+    font-weight: 600;
+    color: #010101;
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.address-buyer-and-seller > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #949898;
+}
+
+.address-buyer-and-seller span {
+    margin-left: 10px;
+}

@@ -1,7 +1,37 @@
+@font-face {
+  font-family: 'TiltNeon';
+  src: url('./styles/fonts/TiltNeon.ttf') format('woff2')
+  /* Add more src URLs for other font formats if available */
+
+}
+
+@font-face {
+  font-family: 'Mukta';
+  src: url('./styles/fonts/Mukta.ttf') format('woff2')
+  /* Add more src URLs for other font formats if available */
+
+}
+
+@font-face {
+  font-family: 'EBGaramond';
+  src: url('./styles/fonts/EBGaramond.ttf') format('woff2')
+  /* Add more src URLs for other font formats if available */
+
+}
+
+@font-face {
+  font-family: 'Robot';
+  src: url('./styles/fonts/Roboto-Black.ttf') format('woff2')
+  /* Add more src URLs for other font formats if available */
+
+}
+
 
 body{
   padding: 0px;
   margin: 0px;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Mukta;
+  background-color: #F4F7FA;
 }
+
 

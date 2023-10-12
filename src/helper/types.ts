@@ -1,3 +1,5 @@
+
+
 export interface IInvitation {
     uuid: string,
     product: string,
@@ -178,5 +180,4 @@ export enum TransactionOutcome {
     Accepted = 'accepted',
     Rejected = 'rejected',
   }
-  
   
