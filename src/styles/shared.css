@@ -83,6 +83,7 @@
     border-radius: 0.4rem;
     padding: 15px 0;
     position: relative;
+    flex: 1;
 }
 
 .reclamation-card .sender{
@@ -104,6 +105,7 @@
     padding: 0 15px;
     padding-top: 10px;
     border-top: 1px solid #00000022;
+    min-width: 300px;
 }
 
 .reclamation-card .raison {
@@ -162,6 +164,7 @@
     align-items: center;
     position: sticky;
     top: 0;
+    z-index: 20;
 }
 
 .navBar .navBar-left , .navBar .navBar-right {
@@ -234,6 +237,7 @@
     margin-top: 15px;
 }
 
+
 .address-buyer-and-seller > div {
     display: flex;
     justify-content: center;
@@ -243,4 +247,251 @@
 
 .address-buyer-and-seller span {
     margin-left: 10px;
+}
+
+
+/* ------------------------------------------
+        transaction-presentation-card 
+   ------------------------------------------ */
+
+.transaction-presentation-card {
+    display: flex;
+    padding: 20px 20px;
+    border-radius: 0.4rem;
+    background-color: #FFF;
+    border: 1px solid #01010111 ;
+    align-items: center;
+    width: 280px;
+}
+
+.transaction-presentation-card .icon-container {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3782ec11;
+    color: #3782ec;
+    border-radius: 100%;
+    margin-right: 25px;
+}
+
+.transaction-presentation-card .information-container .count {
+    font-size: 26px;
+    font-weight: bold;
+    color: #010101;
+}
+
+.transaction-presentation-card .information-container .title {
+    margin-top: -5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #010101AA;
+} 
+
+
+/* ------------------------------------
+        header page 
+  -------------------------------- */ 
+
+  .header-page {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-page .header-right  {
+    display: flex;
+    align-items: center;
+
+}
+
+.header-page .header-right .search-icon-container {
+    width: 40px;
+    height: 40px;
+    background-color: #3782ec;
+    color: #FFF;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.header-page .header-right .search-icon-container:hover{
+    cursor: pointer;
+    background-color: #FFF;
+    border: 2px solid #3782ec;
+    color: #3782ec;
+}
+
+.header-page .header-right input {
+    padding: 12px 7px;
+     border: 1px solid #3782ec69; 
+    outline: none;
+    font-size: 12px;
+    border-radius: 0.4rem;
+    width: 250px;
+    font-weight: bold;
+}
+
+.header-page .header-right input::placeholder{
+    color: #00000055;
+    letter-spacing: 1px;
+}
+
+.header-page .header-right input:focus{
+    border: 2px solid #3782ec;
+    outline: none;
+}
+
+.header-page  .title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #010101BB;
+
+}
+
+.header-page .descr {
+    font-size: 14px;
+    font-weight: bold;
+    color: #01010166;
+}
+
+
+/* ---------------------------------------
+        Transaction actions 
+    -------------------------------------- */
+
+    
+.transaction-actions{
+    height: max-content;
+    width: 150px;
+    height: 100vh;
+    background-color: #FFF;
+    padding: 120px 0;
+    position: fixed;
+    top: 0px;
+    border-right: 1px solid #01010121;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.transaction-actions .action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.transaction-actions .action .action-icon {
+    font-size: 22px;
+    color: #3782ec;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+
+.transaction-actions .action:nth-child(1) .action-icon:hover  {
+    color: #EB904F;
+    background-color: #EB904F22;
+}
+.transaction-actions .action:nth-child(2) .action-icon:hover {
+    color: #f17777;
+    background-color: #E8494922;
+}
+
+.transaction-actions .action:nth-child(3) .action-icon:hover  {
+    color: #44E46A;
+    background-color: #44E46A22;
+}
+
+.transaction-actions .action:nth-child(1) .action-icon  {
+    color: #EB904F;
+    background-color: #FFF;
+    border: 1px solid #EB904F;
+}
+.transaction-actions .action:nth-child(2) .action-icon {
+    color: #f17777;
+    background-color: #FFF;
+    border: 1px solid #f17777;
+}
+.transaction-actions .action:nth-child(3) .action-icon{
+    color: #44E46A;
+    background-color: #FFF;
+    border: 1px solid #44E46A;
+}
+.transaction-actions .action .action-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #010101;
+}
+
+/* --------------------
+    trasaction note 
+-------------------------------- */
+
+.transaction-note .label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #010101AA;
+    margin: 5px 0;
+}
+
+.transaction-note .content {
+    padding: 0 20px;
+}
+.transaction-note .button {
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 10px 30px;
+}
+
+
+/* ----------------------------
+            Alert
+-------------------------------- */
+.Alert {
+    display:  flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Alert .icon-container-sucess {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #44E46A22;
+    padding: 20px;
+    font-size: 30px;
+    color: #44E46A;
+    border-radius: 100%;
+}
+
+.Alert .icon-container-failed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1777722;
+    padding: 20px;
+    font-size: 30px;
+    color: #f17777;
+    border-radius: 100%;
+}
+
+.Alert .message {
+    font-size: 14px;
+    font-weight:bold;
+
+    margin-top: 15px;
 }

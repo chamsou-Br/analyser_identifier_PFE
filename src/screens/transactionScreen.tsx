@@ -14,10 +14,11 @@ import {
   TransactionStatus,
 } from "../helper/types";
 import { SortType } from "rsuite/esm/Table";
-import { FaSearch, FaEye } from "react-icons/fa";
+import { FaSearch, FaEye, FaCheck } from "react-icons/fa";
 import { IoMdRefresh } from "react-icons/io";
 import { Currency } from "../helper/constant";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+import HeaderPage from "../components/headerPage";
 
 interface TransacionTransformedData {
   uuid: string;
@@ -35,7 +36,7 @@ interface TransacionTransformedData {
   // Add other properties you need
 }
 
-const styleHeaderOfTable = { background: "#acafeb", color: "#FFF" };
+const styleHeaderOfTable = { background: "#FFF", color: "#000" };
 
 // eslint-disable-next-line no-empty-pattern
 const TransactionScreen: React.FC = () => {
@@ -71,9 +72,7 @@ const TransactionScreen: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
   const [isSearch, setisSearch] = useState(false);
-  const navigate = useNavigate()
-
-
+  const navigate = useNavigate();
 
   const defaultData: TransacionTransformedData[] = getDataFromState();
 
@@ -94,6 +93,10 @@ const TransactionScreen: React.FC = () => {
   const handleInputFocus = () => {
     setisSearch(false);
     setSearch("");
+  };
+
+  const handleSearch = () => {
+    setisSearch(true);
   };
 
   const handleChangeLimit = (dataKey: number) => {
@@ -163,36 +166,21 @@ const TransactionScreen: React.FC = () => {
   };
 
   const navigateToDetailsScreen = (uuid: string) => {
-    navigate("/"+uuid);
+    navigate("/" + uuid);
   };
 
   return (
     <div className="transaction-container">
-      <div className="table-header">
-        <div className="table-header-left">
-          <div className="title">Transaction List</div>
-          <div className="descr">
-            Information a bout Buyer , Seller , and product of transaction !
-          </div>
-        </div>
+      <HeaderPage
+        value={search}
+        title="Transaction List"
+        descr="Information about Transaction which have reclamation !"
+        handleChangeInput={handleInputSearchChange}
+        handleFocusInput={handleInputFocus}
+        handleSearch={handleSearch}
+      />
 
-        <div className="table-header-right">
-          <div
-            onClick={() => setisSearch(true)}
-            className="search-icon-container"
-          >
-            <FaSearch />
-          </div>
-          <div className="search-bar-container">
-            <input
-              onFocus={() => handleInputFocus()}
-              value={search}
-              onChange={handleInputSearchChange}
-              placeholder="Search uuid"
-            />
-          </div>
-        </div>
-      </div>
+      <div></div>
       <div onClick={onRefreshData} className="refresh-icon-container">
         <IoMdRefresh />
       </div>
@@ -200,6 +188,7 @@ const TransactionScreen: React.FC = () => {
         <Table
           className="table"
           autoHeight
+          style={{ fontFamily: "EBGaramond" }}
           virtualized
           data={getData()}
           sortColumn={sortColumn}

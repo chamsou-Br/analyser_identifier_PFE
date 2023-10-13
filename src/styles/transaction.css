@@ -5,90 +5,28 @@
     padding: 0 40px;
 }
 
-.transaction-container .table-header  {
-    margin-top: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.transaction-container .table-header-right  {
-    display: flex;
-    align-items: center;
-
-}
-
-.table-header .table-header-right .search-icon-container {
-    width: 40px;
-    height: 40px;
-    background-color: #a7a9d4;
-    color: #FFF;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-}
-
-.table-header .table-header-right .search-icon-container:hover{
-    cursor: pointer;
-    background-color: #FFF;
-    border: 2px solid #cccef3;
-    color: #cccef3;
-}
 
 .transaction-container .refresh-icon-container {
     width: 40px;
     height: 40px;
     background-color: #FFF;
-    color: #a7a9d4;
+    color: #3782ec;
     border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-right: 10px;
-    border: 1px solid #a7a9d4;
+    border: 1px solid #3782ec;
     margin: 20px 0;
 }
 
 .transaction-container .refresh-icon-container:hover{
     cursor: pointer;
-    background-color: #a7a9d4;
+    background-color: #3782ec;
     color: #FFF;
 }
 
-.transaction-container .table-header-right input {
-    padding: 12px 7px;
-    border: 1px solid #cccef3;
-    font-size: 12px;
-    border-radius: 0.4rem;
-    width: 220px;
-    font-weight: bold;
-}
 
-.transaction-container .table-header-right input::placeholder{
-    color: #00000055;
-    letter-spacing: 1px;
-}
-
-.transaction-container .table-header-right input:focus{
-    border: 2px solid #cccef3;
-    outline: none;
-}
-
-.transaction-container .table-header .title {
-    font-size: 26px;
-    font-weight: bold;
-    color: #010101BB;
-    margin-bottom: 10px;
-
-}
-
-.transaction-container .table-header .descr {
-    font-size: 14px;
-    font-weight: bold;
-    color: #01010166;
-}
 
 .transaction-container .table-container{
     border: 1px solid #00000022;
@@ -102,7 +40,7 @@
 }
 
 .transaction-container .icon-details {
-    color: #a7a9d4;
+    color: #3782ec;
     cursor: pointer;
 }
 
@@ -111,7 +49,7 @@
 
     margin-top: 10px;
     padding: 5px;
-    background-color: #acafeb;
+    background-color: #3782ec;
 }
 
 
