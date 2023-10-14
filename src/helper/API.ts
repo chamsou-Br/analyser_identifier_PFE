@@ -9,3 +9,5 @@ export const GET_TRANSACTION = "/admin/transaction"
 export const DECIDE_TRANSACTION = "/admin/decide"
 
 export const CLOSE_TRANSACTION = "/admin/close"
+
+export const BUYER_HISTORY = "/admin/buyer_history"

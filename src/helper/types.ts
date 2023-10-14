@@ -65,7 +65,7 @@ export interface IInvitation {
   
   export interface IAdminFullTransaction extends IAdminTransaction {
     Claims: IClaim[],
-    History: IHistory[]
+    Histories: IHistory[]
   }
   
   export interface IClaim {
@@ -108,7 +108,52 @@ export interface IInvitation {
     description: string,
     status: EntityStatus
   }
-  
+
+  export interface IClientBase {
+    phoneNumber: string ,
+    email: string ,
+    birthDay: Date | null,
+    gender: Gender | null,
+    firstName: string ,
+    businessName: string | null,
+    location: string | null,
+    wilaya: string ,
+    address: string | null,
+    description: string | null,
+    status: EntityStatus ,
+    client? : Client
+
+  }
+
+
+  export interface ITransacionForTable {
+    uuid: string;
+    deliveryDate: string;
+    deliveryPlace: string;
+    deliveryType: DeliveryType;
+    deliveryPrice: string;
+    Buyer?: string;
+    Seller?: string;
+    ProductName: string;
+    ProductPrice: string;
+    paymentDate: string;
+    claims?: number;
+    state: TransactionStatus;
+    // Add other properties you need
+  }
+
+  export interface IRowsTable {
+    headerCell : string,
+    dataKey : string , 
+    size : number
+    // Add other properties you need
+  }
+
+  export enum Client {
+    BUYER  = "BUYER" , 
+    SELLER = "SELLR"
+  }
+
   
   // TO-DO: remove IBuyer & ISeller
   export interface IBuyer extends IBuyerBase {

@@ -82,7 +82,6 @@ export const DeleteTransaction =  (transactionUuid : string) : IDeleteTransactio
     }
 }
 
-
 export const startLoadingTransaction = () => ({
     type: START_LOADING_TRANSACTION,
   });

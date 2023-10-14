@@ -2,10 +2,15 @@ import { AxiosError } from "axios";
 import axios from "./axiosConfig";
 import { Authorization } from "./constant";
 import { IAdminFullTransaction } from "./types";
-import { ADD_NOTE, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_TRANSACTION } from "./API";
+import { ADD_NOTE, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_TRANSACTION } from "./API";
 
 type TransactionFetch = {
   transaction: IAdminFullTransaction | undefined;
+  error: string | undefined;
+};
+
+type TransactionsFetch = {
+  transactions: IAdminFullTransaction[];
   error: string | undefined;
 };
 
@@ -79,7 +84,7 @@ export const addNoteOfTransactionAPI = async (
 export const changeStateOfTransactionAPI = async (  
     uuid: string,
     decision: string,
-    raison: string)  => {
+    raison: string) : Promise<TransactionFetch>  => {
 try {
     const options = {
         method: 'POST',
@@ -115,7 +120,7 @@ try {
 
 export const closeTransactionAPI = async (  
     uuid: string,
-    )  => {
+    ) : Promise<TransactionFetch>  => {
 try {
   
     const options = {
@@ -144,4 +149,39 @@ try {
             : "An unknown error occurred",
         };
       }
+}
+
+
+export const getBuyerHistorieAPI = async (  
+  email: string,
+  ) : Promise<TransactionsFetch> => {
+try {
+
+  
+  const options = {
+    method: 'POST',
+    url: BUYER_HISTORY,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: Authorization
+    },
+    data: {BuyerEmail: email}
+  };
+    
+  const response = await axios.request(options);
+
+  return {
+    transactions: response.data.transactions,
+    error: undefined,
+  };
+
+  } catch (error: unknown) {
+  
+      return {
+        transactions: [],
+        error: (error as AxiosError<{ message: string }>).response?.data.message
+          ? (error as AxiosError<{ message: string }>).response?.data.message
+          : "An unknown error occurred",
+      };
+    }
 }

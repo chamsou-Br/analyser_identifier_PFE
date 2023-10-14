@@ -14,10 +14,9 @@ import { DeliveryType, IAdminFullTransaction, IRowsTable, ITransacionForTable, T
 
 import TableCompo from "../components/Table";
 import { Currency } from "../helper/constant";
-import HeaderPage from "../components/headerPage";
 
 // eslint-disable-next-line no-empty-pattern
-const TransactionScreen: React.FC = () => {
+const TestScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const transactionState = useSelector(
     (state: RootState) => state.transactions
@@ -65,24 +64,13 @@ const TransactionScreen: React.FC = () => {
   };
 
 
-  const onRefreshData = () => {
-      dispatch(fetchTransaction());
-  };
-
 
   return (
     <div className="transaction-container">
       <div className="table-container">
-      <HeaderPage
-
-        title="Transaction List"
-        descr="Information about Transaction which have reclamation !"
-        />
-
         <TableCompo
           rows={rows}
           getDefaultData={getDataFromState}
-          onRefreshData={onRefreshData}
           
         />
       </div>
@@ -90,4 +78,4 @@ const TransactionScreen: React.FC = () => {
   );
 };
 
-export default TransactionScreen;
+export default TestScreen;

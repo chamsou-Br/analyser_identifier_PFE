@@ -12,8 +12,11 @@ type Props = {
 function Reclamationcard(props: Props) {
   return (
     <div className="reclamation-card">
+      <div className="content">
       <div className="raison">{props.raison}</div>
-      <div className="reclamation-card-descr">{props.text}</div>
+      <p className="reclamation-card-descr">{props.text}</p>
+      </div>
+
       <div className="reclamation-card-header">
         <div style={{ display: "flex", alignItems: "center" }}>
           <div

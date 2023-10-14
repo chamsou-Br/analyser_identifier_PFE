@@ -1,71 +1,28 @@
-
-
-
 .transaction-container {
-    padding: 0 40px;
-}
-
-
-.transaction-container .refresh-icon-container {
-    width: 40px;
-    height: 40px;
-    background-color: #FFF;
-    color: #3782ec;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-    border: 1px solid #3782ec;
-    margin: 20px 0;
-}
-
-.transaction-container .refresh-icon-container:hover{
-    cursor: pointer;
-    background-color: #3782ec;
-    color: #FFF;
-}
-
-
-
-.transaction-container .table-container{
-    border: 1px solid #00000022;
-    margin-bottom: 30px;
-
-
+  padding: 40px 40px;
+  margin-bottom: 30px;
 }
 
 .transaction-container .table {
-    margin: auto;
-}
-
-.transaction-container .icon-details {
-    color: #3782ec;
-    cursor: pointer;
+  margin: auto;
 }
 
 
-.transaction-container  .pagination-container {
-
-    margin-top: 10px;
-    padding: 5px;
-    background-color: #3782ec;
-}
 
 
 .transaction-container .table::-webkit-scrollbar {
-    width: 3px; /* Set the width of the scrollbar */
-  }
-  
-  .transaction-container .table::-webkit-scrollbar-thumb {
-    background: #888; /* Set the color of the thumb */
-    border-radius: 6px; /* Add round corners to the thumb */
-  }
-  
-  .transaction-container .table::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Change color on hover */
-  }
-  
-  .transaction-container .table::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Set the background color of the track */
-  }
+  width: 3px; /* Set the width of the scrollbar */
+}
+
+.transaction-container .table::-webkit-scrollbar-thumb {
+  background: #888; /* Set the color of the thumb */
+  border-radius: 6px; /* Add round corners to the thumb */
+}
+
+.transaction-container .table::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Change color on hover */
+}
+
+.transaction-container .table::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Set the background color of the track */
+}

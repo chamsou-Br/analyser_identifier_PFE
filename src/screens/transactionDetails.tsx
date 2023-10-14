@@ -14,7 +14,7 @@ import LigneInfoInCard from "../components/lignInfoIncard";
 import TitleCard from "../components/titleCard";
 import BuyerOrSellerCard from "../components/buyerOrSellerCard";
 import Reclamationcard from "../components/reclamationcard";
-import { IAdminFullTransaction } from "../helper/types";
+import { Client, IAdminFullTransaction } from "../helper/types";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../state/store";
 import Status from "../components/status";
@@ -32,6 +32,7 @@ import {
   closeTransactionAPI,
   fetchTransactionAPI,
 } from "../helper/callsApi";
+import Historiecard from "../components/historieCard";
 
 const TransactionDetails: React.FC = () => {
   const { uuid } = useParams();
@@ -118,7 +119,7 @@ const TransactionDetails: React.FC = () => {
 
   const handleSubmitTransactionClose = async () => {
     setisOpenModalOfTransactionClose(false);
-    const res = await closeTransactionAPI(uuid ? uuid : "")
+    const res = await closeTransactionAPI(uuid ? uuid : "");
     if (res.error) {
       onAlert(false, res.error, true);
     } else {
@@ -177,7 +178,7 @@ const TransactionDetails: React.FC = () => {
   };
 
   const handleSearch = () => {
-    navigate("/" + search);
+    navigate("/details/" + search);
   };
 
   /* End Search Functions */
@@ -215,6 +216,7 @@ const TransactionDetails: React.FC = () => {
         <div className="transaction-section">
           <HeaderPage
             value={search}
+            isSeach
             title="Transaction Details"
             descr="All Information about Transaction , Invitaion , seller and Buyer"
             handleChangeInput={handleInputSearchChange}
@@ -302,7 +304,21 @@ const TransactionDetails: React.FC = () => {
                         />
                       ))}
                     </div>
-                  ) : null}
+                  ) : (
+                    <div className="reclamations-container">
+                      {transaction.Histories.map((hist) => (
+                        <Historiecard
+                          key={hist.id} // Don't forget to add a unique key when mapping components
+                          action={hist.action}
+                          actionType={hist.actionType}
+                          raison={hist.reason}
+                          date={getFormatDate(
+                            hist.createdAt.toString().split("T")[0]
+                          )}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -380,27 +396,39 @@ const TransactionDetails: React.FC = () => {
 
                   {isBuyerOrSeller == 0 ? (
                     <BuyerOrSellerCard
-                      onNavigateToDetails={() => {}}
-                      status={transaction.Buyer.status}
-                      userName={transaction.Buyer.firstName}
-                      wilaya={transaction.Buyer.wilaya}
-                      address={transaction.Buyer.address}
-                      phone={transaction.Buyer.phoneNumber}
-                      email={transaction.Buyer.email}
-                      sexe={transaction.Buyer.gender}
-                      businessName=""
+                    onNavigate
+                      client={{
+                        client : Client.BUYER ,
+                        address:  transaction.Buyer.address, 
+                        birthDay : transaction.Buyer.birthDay,
+                        businessName : null,
+                        description : null ,
+                        email : transaction.Buyer.email ,
+                        firstName : transaction.Buyer.firstName , 
+                        gender : transaction.Buyer.gender , 
+                        location : null,
+                        phoneNumber : transaction.Buyer.phoneNumber , 
+                        status : transaction.Buyer.status, 
+                        wilaya : transaction.Buyer.wilaya 
+                      }}
                     />
                   ) : (
                     <BuyerOrSellerCard
-                      onNavigateToDetails={() => {}}
-                      status={transaction.Invitation.Seller.status}
-                      userName={transaction.Invitation.Seller.firstName}
-                      wilaya={transaction.Invitation.Seller.wilaya}
-                      phone={transaction.Invitation.Seller.phoneNumber}
-                      email={transaction.Invitation.Seller.email}
-                      address={transaction.Invitation.Seller.location}
-                      sexe=""
-                      businessName={transaction.Invitation.Seller.businessName}
+                    onNavigate
+                      client={{
+                        client : Client.SELLER,
+                        address:  null, 
+                        birthDay : null,
+                        businessName : transaction.Invitation.Seller.businessName,
+                        description : null ,
+                        email : transaction.Invitation.Seller.email ,
+                        firstName : transaction.Invitation.Seller.firstName , 
+                        gender : null , 
+                        location : transaction.Invitation.Seller.location,
+                        phoneNumber : transaction.Invitation.Seller.phoneNumber , 
+                        status : transaction.Invitation.Seller.status, 
+                        wilaya : transaction.Invitation.Seller.wilaya 
+                      }}
                     />
                   )}
                 </div>

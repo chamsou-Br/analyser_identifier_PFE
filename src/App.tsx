@@ -7,6 +7,8 @@ import LoginScreen from "./screens/loginScreen";
 import TransactionDetails from "./screens/transactionDetails";
 import Layout from "./components/layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ClientScreen from "./screens/clientScreen";
+import TestScreen from "./screens/test";
 
 function App() {
   return (
@@ -15,7 +17,9 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<TransactionScreen />} />
-            <Route path="/:uuid" element={<TransactionDetails />} />
+            <Route path="/test" element={<TestScreen />} />
+            <Route path="/client" element={<ClientScreen />} />
+            <Route path="/details/:uuid" element={<TransactionDetails />} />
           </Routes>
         </Layout>
       </BrowserRouter>

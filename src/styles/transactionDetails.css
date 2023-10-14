@@ -1,4 +1,5 @@
 .transaction-details-page{
+    margin: 40px 0;
     width: 100%;
     align-items: start;
     display: flex;
@@ -141,17 +142,7 @@
 
 }
 
-.card .card-content .Seller-buyer-container .content {
-    padding: 20px 0;
-    padding-bottom: 40px;
-    position: relative;
-}
-.card .card-content .Seller-buyer-container .content .userName {
-    font-size: 16px;
-    font-weight: 600;
-    color: #010101;
-    margin-bottom: 15px;
-}
+
 
 .card .reclamations-container{
     display: flex;
