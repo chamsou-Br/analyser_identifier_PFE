@@ -9,9 +9,9 @@ import {
 } from "react-icons/fa";
 import LigneInfoInCard from "./lignInfoIncard";
 import Status from "./status";
-import { IClientBase } from "../helper/types";
+import { Client, IClientBase } from "../helper/types";
 import { useNavigate } from "react-router";
-import '../styles/shared.css'
+import "../styles/shared.css";
 
 type Props = {
   client: IClientBase;
@@ -22,16 +22,17 @@ function BuyerOrSellerCard(props: Props) {
   const navigate = useNavigate();
 
   const onNavigateToDetails = () => {
-    navigate("/client", { state: props.client });
+    navigate(props.client.client == Client.BUYER ? "/buyer" : "/seller", {
+      state: props.client,
+    });
   };
   return (
     <div className="client-card">
-              <div className="client-card-header">
-          <div className="userName">{props.client.firstName}</div>
-          <Status status={props.client.status} />
-        </div>
+      <div className="client-card-header">
+        <div className="userName">{props.client.firstName}</div>
+        <Status status={props.client.status} />
+      </div>
       <div className="client-card-content">
-
         {props.client.businessName ? (
           <LigneInfoInCard
             title="Business Name"

@@ -1,0 +1,50 @@
+.transaction-note .label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #010101aa;
+    margin: 5px 0;
+  }
+  
+  .transaction-note .content {
+    padding: 0 20px;
+  }
+  .transaction-note .button {
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 10px 30px;
+  }
+   .Alert {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .Alert .icon-container-sucess {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #44e46a22;
+    padding: 20px;
+    font-size: 30px;
+    color: #44e46a;
+    border-radius: 100%;
+  }
+  
+  .Alert .icon-container-failed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1777722;
+    padding: 20px;
+    font-size: 30px;
+    color: #f17777;
+    border-radius: 100%;
+  }
+  
+  .Alert .message {
+    font-size: 14px;
+    font-weight: bold;
+  
+    margin-top: 15px;
+  }

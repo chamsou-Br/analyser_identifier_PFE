@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { AxiosError } from "axios";
 import axios from "./axiosConfig";
 import { Authorization } from "./constant";
-import { IAdminFullTransaction } from "./types";
-import { ADD_NOTE, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_TRANSACTION } from "./API";
+import { IAdminFullTransaction, IAdminTransaction, IInvitationTransaction } from "./types";
+import { ADD_NOTE, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_TRANSACTION, SELLER_HISTORY } from "./API";
 
 type TransactionFetch = {
   transaction: IAdminFullTransaction | undefined;
@@ -14,9 +15,14 @@ type TransactionsFetch = {
   error: string | undefined;
 };
 
+type SellerHistory = {
+  historiy : IInvitationTransaction[] , 
+  error : string | undefined
+}
+
 export const fetchTransactionAPI = async (
   uuid: string
-): Promise<TransactionFetch> => {
+) => {
   try {
     const options = {
       method: "POST",
@@ -31,7 +37,7 @@ export const fetchTransactionAPI = async (
     const response = await axios.request(options);
 
     return {
-      transaction: response.data.transactions,
+      transaction: response.data.transactions as IAdminFullTransaction,
       error: undefined,
     };
   } catch (error: unknown) {
@@ -47,7 +53,7 @@ export const addNoteOfTransactionAPI = async (
   uuid: string,
   title: string,
   text: string
-) : Promise<TransactionFetch> => {
+)  => {
   try {
     const options = {
       method: "POST",
@@ -66,7 +72,7 @@ export const addNoteOfTransactionAPI = async (
     const response = await axios.request(options);
 
     return {
-      transaction: response.data.transactions,
+      transaction: response.data.transactions as IAdminFullTransaction,
       error: undefined,
     };
 
@@ -84,7 +90,7 @@ export const addNoteOfTransactionAPI = async (
 export const changeStateOfTransactionAPI = async (  
     uuid: string,
     decision: string,
-    raison: string) : Promise<TransactionFetch>  => {
+    raison: string)    => {
 try {
     const options = {
         method: 'POST',
@@ -103,7 +109,7 @@ try {
     const response = await axios.request(options);
 
     return {
-      transaction: response.data.transaction,
+      transaction: response.data.transaction as IAdminTransaction,
       error: undefined,
     };
 
@@ -120,7 +126,7 @@ try {
 
 export const closeTransactionAPI = async (  
     uuid: string,
-    ) : Promise<TransactionFetch>  => {
+    )   => {
 try {
   
     const options = {
@@ -136,7 +142,7 @@ try {
     const response = await axios.request(options);
 
     return {
-      transaction: response.data.transaction,
+      transaction: response.data.transaction as IAdminFullTransaction,
       error: undefined,
     };
 
@@ -154,7 +160,7 @@ try {
 
 export const getBuyerHistorieAPI = async (  
   email: string,
-  ) : Promise<TransactionsFetch> => {
+  )  => {
 try {
 
   
@@ -171,7 +177,7 @@ try {
   const response = await axios.request(options);
 
   return {
-    transactions: response.data.transactions,
+    transactions: response.data.transactions as IAdminFullTransaction[],
     error: undefined,
   };
 
@@ -179,6 +185,72 @@ try {
   
       return {
         transactions: [],
+        error: (error as AxiosError<{ message: string }>).response?.data.message
+          ? (error as AxiosError<{ message: string }>).response?.data.message
+          : "An unknown error occurred",
+      };
+    }
+}
+
+export const getSellerHistorieAPI = async (  
+  email: string,
+  )  => {
+try {
+
+  
+  const options = {
+    method: 'POST',
+    url: SELLER_HISTORY,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: Authorization
+    },
+    data: {sellerEmail: email}
+  };
+    
+  const response = await axios.request(options);
+
+  return {
+    historiy : response.data.invitations as IInvitationTransaction[],
+    error: undefined,
+  };
+
+  } catch (error: unknown) {
+
+      return {
+        historiy: [],
+        error: (error as AxiosError<{ message: string }>).response?.data.message
+          ? (error as AxiosError<{ message: string }>).response?.data.message
+          : "An unknown error occurred",
+      };
+    }
+}
+
+export const blockSellerAPI = async (  
+  id: string,
+  ) => {
+try { 
+
+  const options = {
+    method: 'POST',
+    url: BLOCK_SELLER,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: Authorization
+    },
+    data: {sellerId: id}
+  };
+  
+    
+  const response = await axios.request(options);
+
+  return {
+    error: undefined,
+  };
+
+  } catch (error: unknown) {
+  
+      return {
         error: (error as AxiosError<{ message: string }>).response?.data.message
           ? (error as AxiosError<{ message: string }>).response?.data.message
           : "An unknown error occurred",

@@ -27,3 +27,10 @@ export function getDeliveryTypeTitle(deliveryType: DeliveryType): string {
     const date = new Date(inputDate);
     return date.toLocaleDateString(undefined, options);
   }
+
+  export function getFormatPrice(price : number) : string {
+    // Use toFixed(2) to ensure two decimal places and convert it to a string
+    const formattedPrice = price.toFixed(2);
+    // Replace the decimal point with a period
+    return formattedPrice.replace(".", ".");
+  }

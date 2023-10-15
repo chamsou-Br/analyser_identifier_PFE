@@ -1,9 +1,13 @@
 .client-page {
+    padding: 10px 50px;
+}
+
+.client-page .client-page-content {
     display: flex;
     justify-content: space-around;
     align-items: start;
     flex-wrap: wrap;
-    padding: 50px;
+    padding: 10px 0px;
     gap: 60px;
 }
 
@@ -52,8 +56,10 @@
 
 @media (max-width :  1199px) {
     .client-page  {
-        padding: 10px;
-        gap: 10px;
+        padding: 30px;
+    }
+    .client-page .client-page-content {
+        gap:  10px;
     }
 
 }
@@ -61,6 +67,9 @@
 @media (max-width : 780px) {
     .client-page .client-information  {
         margin-top: 0;
+    }
+    .client-page  {
+        padding: 10px;
     }
     .client-page .client-historie {
         min-width: 90%;

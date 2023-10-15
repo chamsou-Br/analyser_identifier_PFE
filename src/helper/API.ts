@@ -11,3 +11,7 @@ export const DECIDE_TRANSACTION = "/admin/decide"
 export const CLOSE_TRANSACTION = "/admin/close"
 
 export const BUYER_HISTORY = "/admin/buyer_history"
+
+export const SELLER_HISTORY = "/admin/seller_history"
+
+export const BLOCK_SELLER = "/admin/delete_seller"

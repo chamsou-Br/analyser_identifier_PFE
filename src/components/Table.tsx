@@ -141,7 +141,7 @@ function TableCompo(props: props) {
       <Table
         className="table"
         autoHeight
-        style={{ fontFamily: "EBGaramond" }}
+        style={{ fontFamily: "Mukta" }}
         virtualized
         data={getData()}
         sortColumn={sortColumn}
@@ -150,8 +150,8 @@ function TableCompo(props: props) {
         loading={loading}
       >
 
-        {props.rows.map(row => (
-                <Column width={row.size} sortable resizable>
+        {props.rows.map((row,i) => (
+                <Column key={i} width={row.size} sortable resizable>
                 <HeaderCell style={styleHeaderOfTable}>{row.headerCell}</HeaderCell>
                 <Cell dataKey={row.dataKey} />
             </Column>

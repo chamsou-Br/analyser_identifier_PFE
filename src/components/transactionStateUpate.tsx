@@ -9,7 +9,6 @@ type Props = {
 };
 
 function TransactionStatusUpdate(props: Props) {
-
   const [state, setState] = useState<string>("");
   const [raison, setRaison] = useState<string>("");
   const [open, setIsOpen] = useState(false);
@@ -24,28 +23,21 @@ function TransactionStatusUpdate(props: Props) {
   const handleSubmit = () => {
     setIsOpen(false);
     props.handleCloseSucessed(state, raison);
-    setTimeout(()=>{
+    setTimeout(() => {
       setRaison("");
-      setState("")
-    },2000)
+      setState("");
+    }, 2000);
   };
 
   const data = [
-    "opened",
-    "accepted",
-    "payed",
-    "fulfilled",
-    "fulfilled-hold",
-    "fulfilled-continue",
-    "canceled",
-    "payed-buyer-cancel-early",
-    "payed-buyer-cancel-mid",
-    "payed-buyer-cancel-late",
     "payed-ghosted",
-    "Albert",
+    "payed-buyer-cancel-late",
     "payed-seller-cancel",
     "payed-reimbursed",
     "payed-reimbursed-complex",
+    "fulfilled-continue",
+    "fulfilled-hold",
+    "fulfilled",
   ].map((item) => ({ label: item, value: item }));
 
   return (
@@ -65,8 +57,8 @@ function TransactionStatusUpdate(props: Props) {
         <Modal.Body className="content">
           <div className="label">Status : </div>
           <SelectPicker
-          placeholder='status'
-          style={{width: 300}}
+            placeholder="status"
+            style={{ width: 300 }}
             value={state}
             onChange={(v) => setState(v ? v : "")}
             data={data}

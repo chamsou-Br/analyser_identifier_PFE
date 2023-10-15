@@ -10,10 +10,10 @@ import {
   startLoadingTransaction,
   stopLoadingTransaction,
 } from "../state/actions/transactionAction";
-import { DeliveryType, IAdminFullTransaction, IRowsTable, ITransacionForTable, TransactionStatus } from "../helper/types";
+import {  IAdminFullTransaction, IRowsTable, ITransacionForTable, TransactionStatus } from "../helper/types";
 
 import TableCompo from "../components/Table";
-import { Currency } from "../helper/constant";
+import { Currency, getDeliveryTypeTitle  , getFormatDate} from "../helper/constant";
 import HeaderPage from "../components/headerPage";
 
 // eslint-disable-next-line no-empty-pattern
@@ -33,11 +33,11 @@ const TransactionScreen: React.FC = () => {
   }, []);
 
   const rows : IRowsTable[] = [
-    {headerCell : "Buyer" , dataKey : "Buyer" , size : 250},
-    {headerCell : "Seller" , dataKey : "Seller" , size :250 },
+    {headerCell : "Buyer" , dataKey : "Buyer" , size : 150},
+    {headerCell : "Seller" , dataKey : "Seller" , size :150 },
     {headerCell : "Product" , dataKey : "ProductName" , size :150 },
     {headerCell : "Price" , dataKey : "ProductPrice" , size : 100},
-    {headerCell : "Delivery Type" , dataKey : "deliveryType" , size : 200},
+    {headerCell : "Delivery Type" , dataKey : "deliveryType" , size : 150},
     {headerCell : "Delivery Price" , dataKey : "deliveryPrice" , size : 100},
     {headerCell : "Delivery Date" , dataKey : "deliveryDate" , size : 150},
     {headerCell : "Payment Date" , dataKey : "paymentDate" , size :150 },
@@ -48,15 +48,15 @@ const TransactionScreen: React.FC = () => {
     const newData = transactionState.transactions
       ? transactionState.transactions.map((item: IAdminFullTransaction) => ({
           uuid: item.uuid,
-          deliveryDate: item.deliveryDate.toString().split("T")[0], // Convert Date to string
+          deliveryDate: getFormatDate(item.deliveryDate.toString().split("T")[0]), // Convert Date to string
           deliveryPlace: item.deliveryPlace,
-          deliveryType: item.deliveryType,
+          deliveryType: getDeliveryTypeTitle(item.deliveryType),
           deliveryPrice: item.deliveryPrice.toString() + Currency,
           Buyer: item.Buyer.email,
           Seller: item.Invitation.Seller.email,
           ProductName: item.Invitation.product,
           ProductPrice: item.Invitation.price.toString() + Currency,
-          paymentDate: item.paymentDate.toString().split("T")[0],
+          paymentDate: getFormatDate( item.paymentDate.toString().split("T")[0] ),
           state: item.state,
           claims: item.Claims.length,
         }))

@@ -130,7 +130,7 @@ export interface IInvitation {
     uuid: string;
     deliveryDate: string;
     deliveryPlace: string;
-    deliveryType: DeliveryType;
+    deliveryType: string;
     deliveryPrice: string;
     Buyer?: string;
     Seller?: string;
@@ -151,7 +151,7 @@ export interface IInvitation {
 
   export enum Client {
     BUYER  = "BUYER" , 
-    SELLER = "SELLR"
+    SELLER = "SELLER"
   }
 
   

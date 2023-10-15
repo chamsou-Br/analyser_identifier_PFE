@@ -7,7 +7,7 @@ type Props = {
   date: string;
 };
 
-function Historiecard(props: Props) {
+function HistorieTransactioncard(props: Props) {
   return (
     <div className="historie-card">
         <div className="historie-card-header">
@@ -32,4 +32,4 @@ function Historiecard(props: Props) {
   );
 }
 
-export default Historiecard;
+export default HistorieTransactioncard;

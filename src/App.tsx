@@ -7,8 +7,9 @@ import LoginScreen from "./screens/loginScreen";
 import TransactionDetails from "./screens/transactionDetails";
 import Layout from "./components/layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ClientScreen from "./screens/clientScreen";
+import BuyerScreen from "./screens/buyerScreen";
 import TestScreen from "./screens/test";
+import SellerScreen from "./screens/sellerScreen";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
           <Routes>
             <Route path="/" element={<TransactionScreen />} />
             <Route path="/test" element={<TestScreen />} />
-            <Route path="/client" element={<ClientScreen />} />
+            <Route path="/buyer" element={<BuyerScreen />} />
+            <Route path="/seller" element={<SellerScreen />} />
             <Route path="/details/:uuid" element={<TransactionDetails />} />
           </Routes>
         </Layout>

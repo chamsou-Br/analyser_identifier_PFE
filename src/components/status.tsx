@@ -10,6 +10,7 @@ interface statusStyle {
   accepted: string;
   rejected: string;
   fulfilled : string;
+  payed : string;
   canceled : string;
   ongoing : string;
 }
@@ -18,6 +19,7 @@ function Status(props: Props) {
     pending: "#EB904F",
     ongoing : "#EB904F",
     started: "#3782ec",
+    payed : "#44E46A",
     accepted: "#44E46A",
     fulfilled : "#44E46A",
     rejected: "#E84949",

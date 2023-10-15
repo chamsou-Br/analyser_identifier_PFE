@@ -14,25 +14,33 @@ import LigneInfoInCard from "../components/lignInfoIncard";
 import TitleCard from "../components/titleCard";
 import BuyerOrSellerCard from "../components/buyerOrSellerCard";
 import Reclamationcard from "../components/reclamationcard";
-import { Client, IAdminFullTransaction } from "../helper/types";
+import {
+  Client,
+  IAdminFullTransaction,
+  IAdminTransaction,
+} from "../helper/types";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../state/store";
 import Status from "../components/status";
-import { getDeliveryTypeTitle, getFormatDate } from "../helper/constant";
+import {
+  getDeliveryTypeTitle,
+  getFormatDate,
+  getFormatPrice,
+} from "../helper/constant";
 import { useParams, useNavigate } from "react-router-dom";
 import HeaderPage from "../components/headerPage";
 import TransactionActions from "../components/transactionActions";
 import TransactionNote from "../components/transactionNote";
 import TransactionActionConfirmation from "../components/transactionActionConfirmation";
 import TransactionStatusUpdate from "../components/transactionStateUpate";
-import Alert from "../components/alert";
+import Alert from "../components/Alert/alert";
 import {
   addNoteOfTransactionAPI,
   changeStateOfTransactionAPI,
   closeTransactionAPI,
   fetchTransactionAPI,
 } from "../helper/callsApi";
-import Historiecard from "../components/historieCard";
+import HistorieTransactioncard from "../components/TransactionHistory";
 
 const TransactionDetails: React.FC = () => {
   const { uuid } = useParams();
@@ -43,7 +51,6 @@ const TransactionDetails: React.FC = () => {
   };
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const [isBuyerOrSeller, setIsBuyerOrSeller] = useState<number>(0);
   const [isClaimsOrHistories, setIsClaimsOrHistorie] = useState<number>(0);
   const [search, setSearch] = useState<string>("");
@@ -59,9 +66,7 @@ const TransactionDetails: React.FC = () => {
   const TransactionState = useSelector(
     (state: RootState) => state.transactions
   );
-  const [transaction, setTransaction] = useState<
-    IAdminFullTransaction | undefined
-  >();
+  const [transaction, setTransaction] = useState<IAdminFullTransaction>();
 
   /* start alert function */
 
@@ -91,7 +96,7 @@ const TransactionDetails: React.FC = () => {
     setisOpenModalOfChangementTransactionState(false);
   };
 
-  const handleSunmitChangmentTransactionState = async (
+  const handleSubmitChangmentTransactionState = async (
     decision: string,
     raison: string
   ) => {
@@ -101,10 +106,16 @@ const TransactionDetails: React.FC = () => {
       decision,
       raison
     );
+    console.log(res);
     if (res.error) {
       onAlert(false, res.error, true);
     } else {
-      setTransaction(res.transaction);
+      const data = res.transaction as IAdminTransaction;
+      setTransaction({
+        ...data,
+        Claims: transaction ? transaction?.Claims : [],
+        Histories: transaction ? transaction?.Histories : [],
+      });
       onAlert(true, "", true);
     }
   };
@@ -229,7 +240,7 @@ const TransactionDetails: React.FC = () => {
               <div className="card-content">
                 <div className="title">Transaction N {transaction.uuid}</div>
                 <div className="card-information">
-                  <div className="information-title">Oucom</div>
+                  <div className="information-title">Outcom</div>
                   <Status status={transaction.outcome} />
                 </div>
                 <LigneInfoInCard
@@ -246,12 +257,12 @@ const TransactionDetails: React.FC = () => {
                 />
                 <LigneInfoInCard
                   title="Delivry place"
-                  value="Cheraga, 20- Saefda"
+                  value={transaction.deliveryPlace}
                   icon={<FaMapMarkedAlt />}
                 />
                 <LigneInfoInCard
                   title="Price"
-                  value="300 DA"
+                  value={getFormatPrice(transaction.deliveryPrice)}
                   icon={<FaDollarSign />}
                 />
                 <LigneInfoInCard
@@ -307,7 +318,7 @@ const TransactionDetails: React.FC = () => {
                   ) : (
                     <div className="reclamations-container">
                       {transaction.Histories.map((hist) => (
-                        <Historiecard
+                        <HistorieTransactioncard
                           key={hist.id} // Don't forget to add a unique key when mapping components
                           action={hist.action}
                           actionType={hist.actionType}
@@ -396,38 +407,39 @@ const TransactionDetails: React.FC = () => {
 
                   {isBuyerOrSeller == 0 ? (
                     <BuyerOrSellerCard
-                    onNavigate
+                      onNavigate
                       client={{
-                        client : Client.BUYER ,
-                        address:  transaction.Buyer.address, 
-                        birthDay : transaction.Buyer.birthDay,
-                        businessName : null,
-                        description : null ,
-                        email : transaction.Buyer.email ,
-                        firstName : transaction.Buyer.firstName , 
-                        gender : transaction.Buyer.gender , 
-                        location : null,
-                        phoneNumber : transaction.Buyer.phoneNumber , 
-                        status : transaction.Buyer.status, 
-                        wilaya : transaction.Buyer.wilaya 
+                        client: Client.BUYER,
+                        address: transaction.Buyer.address,
+                        birthDay: transaction.Buyer.birthDay,
+                        businessName: null,
+                        description: null,
+                        email: transaction.Buyer.email,
+                        firstName: transaction.Buyer.firstName,
+                        gender: transaction.Buyer.gender,
+                        location: null,
+                        phoneNumber: transaction.Buyer.phoneNumber,
+                        status: transaction.Buyer.status,
+                        wilaya: transaction.Buyer.wilaya,
                       }}
                     />
                   ) : (
                     <BuyerOrSellerCard
-                    onNavigate
+                      onNavigate
                       client={{
-                        client : Client.SELLER,
-                        address:  null, 
-                        birthDay : null,
-                        businessName : transaction.Invitation.Seller.businessName,
-                        description : null ,
-                        email : transaction.Invitation.Seller.email ,
-                        firstName : transaction.Invitation.Seller.firstName , 
-                        gender : null , 
-                        location : transaction.Invitation.Seller.location,
-                        phoneNumber : transaction.Invitation.Seller.phoneNumber , 
-                        status : transaction.Invitation.Seller.status, 
-                        wilaya : transaction.Invitation.Seller.wilaya 
+                        client: Client.SELLER,
+                        address: null,
+                        birthDay: null,
+                        businessName:
+                          transaction.Invitation.Seller.businessName,
+                        description: null,
+                        email: transaction.Invitation.Seller.email,
+                        firstName: transaction.Invitation.Seller.firstName,
+                        gender: null,
+                        location: transaction.Invitation.Seller.location,
+                        phoneNumber: transaction.Invitation.Seller.phoneNumber,
+                        status: transaction.Invitation.Seller.status,
+                        wilaya: transaction.Invitation.Seller.wilaya,
                       }}
                     />
                   )}
@@ -450,7 +462,7 @@ const TransactionDetails: React.FC = () => {
         <TransactionStatusUpdate
           isOpen={isOpenModalOfChangementTransactionState}
           handleCloseCanceled={handleCloseModalOfChangementTransactionState}
-          handleCloseSucessed={handleSunmitChangmentTransactionState}
+          handleCloseSucessed={handleSubmitChangmentTransactionState}
         />
         <Alert alert={alert} onAlert={onAlert} />
       </div>
