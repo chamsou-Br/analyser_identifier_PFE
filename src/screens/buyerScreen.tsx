@@ -10,17 +10,17 @@ import {
   ITransacionForTable,
   ITransactionNoSeller,
 } from "../helper/types";
-import BuyerOrSellerCard from "../components/buyerOrSellerCard";
+import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 import { useLocation } from "react-router";
 import {
   Currency,
   getDeliveryTypeTitle,
   getFormatDate,
 } from "../helper/constant";
-import TableCompo from "../components/Table";
-import TransactionActionConfirmation from "../components/transactionActionConfirmation";
+import TableCompo from "../components/Table/Table";
+import TransactionActionConfirmation from "../components/TransactionActionConfirmation/transactionActionConfirmation";
 import Alert from "../components/Alert/alert";
-import HeaderPage from "../components/headerPage";
+import HeaderPage from "../components/headerPage/headerPage";
 
 function BuyerScreen() {
   const location = useLocation();

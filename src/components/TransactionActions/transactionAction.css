@@ -1,0 +1,75 @@
+
+/* ---------------------------------------
+        Transaction actions 
+    -------------------------------------- */
+
+    .transaction-actions {
+        height: max-content;
+        width: 150px;
+        height: 100vh;
+        background-color: #fff;
+        padding: 120px 0;
+        position: fixed;
+        top: 0px;
+        border-right: 1px solid #01010121;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+      }
+      
+      .transaction-actions .action {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+      
+      .transaction-actions .action .action-icon {
+        font-size: 22px;
+        color: #3782ec;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        margin-bottom: 8px;
+        border-radius: 0.4rem;
+        cursor: pointer;
+      }
+      
+      .transaction-actions .action:nth-child(1) .action-icon:hover {
+        color: #eb904f;
+        background-color: #eb904f22;
+      }
+      .transaction-actions .action:nth-child(2) .action-icon:hover {
+        color: #f17777;
+        background-color: #e8494922;
+      }
+      
+      .transaction-actions .action:nth-child(3) .action-icon:hover {
+        color: #44e46a;
+        background-color: #44e46a22;
+      }
+      
+      .transaction-actions .action:nth-child(1) .action-icon {
+        color: #eb904f;
+        background-color: #fff;
+        border: 1px solid #eb904f;
+      }
+      .transaction-actions .action:nth-child(2) .action-icon {
+        color: #f17777;
+        background-color: #fff;
+        border: 1px solid #f17777;
+      }
+      .transaction-actions .action:nth-child(3) .action-icon {
+        color: #44e46a;
+        background-color: #fff;
+        border: 1px solid #44e46a;
+      }
+      .transaction-actions .action .action-title {
+        font-size: 12px;
+        font-weight: bold;
+        color: #010101;
+      }

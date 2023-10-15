@@ -1,8 +1,7 @@
-import React from "react";
-import { IInvitationTransaction } from "../helper/types";
-import "../styles/shared.css";
-import TitleCard from "./titleCard";
-import LigneInfoInCard from "./lignInfoIncard";
+import { IInvitationTransaction } from "../../helper/types";
+import "./clientHistoryCard.css";
+import TitleCard from "../TitleCard/titleCard";
+import LigneInfoInCard from "../LignInfoCard/lignInfoIncard";
 import {
   FaDollarSign,
   FaEye,
@@ -15,9 +14,9 @@ import {
   getDeliveryTypeTitle,
   getFormatDate,
   getFormatPrice,
-} from "../helper/constant";
+} from "../../helper/constant";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
-import Status from "./status";
+import Status from "../TransactionStatus/status";
 import { useNavigate } from "react-router";
 
 type Props = {

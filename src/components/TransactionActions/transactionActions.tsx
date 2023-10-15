@@ -2,7 +2,7 @@ import React from 'react'
 import { GiMatterStates } from 'react-icons/gi'
 import { HiOutlineLockClosed } from 'react-icons/hi'
 import { PiNotepad } from 'react-icons/pi'
-import "../styles/shared.css"
+import "./transactionAction.css"
 
 type props = {
   handleAddNoteAction : () => void ,

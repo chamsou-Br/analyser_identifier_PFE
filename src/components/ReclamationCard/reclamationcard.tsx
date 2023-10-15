@@ -1,4 +1,4 @@
-import "../styles/shared.css";
+import "./reclamtionCard.css";
 import { FaExclamation } from "react-icons/fa";
 type Props = {
   sender: string;

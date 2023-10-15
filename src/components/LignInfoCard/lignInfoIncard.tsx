@@ -1,10 +1,12 @@
 import React from 'react'
-import "../styles/shared.css"
+import "./lignInfoCard.css"
 type Props = {
     title:string,
     value : string,
     icon : React.ReactNode
 }
+
+
 
 const LigneInfoInCard = (props: Props) => {
   return (

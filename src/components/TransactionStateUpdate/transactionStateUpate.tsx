@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Button, Input, Modal, SelectPicker } from "rsuite";
-import TransactionActionConfirmation from "./transactionActionConfirmation";
+import { Button, Input, Modal } from "rsuite";
+import TransactionActionConfirmation from "../TransactionActionConfirmation/transactionActionConfirmation";
+import "./transactionStateUpdate.css";
 
 type Props = {
   isOpen: boolean;
@@ -30,15 +31,21 @@ function TransactionStatusUpdate(props: Props) {
   };
 
   const data = [
-    "payed-ghosted",
-    "payed-buyer-cancel-late",
-    "payed-seller-cancel",
-    "payed-reimbursed",
-    "payed-reimbursed-complex",
-    "fulfilled-continue",
-    "fulfilled-hold",
-    "fulfilled",
-  ].map((item) => ({ label: item, value: item }));
+    { key: "ghosted", value: ["payed-ghosted"] },
+    {
+      key: "canceled",
+      value: ["payed-buyer-cancel-late", "payed-seller-cancel"],
+    },
+    {
+      key: "reimbursed",
+      value: ["payed-reimbursed", "payed-reimbursed-complex"],
+    },
+    {
+      key: "fulfilled",
+      value: ["fulfilled-continue","fulfilled-hold", "fulfilled"],
+    },
+  ];
+  //.map((item) => ({ label: item, value: item }));
 
   return (
     <div>
@@ -56,13 +63,25 @@ function TransactionStatusUpdate(props: Props) {
       >
         <Modal.Body className="content">
           <div className="label">Status : </div>
-          <SelectPicker
+          <select className="custom-select">
+            {data.map((grps, i) => (
+              <optgroup key={i} label={grps.key}>
+                {grps.value.map((option, j) => (
+                  <option key={j} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+
+          {/* <SelectPicker
             placeholder="status"
             style={{ width: 300 }}
             value={state}
             onChange={(v) => setState(v ? v : "")}
             data={data}
-          />
+          /> */}
           <div className="label">Raiosn : </div>
           <Input
             value={raison}

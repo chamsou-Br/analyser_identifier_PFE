@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Input, Modal } from "rsuite";
-import TransactionActionConfirmation from "./transactionActionConfirmation";
+import TransactionActionConfirmation from "../TransactionActionConfirmation/transactionActionConfirmation";
+import "./transactionNote.css"
 
 type Props = {
   isOpen: boolean;

@@ -10,10 +10,10 @@ import {
   FaMapMarkedAlt,
 } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
-import LigneInfoInCard from "../components/lignInfoIncard";
-import TitleCard from "../components/titleCard";
-import BuyerOrSellerCard from "../components/buyerOrSellerCard";
-import Reclamationcard from "../components/reclamationcard";
+import LigneInfoInCard from "../components/LignInfoCard/lignInfoIncard";
+import TitleCard from "../components/TitleCard/titleCard";
+import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
+import Reclamationcard from "../components/ReclamationCard/reclamationcard";
 import {
   Client,
   IAdminFullTransaction,
@@ -21,18 +21,18 @@ import {
 } from "../helper/types";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../state/store";
-import Status from "../components/status";
+import Status from "../components/TransactionStatus/status";
 import {
   getDeliveryTypeTitle,
   getFormatDate,
   getFormatPrice,
 } from "../helper/constant";
 import { useParams, useNavigate } from "react-router-dom";
-import HeaderPage from "../components/headerPage";
-import TransactionActions from "../components/transactionActions";
-import TransactionNote from "../components/transactionNote";
-import TransactionActionConfirmation from "../components/transactionActionConfirmation";
-import TransactionStatusUpdate from "../components/transactionStateUpate";
+import HeaderPage from "../components/headerPage/headerPage";
+import TransactionActions from "../components/TransactionActions/transactionActions";
+import TransactionNote from "../components/TransactionNote/transactionNote";
+import TransactionActionConfirmation from "../components/TransactionActionConfirmation/transactionActionConfirmation";
+import TransactionStatusUpdate from "../components/TransactionStateUpdate/transactionStateUpate";
 import Alert from "../components/Alert/alert";
 import {
   addNoteOfTransactionAPI,
@@ -40,7 +40,7 @@ import {
   closeTransactionAPI,
   fetchTransactionAPI,
 } from "../helper/callsApi";
-import HistorieTransactioncard from "../components/TransactionHistory";
+import HistorieTransactioncard from "../components/transactionHistory/TransactionHistory";
 
 const TransactionDetails: React.FC = () => {
   const { uuid } = useParams();

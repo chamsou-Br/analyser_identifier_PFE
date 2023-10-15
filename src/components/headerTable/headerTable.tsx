@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaSearch } from 'react-icons/fa'
-import "../styles/shared.css"
+import "./headerTable.css"
 import { IoMdRefresh } from 'react-icons/io'
 
 type Props = {

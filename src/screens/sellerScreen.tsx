@@ -11,17 +11,17 @@ import {
   ITransacionForTable,
   ITransactionNoSeller,
 } from "../helper/types";
-import BuyerOrSellerCard from "../components/buyerOrSellerCard";
+import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 import { useLocation } from "react-router";
 import {
   Currency,
   getDeliveryTypeTitle,
   getFormatDate,
 } from "../helper/constant";
-import HeaderPage from "../components/headerPage";
-import ClientHistoryCard from "../components/clientHistoryCard";
+import HeaderPage from "../components/headerPage/headerPage";
+import ClientHistoryCard from "../components/clientHistoryCard/clientHistoryCard";
 import Alert from "../components/Alert/alert";
-import TransactionActionConfirmation from "../components/transactionActionConfirmation";
+import TransactionActionConfirmation from "../components/TransactionActionConfirmation/transactionActionConfirmation";
 
 function SellerScreen() {
   const location = useLocation();

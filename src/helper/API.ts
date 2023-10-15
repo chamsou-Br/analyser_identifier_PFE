@@ -2,6 +2,10 @@ export const DECIDE_ON_TRANSACTION = "/admin/decide"
 
 export const GET_ONGOIN_WITH_CLAIMS = "/admin/ongoing_claims"
 
+export const GET_ONGOING_FULFILLED = "/admin/ongoing_fulfilled"
+
+export const GET_ONGOING_CANCELED = "/admin/ongoing_payed_canceled"
+
 export const ADD_NOTE = "/admin/note"
 
 export const GET_TRANSACTION = "/admin/transaction"

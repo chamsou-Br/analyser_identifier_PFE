@@ -1,0 +1,11 @@
+/* ----------------------------------------
+            Status Compon
+    ----------------------------------- */
+
+    .status .status-container {
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 8px;
+        font-weight: bold;
+        border-radius: 0.5rem;
+      }

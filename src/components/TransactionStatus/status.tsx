@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/shared.css";
+import "./status.css";
 type Props = {
   status: string;
 };

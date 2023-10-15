@@ -7,11 +7,11 @@ import {
   FaMapMarked,
   FaPhone,
 } from "react-icons/fa";
-import LigneInfoInCard from "./lignInfoIncard";
-import Status from "./status";
-import { Client, IClientBase } from "../helper/types";
+import LigneInfoInCard from "../LignInfoCard/lignInfoIncard";
+import Status from "../TransactionStatus/status";
+import { Client, IClientBase } from "../../helper/types";
 import { useNavigate } from "react-router";
-import "../styles/shared.css";
+import "./client.css";
 
 type Props = {
   client: IClientBase;

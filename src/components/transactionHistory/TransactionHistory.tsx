@@ -1,4 +1,4 @@
-import "../styles/shared.css";
+import "./transactionHistory.css";
 import { FaExclamation } from "react-icons/fa";
 type Props = {
   actionType: string;

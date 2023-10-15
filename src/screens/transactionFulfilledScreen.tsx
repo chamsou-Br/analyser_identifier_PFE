@@ -6,18 +6,18 @@ import "../styles/transaction.css";
 import { RootState, useAppDispatch } from "../state/store";
 import { useSelector } from "react-redux";
 import {
-  fetchTransaction,
+    fetchFulfilledTransaction,
   startLoadingTransaction,
   stopLoadingTransaction,
 } from "../state/actions/transactionAction";
-import {  IAdminFullTransaction, IRowsTable, ITransacionForTable, TransactionStatus } from "../helper/types";
+import {  IAdminFullTransaction, IRowsTable, ITransacionForTable } from "../helper/types";
 
 import TableCompo from "../components/Table/Table";
 import { Currency, getDeliveryTypeTitle  , getFormatDate} from "../helper/constant";
 import HeaderPage from "../components/headerPage/headerPage";
 
 // eslint-disable-next-line no-empty-pattern
-const TransactionScreen: React.FC = () => {
+const TransactionFulfilledScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const transactionState = useSelector(
     (state: RootState) => state.transactions
@@ -26,10 +26,9 @@ const TransactionScreen: React.FC = () => {
   useEffect(() => {
     dispatch(startLoadingTransaction());
     setTimeout(() => {
-      dispatch(fetchTransaction());
+      dispatch(fetchFulfilledTransaction());
       dispatch(stopLoadingTransaction());
     }, 1000);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -67,7 +66,7 @@ const TransactionScreen: React.FC = () => {
 
 
   const onRefreshData = () => {
-      dispatch(fetchTransaction());
+      dispatch(fetchFulfilledTransaction());
   };
 
 
@@ -91,4 +90,4 @@ const TransactionScreen: React.FC = () => {
   );
 };
 
-export default TransactionScreen;
+export default TransactionFulfilledScreen;

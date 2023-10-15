@@ -1,0 +1,61 @@
+
+/* ----------------------------------
+        Seller and buyer  
+-----------------------------------*/
+.client-card {
+    position: relative;
+  }
+  
+  .client-card .client-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+  }
+  
+  .client-card .client-card-header .userName {
+    font-size: 16px;
+    font-weight: 600;
+    color: #010101;
+  }
+  
+  .client-card .details-navigate-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    background-color: #3782ec;
+    color: #fff;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .client-card .address-buyer-and-seller {
+    font-size: 12px;
+    font-weight: 600;
+    color: #010101;
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .client-card .address-buyer-and-seller > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #949898;
+  }
+  
+  .client-card .address-buyer-and-seller span {
+    margin-left: 10px;
+  }
+  
+  .client-card .client-card-content {
+    padding-bottom: 40px;
+    position: relative;
+  }
+  

@@ -1,0 +1,49 @@
+/* ----------------------------------
+       .table 
+-----------------------------------*/
+
+.table-container {
+    width: 100%;
+  }
+  
+  .table-container .pagination-container {
+    margin-top: 10px;
+    padding: 5px;
+    background-color: #fff;
+  }
+  
+  .table-container .icon-details {
+    color: #3782ec;
+    cursor: pointer;
+  }
+  
+  
+  
+  .title-card {
+    border-bottom: 1px solid #00000044;
+    padding: 10px 20px;
+  }
+  
+  .title-card > div {
+    border: 1px solid #00000022;
+    padding: 7px 15px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #010101cc;
+    border-radius: 0.2rem;
+    height: auto;
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .title-card > div .title-icon-container {
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #01010199;
+    margin-right: 10px;
+  }
+  

@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Modal } from "rsuite";
+import "./transactioActionConfirmation.css"
 
 type Props = {
   isOpen: boolean;

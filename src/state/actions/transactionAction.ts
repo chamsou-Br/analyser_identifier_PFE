@@ -2,7 +2,7 @@
 
 
 import { ThunkAction } from "redux-thunk"
-import { GET_ONGOIN_WITH_CLAIMS } from "../../helper/API"
+import { GET_ONGOING_CANCELED, GET_ONGOING_FULFILLED, GET_ONGOIN_WITH_CLAIMS } from "../../helper/API"
 import axios from "../../helper/axiosConfig"
 import { IAdminFullTransaction } from "../../helper/types"
 import { RootState } from "../store"
@@ -57,6 +57,54 @@ export const fetchTransaction = () => {
             const options = {
                 method: 'GET',
                 url: GET_ONGOIN_WITH_CLAIMS,
+                headers: {
+                  Authorization: Authorization
+                }
+              };    
+            const res = await axios.request(options)
+            dispatch({
+                type : FETCH_TRANSACTION_SUCCESS , payload :  res.data.transactions
+            })
+
+
+        } catch (error) {
+            dispatch( {
+                type : FETCH_TRANSACTION_FAILED , payload :  "An Errour has occured :)"
+            })
+        }
+    };
+}
+
+export const fetchFulfilledTransaction = () => {
+    return async (dispatch: Dispatch<TransactionAction>, getState: () => RootState) => {
+        try {
+            const options = {
+                method: 'GET',
+                url: GET_ONGOING_FULFILLED,
+                headers: {
+                  Authorization: Authorization
+                }
+              };    
+            const res = await axios.request(options)
+            dispatch({
+                type : FETCH_TRANSACTION_SUCCESS , payload :  res.data.transactions
+            })
+
+
+        } catch (error) {
+            dispatch( {
+                type : FETCH_TRANSACTION_FAILED , payload :  "An Errour has occured :)"
+            })
+        }
+    };
+}
+
+export const fetchCanceledTransaction = () => {
+    return async (dispatch: Dispatch<TransactionAction>, getState: () => RootState) => {
+        try {
+            const options = {
+                method: 'GET',
+                url: GET_ONGOING_CANCELED,
                 headers: {
                   Authorization: Authorization
                 }

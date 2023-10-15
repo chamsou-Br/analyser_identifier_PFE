@@ -1,0 +1,147 @@
+
+/* ------------------------------------------------
+              client-history-card
+-------------------------------------------------- */
+
+.client-history-card {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #01010111;
+    width: 100%;
+    min-width: 400px;
+  }
+  
+  .client-history-card .client-invitation-content {
+    padding: 10px 20px;
+    text-align: start;
+  }
+  
+  .client-history-card .client-invitation-content .title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #010101;
+    margin-bottom: 5px;
+  }
+  
+  .client-history-card .client-invitation-content .descr {
+    font-size: 12px;
+    color: #414a4c;
+    font-weight: bold;
+    margin-bottom: 20px;
+    max-width: 800px;
+  }
+  
+  .client-history-card .client-invitation-content .informations {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .client-history-card
+    .client-invitation-content
+    .informations
+    .card-information-lign {
+    flex: 0 0 calc(50% - 10px); /* Make each item 50% wide with some spacing */
+    margin: 5px;
+  }
+  
+  .client-history-card .client-transactions-content {
+    padding: 10px 20px;
+    text-align: start;
+    width:100%;
+  }
+  
+  .client-history-card  ::-webkit-scrollbar {
+    height: 10px;
+  }
+  
+  .client-history-card  ::-webkit-scrollbar-thumb {
+    background-color: #3782ec;
+    border-radius: 6px;
+  }
+  
+  .client-history-card  ::-webkit-scrollbar-track {
+    background: #3782ec22;
+  }
+  
+  
+  .client-history-card .client-transactions-content .informations {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .client-history-card
+    .client-transaction-content
+    .informations
+    .card-information-lign,
+  .client-history-card
+    .client-transaction-content
+    .informations
+    .state-information {
+    flex: 0 0 calc(50% - 10px); /* Make each item 50% wide with some spacing */
+    margin: 5px;
+  }
+  
+  .client-history-card .client-transactions-content .client-transaction-content {
+    margin: 20px 10px;
+    padding: 10px;
+    position: relative;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+  
+    /* min-width: 650px; */
+  }
+  
+  .client-history-card .client-transactions-content .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #010101;
+    margin-bottom: 5px;
+  }
+  
+  .client-history-card .client-transactions-content .state-information {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  
+  .client-history-card .client-transactions-content .state-information .title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #949898;
+    margin-right: 30px;
+    width: 120px;
+  }
+  
+  .client-history-card .client-transaction-content .navigate-icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 16px;
+    color: #010101aa;
+    cursor: pointer;
+  }
+  
+  @media (max-width: 1199px) {
+    .client-history-card
+      .client-invitation-content
+      .informations
+      .card-information-lign,
+    .client-history-card
+      .client-transaction-content
+      .informations
+      .card-information-lign,
+    .client-history-card
+      .client-transaction-content
+      .informations
+      .state-information {
+      flex: calc(100% - 10px); /* Make each item 50% wide with some spacing */
+      margin: 5px;
+    }
+    .client-history-card .client-transactions-content .client-transaction-content {
+      margin: 20px 0;
+    }
+  
+  }
+  

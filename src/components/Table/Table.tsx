@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 import {
   IRowsTable,
   ITransacionForTable,
-} from "../helper/types";
+} from "../../helper/types";
 import { FaEye } from "react-icons/fa";
-import "../styles/shared.css"
-import HeaderTable from "./headerTable";
+import HeaderTable from "../headerTable/headerTable";
+import './table.css'
 
 type props = {
 getDefaultData  : () => ITransacionForTable[];

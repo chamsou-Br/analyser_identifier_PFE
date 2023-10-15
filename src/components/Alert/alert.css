@@ -1,18 +1,3 @@
-.transaction-note .label {
-    font-size: 14px;
-    font-weight: bold;
-    color: #010101aa;
-    margin: 5px 0;
-  }
-  
-  .transaction-note .content {
-    padding: 0 20px;
-  }
-  .transaction-note .button {
-    margin-left: 20px;
-    margin-top: 20px;
-    padding: 10px 30px;
-  }
    .Alert {
     display: flex;
     flex-direction: column;

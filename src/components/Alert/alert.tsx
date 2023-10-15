@@ -1,6 +1,6 @@
-import React from "react";
 import { FaCheck, FaWindowClose } from "react-icons/fa";
 import { Modal } from "rsuite";
+import "./alert.css"
 
 type Props = {
   alert: {

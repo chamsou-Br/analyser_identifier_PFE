@@ -1,0 +1,72 @@
+
+/* ----------------------------------------
+            .reclamation-card 
+    ----------------------------------- */
+
+    .reclamation-card {
+        margin: 20px 10px;
+        /* border: 1px solid #00000022; */
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 0.4rem;
+        padding: 15px 0;
+        position: relative;
+        min-width: 85%;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        justify-content: space-between;
+      }
+      
+      .reclamation-card .sender {
+        font-size: 14px;
+        font-weight: 600;
+        color: #010101aa;
+      }
+      
+      .reclamation-card .date {
+        font-size: 14px;
+        font-weight: 600;
+        color: #010101aa;
+      }
+      
+      .reclamation-card .reclamation-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px;
+        padding-top: 10px;
+        border-top: 1px solid #00000022;
+      }
+      
+      .reclamation-card .content {
+        white-space: wrap;
+      }
+      
+      .reclamation-card .raison {
+        font-size: 16px;
+        font-weight: 600;
+        color: #010101;
+        margin-bottom: 2px;
+        padding: 0 15px;
+      }
+      
+      .reclamation-card .reclamation-card-descr {
+        font-size: 13px;
+        font-weight: 600;
+        color: #010101aa;
+        padding: 0 15px;
+        margin-bottom: 15px;
+      }
+      
+      .reclamation-card .details-navigate-icon {
+        background-color: #3782ec;
+        color: #fff;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        font-size: 10px;
+        cursor: pointer;
+      }
+      

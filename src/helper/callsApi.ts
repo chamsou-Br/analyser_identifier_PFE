@@ -5,20 +5,7 @@ import { Authorization } from "./constant";
 import { IAdminFullTransaction, IAdminTransaction, IInvitationTransaction } from "./types";
 import { ADD_NOTE, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_TRANSACTION, SELLER_HISTORY } from "./API";
 
-type TransactionFetch = {
-  transaction: IAdminFullTransaction | undefined;
-  error: string | undefined;
-};
 
-type TransactionsFetch = {
-  transactions: IAdminFullTransaction[];
-  error: string | undefined;
-};
-
-type SellerHistory = {
-  historiy : IInvitationTransaction[] , 
-  error : string | undefined
-}
 
 export const fetchTransactionAPI = async (
   uuid: string
@@ -34,12 +21,17 @@ export const fetchTransactionAPI = async (
       data: { transactionUuid: uuid },
     };
 
+    
+
     const response = await axios.request(options);
 
     return {
       transaction: response.data.transactions as IAdminFullTransaction,
       error: undefined,
     };
+
+
+
   } catch (error: unknown) {
     return {
       transaction: undefined,

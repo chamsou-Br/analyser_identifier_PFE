@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
-import '../styles/shared.css'
+
 type Props = {
     title :string
 }

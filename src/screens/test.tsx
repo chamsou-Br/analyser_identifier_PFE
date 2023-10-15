@@ -12,7 +12,7 @@ import {
 } from "../state/actions/transactionAction";
 import { DeliveryType, IAdminFullTransaction, IRowsTable, ITransacionForTable, TransactionStatus } from "../helper/types";
 
-import TableCompo from "../components/Table";
+import TableCompo from "../components/Table/Table";
 import { Currency } from "../helper/constant";
 
 // eslint-disable-next-line no-empty-pattern
