@@ -10,7 +10,7 @@ type Props = {
 };
 
 function TransactionStatusUpdate(props: Props) {
-  const [state, setState] = useState<string>("");
+  const [state, setState] = useState<string>("payed-ghosted");
   const [raison, setRaison] = useState<string>("");
   const [open, setIsOpen] = useState(false);
 
@@ -42,7 +42,7 @@ function TransactionStatusUpdate(props: Props) {
     },
     {
       key: "fulfilled",
-      value: ["fulfilled-continue","fulfilled-hold", "fulfilled"],
+      value: ["fulfilled-continue", "fulfilled-hold", "fulfilled"],
     },
   ];
   //.map((item) => ({ label: item, value: item }));
@@ -63,7 +63,11 @@ function TransactionStatusUpdate(props: Props) {
       >
         <Modal.Body className="content">
           <div className="label">Status : </div>
-          <select className="custom-select">
+          <select
+            className="custom-select"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+          >
             {data.map((grps, i) => (
               <optgroup key={i} label={grps.key}>
                 {grps.value.map((option, j) => (

@@ -19,3 +19,5 @@ export const BUYER_HISTORY = "/admin/buyer_history"
 export const SELLER_HISTORY = "/admin/seller_history"
 
 export const BLOCK_SELLER = "/admin/delete_seller"
+
+export const GET_CLOSING_INFO = "/admin/get_closing_info"

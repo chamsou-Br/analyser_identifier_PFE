@@ -17,10 +17,10 @@ import Reclamationcard from "../components/ReclamationCard/reclamationcard";
 import {
   Client,
   IAdminFullTransaction,
-  IAdminTransaction,
+  ITransactionClosing,
 } from "../helper/types";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../state/store";
+import { RootState } from "../state/store";
 import Status from "../components/TransactionStatus/status";
 import {
   getDeliveryTypeTitle,
@@ -31,7 +31,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import HeaderPage from "../components/headerPage/headerPage";
 import TransactionActions from "../components/TransactionActions/transactionActions";
 import TransactionNote from "../components/TransactionNote/transactionNote";
-import TransactionActionConfirmation from "../components/TransactionActionConfirmation/transactionActionConfirmation";
 import TransactionStatusUpdate from "../components/TransactionStateUpdate/transactionStateUpate";
 import Alert from "../components/Alert/alert";
 import {
@@ -39,8 +38,15 @@ import {
   changeStateOfTransactionAPI,
   closeTransactionAPI,
   fetchTransactionAPI,
+  getClosingInfoAPI,
 } from "../helper/callsApi";
 import HistorieTransactioncard from "../components/transactionHistory/TransactionHistory";
+import CloseTransactionAction from "../components/closeTransactionAction/closeTransactionAction";
+
+type infoClosing = {
+  info: ITransactionClosing | undefined;
+  error: string | null | undefined;
+};
 
 const TransactionDetails: React.FC = () => {
   const { uuid } = useParams();
@@ -63,10 +69,25 @@ const TransactionDetails: React.FC = () => {
     setisOpenModalOfChangementTransactionState,
   ] = useState<boolean>(false);
 
+  const [infoClosing, setInfoClosing] = useState<infoClosing>({
+    error: null,
+    info: undefined,
+  });
+
   const TransactionState = useSelector(
     (state: RootState) => state.transactions
   );
   const [transaction, setTransaction] = useState<IAdminFullTransaction>();
+
+  /* start Closing Info function */
+
+  const fetchClosingInfo = async (uuid: string) => {
+    const res = await getClosingInfoAPI(uuid);
+    if (res.error) setInfoClosing({ error: res.error, info: undefined });
+    else setInfoClosing({ error: null, info: res.info });
+  };
+
+  /* End ClosingInfo functions */
 
   /* start alert function */
 
@@ -101,21 +122,23 @@ const TransactionDetails: React.FC = () => {
     raison: string
   ) => {
     setisOpenModalOfChangementTransactionState(false);
+    console.log(decision,raison)
     const res = await changeStateOfTransactionAPI(
       uuid ? uuid : "",
       decision,
       raison
     );
-    console.log(res);
     if (res.error) {
       onAlert(false, res.error, true);
     } else {
-      const data = res.transaction as IAdminTransaction;
-      setTransaction({
-        ...data,
-        Claims: transaction ? transaction?.Claims : [],
-        Histories: transaction ? transaction?.Histories : [],
-      });
+      const data = (
+        await fetchTransactionAPI(res.transaction ? res.transaction.uuid : "")
+      ).transaction;
+      const info = await getClosingInfoAPI(
+        res.transaction ? res.transaction.uuid : ""
+      );
+      setInfoClosing({ error: info.error, info: info.info });
+      setTransaction(data);
       onAlert(true, "", true);
     }
   };
@@ -134,7 +157,10 @@ const TransactionDetails: React.FC = () => {
     if (res.error) {
       onAlert(false, res.error, true);
     } else {
-      setTransaction(res.transaction);
+      const data = (
+        await fetchTransactionAPI(res.transaction ? res.transaction.uuid : "")
+      ).transaction;
+      setTransaction(data);
       onAlert(true, "", true);
     }
   };
@@ -212,6 +238,7 @@ const TransactionDetails: React.FC = () => {
 
   useEffect(() => {
     getTransaction();
+    fetchClosingInfo(uuid ? uuid : "");
   }, [uuid]);
 
   if (transaction) {
@@ -302,32 +329,36 @@ const TransactionDetails: React.FC = () => {
 
                   {isClaimsOrHistories === 0 ? (
                     <div className="reclamations-container">
-                      {transaction.Claims.map((claim) => (
-                        <Reclamationcard
-                          key={claim.id} // Don't forget to add a unique key when mapping components
-                          onNavigateToDetails={() => {}}
-                          sender={claim.sender}
-                          text={claim.text}
-                          raison={claim.reason}
-                          date={getFormatDate(
-                            claim.createdAt.toString().split("T")[0]
-                          )}
-                        />
-                      ))}
+                      {transaction.Claims.slice()
+                        .reverse()
+                        .map((claim) => (
+                          <Reclamationcard
+                            key={claim.id} // Don't forget to add a unique key when mapping components
+                            onNavigateToDetails={() => {}}
+                            sender={claim.sender}
+                            text={claim.text}
+                            raison={claim.reason}
+                            date={getFormatDate(
+                              claim.createdAt.toString().split("T")[0]
+                            )}
+                          />
+                        ))}
                     </div>
                   ) : (
                     <div className="reclamations-container">
-                      {transaction.Histories.map((hist) => (
-                        <HistorieTransactioncard
-                          key={hist.id} // Don't forget to add a unique key when mapping components
-                          action={hist.action}
-                          actionType={hist.actionType}
-                          raison={hist.reason}
-                          date={getFormatDate(
-                            hist.createdAt.toString().split("T")[0]
-                          )}
-                        />
-                      ))}
+                      {transaction.Histories.slice()
+                        .reverse()
+                        .map((hist) => (
+                          <HistorieTransactioncard
+                            key={hist.id} // Don't forget to add a unique key when mapping components
+                            action={hist.action}
+                            actionType={hist.actionType}
+                            raison={hist.reason}
+                            date={getFormatDate(
+                              hist.createdAt.toString().split("T")[0]
+                            )}
+                          />
+                        ))}
                     </div>
                   )}
                 </div>
@@ -453,11 +484,12 @@ const TransactionDetails: React.FC = () => {
           handleCloseCanceled={handleCanceledModalOfNote}
           handleCloseSucessed={handleSubmitNote}
         />
-        <TransactionActionConfirmation
+        <CloseTransactionAction
           isOpen={isOpenModalOfTransactionClose}
           handleCanceled={handleCanceledModalOfTransactionClose}
           handleSubmit={handleSubmitTransactionClose}
-          confirmationText="Are you sure that you want to close the transaction ?"
+          uuid={transaction.uuid}
+          info={infoClosing}
         />
         <TransactionStatusUpdate
           isOpen={isOpenModalOfChangementTransactionState}

@@ -225,4 +225,12 @@ export enum TransactionOutcome {
     Accepted = 'accepted',
     Rejected = 'rejected',
   }
+
+
+  export interface ITransactionClosing  {
+    commission_money: number;
+    buyer_money: number;
+    seller_money: number;
+    payed_money: number;
+}
   
