@@ -58,7 +58,7 @@ export const fetchTransactions = () => {
                 method: 'GET',
                 url: GET_ONGOIN_WITH_CLAIMS,
                 headers: {
-                  Authorization: Authorization
+                  Authorization: Authorization()
                 }
               };    
             const res = await axios.request(options)
@@ -82,7 +82,7 @@ export const fetchFulfilledTransaction = () => {
                 method: 'GET',
                 url: GET_ONGOING_FULFILLED,
                 headers: {
-                  Authorization: Authorization
+                  Authorization: Authorization()
                 }
               };    
             const res = await axios.request(options)
@@ -106,7 +106,7 @@ export const fetchCanceledTransaction = () => {
                 method: 'GET',
                 url: GET_ONGOING_CANCELED,
                 headers: {
-                  Authorization: Authorization
+                  Authorization: Authorization()
                 }
               };    
             const res = await axios.request(options)

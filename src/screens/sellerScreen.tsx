@@ -19,7 +19,7 @@ import { RootState, useAppDispatch } from "../state/store";
 import { useSelector } from "react-redux";
 import { ModifyTransactionDetails } from "../state/actions/transactionDetailsAction";
 
-function SellerScreen() {
+const SellerScreen : React.FC  = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const transaction = useSelector((state : RootState)=>state.transaction).transaction
@@ -29,7 +29,7 @@ function SellerScreen() {
   const [isModalConfirmOfBlockClient, setisModalConfirmOfBlockClient] =
     useState<boolean>(false);
 
-  const fetchData = async () => {
+  const fetchData  = async () => {
     const res = await getSellerHistorieAPI(client ? client.email  : "");
     console.log(res);
     setHistories(res.historiy);

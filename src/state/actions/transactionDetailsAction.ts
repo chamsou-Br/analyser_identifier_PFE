@@ -64,7 +64,7 @@ export const fetchTransactionDetails = (uuid : string) => {
                 url: GET_TRANSACTION,
                 headers: {
                   "Content-Type": "application/x-www-form-urlencoded",
-                  Authorization: Authorization,
+                  Authorization: Authorization(),
                 },
                 data: { transactionUuid: uuid },
               };   

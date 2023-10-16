@@ -16,7 +16,7 @@ export const fetchTransactionAPI = async (
       url: GET_TRANSACTION,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: Authorization,
+        Authorization: Authorization() ,
       },
       data: { transactionUuid: uuid },
     };
@@ -52,7 +52,7 @@ export const addNoteOfTransactionAPI = async (
       url: ADD_NOTE,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: Authorization,
+        Authorization: Authorization(),
       },
       data: {
         transactionUuid: uuid,
@@ -89,7 +89,7 @@ try {
         url: DECIDE_TRANSACTION,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization : Authorization
+          Authorization : Authorization()
         },
         data: {
           transactionUuid: uuid,
@@ -126,7 +126,7 @@ try {
         url: CLOSE_TRANSACTION,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: Authorization
+          Authorization: Authorization()
         },
         data: {transactionUuid: uuid}
       };
@@ -161,7 +161,7 @@ try {
     url: BUYER_HISTORY,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: Authorization
+      Authorization: Authorization()
     },
     data: {BuyerEmail: email}
   };
@@ -195,7 +195,7 @@ try {
     url: SELLER_HISTORY,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: Authorization
+      Authorization: Authorization()
     },
     data: {sellerEmail: email}
   };
@@ -228,7 +228,7 @@ try {
     url: BLOCK_SELLER,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: Authorization
+      Authorization: Authorization()
     },
     data: {sellerEmail: email}
   };
@@ -262,7 +262,7 @@ try {
     url: GET_CLOSING_INFO,
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: Authorization
+      Authorization: Authorization()
     },
     data: {transactionUuid: uuid}
   };

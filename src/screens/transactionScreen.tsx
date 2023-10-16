@@ -15,6 +15,7 @@ import {  IAdminFullTransaction, IRowsTable, ITransacionForTable, TransactionSta
 import TableCompo from "../components/Table/Table";
 import { Currency, getDeliveryTypeTitle  , getFormatDate} from "../helper/constant";
 import HeaderPage from "../components/headerPage/headerPage";
+import { logout } from "../state/actions/authAction";
 
 // eslint-disable-next-line no-empty-pattern
 const TransactionScreen: React.FC = () => {
@@ -73,6 +74,7 @@ const TransactionScreen: React.FC = () => {
 
   return (
     <div className="transaction-container">
+ 
       <div className="table-container">
       <HeaderPage
 

@@ -22,7 +22,7 @@ import TransactionActionConfirmation from "../components/TransactionActionConfir
 import Alert from "../components/Alert/alert";
 import HeaderPage from "../components/headerPage/headerPage";
 
-function BuyerScreen() {
+const  BuyerScreen : React.FC  = ()  => {
   const location = useLocation();
 
   const [client, setclient] = useState<IClientBase>(location.state);

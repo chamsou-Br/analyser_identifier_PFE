@@ -6,26 +6,32 @@ import store from "./state/store";
 import LoginScreen from "./screens/loginScreen";
 import TransactionDetails from "./screens/transactionDetails";
 import Layout from "./components/Layout/layout";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import BuyerScreen from "./screens/buyerScreen";
 import SellerScreen from "./screens/sellerScreen";
 import TransactionFulfilledScreen from "./screens/transactionFulfilledScreen";
 import TransactionCanceledScreen from "./screens/transactionCanceledScreen";
+import Page404 from "./components/404/page404";
+import CustomElement from "./components/Layout/customElement";
+
+
 
 function App() {
+
+
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<TransactionScreen />} />
-            <Route path="/fulfilled" element={<TransactionFulfilledScreen />} />
-            <Route path="/canceled" element={<TransactionCanceledScreen />} />
-            <Route path="/buyer" element={<BuyerScreen />} />
-            <Route path="/seller" element={<SellerScreen />} />
-            <Route path="/details/:uuid" element={<TransactionDetails />} />
+          <Routes  >
+            <Route path="/" element={<CustomElement component={TransactionScreen} />} />
+            <Route path="/fulfilled" element={<CustomElement component={TransactionFulfilledScreen} />} />
+            <Route path="/canceled" element={<CustomElement component={TransactionCanceledScreen} />} />
+            <Route path="/buyer" element={<CustomElement component={BuyerScreen} />} />
+            <Route path="/seller" element={<CustomElement component={SellerScreen} />} />
+            <Route path="/details/:uuid" element={<CustomElement component={TransactionDetails} />} />
+            <Route path="/auth" element={<LoginScreen />} />
+            <Route path="*" element={<Page404 />} />
           </Routes>
-        </Layout>
       </BrowserRouter>
     </Provider>
   );

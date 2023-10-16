@@ -1,16 +1,22 @@
-import React from "react";
 import "./navbar.css";
 import { IoMdLogOut } from "react-icons/io";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../state/store";
+import { logout } from "../../state/actions/authAction";
 
 function NavBar() {
   const navigate = useNavigate();
   const history = useLocation();
+  const dispatch = useAppDispatch()
+
+  const handleLogOut = () => {
+    dispatch(logout());
+    navigate("/auth")
+  }
 
   return (
     <div className="navBar">
       <div
-        onClick={() => console.log(history.pathname)}
         className="navBar-left"
       >
         <div>
@@ -39,7 +45,7 @@ function NavBar() {
           Canceled Transaction
         </div>
       </div>
-      <div className="navBar-right">
+      <div onClick={handleLogOut} className="navBar-right">
         <span>LogOut</span>
         <div className="logOut-icon">
           <IoMdLogOut />
