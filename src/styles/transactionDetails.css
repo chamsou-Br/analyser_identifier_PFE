@@ -6,6 +6,8 @@
     position: relative;
 }
 
+
+
 .transaction-details-page .transaction-section {
     padding: 0 40px;
     width: 100%;
@@ -165,6 +167,16 @@
   .card .reclamations-container::-webkit-scrollbar-track {
     background: #3782ec22;
   }
+
+  @media (max-width : 724px) {
+    .transaction-details-page {
+        flex-direction: column;
+    
+    }
+    .transaction-details-page .transaction-section {
+        margin-left: 0;
+    }
+}
   
 
 

@@ -16,11 +16,10 @@ import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 import Reclamationcard from "../components/ReclamationCard/reclamationcard";
 import {
   Client,
-  IAdminFullTransaction,
   ITransactionClosing,
 } from "../helper/types";
 import { useSelector } from "react-redux";
-import { RootState } from "../state/store";
+import { RootState, useAppDispatch } from "../state/store";
 import Status from "../components/TransactionStatus/status";
 import {
   getDeliveryTypeTitle,
@@ -37,11 +36,16 @@ import {
   addNoteOfTransactionAPI,
   changeStateOfTransactionAPI,
   closeTransactionAPI,
-  fetchTransactionAPI,
   getClosingInfoAPI,
 } from "../helper/callsApi";
 import HistorieTransactioncard from "../components/transactionHistory/TransactionHistory";
 import CloseTransactionAction from "../components/closeTransactionAction/closeTransactionAction";
+import {
+  AddTransactionDetails,
+  ModifyTransactionDetails,
+  fetchTransactionDetails,
+} from "../state/actions/transactionDetailsAction";
+import Page404 from "../components/404/page404";
 
 type infoClosing = {
   info: ITransactionClosing | undefined;
@@ -57,6 +61,7 @@ const TransactionDetails: React.FC = () => {
   };
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [isBuyerOrSeller, setIsBuyerOrSeller] = useState<number>(0);
   const [isClaimsOrHistories, setIsClaimsOrHistorie] = useState<number>(0);
   const [search, setSearch] = useState<string>("");
@@ -74,10 +79,8 @@ const TransactionDetails: React.FC = () => {
     info: undefined,
   });
 
-  const TransactionState = useSelector(
-    (state: RootState) => state.transactions
-  );
-  const [transaction, setTransaction] = useState<IAdminFullTransaction>();
+  const TransactionState = useSelector((state: RootState) => state);
+  const transaction = TransactionState.transaction.transaction;
 
   /* start Closing Info function */
 
@@ -122,7 +125,6 @@ const TransactionDetails: React.FC = () => {
     raison: string
   ) => {
     setisOpenModalOfChangementTransactionState(false);
-    console.log(decision,raison)
     const res = await changeStateOfTransactionAPI(
       uuid ? uuid : "",
       decision,
@@ -131,14 +133,18 @@ const TransactionDetails: React.FC = () => {
     if (res.error) {
       onAlert(false, res.error, true);
     } else {
-      const data = (
-        await fetchTransactionAPI(res.transaction ? res.transaction.uuid : "")
-      ).transaction;
+      if (res.transaction != undefined && transaction != undefined)
+        dispatch(
+          ModifyTransactionDetails({
+            ...res.transaction,
+            Claims: transaction?.Claims,
+            Histories: transaction.Histories,
+          })
+        );
       const info = await getClosingInfoAPI(
         res.transaction ? res.transaction.uuid : ""
       );
       setInfoClosing({ error: info.error, info: info.info });
-      setTransaction(data);
       onAlert(true, "", true);
     }
   };
@@ -157,10 +163,15 @@ const TransactionDetails: React.FC = () => {
     if (res.error) {
       onAlert(false, res.error, true);
     } else {
-      const data = (
-        await fetchTransactionAPI(res.transaction ? res.transaction.uuid : "")
-      ).transaction;
-      setTransaction(data);
+      if (res.transaction != undefined && transaction != undefined)
+      dispatch(
+        ModifyTransactionDetails({
+          ...res.transaction,
+          Claims: transaction.Claims,
+          Histories: transaction.Histories,
+        })
+      );
+
       onAlert(true, "", true);
     }
   };
@@ -179,7 +190,7 @@ const TransactionDetails: React.FC = () => {
     if (res.error) {
       onAlert(false, res.error, true);
     } else {
-      setTransaction(res.transaction);
+      dispatch(ModifyTransactionDetails(res.transaction));
       onAlert(true, "", true);
     }
   };
@@ -215,31 +226,28 @@ const TransactionDetails: React.FC = () => {
   };
 
   const handleSearch = () => {
-    navigate("/details/" + search);
+    getTransaction(search)
+    console.log(transaction)
+    setSearch("")
   };
 
   /* End Search Functions */
 
-  const getTransaction = async () => {
-    const data = TransactionState.transactions.filter(
+  const getTransaction = async (uuid : string) => {
+    const data = TransactionState.transactions.transactions.filter(
       (it) => it.uuid.toLocaleLowerCase() === uuid?.toLocaleLowerCase()
     )[0];
     if (data) {
-      setTransaction(data);
+      dispatch(AddTransactionDetails(data));
     } else {
-      const res = await fetchTransactionAPI(uuid ? uuid : "");
-      if (res.error) {
-        navigate("/");
-      } else {
-        setTransaction(res.transaction);
-      }
+      dispatch(fetchTransactionDetails(uuid ? uuid : ""));
     }
   };
 
   useEffect(() => {
-    getTransaction();
+    getTransaction(uuid ? uuid : "");
     fetchClosingInfo(uuid ? uuid : "");
-  }, [uuid]);
+  }, []);
 
   if (transaction) {
     return (
@@ -499,6 +507,10 @@ const TransactionDetails: React.FC = () => {
         <Alert alert={alert} onAlert={onAlert} />
       </div>
     );
+  }else{
+    return (
+      <Page404 />
+    )
   }
 };
 

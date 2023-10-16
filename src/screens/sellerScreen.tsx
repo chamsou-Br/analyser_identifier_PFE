@@ -2,37 +2,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "../styles/seller.css";
-import { getBuyerHistorieAPI, getSellerHistorieAPI } from "../helper/callsApi";
+import { blockSellerAPI,  getSellerHistorieAPI } from "../helper/callsApi";
 import {
-  Client,
+  EntityStatus,
   IClientBase,
   IInvitationTransaction,
-  IRowsTable,
-  ITransacionForTable,
-  ITransactionNoSeller,
 } from "../helper/types";
 import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 import { useLocation } from "react-router";
-import {
-  Currency,
-  getDeliveryTypeTitle,
-  getFormatDate,
-} from "../helper/constant";
+
 import HeaderPage from "../components/headerPage/headerPage";
 import ClientHistoryCard from "../components/clientHistoryCard/clientHistoryCard";
 import Alert from "../components/Alert/alert";
 import TransactionActionConfirmation from "../components/TransactionActionConfirmation/transactionActionConfirmation";
+import { RootState, useAppDispatch } from "../state/store";
+import { useSelector } from "react-redux";
+import { ModifyTransactionDetails } from "../state/actions/transactionDetailsAction";
 
 function SellerScreen() {
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const transaction = useSelector((state : RootState)=>state.transaction).transaction
 
-  const [client, setclient] = useState<IClientBase>(location.state);
+  const [client,setClient]  = useState<IClientBase>(location.state)  ;
   const [histories, setHistories] = useState<IInvitationTransaction[]>([]);
   const [isModalConfirmOfBlockClient, setisModalConfirmOfBlockClient] =
     useState<boolean>(false);
 
   const fetchData = async () => {
-    const res = await getSellerHistorieAPI(client.email);
+    const res = await getSellerHistorieAPI(client ? client.email  : "");
     console.log(res);
     setHistories(res.historiy);
   };
@@ -65,9 +63,26 @@ function SellerScreen() {
     setisModalConfirmOfBlockClient(false);
   };
 
-  const handleSubmitBlockClient = () => {
+  const handleSubmitBlockClient =  async () => {
     setisModalConfirmOfBlockClient(false);
-    onAlert(true, "", true);
+    const res = await blockSellerAPI(client.email);
+    if (res.error) {
+      onAlert(false, res.error, true);
+    }else {
+      onAlert(true, "", true);
+      if (res.seller && transaction){
+        setClient({...client ,...res.seller})
+        dispatch(ModifyTransactionDetails({
+          ...transaction,
+          Invitation : {
+            ...transaction.Invitation,
+            Seller : res.seller
+          }
+        }))
+      }
+
+    }
+
   };
 
   /*  End block Seller Dunction*/
@@ -92,7 +107,7 @@ function SellerScreen() {
           <div className="seller-info">
             <div className="header">Seller Information</div>
             <BuyerOrSellerCard client={client} />
-            {client.client == Client.SELLER ? (
+            {client.status != EntityStatus.Rejected  ? (
               <div onClick={handleBlockClient} className="block">
                 Block
               </div>

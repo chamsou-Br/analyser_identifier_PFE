@@ -1,11 +1,24 @@
 import React from 'react'
-
-import picture_404 from "../assets/404_page.jpg"
+import "./page404.css"
+import { useNavigate } from 'react-router'
 
 function Page404() {
+
+  const navigate = useNavigate()
   return (
-    <div style={{margin : "auto"}} >
-          <img  src={picture_404} style={{height : 400 , width : 400}} />
+    <div className='not-found'  >
+          <div className='title'>
+            4O4
+          </div>
+          <div className='descr'>
+            this page was not found  , you maybe have mistiyped 
+          </div>
+          <div className='descr'>
+          the address or the page may have moved
+          </div>
+          <div onClick={()=>navigate("/")} className='home'>
+            Take me to the Home page
+          </div>
     </div>
 
   )

@@ -112,14 +112,14 @@ export interface IInvitation {
   export interface IClientBase {
     phoneNumber: string ,
     email: string ,
-    birthDay: Date | null,
-    gender: Gender | null,
+    birthDay: Date | null | undefined,
+    gender: Gender | null | undefined,
     firstName: string ,
-    businessName: string | null,
-    location: string | null,
+    businessName: string | null | undefined,
+    location: string | null | undefined,
     wilaya: string ,
-    address: string | null,
-    description: string | null,
+    address: string | null | undefined,
+    description: string | null | undefined,
     status: EntityStatus ,
     client? : Client
 

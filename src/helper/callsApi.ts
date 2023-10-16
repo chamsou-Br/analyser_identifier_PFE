@@ -2,7 +2,7 @@
 import { AxiosError } from "axios";
 import axios from "./axiosConfig";
 import { Authorization } from "./constant";
-import { IAdminFullTransaction, IAdminTransaction, IInvitationTransaction, ITransactionClosing } from "./types";
+import { IAdminFullTransaction, IAdminTransaction, IInvitationTransaction, ISellerBase, ITransactionClosing } from "./types";
 import { ADD_NOTE, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_CLOSING_INFO, GET_TRANSACTION, SELLER_HISTORY } from "./API";
 
 
@@ -219,7 +219,7 @@ try {
 }
 
 export const blockSellerAPI = async (  
-  id: string,
+  email: string,
   ) => {
 try { 
 
@@ -230,13 +230,14 @@ try {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: Authorization
     },
-    data: {sellerId: id}
+    data: {sellerEmail: email}
   };
   
     
   const response = await axios.request(options);
 
   return {
+    seller : response.data.seller as ISellerBase,
     error: undefined,
   };
 

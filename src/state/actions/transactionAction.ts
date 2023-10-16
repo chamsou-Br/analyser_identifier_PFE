@@ -51,7 +51,7 @@ export const AddTransaction =  (transaction : IAdminFullTransaction) : IAddTrans
 }
 
 
-export const fetchTransaction = () => {
+export const fetchTransactions = () => {
     return async (dispatch: Dispatch<TransactionAction>, getState: () => RootState) => {
         try {
             const options = {

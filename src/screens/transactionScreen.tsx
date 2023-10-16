@@ -6,7 +6,7 @@ import "../styles/transaction.css";
 import { RootState, useAppDispatch } from "../state/store";
 import { useSelector } from "react-redux";
 import {
-  fetchTransaction,
+  fetchTransactions,
   startLoadingTransaction,
   stopLoadingTransaction,
 } from "../state/actions/transactionAction";
@@ -26,7 +26,7 @@ const TransactionScreen: React.FC = () => {
   useEffect(() => {
     dispatch(startLoadingTransaction());
     setTimeout(() => {
-      dispatch(fetchTransaction());
+      dispatch(fetchTransactions());
       dispatch(stopLoadingTransaction());
     }, 1000);
 
@@ -67,7 +67,7 @@ const TransactionScreen: React.FC = () => {
 
 
   const onRefreshData = () => {
-      dispatch(fetchTransaction());
+      dispatch(fetchTransactions());
   };
 
 

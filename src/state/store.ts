@@ -7,6 +7,7 @@ import { transactionsReducer } from './reducers/transactionReducer';
 import {useDispatch} from "react-redux"
 import logger  from "redux-logger"
 import { legacy_createStore} from 'redux'
+import { transactionDetailsReducer } from './reducers/transactionDetailsReducer';
 // Define RootState
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -17,11 +18,17 @@ export const useAppDispatch = () => useDispatch<AppDispatch>()
 // Combine Reducers
 const rootReducer = combineReducers({
   transactions: transactionsReducer, 
+  transaction : transactionDetailsReducer
 });
 
 const composeEnhancer =  compose;
 
 const initState = {
+  transactionDetails : {
+    transaction : undefined,
+    error: null,
+    loading : false
+  },
   transactions : {
     transactions :[],
     error: null,

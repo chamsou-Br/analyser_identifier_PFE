@@ -1,0 +1,28 @@
+.not-found {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    overflow-y: hidden;
+    flex-direction: column;
+}
+
+.not-found .title {
+    font-size: 120px;
+    font-weight: bold;
+    color: #01010155;
+}
+.not-found .descr {
+    font-size: 18px;
+    font-weight: bold;
+    color: #010101CC;
+}
+
+.not-found .home {
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #3782ec;
+}
