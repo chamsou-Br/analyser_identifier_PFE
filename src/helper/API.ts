@@ -25,3 +25,7 @@ export const BLOCK_SELLER = "/admin/delete_seller"
 export const GET_CLOSING_INFO = "/admin/get_closing_info"
 
 export const ADMIN_ACTION = "/admin/actions"
+
+export const REJECT_INVITATION = "/admin/block_invitation"
+
+export const VALIDATE_INVITATION  = "/admin/validate_invitation"

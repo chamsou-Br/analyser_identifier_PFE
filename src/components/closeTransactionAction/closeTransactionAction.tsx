@@ -21,8 +21,6 @@ type Props = {
 
 function CloseTransactionAction(props: Props) {
  
-
-
   return (
     <Modal
       className="transaction-close"

@@ -18,7 +18,7 @@ import {
   getFormatDate,
 } from "../helper/constant";
 import TableCompo from "../components/Table/Table";
-import TransactionActionConfirmation from "../components/TransactionActionConfirmation/transactionActionConfirmation";
+import TransactionActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
 import Alert from "../components/Alert/alert";
 import HeaderPage from "../components/headerPage/headerPage";
 

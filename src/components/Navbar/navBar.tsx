@@ -48,7 +48,7 @@ function NavBar() {
           style={history.pathname == "/historie" ? { color: "#3782ec" } : {}}
           onClick={() => navigate("/historie")}
         >
-          Hostorie
+          Historie
         </div>
       </div>
       <div onClick={handleLogOut} className="navBar-right">

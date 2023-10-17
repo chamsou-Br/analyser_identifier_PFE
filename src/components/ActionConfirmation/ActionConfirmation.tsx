@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Modal } from "rsuite";
-import "./transactioActionConfirmation.css"
+import "./ActionConfirmation.css"
 
 type Props = {
   isOpen: boolean;
@@ -9,7 +9,7 @@ type Props = {
   confirmationText: string;
 };
 
-function TransactionActionConfirmation(props: Props) {
+function ActionConfirmation(props: Props) {
   return (
     <Modal
       className="transaction-note"
@@ -40,4 +40,4 @@ function TransactionActionConfirmation(props: Props) {
   );
 }
 
-export default TransactionActionConfirmation;
+export default ActionConfirmation;

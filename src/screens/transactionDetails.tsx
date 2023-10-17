@@ -8,6 +8,7 @@ import {
   FaSearchLocation,
   FaTruck,
   FaMapMarkedAlt,
+  FaEye,
 } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import LigneInfoInCard from "../components/LignInfoCard/lignInfoIncard";
@@ -79,6 +80,10 @@ const TransactionDetails: React.FC = () => {
 
   const TransactionState = useSelector((state: RootState) => state);
   const transaction = TransactionState.transaction.transaction;
+
+  const handleNavigateToInvitationDetails = () => {
+    navigate("/details/"+transaction?.uuid+"/invitation")
+  }
 
   /* start Closing Info function */
 
@@ -369,11 +374,18 @@ const TransactionDetails: React.FC = () => {
               </div>
             </div>
             <div className="product-details card">
+              <div onClick={handleNavigateToInvitationDetails} className="navigate-to-invitation-icon"> 
+                <FaEye />
+              </div>
               <TitleCard title="Invitation" />
               <div className="card-content">
                 <div className="title">{transaction.Invitation.product}</div>
                 <div className="descr">
                   {transaction.Invitation.description}
+                </div>
+                <div className="card-information">
+                  <div className="information-title">active</div>
+                  <Status status={transaction.Invitation.active} />
                 </div>
                 <LigneInfoInCard
                   title="Price"

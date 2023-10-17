@@ -9,10 +9,11 @@ export interface IInvitation {
     storeLocation: string,
     deliveryType: DeliveryType,
     localDeliveryPrice: number,
-    active: boolean,
+    active: EntityStatus,
     autoAccept: boolean,
     deliveryDelayHours: number,
     date: Date,
+    images?: string[],
     createdAt: Date,
     updatedAt: Date,
   }

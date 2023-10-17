@@ -2,8 +2,8 @@
 import { AxiosError } from "axios";
 import axios from "./axiosConfig";
 import { Authorization } from "./constant";
-import { IAdminFullTransaction, IAdminTransaction, IHistory, IInvitationTransaction, ISellerBase, ITransactionClosing } from "./types";
-import { ADD_NOTE, ADMIN_ACTION, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_CLOSING_INFO, GET_TRANSACTION, SELLER_HISTORY } from "./API";
+import { IAdminFullTransaction, IAdminTransaction, IHistory, IInvitation, IInvitationTransaction, ISellerBase, ITransactionClosing } from "./types";
+import { ADD_NOTE, ADMIN_ACTION, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_CLOSING_INFO, GET_TRANSACTION, REJECT_INVITATION, SELLER_HISTORY, VALIDATE_INVITATION } from "./API";
 
 
 
@@ -316,6 +316,78 @@ try {
       };
     }
 }
+
+
+export const rejectInvitationAPI = async ( 
+  uuid : string 
+  ) => {
+try { 
+
+  const options = {
+    method: 'POST',
+    url: REJECT_INVITATION,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: Authorization()
+    },
+    data: {uuid: uuid}
+  };
+  
+   
+    
+  const response = await axios.request(options);
+
+  return {
+    invitation : response.data.invitation as IInvitation ,
+    error: null,
+  };
+
+  } catch (error: unknown) {
+  
+      return {
+        invitation : undefined,
+        error: (error as AxiosError<{ message: string }>).response?.data.message
+          ? (error as AxiosError<{ message: string }>).response?.data.message
+          : "An unknown error occurred",
+      };
+    }
+}
+
+
+export const validateInvitationAPI = async ( 
+  uuid : string 
+  ) => {
+try { 
+
+  const options = {
+    method: 'POST',
+    url: VALIDATE_INVITATION,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: Authorization()
+    },
+    data: {uuid: uuid}
+  };
+    
+  const response = await axios.request(options);
+
+  return {
+    invitation : response.data.invitation as IInvitation,
+    error: null,
+  };
+
+  } catch (error: unknown) {
+  
+      return {
+        invitation : undefined,
+        error: (error as AxiosError<{ message: string }>).response?.data.message
+          ? (error as AxiosError<{ message: string }>).response?.data.message
+          : "An unknown error occurred",
+      };
+    }
+}
+
+
 
 
 

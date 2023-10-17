@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Input, Modal } from "rsuite";
-import TransactionActionConfirmation from "../TransactionActionConfirmation/transactionActionConfirmation";
+import ActionConfirmation from "../ActionConfirmation/ActionConfirmation";
 import "./transactionNote.css"
 
 type Props = {
@@ -34,7 +34,7 @@ function TransactionNote(props: Props) {
 
   return (
     <div>
-      <TransactionActionConfirmation
+      <ActionConfirmation
         confirmationText="Are you sure that you want to add this note ?"
         isOpen={open}
         handleCanceled={handleCancel}

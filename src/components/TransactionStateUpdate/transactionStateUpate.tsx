@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Input, Modal } from "rsuite";
-import TransactionActionConfirmation from "../TransactionActionConfirmation/transactionActionConfirmation";
+import ActionConfirmation from "../ActionConfirmation/ActionConfirmation";
 import "./transactionStateUpdate.css";
 
 type Props = {
@@ -49,7 +49,7 @@ function TransactionStatusUpdate(props: Props) {
 
   return (
     <div>
-      <TransactionActionConfirmation
+      <ActionConfirmation
         isOpen={open}
         handleCanceled={handleCancel}
         handleSubmit={handleSubmit}

@@ -31,6 +31,7 @@
     border-radius: 0.2rem;
     width: 450px;
     min-height: 500px;
+    position: relative;
 }
 
 @media (max-width : 500px) {
@@ -166,6 +167,17 @@
   
   .card .reclamations-container::-webkit-scrollbar-track {
     background: #3782ec22;
+  }
+
+
+  .card .navigate-to-invitation-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
   }
 
   @media (max-width : 724px) {

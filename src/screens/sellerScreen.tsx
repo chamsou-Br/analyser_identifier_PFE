@@ -14,7 +14,7 @@ import { useLocation } from "react-router";
 import HeaderPage from "../components/headerPage/headerPage";
 import ClientHistoryCard from "../components/clientHistoryCard/clientHistoryCard";
 import Alert from "../components/Alert/alert";
-import TransactionActionConfirmation from "../components/TransactionActionConfirmation/transactionActionConfirmation";
+import TransactionActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
 import { RootState, useAppDispatch } from "../state/store";
 import { useSelector } from "react-redux";
 import { ModifyTransactionDetails } from "../state/actions/transactionDetailsAction";
