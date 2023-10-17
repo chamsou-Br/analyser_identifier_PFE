@@ -11,6 +11,7 @@
   min-width: 85%;
   flex: 1;
   position: relative;
+  background-color: #FFF;
 }
 
 .historie-card .content {

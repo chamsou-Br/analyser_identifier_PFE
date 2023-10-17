@@ -44,6 +44,12 @@ function NavBar() {
         >
           Canceled Transaction
         </div>
+        <div
+          style={history.pathname == "/historie" ? { color: "#3782ec" } : {}}
+          onClick={() => navigate("/historie")}
+        >
+          Hostorie
+        </div>
       </div>
       <div onClick={handleLogOut} className="navBar-right">
         <span>LogOut</span>

@@ -2,13 +2,15 @@ import { DeliveryType } from "./types";
 
 export const BASE_URL = "http://localhost:7550/api";
 
-export const tokenName = "pepper_token"
+export const tokenName = "pepper_token";
 
 export const Currency = " $ ";
 
 export const Authorization = () => {
-  return localStorage.getItem(tokenName) != null ? localStorage.getItem(tokenName) : ""
-}
+  return localStorage.getItem(tokenName) != null
+    ? localStorage.getItem(tokenName)
+    : "";
+};
 
 export function getDeliveryTypeTitle(deliveryType: DeliveryType): string {
   switch (deliveryType) {
@@ -34,6 +36,21 @@ export function getFormatDate(inputDate: string) {
   const date = new Date(inputDate);
   return date.toLocaleDateString(undefined, options);
 }
+
+export const getFullFormatDate = (inputDate: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "UTC",
+  };
+
+  const date = new Date(inputDate);
+  const formattedDate = date.toLocaleDateString("en-US", options);
+  return formattedDate;
+};
 
 export function getFormatPrice(price: number | undefined): string {
   if (price != undefined) {

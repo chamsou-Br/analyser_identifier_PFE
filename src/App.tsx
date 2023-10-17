@@ -13,6 +13,7 @@ import TransactionFulfilledScreen from "./screens/transactionFulfilledScreen";
 import TransactionCanceledScreen from "./screens/transactionCanceledScreen";
 import Page404 from "./components/404/page404";
 import CustomElement from "./components/Layout/customElement";
+import HistorieScreen from "./screens/historieScreen";
 
 
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/" element={<CustomElement component={TransactionScreen} />} />
             <Route path="/fulfilled" element={<CustomElement component={TransactionFulfilledScreen} />} />
             <Route path="/canceled" element={<CustomElement component={TransactionCanceledScreen} />} />
+            <Route path="/historie" element={<CustomElement component={HistorieScreen} />} />
             <Route path="/buyer" element={<CustomElement component={BuyerScreen} />} />
             <Route path="/seller" element={<CustomElement component={SellerScreen} />} />
             <Route path="/details/:uuid" element={<CustomElement component={TransactionDetails} />} />

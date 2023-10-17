@@ -2,8 +2,8 @@
 import { AxiosError } from "axios";
 import axios from "./axiosConfig";
 import { Authorization } from "./constant";
-import { IAdminFullTransaction, IAdminTransaction, IInvitationTransaction, ISellerBase, ITransactionClosing } from "./types";
-import { ADD_NOTE, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_CLOSING_INFO, GET_TRANSACTION, SELLER_HISTORY } from "./API";
+import { IAdminFullTransaction, IAdminTransaction, IHistory, IInvitationTransaction, ISellerBase, ITransactionClosing } from "./types";
+import { ADD_NOTE, ADMIN_ACTION, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_CLOSING_INFO, GET_TRANSACTION, SELLER_HISTORY } from "./API";
 
 
 
@@ -285,5 +285,37 @@ try {
       };
     }
 }
+
+export const getAdminActionAPI = async (  
+  ) => {
+try { 
+
+  const options = {
+    method: 'GET',
+    url: ADMIN_ACTION,
+    headers: {
+      Authorization: Authorization()
+    }
+  };
+   
+    
+  const response = await axios.request(options);
+
+  return {
+    history : response.data.history as IHistory[] ,
+    error: null,
+  };
+
+  } catch (error: unknown) {
+  
+      return {
+        history : [],
+        error: (error as AxiosError<{ message: string }>).response?.data.message
+          ? (error as AxiosError<{ message: string }>).response?.data.message
+          : "An unknown error occurred",
+      };
+    }
+}
+
 
 

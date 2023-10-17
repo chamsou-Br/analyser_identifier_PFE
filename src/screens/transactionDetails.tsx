@@ -14,10 +14,7 @@ import LigneInfoInCard from "../components/LignInfoCard/lignInfoIncard";
 import TitleCard from "../components/TitleCard/titleCard";
 import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 import Reclamationcard from "../components/ReclamationCard/reclamationcard";
-import {
-  Client,
-  ITransactionClosing,
-} from "../helper/types";
+import { Client, ITransactionClosing } from "../helper/types";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../state/store";
 import Status from "../components/TransactionStatus/status";
@@ -25,6 +22,7 @@ import {
   getDeliveryTypeTitle,
   getFormatDate,
   getFormatPrice,
+  getFullFormatDate,
 } from "../helper/constant";
 import { useParams, useNavigate } from "react-router-dom";
 import HeaderPage from "../components/headerPage/headerPage";
@@ -164,13 +162,13 @@ const TransactionDetails: React.FC = () => {
       onAlert(false, res.error, true);
     } else {
       if (res.transaction != undefined && transaction != undefined)
-      dispatch(
-        ModifyTransactionDetails({
-          ...res.transaction,
-          Claims: transaction.Claims,
-          Histories: transaction.Histories,
-        })
-      );
+        dispatch(
+          ModifyTransactionDetails({
+            ...res.transaction,
+            Claims: transaction.Claims,
+            Histories: transaction.Histories,
+          })
+        );
 
       onAlert(true, "", true);
     }
@@ -226,14 +224,14 @@ const TransactionDetails: React.FC = () => {
   };
 
   const handleSearch = () => {
-    getTransaction(search)
-    console.log(transaction)
-    setSearch("")
+    getTransaction(search);
+    console.log(transaction);
+    setSearch("");
   };
 
   /* End Search Functions */
 
-  const getTransaction = async (uuid : string) => {
+  const getTransaction = async (uuid: string) => {
     const data = TransactionState.transactions.transactions.filter(
       (it) => it.uuid.toLocaleLowerCase() === uuid?.toLocaleLowerCase()
     )[0];
@@ -346,8 +344,8 @@ const TransactionDetails: React.FC = () => {
                             sender={claim.sender}
                             text={claim.text}
                             raison={claim.reason}
-                            date={getFormatDate(
-                              claim.createdAt.toString().split("T")[0]
+                            date={getFullFormatDate(
+                              claim.createdAt.toString()
                             )}
                           />
                         ))}
@@ -362,9 +360,7 @@ const TransactionDetails: React.FC = () => {
                             action={hist.action}
                             actionType={hist.actionType}
                             raison={hist.reason}
-                            date={getFormatDate(
-                              hist.createdAt.toString().split("T")[0]
-                            )}
+                            date={getFullFormatDate(hist.createdAt.toString())}
                           />
                         ))}
                     </div>
@@ -507,10 +503,8 @@ const TransactionDetails: React.FC = () => {
         <Alert alert={alert} onAlert={onAlert} />
       </div>
     );
-  }else{
-    return (
-      <Page404 />
-    )
+  } else {
+    return <Page404 />;
   }
 };
 

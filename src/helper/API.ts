@@ -23,3 +23,5 @@ export const SELLER_HISTORY = "/admin/seller_history"
 export const BLOCK_SELLER = "/admin/delete_seller"
 
 export const GET_CLOSING_INFO = "/admin/get_closing_info"
+
+export const ADMIN_ACTION = "/admin/actions"
