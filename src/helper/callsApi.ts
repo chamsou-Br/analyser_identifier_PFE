@@ -236,13 +236,15 @@ try {
     
   const response = await axios.request(options);
 
+  console.log(response)
+
   return {
     seller : response.data.seller as ISellerBase,
     error: undefined,
   };
 
   } catch (error: unknown) {
-  
+    console.log(error)
       return {
         error: (error as AxiosError<{ message: string }>).response?.data.message
           ? (error as AxiosError<{ message: string }>).response?.data.message
