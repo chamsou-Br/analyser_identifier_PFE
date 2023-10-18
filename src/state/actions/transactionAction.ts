@@ -123,12 +123,12 @@ export const fetchCanceledTransaction = () => {
     };
 }
 
-export const DeleteTransaction =  (transactionUuid : string) : IDeleteTransactionAction =>  {
-    return {
-        type  : DELETE_TRANSACTION,
-        payload : transactionUuid
-    }
-}
+// export const DeleteTransaction =  (transactionUuid : string) : IDeleteTransactionAction =>  {
+//     return {
+//         type  : DELETE_TRANSACTION,
+//         payload : transactionUuid
+//     }
+// }
 
 export const startLoadingTransaction = () => ({
     type: START_LOADING_TRANSACTION,

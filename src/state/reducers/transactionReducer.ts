@@ -20,6 +20,7 @@ import { ADD_TRANSACTION, DELETE_TRANSACTION, FETCH_TRANSACTION_FAILED, FETCH_TR
 
   
   export const transactionsReducer = (state = initialState, action: TransactionAction): TransactionsState => {
+    
     switch (action.type) {
       case START_LOADING_TRANSACTION:
         return {

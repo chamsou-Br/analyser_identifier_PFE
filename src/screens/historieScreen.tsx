@@ -4,7 +4,7 @@ import { getAdminActionAPI } from "../helper/callsApi";
 import { IHistory } from "../helper/types";
 import HeaderPage from "../components/headerPage/headerPage";
 import HistorieTransactioncard from "../components/transactionHistory/TransactionHistory";
-import {  getFullFormatDate } from "../helper/constant";
+import { getFullFormatDate } from "../helper/constant";
 import Page404 from "../components/404/page404";
 
 const HistorieScreen: React.FC = () => {
@@ -24,20 +24,19 @@ const HistorieScreen: React.FC = () => {
     fetchHistory();
   }, []);
 
-
   if (!error) {
     return (
       <div className="historie-admin-page">
         <HeaderPage
-          title={"Histories"}
+          title={"History"}
           descr="Information about all action of admin!"
         />
         <div className="jdskbkzejfb"></div>
         <div className="historie-admin-content">
           {history.map((hist, index) => (
-            <div className="historie-admin-card">
+            <div key={index} className="historie-admin-card">
               <HistorieTransactioncard
-                key={index}
+                num={index + 1}
                 action={hist.action}
                 actionType={hist.actionType}
                 date={getFullFormatDate(hist.createdAt.toString())}

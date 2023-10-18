@@ -93,6 +93,10 @@
     color: #cccef3;
     cursor: pointer;
   }
+
+  .login-form .submit.disabled {
+    background-color: #cccef355;
+  }
   
   .login-picture {
     width: 50%;

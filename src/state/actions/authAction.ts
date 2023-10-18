@@ -13,6 +13,10 @@ export const LOGIN_FAILED = "LOGIN_FAILED";
 
 export const LOGOUT = "LOGOUT";
 
+export const START_LOADING_AUTH = "START_LOADING_AUTH";
+
+export const STOP_LOADING_AUTH = "STOP_LOADING_AUTH";
+
 export interface LoginSuncessAction {
   type: typeof LOGIN_SUCCESS;
   payload: string;
@@ -27,11 +31,27 @@ export interface LogoutAction {
   type: typeof LOGOUT;
 }
 
-export type AuthAction = LoginSuncessAction | LoginfailedAction | LogoutAction;
+export interface StartLoadingAction {
+  type: typeof START_LOADING_AUTH;
+}
+
+export interface StopLoadingAction {
+  type: typeof STOP_LOADING_AUTH;
+}
+
+export type AuthAction =
+  | LoginSuncessAction
+  | LoginfailedAction
+  | LogoutAction
+  | StartLoadingAction
+  | StopLoadingAction;
 
 export const authentificate = (name: string, privateKey: string) => {
   return async (dispatch: Dispatch<AuthAction>, getState: () => RootState) => {
-    
+    dispatch({
+      type: START_LOADING_AUTH,
+    });
+
     try {
       const options = {
         method: "PUT",
@@ -41,19 +61,28 @@ export const authentificate = (name: string, privateKey: string) => {
         },
         data: {
           name: name,
-          privateKey: privateKey ,
+          privateKey: privateKey,
         },
       };
 
-      const res = await axios.request(options);
+        const res = await axios.request(options);
 
-      localStorage.setItem(tokenName, res.data.adminToken);
+        localStorage.setItem(tokenName, res.data.adminToken);
+  
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: res.data.adminToken,
+        });
 
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data.adminToken,
-      });
+        dispatch({
+          type: STOP_LOADING_AUTH,
+        });
+
+
     } catch (error) {
+      dispatch({
+        type: STOP_LOADING_AUTH,
+      });
       dispatch({
         type: LOGIN_FAILED,
         payload: (error as AxiosError<{ message: string }>).response?.data

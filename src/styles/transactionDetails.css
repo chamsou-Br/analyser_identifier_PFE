@@ -149,11 +149,11 @@
 .card .reclamations-container{
     display: flex;
     flex-wrap: nowrap; /* Prevent children from wrapping to the next line */
-    overflow-x: scroll; /* Enable horizontal scrolling if children overflow */
+    overflow-x: auto; /* Enable horizontal scrolling if children overflow */
     white-space: nowrap;
     max-width: 100%; 
-    /* flex-direction: column;
-    overflow-y: scroll; */
+    flex-direction: column;
+    
 }
 
 .card .reclamations-container::-webkit-scrollbar {

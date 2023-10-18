@@ -45,10 +45,10 @@ function NavBar() {
           Canceled Transaction
         </div>
         <div
-          style={history.pathname == "/historie" ? { color: "#3782ec" } : {}}
-          onClick={() => navigate("/historie")}
+          style={history.pathname == "/history" ? { color: "#3782ec" } : {}}
+          onClick={() => navigate("/history")}
         >
-          Historie
+          History
         </div>
       </div>
       <div onClick={handleLogOut} className="navBar-right">

@@ -10,6 +10,7 @@ import { legacy_createStore} from 'redux'
 import { transactionDetailsReducer } from './reducers/transactionDetailsReducer';
 import { authReducer } from './reducers/authReducer';
 import { tokenName } from '../helper/constant';
+
 // Define RootState
 export type RootState = ReturnType<typeof rootReducer>;
 

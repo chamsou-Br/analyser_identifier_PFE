@@ -6,6 +6,7 @@ type Props = {
   action: string;
   raison: string;
   date: string;
+  num? : number
 };
 
 function HistorieTransactioncard(props: Props) {
@@ -32,7 +33,7 @@ function HistorieTransactioncard(props: Props) {
       <div className="historie-card-header">
         <div style={{ display: "flex", alignItems: "center" }}>
           <div className="details-navigate-icon">
-            <FaExclamation />
+            { props.num ? props.num : <FaExclamation />  }
           </div>
           <span style={{ marginLeft: 10, marginRight: 10 }}> | </span>
           <div className="action-type">{props.actionType}</div>

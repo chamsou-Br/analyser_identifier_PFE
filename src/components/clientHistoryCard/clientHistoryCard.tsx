@@ -21,6 +21,7 @@ import { useNavigate } from "react-router";
 
 type Props = {
   history: IInvitationTransaction;
+  onNavigate : () => void
 };
 
 
@@ -36,6 +37,9 @@ function ClientHistoryCard(props: Props) {
     <div className="client-history-card">
       <TitleCard title="Invitation" />
       <div className="client-invitation-content ">
+      <div onClick={props.onNavigate} className="navigate-to-invitation-icon"> 
+                <FaEye />
+              </div>
         <div className="title">{props.history.product}</div>
         <div className="descr">{props.history.description}</div>
         <div className="informations">

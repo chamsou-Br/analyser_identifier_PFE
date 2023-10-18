@@ -29,3 +29,5 @@ export const ADMIN_ACTION = "/admin/actions"
 export const REJECT_INVITATION = "/admin/block_invitation"
 
 export const VALIDATE_INVITATION  = "/admin/validate_invitation"
+
+export const INVITAION_DETAILS = "/invitation"

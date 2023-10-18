@@ -25,15 +25,17 @@ import HeaderPage from "../components/headerPage/headerPage";
 import Status from "../components/TransactionStatus/status";
 import InvitationActions from "../components/invitationAction/InvitationAction";
 import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
-import { rejectInvitationAPI, validateInvitationAPI } from "../helper/callsApi";
+import { fetchInvitationDetailsAPI, rejectInvitationAPI, validateInvitationAPI } from "../helper/callsApi";
+import { IInvitationComplete } from "../helper/types";
+import Page404 from "../components/404/page404";
 
 const InvitationDetails: React.FC = () => {
   const dispatch = useAppDispatch();
   const { uuid } = useParams();
 
-  const TransactionState = useSelector((state: RootState) => state);
-  const transaction = TransactionState.transaction.transaction;
-  const invitation = transaction?.Invitation;
+  const transaction =  useSelector((state: RootState) => state.transaction).transaction;
+
+  const [invitation,setInvitation] = useState<IInvitationComplete>() ;
 
   const [rejectInvModal, setrejectInvModal] = useState(false);
   const [validateInvModal, setvalidateInvModal] = useState(false);
@@ -53,20 +55,27 @@ const InvitationDetails: React.FC = () => {
     const res = await rejectInvitationAPI(
       invitation?.uuid ? invitation.uuid : "k"
     );
-    if (res.error) {
-      onAlert(false, res.error, true);
+    if (!res.invitation) {
+      onAlert(false, res.error ? res.error : "an error has occured !", true);
     } else {
-      if (res.invitation != undefined && transaction != undefined) {
-        onAlert(true,"",true)
-        dispatch(
-          ModifyTransactionDetails({
-            ...transaction,
-            Invitation: {
-              ...res.invitation,
-              Seller: transaction.Invitation.Seller,
-            },
-          })
-        );
+      onAlert(true,"",true)
+      if (invitation) {
+        setInvitation({
+          ...res.invitation,
+          Seller : invitation.Seller
+        })
+
+        if ( transaction != undefined &&  transaction?.Invitation.uuid == uuid ) {
+          dispatch(
+            ModifyTransactionDetails({
+              ...transaction,
+              Invitation: {
+                ...res.invitation,
+                Seller: invitation.Seller,
+              },
+            })
+          );
+        }
       }
     }
   };
@@ -84,20 +93,27 @@ const InvitationDetails: React.FC = () => {
     const res = await validateInvitationAPI(
         invitation?.uuid ? invitation.uuid : ""
       );
-      if (res.error) {
-        onAlert(false, res.error, true);
+      if (!res.invitation) {
+        onAlert(false, res.error ? res.error : "an error has occured !", true);
       } else {
-        if (res.invitation != undefined && transaction != undefined) {
-          onAlert(true,"",true)
-          dispatch(
-            ModifyTransactionDetails({
-              ...transaction,
-              Invitation: {
-                ...res.invitation,
-                Seller: transaction.Invitation.Seller,
-              },
-            })
-          );
+        onAlert(true,"",true)
+        if (invitation) {
+          setInvitation({
+            ...res.invitation,
+            Seller : invitation.Seller
+          })
+
+          if ( transaction != undefined &&  transaction?.Invitation.uuid == uuid ) {
+            dispatch(
+              ModifyTransactionDetails({
+                ...transaction,
+                Invitation: {
+                  ...res.invitation,
+                  Seller: invitation.Seller,
+                },
+              })
+            );
+          }
         }
       }
   };
@@ -122,14 +138,19 @@ const InvitationDetails: React.FC = () => {
 
   /* End alert function */
 
-  const getTransaction = async (uuid: string) => {
-    if (!invitation) {
-      dispatch(fetchTransactionDetails(uuid ? uuid : ""));
+  const getInvitation = async (uuid: string) => {
+    if (uuid == transaction?.Invitation.uuid) {
+      setInvitation(transaction.Invitation)
+    }else {
+      const res = await fetchInvitationDetailsAPI(uuid);
+      if (res.invitation) {
+        setInvitation(res.invitation);
+      }
     }
   };
 
   useEffect(() => {
-    getTransaction(uuid ? uuid : "");
+    getInvitation(uuid ? uuid : "");
   }, []);
 
   if (invitation) {
@@ -141,7 +162,7 @@ const InvitationDetails: React.FC = () => {
         />
         <div className="invitation-section">
           <HeaderPage
-            title="Invitation Details"
+            title={"Invitation : " + uuid}
             descr={"All infomation about invitaion " + invitation.uuid}
           />
           <div className="invitation-section-content">
@@ -223,6 +244,8 @@ const InvitationDetails: React.FC = () => {
         <Alert alert={alert} onAlert={onAlert} />
       </div>
     );
+  } else {
+    return <Page404 />
   }
 };
 

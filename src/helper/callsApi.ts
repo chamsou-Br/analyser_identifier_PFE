@@ -2,8 +2,8 @@
 import { AxiosError } from "axios";
 import axios from "./axiosConfig";
 import { Authorization } from "./constant";
-import { IAdminFullTransaction, IAdminTransaction, IHistory, IInvitation, IInvitationTransaction, ISellerBase, ITransactionClosing } from "./types";
-import { ADD_NOTE, ADMIN_ACTION, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_CLOSING_INFO, GET_TRANSACTION, REJECT_INVITATION, SELLER_HISTORY, VALIDATE_INVITATION } from "./API";
+import { IAdminFullTransaction, IAdminTransaction, IHistory, IInvitation, IInvitationComplete, IInvitationTransaction, ISellerBase, ITransactionClosing } from "./types";
+import { ADD_NOTE, ADMIN_ACTION, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_CLOSING_INFO, GET_TRANSACTION, INVITAION_DETAILS, REJECT_INVITATION, SELLER_HISTORY, VALIDATE_INVITATION } from "./API";
 
 
 
@@ -389,6 +389,40 @@ try {
     }
 }
 
+
+
+export const fetchInvitationDetailsAPI = async ( 
+  uuid : string 
+  ) => {
+try { 
+
+  const options = {
+    method: 'POST',
+    url: INVITAION_DETAILS,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: Authorization()
+    },
+    data: {InvitationUuid: uuid}
+  };
+    
+  const response = await axios.request(options);
+
+  return {
+    invitation : response.data.invitation as IInvitationComplete,
+    error: null,
+  };
+
+  } catch (error: unknown) {
+  
+      return {
+        invitation : undefined,
+        error: (error as AxiosError<{ message: string }>).response?.data.message
+          ? (error as AxiosError<{ message: string }>).response?.data.message
+          : "An unknown error occurred",
+      };
+    }
+}
 
 
 

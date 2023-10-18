@@ -9,7 +9,7 @@ import {
   IInvitationTransaction,
 } from "../helper/types";
 import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import HeaderPage from "../components/headerPage/headerPage";
 import ClientHistoryCard from "../components/clientHistoryCard/clientHistoryCard";
@@ -22,12 +22,18 @@ import { ModifyTransactionDetails } from "../state/actions/transactionDetailsAct
 const SellerScreen : React.FC  = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const navigate  = useNavigate()
   const transaction = useSelector((state : RootState)=>state.transaction).transaction
 
   const [client,setClient]  = useState<IClientBase>(location.state)  ;
   const [histories, setHistories] = useState<IInvitationTransaction[]>([]);
   const [isModalConfirmOfBlockClient, setisModalConfirmOfBlockClient] =
     useState<boolean>(false);
+
+    const handleNavigateToInvitationDetails = () => {
+      navigate("/invitation/" +  transaction?.Invitation.uuid);
+    }
+  
 
   const fetchData  = async () => {
     const res = await getSellerHistorieAPI(client ? client.email  : "");
@@ -101,7 +107,7 @@ const SellerScreen : React.FC  = () => {
         <div className="content">
           <div className="seller-historie">
             {histories.map((his, i) => (
-              <ClientHistoryCard key={i} history={his} />
+              <ClientHistoryCard key={i} history={his} onNavigate={handleNavigateToInvitationDetails} />
             ))}
           </div>
           <div className="seller-info">

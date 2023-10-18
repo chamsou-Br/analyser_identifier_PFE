@@ -78,11 +78,12 @@ const TransactionDetails: React.FC = () => {
     info: undefined,
   });
 
-  const TransactionState = useSelector((state: RootState) => state);
-  const transaction = TransactionState.transaction.transaction;
+  const Transactions = useSelector((state: RootState) => state.transactions).transactions;
+
+  const transaction = useSelector((state: RootState) => state.transaction).transaction;
 
   const handleNavigateToInvitationDetails = () => {
-    navigate("/details/"+transaction?.uuid+"/invitation")
+    navigate("/invitation/" +  transaction?.Invitation.uuid);
   }
 
   /* start Closing Info function */
@@ -237,14 +238,17 @@ const TransactionDetails: React.FC = () => {
   /* End Search Functions */
 
   const getTransaction = async (uuid: string) => {
-    const data = TransactionState.transactions.transactions.filter(
-      (it) => it.uuid.toLocaleLowerCase() === uuid?.toLocaleLowerCase()
-    )[0];
-    if (data) {
-      dispatch(AddTransactionDetails(data));
-    } else {
-      dispatch(fetchTransactionDetails(uuid ? uuid : ""));
+    if (!transaction) {
+      const data = Transactions.filter(
+        (it) => it.uuid.toLocaleLowerCase() === uuid?.toLocaleLowerCase()
+      )[0];
+      if (data) {
+        dispatch(AddTransactionDetails(data));
+      } else {
+        dispatch(fetchTransactionDetails(uuid ? uuid : ""));
+      }
     }
+
   };
 
   useEffect(() => {
@@ -276,7 +280,7 @@ const TransactionDetails: React.FC = () => {
             <div className="transaction card">
               <TitleCard title="Transaction" />
               <div className="card-content">
-                <div className="title">Transaction N {transaction.uuid}</div>
+                <div className="title">Transaction : {transaction.uuid}</div>
                 <div className="card-information">
                   <div className="information-title">Outcom</div>
                   <Status status={transaction.outcome} />
@@ -337,7 +341,6 @@ const TransactionDetails: React.FC = () => {
                       Histories
                     </div>
                   </div>
-
                   {isClaimsOrHistories === 0 ? (
                     <div className="reclamations-container">
                       {transaction.Claims.slice()

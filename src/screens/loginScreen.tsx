@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 import login from "../assets/login.png";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../state/store";
-import { FetchTodo, addTodo } from "../state/actions/todoAction";
 import "../styles/login.css";
 import { authentificate } from "../state/actions/authAction";
 import { useNavigate } from "react-router";
+import { Loader } from "rsuite";
 
 const LoginScreen: React.FC = () => {
-  const data = useSelector((state: RootState) => state.auth);
+  
+  const authState = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -29,26 +30,26 @@ const LoginScreen: React.FC = () => {
   };
 
   const HandlerLogin = () => {
-    dispatch(authentificate(userName, privateKey));
-    setuserName("");
-    setPrivateKey("");
+      dispatch(authentificate(userName, privateKey));
+      setuserName("");
+      setPrivateKey("");
   };
 
   useEffect(() => {
-    if (data.isAuth == true) {
+    if (authState.isAuth == true) {
       navigate("/" );
     }
-  }, [data, navigate]);
+  }, [authState, navigate]);
 
-  if (data.isAuth == false)
+  if (authState.isAuth == false)
   return (
     <div className="login">
       <div className="login-container">
         <div className="login-form">
-          <div onClick={() => console.log(data)} className="title">
+          <div className="title">
             Login
           </div>
-          <div onClick={() => dispatch(FetchTodo())} className="desc">
+          <div  className="desc">
             Welcom ! Please Enter your details
           </div>
           <label>userName</label>
@@ -64,10 +65,10 @@ const LoginScreen: React.FC = () => {
             value={privateKey}
             onChange={HandlerInputPasswordChange}
           />
-          <div onClick={HandlerLogin} className="submit">
-            Login
+          <div  onClick={HandlerLogin} className={ "submit"}>
+          {authState.loading ? (<Loader speed="slow"/>) : "Login"}  
           </div>
-          <div className="error">{data.error}</div>
+          <div className="error">{authState.error}</div>
         </div>
         <div className="login-picture">
           <img src={login} />

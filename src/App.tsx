@@ -28,8 +28,8 @@ function App() {
             <Route path="/" element={<CustomElement component={TransactionScreen} />} />
             <Route path="/fulfilled" element={<CustomElement component={TransactionFulfilledScreen} />} />
             <Route path="/canceled" element={<CustomElement component={TransactionCanceledScreen} />} />
-            <Route path="/historie" element={<CustomElement component={HistorieScreen} />} />
-            <Route path="/details/:uuid/invitation" element={<CustomElement component={InvitationDetails } />} />
+            <Route path="/history" element={<CustomElement component={HistorieScreen} />} />
+            <Route path="/invitation/:uuid" element={<CustomElement component={InvitationDetails } />} />
             <Route path="/buyer" element={<CustomElement component={BuyerScreen} />} />
             <Route path="/seller" element={<CustomElement component={SellerScreen} />} />
             <Route path="/details/:uuid" element={<CustomElement component={TransactionDetails} />} />

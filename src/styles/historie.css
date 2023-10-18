@@ -3,7 +3,7 @@
 }
 
 
-.historie-admin-content {
+.historie-admin-page .historie-admin-content {
     display: flex;
     justify-content: start;
     align-items: center;
@@ -11,8 +11,9 @@
     gap: 40px;
 }
 
-.historie-admin-card {
-
+.historie-admin-page .historie-admin-card {
+    margin-bottom: -15px;
+    max-width: 450px;
     min-width: 400px;
     flex: 1 1 0px;
 }
