@@ -3,7 +3,7 @@ import { AxiosError } from "axios";
 import axios from "./axiosConfig";
 import { Authorization } from "./constant";
 import { IAdminFullTransaction, IAdminTransaction, IHistory, IInvitation, IInvitationComplete, IInvitationTransaction, ISellerBase, ITransactionClosing } from "./types";
-import { ADD_NOTE, ADMIN_ACTION, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_CLOSING_INFO, GET_TRANSACTION, INVITAION_DETAILS, REJECT_INVITATION, SELLER_HISTORY, VALIDATE_INVITATION } from "./API";
+import { ADD_NOTE, ADMIN_ACTION, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION, DECIDE_TRANSACTION, GET_CLOSING_INFO, GET_TRANSACTION, INVITAION_DETAILS, INVITATIONS, REJECT_INVITATION, SELLER_HISTORY, VALIDATE_INVITATION } from "./API";
 
 
 
@@ -236,7 +236,6 @@ try {
     
   const response = await axios.request(options);
 
-  console.log(response)
 
   return {
     seller : response.data.seller as ISellerBase,
@@ -244,7 +243,6 @@ try {
   };
 
   } catch (error: unknown) {
-    console.log(error)
       return {
         error: (error as AxiosError<{ message: string }>).response?.data.message
           ? (error as AxiosError<{ message: string }>).response?.data.message
@@ -388,6 +386,43 @@ try {
       };
     }
 }
+
+
+
+export const fetchInvitationsAPI = async ( 
+  ) => {
+try { 
+
+  const options = {
+    method: 'GET',
+    url: INVITATIONS,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: Authorization()
+    },
+  };
+    
+  const response = await axios.request(options);
+
+  return {
+    invitation : response.data.invitations as IInvitationComplete[],
+    error: null,
+  };
+
+  } catch (error: unknown) {
+  
+      return {
+        invitation : undefined,
+        error: (error as AxiosError<{ message: string }>).response?.data.message
+          ? (error as AxiosError<{ message: string }>).response?.data.message
+          : "An unknown error occurred",
+      };
+    }
+}
+
+
+
+
 
 
 

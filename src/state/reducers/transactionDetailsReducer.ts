@@ -59,6 +59,7 @@ import { ADD_TRANSACTION_DETAILS, DELETE_TRANSACTION_DETAILS, FETCH_TRANSACTION_
       case FETCH_TRANSACTION_DETAILS_FAILED : 
         return{
           ...state , 
+          transaction : undefined,
           error : action.payload
         }
       default:

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "../styles/seller.css";
-import { blockSellerAPI,  getSellerHistorieAPI } from "../helper/callsApi";
+import { blockSellerAPI, getSellerHistorieAPI } from "../helper/callsApi";
 import {
   EntityStatus,
   IClientBase,
@@ -18,25 +18,27 @@ import TransactionActionConfirmation from "../components/ActionConfirmation/Acti
 import { RootState, useAppDispatch } from "../state/store";
 import { useSelector } from "react-redux";
 import { ModifyTransactionDetails } from "../state/actions/transactionDetailsAction";
+import Page404 from "../components/404/page404";
 
-const SellerScreen : React.FC  = () => {
+const SellerScreen: React.FC = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const navigate  = useNavigate()
-  const transaction = useSelector((state : RootState)=>state.transaction).transaction
+  const navigate = useNavigate();
+  const transaction = useSelector(
+    (state: RootState) => state.transaction
+  ).transaction;
 
-  const [client,setClient]  = useState<IClientBase>(location.state)  ;
+  const [client, setClient] = useState<IClientBase>(location.state);
   const [histories, setHistories] = useState<IInvitationTransaction[]>([]);
   const [isModalConfirmOfBlockClient, setisModalConfirmOfBlockClient] =
     useState<boolean>(false);
 
-    const handleNavigateToInvitationDetails = () => {
-      navigate("/invitation/" +  transaction?.Invitation.uuid);
-    }
-  
+  const handleNavigateToInvitationDetails = () => {
+    navigate("/invitation/" + transaction?.Invitation.uuid);
+  };
 
-  const fetchData  = async () => {
-    const res = await getSellerHistorieAPI(client ? client.email  : "");
+  const fetchData = async () => {
+    const res = await getSellerHistorieAPI(client ? client.email : "");
     console.log(res);
     setHistories(res.historiy);
   };
@@ -69,26 +71,29 @@ const SellerScreen : React.FC  = () => {
     setisModalConfirmOfBlockClient(false);
   };
 
-  const handleSubmitBlockClient =  async () => {
+  const handleSubmitBlockClient = async () => {
     setisModalConfirmOfBlockClient(false);
     const res = await blockSellerAPI(client.email);
     if (res.error) {
       onAlert(false, res.error, true);
-    }else {
+    } else {
+
       onAlert(true, "", true);
-      if (res.seller && transaction){
-        setClient({...client ,...res.seller})
-        dispatch(ModifyTransactionDetails({
-          ...transaction,
-          Invitation : {
-            ...transaction.Invitation,
-            Seller : res.seller
-          }
-        }))
+      setClient({ ...client, status : EntityStatus.Rejected });
+      if (res.seller && transaction) {
+        if (transaction.Invitation.Seller.email == client.email) {
+          dispatch(
+            ModifyTransactionDetails({
+              ...transaction,
+              Invitation: {
+                ...transaction.Invitation,
+                Seller: res.seller,
+              },
+            })
+          );
+        }
       }
-
     }
-
   };
 
   /*  End block Seller Dunction*/
@@ -107,13 +112,17 @@ const SellerScreen : React.FC  = () => {
         <div className="content">
           <div className="seller-historie">
             {histories.map((his, i) => (
-              <ClientHistoryCard key={i} history={his} onNavigate={handleNavigateToInvitationDetails} />
+              <ClientHistoryCard
+                key={i}
+                history={his}
+                onNavigate={handleNavigateToInvitationDetails}
+              />
             ))}
           </div>
           <div className="seller-info">
             <div className="header">Seller Information</div>
             <BuyerOrSellerCard client={client} />
-            {client.status != EntityStatus.Rejected  ? (
+            {client.status != EntityStatus.Rejected ? (
               <div onClick={handleBlockClient} className="block">
                 Block
               </div>
@@ -129,7 +138,7 @@ const SellerScreen : React.FC  = () => {
         <Alert alert={alert} onAlert={onAlert} />
       </div>
     );
-  }
-}
+  }else return <Page404 />
+};
 
 export default SellerScreen;

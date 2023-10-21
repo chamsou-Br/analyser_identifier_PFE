@@ -9,21 +9,27 @@ import {
   FaTruck,
   FaMapMarkedAlt,
   FaEye,
+  FaTimes,
 } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import LigneInfoInCard from "../components/LignInfoCard/lignInfoIncard";
 import TitleCard from "../components/TitleCard/titleCard";
 import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 import Reclamationcard from "../components/ReclamationCard/reclamationcard";
-import { Client, ITransactionClosing } from "../helper/types";
+import {
+  Client,
+  EntityStatus,
+  ITransactionClosing,
+  TransactionStatus,
+} from "../helper/types";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../state/store";
 import Status from "../components/TransactionStatus/status";
 import {
   getDeliveryTypeTitle,
-  getFormatDate,
   getFormatPrice,
   getFullFormatDate,
+  getTimeAgo,
 } from "../helper/constant";
 import { useParams, useNavigate } from "react-router-dom";
 import HeaderPage from "../components/headerPage/headerPage";
@@ -78,13 +84,20 @@ const TransactionDetails: React.FC = () => {
     info: undefined,
   });
 
-  const Transactions = useSelector((state: RootState) => state.transactions).transactions;
+  const Transactions = useSelector(
+    (state: RootState) => state.transactions
+  ).transactions;
 
-  const transaction = useSelector((state: RootState) => state.transaction).transaction;
+  const transaction = useSelector(
+    (state: RootState) => state.transaction
+  ).transaction;
 
+  const error = useSelector(
+    (state: RootState) => state.transaction
+  ).error;
   const handleNavigateToInvitationDetails = () => {
-    navigate("/invitation/" +  transaction?.Invitation.uuid);
-  }
+    navigate("/invitation/" + transaction?.Invitation.uuid);
+  };
 
   /* start Closing Info function */
 
@@ -230,8 +243,8 @@ const TransactionDetails: React.FC = () => {
   };
 
   const handleSearch = () => {
-    getTransaction(search);
-    console.log(transaction);
+    dispatch(fetchTransactionDetails(uuid ? uuid : ""));
+    navigate("/details/" + search)
     setSearch("");
   };
 
@@ -248,7 +261,6 @@ const TransactionDetails: React.FC = () => {
         dispatch(fetchTransactionDetails(uuid ? uuid : ""));
       }
     }
-
   };
 
   useEffect(() => {
@@ -256,7 +268,7 @@ const TransactionDetails: React.FC = () => {
     fetchClosingInfo(uuid ? uuid : "");
   }, []);
 
-  if (transaction) {
+  if (transaction && !error) {
     return (
       <div key={uuid} className="transaction-details-page">
         <TransactionActions
@@ -286,17 +298,29 @@ const TransactionDetails: React.FC = () => {
                   <Status status={transaction.outcome} />
                 </div>
                 <LigneInfoInCard
-                  title="Delivry date"
-                  value={getFormatDate(
-                    transaction.deliveryDate.toString().split("T")[0]
-                  )}
-                  icon={<IoMdCalendar />}
+                  title="Creation date"
+                  value={getTimeAgo(transaction.createdAt.toString())}
+                  icon={<IoMdTime />}
                 />
                 <LigneInfoInCard
-                  title="Delivry type"
-                  value={getDeliveryTypeTitle(transaction.deliveryType)}
-                  icon={<FaTruck />}
+                  title="Delivry date"
+                  value={getFullFormatDate(transaction.deliveryDate.toString())}
+                  icon={<IoMdCalendar />}
                 />
+
+                {transaction.state == TransactionStatus.FULFILLED ? (
+                  <LigneInfoInCard
+                    title="Update Date"
+                    value={getTimeAgo(transaction.updatedAt.toString())}
+                    icon={<IoMdTime />}
+                  />
+                ) : (
+                  <LigneInfoInCard
+                    title="Delivry type"
+                    value={getDeliveryTypeTitle(transaction.deliveryType)}
+                    icon={<FaTruck />}
+                  />
+                )}
                 <LigneInfoInCard
                   title="Delivry place"
                   value={transaction.deliveryPlace}
@@ -309,9 +333,7 @@ const TransactionDetails: React.FC = () => {
                 />
                 <LigneInfoInCard
                   title="payment date"
-                  value={getFormatDate(
-                    transaction.paymentDate.toString().split("T")[0]
-                  )}
+                  value={getFullFormatDate(transaction.paymentDate.toString())}
                   icon={<IoMdCalendar />}
                 />
                 <div className="card-information">
@@ -352,9 +374,7 @@ const TransactionDetails: React.FC = () => {
                             sender={claim.sender}
                             text={claim.text}
                             raison={claim.reason}
-                            date={getFullFormatDate(
-                              claim.createdAt.toString()
-                            )}
+                            date={getFullFormatDate(claim.createdAt.toString())}
                           />
                         ))}
                     </div>
@@ -377,7 +397,10 @@ const TransactionDetails: React.FC = () => {
               </div>
             </div>
             <div className="product-details card">
-              <div onClick={handleNavigateToInvitationDetails} className="navigate-to-invitation-icon"> 
+              <div
+                onClick={handleNavigateToInvitationDetails}
+                className="navigate-to-invitation-icon"
+              >
                 <FaEye />
               </div>
               <TitleCard title="Invitation" />
@@ -391,14 +414,21 @@ const TransactionDetails: React.FC = () => {
                   <Status status={transaction.Invitation.active} />
                 </div>
                 <LigneInfoInCard
+                  title="Creation date"
+                  value={getTimeAgo(
+                    transaction.Invitation.createdAt.toString()
+                  )}
+                  icon={<IoMdTime />}
+                />
+                <LigneInfoInCard
                   title="Price"
                   value={transaction.Invitation.price.toString()}
                   icon={<FaDollarSign />}
                 />
                 <LigneInfoInCard
                   title="Date"
-                  value={getFormatDate(
-                    transaction.Invitation.date.toString().split("T")[0]
+                  value={getFullFormatDate(
+                    transaction.Invitation.date.toString()
                   )}
                   icon={<IoMdCalendar />}
                 />
@@ -411,13 +441,6 @@ const TransactionDetails: React.FC = () => {
                   title="Store Location"
                   value={transaction.Invitation.storeLocation}
                   icon={<FaSearchLocation />}
-                />
-                <LigneInfoInCard
-                  title="Delivery Type"
-                  value={getDeliveryTypeTitle(
-                    transaction.Invitation.deliveryType
-                  )}
-                  icon={<FaTruck />}
                 />
                 <LigneInfoInCard
                   title="Delivery Time"

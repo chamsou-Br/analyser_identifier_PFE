@@ -13,7 +13,7 @@ import {
 import {  IAdminFullTransaction, IRowsTable, ITransacionForTable } from "../helper/types";
 
 import TableCompo from "../components/Table/Table";
-import { Currency, getDeliveryTypeTitle  , getFormatDate} from "../helper/constant";
+import { Currency, getDeliveryTypeTitle  , getFormatDate, getFullFormatDate} from "../helper/constant";
 import HeaderPage from "../components/headerPage/headerPage";
 
 // eslint-disable-next-line no-empty-pattern
@@ -48,7 +48,7 @@ const TransactionCanceledScreen: React.FC = () => {
     const newData = transactionState.transactions
       ? transactionState.transactions.map((item: IAdminFullTransaction) => ({
           uuid: item.uuid,
-          deliveryDate: getFormatDate(item.deliveryDate.toString().split("T")[0]), // Convert Date to string
+          deliveryDate: getFullFormatDate(item.deliveryDate.toString()), // Convert Date to string
           deliveryPlace: item.deliveryPlace,
           deliveryType: getDeliveryTypeTitle(item.deliveryType),
           deliveryPrice: item.deliveryPrice.toString() + Currency,
@@ -56,7 +56,7 @@ const TransactionCanceledScreen: React.FC = () => {
           Seller: item.Invitation.Seller.email,
           ProductName: item.Invitation.product,
           ProductPrice: item.Invitation.price.toString() + Currency,
-          paymentDate: getFormatDate( item.paymentDate.toString().split("T")[0] ),
+          paymentDate: getFullFormatDate( item.paymentDate.toString()),
           state: item.state,
           claims: item.Claims.length,
         }))

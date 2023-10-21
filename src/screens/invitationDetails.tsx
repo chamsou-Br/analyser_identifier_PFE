@@ -26,8 +26,9 @@ import Status from "../components/TransactionStatus/status";
 import InvitationActions from "../components/invitationAction/InvitationAction";
 import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
 import { fetchInvitationDetailsAPI, rejectInvitationAPI, validateInvitationAPI } from "../helper/callsApi";
-import { IInvitationComplete } from "../helper/types";
+import { Client, IInvitationComplete } from "../helper/types";
 import Page404 from "../components/404/page404";
+import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 
 const InvitationDetails: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -150,6 +151,7 @@ const InvitationDetails: React.FC = () => {
   };
 
   useEffect(() => {
+    console.log(uuid)
     getInvitation(uuid ? uuid : "");
   }, []);
 
@@ -225,6 +227,26 @@ const InvitationDetails: React.FC = () => {
                   icon={<FaDollarSign />}
                 />
               </div>
+              <div className="seller">
+              <BuyerOrSellerCard
+                      onNavigate
+                      client={{
+                        client: Client.SELLER,
+                        address: null,
+                        birthDay: null,
+                        businessName:
+                          invitation.Seller.businessName,
+                        description: null,
+                        email: invitation.Seller.email,
+                        firstName: invitation.Seller.firstName,
+                        gender: null,
+                        location: invitation.Seller.location,
+                        phoneNumber: invitation.Seller.phoneNumber,
+                        status:invitation.Seller.status,
+                        wilaya: invitation.Seller.wilaya,
+                      }}
+                    />
+                    </div>
             </div>
           </div>
         </div>

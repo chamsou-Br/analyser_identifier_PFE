@@ -1,4 +1,4 @@
-import { IInvitationTransaction } from "../../helper/types";
+import { IInvitationComplete, IInvitationTransaction } from "../../helper/types";
 import "./clientHistoryCard.css";
 import TitleCard from "../TitleCard/titleCard";
 import LigneInfoInCard from "../LignInfoCard/lignInfoIncard";
@@ -20,8 +20,8 @@ import Status from "../TransactionStatus/status";
 import { useNavigate } from "react-router";
 
 type Props = {
-  history: IInvitationTransaction;
-  onNavigate : () => void
+  history: IInvitationTransaction | IInvitationComplete;
+  onNavigate? : () => void
 };
 
 
@@ -33,11 +33,15 @@ function ClientHistoryCard(props: Props) {
         navigate("/details/"+uuid)
     }
 
+    const  handleNavigateToInvitationDetails = () => {
+      navigate("/invitation/"+props.history.uuid)
+  }
+
   return (
     <div className="client-history-card">
       <TitleCard title="Invitation" />
       <div className="client-invitation-content ">
-      <div onClick={props.onNavigate} className="navigate-to-invitation-icon"> 
+      <div onClick={handleNavigateToInvitationDetails} className="navigate-to-invitation-icon"> 
                 <FaEye />
               </div>
         <div className="title">{props.history.product}</div>
@@ -82,7 +86,7 @@ function ClientHistoryCard(props: Props) {
       </div>
       <div className="client-transactions-content ">
 
-        {props.history.InvitationTransactions.map((transaction, index) => (
+        {(props.history as  IInvitationTransaction).InvitationTransactions && (props.history as  IInvitationTransaction).InvitationTransactions.map((transaction, index) => (
           <div className="client-transaction-content " key={index}>
             <div onClick={()=>handleNavigateToTransactionDetails(transaction.uuid)} className="navigate-icon" >
                 <FaEye  />

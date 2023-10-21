@@ -4,18 +4,17 @@ const { Column, HeaderCell, Cell } = Table;
 import "rsuite/dist/rsuite-no-reset-rtl.css";
 import { SortType } from "rsuite/esm/Table";
 import { useNavigate } from "react-router-dom";
-import {
-  IRowsTable,
-  ITransacionForTable,
-} from "../../helper/types";
+import { IRowsTable, ITransacionForTable } from "../../helper/types";
 import { FaEye } from "react-icons/fa";
 import HeaderTable from "../headerTable/headerTable";
-import './table.css'
+import "./table.css";
+import Status from "../TransactionStatus/status";
+import { tableLimit } from "../../helper/constant";
 
 type props = {
-getDefaultData  : () => ITransacionForTable[];
-onRefreshData : () => void;
-  rows : IRowsTable[]
+  getDefaultData: () => ITransacionForTable[];
+  onRefreshData: () => void;
+  rows: IRowsTable[];
 };
 
 const styleHeaderOfTable = { background: "#FFF", color: "#000" };
@@ -23,34 +22,36 @@ const styleHeaderOfTable = { background: "#FFF", color: "#000" };
 function TableCompo(props: props) {
   const [sortColumn, setSortColumn] = useState<string>();
   const [sortType, setSortType] = useState<SortType | undefined>();
-  const [limit, setLimit] = useState<number>(10);
+  const [limit, setLimit] = useState<number>(
+    parseInt(localStorage.getItem(tableLimit) || "0") || 10
+  );
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>("");
-  const [isSearch, setisSearch] = useState(false);
-  const [loading , setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
 
   const handleChangeLimit = (dataKey: number) => {
     setPage(1);
+    localStorage.setItem(tableLimit,dataKey.toString())
     setLimit(dataKey);
   };
 
-  useEffect(()=> {
-    setTimeout(()=> {
-        setLoading(false)
-    },1000)
-  })
+  useEffect(() => {
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  });
 
   const handleSortColumn = (
     sortColumn: string,
     sortType: SortType | undefined
   ) => {
-    setLoading(true)
+    setLoading(true);
     setTimeout(() => {
       setSortColumn(sortColumn);
       setSortType(sortType);
-      setLoading(false)
+      setLoading(false);
     }, 500);
   };
 
@@ -58,16 +59,10 @@ function TableCompo(props: props) {
     navigate("/details/" + uuid);
   };
 
-
-
   const defaultData: ITransacionForTable[] = props.getDefaultData();
 
   const getData = () => {
-    const data: ITransacionForTable[] = isSearch
-      ? defaultData.filter((it) =>
-          it.uuid.toLowerCase().includes(search.toLocaleLowerCase())
-        )
-      : defaultData;
+    const data = defaultData;
     if (sortColumn && sortType) {
       return data
         .sort((a, b) => {
@@ -110,26 +105,23 @@ function TableCompo(props: props) {
   };
 
   const handleInputFocus = () => {
-    setisSearch(false);
     setSearch("");
   };
   const handleSearch = () => {
-    setisSearch(true);
+    navigate("/details/" + search);
   };
   const onRefreshData = () => {
-    setLoading(true)
+    setLoading(true);
     setTimeout(() => {
-    props.onRefreshData();
-      setLoading(false)
+      props.onRefreshData();
+      setLoading(false);
       setSearch("");
-      setisSearch(false);
     }, 1000);
   };
 
   return (
     <div className="table-container">
-
-    <HeaderTable
+      <HeaderTable
         value={search}
         title="Transaction List"
         descr="Information about Transaction which have reclamation !"
@@ -141,7 +133,7 @@ function TableCompo(props: props) {
       <Table
         className="table"
         autoHeight
-        style={{ fontFamily: "Mukta" }}
+        style={{ fontFamily: "Mukta", maxWidth: 1400 }}
         virtualized
         data={getData()}
         sortColumn={sortColumn}
@@ -149,12 +141,19 @@ function TableCompo(props: props) {
         onSortColumn={handleSortColumn}
         loading={loading}
       >
-
-        {props.rows.map((row,i) => (
-                <Column key={i} width={row.size} sortable resizable>
-                <HeaderCell style={styleHeaderOfTable}>{row.headerCell}</HeaderCell>
-                <Cell dataKey={row.dataKey} />
-            </Column>
+        {props.rows.map((row, i) => (
+          <Column key={i} width={row.size} sortable resizable>
+            <HeaderCell style={styleHeaderOfTable}>{row.headerCell}</HeaderCell>
+            {row.headerCell == "State" ? (
+              <Cell>
+                {(dataRow) => (
+                  <Status status={(dataRow as ITransacionForTable).state} />
+                )}
+              </Cell>
+            ) : (
+              <Cell dataKey={row.dataKey} />
+            )}
+          </Column>
         ))}
 
         <Column width={80} fixed="right" align="center">
@@ -163,9 +162,7 @@ function TableCompo(props: props) {
             {(rowData) => (
               <FaEye
                 onClick={() =>
-                  navigateToDetailsScreen(
-                    (rowData as ITransacionForTable).uuid
-                  )
+                  navigateToDetailsScreen((rowData as ITransacionForTable).uuid)
                 }
                 className="icon-details"
               />
@@ -179,7 +176,7 @@ function TableCompo(props: props) {
           next
           maxButtons={5}
           size="md"
-          style={{ color: '#3782ec88' }}
+          style={{ color: "#3782ec88", maxWidth: 1500 }}
           layout={["total", "-", "limit", "|", "pager"]}
           total={defaultData.length}
           limitOptions={[10, 30, 50]}

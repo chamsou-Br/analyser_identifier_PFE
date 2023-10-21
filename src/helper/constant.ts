@@ -4,7 +4,9 @@ export const BASE_URL = "http://localhost:7550/api";
 
 export const tokenName = "pepper_token";
 
-export const Currency = " $ ";
+export const Currency = " DA ";
+
+export const tableLimit = "Table_Limit"
 
 export const Authorization = () => {
   return localStorage.getItem(tokenName) != null
@@ -45,6 +47,7 @@ export const getFullFormatDate = (inputDate: string) => {
     hour: "2-digit",
     minute: "2-digit",
     timeZone: "UTC",
+    hour12: false,
   };
 
   const date = new Date(inputDate);
@@ -57,7 +60,35 @@ export function getFormatPrice(price: number | undefined): string {
     // Use toFixed(2) to ensure two decimal places and convert it to a string
     const formattedPrice = price.toFixed(2);
     // Replace the decimal point with a period
-    return formattedPrice.replace(".", ".");
+    return formattedPrice.replace(".", ".") + " " + Currency;
   }
-  return "0.00";
+  return "0.00" + " " + Currency;
+}
+
+
+export const getTimeAgo = (date : string) => {
+// Your initial timestamp
+const timestamp = new Date(date);
+
+// Current time
+const currentTime = new Date();
+
+// Calculate the time difference in milliseconds
+const timeDifference = currentTime.getTime() - timestamp.getTime();
+
+// Calculate time ago
+if (timeDifference < 1000 * 60 * 60) {
+  // Less than an hour ago
+  const minutesAgo = Math.floor(timeDifference / (1000 * 60));
+  return `${minutesAgo} minutes ago`
+} else if (timeDifference < 1000 * 60 * 60 * 24) {
+  // Less than a day ago
+  const hoursAgo = Math.floor(timeDifference / (1000 * 60 * 60));
+  return `${hoursAgo} hours ago`
+} else {
+  // More than a day ago
+  const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  return `${daysAgo} days ago`
+}
+
 }

@@ -15,6 +15,7 @@ import Page404 from "./components/404/page404";
 import CustomElement from "./components/Layout/customElement";
 import HistorieScreen from "./screens/historieScreen";
 import InvitationDetails from "./screens/invitationDetails";
+import InvitaionsScreen from "./screens/invitaionsScreen";
 
 
 
@@ -27,6 +28,7 @@ function App() {
           <Routes  >
             <Route path="/" element={<CustomElement component={TransactionScreen} />} />
             <Route path="/fulfilled" element={<CustomElement component={TransactionFulfilledScreen} />} />
+            <Route path="/invitation" element={ <CustomElement component={InvitaionsScreen} /> } />
             <Route path="/canceled" element={<CustomElement component={TransactionCanceledScreen} />} />
             <Route path="/history" element={<CustomElement component={HistorieScreen} />} />
             <Route path="/invitation/:uuid" element={<CustomElement component={InvitationDetails } />} />

@@ -94,6 +94,11 @@
     width: 120px;
 }
 
+.invitation-info .seller {
+    padding: 10px 20px;
+    border-top: 1px solid #01010111;
+}
+
 
 @media (max-width : 500px) {
     .invitation-details-page .inv-card {
