@@ -280,6 +280,7 @@ const InvitationDetails: React.FC = () => {
                     phoneNumber: invitationState.invitation.Seller.phoneNumber,
                     status: invitationState.invitation.Seller.status,
                     wilaya: invitationState.invitation.Seller.wilaya,
+                    createdAt : invitationState.invitation.Seller.createdAt
                   }}
                 />
               </div>

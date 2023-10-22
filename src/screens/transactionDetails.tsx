@@ -307,19 +307,11 @@ const TransactionDetails: React.FC = () => {
                   icon={<IoMdCalendar />}
                 />
 
-                {transaction.state == TransactionStatus.FULFILLED ? (
-                  <LigneInfoInCard
-                    title="Update Date"
-                    value={getTimeAgo(transaction.updatedAt.toString())}
-                    icon={<IoMdTime />}
-                  />
-                ) : (
                   <LigneInfoInCard
                     title="Delivry type"
                     value={getDeliveryTypeTitle(transaction.deliveryType)}
                     icon={<FaTruck />}
                   />
-                )}
                 <LigneInfoInCard
                   title="Delivry place"
                   value={transaction.deliveryPlace}
@@ -333,6 +325,7 @@ const TransactionDetails: React.FC = () => {
                 <LigneInfoInCard
                   title="payment date"
                   value={getFullFormatDate(transaction.paymentDate.toString())}
+                  subDescr={getTimeAgo(transaction.paymentDate.toString())}
                   icon={<IoMdCalendar />}
                 />
                 <div className="card-information">
@@ -448,6 +441,11 @@ const TransactionDetails: React.FC = () => {
                   }
                   icon={<IoMdTime />}
                 />
+                  <LigneInfoInCard
+                    title="Delivry type"
+                    value={getDeliveryTypeTitle(transaction.deliveryType)}
+                    icon={<FaTruck />}
+                  />
                 <LigneInfoInCard
                   title="Local Delivery Price"
                   value={transaction.Invitation.localDeliveryPrice.toString()}
@@ -512,6 +510,7 @@ const TransactionDetails: React.FC = () => {
                         phoneNumber: transaction.Invitation.Seller.phoneNumber,
                         status: transaction.Invitation.Seller.status,
                         wilaya: transaction.Invitation.Seller.wilaya,
+                        createdAt : transaction.Invitation.Seller.createdAt
                       }}
                     />
                   )}

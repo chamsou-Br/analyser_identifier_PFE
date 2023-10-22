@@ -41,6 +41,7 @@ const HistorieScreen: React.FC = () => {
                 actionType={hist.actionType}
                 date={getFullFormatDate(hist.createdAt.toString())}
                 raison={hist.reason}
+                uuid={hist.uuid}
               />
             </div>
           ))}

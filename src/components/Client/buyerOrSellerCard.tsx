@@ -12,6 +12,8 @@ import Status from "../TransactionStatus/status";
 import { Client, IClientBase } from "../../helper/types";
 import { useNavigate } from "react-router";
 import "./client.css";
+import { getTimeAgo } from "../../helper/constant";
+import { IoMdTime } from "react-icons/io";
 
 type Props = {
   client: IClientBase;
@@ -33,6 +35,13 @@ function BuyerOrSellerCard(props: Props) {
         <Status status={props.client.status} />
       </div>
       <div className="client-card-content">
+        {props.client.createdAt ? (
+          <LigneInfoInCard
+            title="Creation date"
+            value={ getTimeAgo(props.client.createdAt.toString())}
+            icon={<IoMdTime />}
+          />
+        ) : null}
         {props.client.businessName ? (
           <LigneInfoInCard
             title="Business Name"

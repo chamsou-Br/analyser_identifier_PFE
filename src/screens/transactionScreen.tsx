@@ -26,10 +26,8 @@ const TransactionScreen: React.FC = () => {
 
   useEffect(() => {
     dispatch(startLoadingTransaction());
-    setTimeout(() => {
       dispatch(fetchTransactions());
       dispatch(stopLoadingTransaction());
-    }, 1000);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

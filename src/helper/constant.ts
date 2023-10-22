@@ -8,6 +8,8 @@ export const Currency = " DA ";
 
 export const tableLimit = "Table_Limit"
 
+export const InvalidToken = "Invalid token: TokenExpiredError: jwt expired"
+
 export const Authorization = () => {
   return localStorage.getItem(tokenName) != null
     ? localStorage.getItem(tokenName)

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import { getFormatPrice } from "../../helper/constant";
 import "./transactionHistory.css";
 import { FaExclamation } from "react-icons/fa";
@@ -6,10 +7,17 @@ type Props = {
   action: string;
   raison: string;
   date: string;
-  num? : number
+  num? : number,
+  uuid? : string 
 };
 
 function HistorieTransactioncard(props: Props) {
+
+  const navigate = useNavigate()
+
+  const onNavigateToTransaction = () => {
+   props.uuid ? navigate("/details/"+props.uuid) : null
+  }
   const closing_accounting =
     props.actionType == "closing & accounting"
       ? {
@@ -29,7 +37,7 @@ function HistorieTransactioncard(props: Props) {
       : null;
 
   return (
-    <div className="historie-card">
+    <div className="historie-card" onClick={onNavigateToTransaction} >
       <div className="historie-card-header">
         <div style={{ display: "flex", alignItems: "center" }}>
           <div className="details-navigate-icon">

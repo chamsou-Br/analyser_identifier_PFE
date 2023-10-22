@@ -13,7 +13,7 @@ import {
 import {  IAdminFullTransaction, IRowsTable, ITransacionForTable } from "../helper/types";
 
 import TableCompo from "../components/Table/Table";
-import { Currency, getDeliveryTypeTitle  , getFormatDate, getFullFormatDate} from "../helper/constant";
+import { Currency, getDeliveryTypeTitle  , getFormatDate, getFullFormatDate, getTimeAgo} from "../helper/constant";
 import HeaderPage from "../components/headerPage/headerPage";
 
 // eslint-disable-next-line no-empty-pattern
@@ -37,7 +37,7 @@ const TransactionFulfilledScreen: React.FC = () => {
     {headerCell : "Seller" , dataKey : "Seller" , size :150 },
     {headerCell : "Product" , dataKey : "ProductName" , size :150 },
     {headerCell : "Price" , dataKey : "ProductPrice" , size : 100},
-    {headerCell : "Delivery Type" , dataKey : "deliveryType" , size : 150},
+    {headerCell : "Update Date" , dataKey : "updateDate" , size : 150},
     {headerCell : "Delivery Price" , dataKey : "deliveryPrice" , size : 100},
     {headerCell : "Delivery Date" , dataKey : "deliveryDate" , size : 150},
     {headerCell : "Payment Date" , dataKey : "paymentDate" , size :150 },
@@ -48,6 +48,7 @@ const TransactionFulfilledScreen: React.FC = () => {
     const newData = transactionState.transactions
       ? transactionState.transactions.map((item: IAdminFullTransaction) => ({
           uuid: item.uuid,
+          updateDate : getTimeAgo(item.updatedAt.toString()),
           deliveryDate: getFullFormatDate(item.deliveryDate.toString()), // Convert Date to string
           deliveryPlace: item.deliveryPlace,
           deliveryType: getDeliveryTypeTitle(item.deliveryType),
@@ -59,6 +60,7 @@ const TransactionFulfilledScreen: React.FC = () => {
           paymentDate: getFullFormatDate( item.paymentDate.toString() ),
           state: item.state,
           claims: item.Claims.length,
+      
         }))
       : [];
     return newData;

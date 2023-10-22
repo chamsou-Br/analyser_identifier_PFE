@@ -1,5 +1,3 @@
-
-
 export interface IInvitation {
     uuid: string,
     product: string,
@@ -76,39 +74,44 @@ export interface IInvitation {
     text: string,
     createdAt: Date
   }
+
   export interface IHistory {
     id: number,
     action: string,
+    uuid: string,
     actionType: string,
     reason: string,
     createdAt: Date
   }
+
+ export interface IBuyerBase {
+  id: number,
+  name: string,
+  firstName: string,
+  birthDay: Date,
+  gender: Gender,
+  phoneNumber: string,
+  wilaya: string;
+  address: string,
+  status: EntityStatus,
+  email: string,
+}
+
   
-  export interface IBuyerBase {
-    id: number,
-    name: string,
-    firstName: string,
-    birthDay: Date,
-    gender: Gender,
-    phoneNumber: string,
-    wilaya: string;
-    address: string,
-    status: EntityStatus,
-    email: string,
-  }
-  
-  export interface ISellerBase {
-    id: number,
-    name: string,
-    phoneNumber: string,
-    email: string,
-    firstName: string,
-    businessName: string,
-    location: string,
-    wilaya: string
-    description: string,
-    status: EntityStatus
-  }
+export interface ISellerBase {
+  id: number,
+  name: string,
+  phoneNumber: string,
+  email: string,
+  firstName: string,
+  businessName: string,
+  location: string,
+  wilaya: string
+  description: string,
+  status: EntityStatus,
+  createdAt: Date
+}
+
 
   export interface IClientBase {
     phoneNumber: string ,
@@ -123,6 +126,7 @@ export interface IInvitation {
     description: string | null | undefined,
     status: EntityStatus ,
     client? : Client
+    createdAt? : Date
 
   }
 
@@ -131,7 +135,8 @@ export interface IInvitation {
     uuid: string;
     deliveryDate: string;
     deliveryPlace: string;
-    deliveryType: string;
+    deliveryType?: string;
+    updateDate? : string;
     deliveryPrice: string;
     Buyer?: string;
     Seller?: string;
@@ -141,6 +146,15 @@ export interface IInvitation {
     claims?: number;
     state: TransactionStatus;
     // Add other properties you need
+  }
+
+  export interface IDeliveryOffice {
+    id: number
+    userName: string,
+    company: string,
+    email: string,
+    password: string,
+    adminLevel: number,
   }
 
   export interface IRowsTable {

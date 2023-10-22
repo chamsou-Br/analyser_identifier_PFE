@@ -3,7 +3,8 @@ import "./lignInfoCard.css"
 type Props = {
     title:string,
     value : string,
-    icon : React.ReactNode
+    icon : React.ReactNode,
+    subDescr? : string
 }
 
 
@@ -17,6 +18,7 @@ const LigneInfoInCard = (props: Props) => {
         {props.icon}
       </div>
       <span>{props.value} </span>
+     {props.subDescr ? <div className='sub-descr' >5 hour ago</div> : null }
     </div>
   </div>
   )

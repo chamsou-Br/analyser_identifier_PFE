@@ -15,7 +15,7 @@ const LoginScreen: React.FC = () => {
   const navigate = useNavigate();
 
   const [userName, setuserName] = useState<string>("");
-  const [privateKey, setPrivateKey] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const HandlerInputuserNameChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -24,15 +24,15 @@ const LoginScreen: React.FC = () => {
   };
 
   const HandlerInputPasswordChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setPrivateKey(e.target.value);
+    setPassword(e.target.value);
   };
 
   const HandlerLogin = () => {
-      dispatch(authentificate(userName, privateKey));
+      dispatch(authentificate(userName, password));
       setuserName("");
-      setPrivateKey("");
+      setPassword("");
   };
 
   useEffect(() => {
@@ -60,11 +60,13 @@ const LoginScreen: React.FC = () => {
             onChange={HandlerInputuserNameChange}
           />
           <label>Key</label>
-          <textarea
-            placeholder="Enter your Key"
-            value={privateKey}
+          <input
+            placeholder="Enter your userName"
+            type="password"
+            value={password}
             onChange={HandlerInputPasswordChange}
           />
+
           <div  onClick={HandlerLogin} className={ "submit"}>
           {authState.loading ? (<Loader speed="slow"/>) : "Login"}  
           </div>

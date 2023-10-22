@@ -15,7 +15,7 @@ useEffect(()=>{
   if (!auth.isAuth) {
     navigate("/auth")
   }
-},[])
+},[auth, navigate])
 
 
 if (auth.isAuth)
