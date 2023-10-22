@@ -7,39 +7,6 @@ import { ADD_NOTE, ADMIN_ACTION, BLOCK_SELLER, BUYER_HISTORY, CLOSE_TRANSACTION,
 
 
 
-export const fetchTransactionAPI = async (
-  uuid: string
-) => {
-  try {
-    const options = {
-      method: "POST",
-      url: GET_TRANSACTION,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: Authorization() ,
-      },
-      data: { transactionUuid: uuid },
-    };
-
-    
-
-    const response = await axios.request(options);
-
-    return {
-      transaction: response.data.transactions as IAdminFullTransaction,
-      error: undefined,
-    };
-
-
-
-  } catch (error: unknown) {
-    return {
-      transaction: undefined,
-      error:
-        error instanceof Error ? error.message : "An unknown error occurred",
-    };
-  }
-};
 
 export const addNoteOfTransactionAPI = async (
   uuid: string,
@@ -389,36 +356,6 @@ try {
 
 
 
-export const fetchInvitationsAPI = async ( 
-  ) => {
-try { 
-
-  const options = {
-    method: 'GET',
-    url: INVITATIONS,
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: Authorization()
-    },
-  };
-    
-  const response = await axios.request(options);
-
-  return {
-    invitation : response.data.invitations as IInvitationComplete[],
-    error: null,
-  };
-
-  } catch (error: unknown) {
-  
-      return {
-        invitation : undefined,
-        error: (error as AxiosError<{ message: string }>).response?.data.message
-          ? (error as AxiosError<{ message: string }>).response?.data.message
-          : "An unknown error occurred",
-      };
-    }
-}
 
 
 

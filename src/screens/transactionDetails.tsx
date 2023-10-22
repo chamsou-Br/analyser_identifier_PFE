@@ -243,7 +243,6 @@ const TransactionDetails: React.FC = () => {
   };
 
   const handleSearch = () => {
-    dispatch(fetchTransactionDetails(uuid ? uuid : ""));
     navigate("/details/" + search)
     setSearch("");
   };
@@ -251,7 +250,7 @@ const TransactionDetails: React.FC = () => {
   /* End Search Functions */
 
   const getTransaction = async (uuid: string) => {
-    if (!transaction) {
+    if (!transaction || transaction.uuid != uuid) {
       const data = Transactions.filter(
         (it) => it.uuid.toLocaleLowerCase() === uuid?.toLocaleLowerCase()
       )[0];
@@ -266,7 +265,7 @@ const TransactionDetails: React.FC = () => {
   useEffect(() => {
     getTransaction(uuid ? uuid : "");
     fetchClosingInfo(uuid ? uuid : "");
-  }, []);
+  }, [uuid]);
 
   if (transaction && !error) {
     return (

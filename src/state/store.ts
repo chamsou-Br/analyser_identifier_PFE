@@ -10,6 +10,8 @@ import { legacy_createStore} from 'redux'
 import { transactionDetailsReducer } from './reducers/transactionDetailsReducer';
 import { authReducer } from './reducers/authReducer';
 import { tokenName } from '../helper/constant';
+import { invitationReducer } from './reducers/invitationsReducer';
+import { InvitationDetailsReducer } from './reducers/invitationDetailsReducer';
 
 // Define RootState
 export type RootState = ReturnType<typeof rootReducer>;
@@ -20,6 +22,8 @@ export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 // Combine Reducers
 const rootReducer = combineReducers({
+  invitations : invitationReducer,
+  invitation : InvitationDetailsReducer,
   transactions: transactionsReducer, 
   transaction : transactionDetailsReducer,
   auth : authReducer
@@ -42,6 +46,16 @@ const initState = {
     token : localStorage.getItem(tokenName) ? localStorage.getItem(tokenName) : "",
     isAuth : localStorage.getItem(tokenName) ? true : false,
     error : undefined
+  },
+  invitations : {
+    invitations :[],
+    error: null,
+    loading : false
+  },
+  invitation : {
+    invitation :undefined,
+    error: null,
+    loading : false
   }
 }
 

@@ -44,6 +44,11 @@ const HistorieScreen: React.FC = () => {
               />
             </div>
           ))}
+          {history.length == 0 && (
+            <div className="no-action-yet">
+              No action existe yet !
+            </div>
+          )}
         </div>
       </div>
     );

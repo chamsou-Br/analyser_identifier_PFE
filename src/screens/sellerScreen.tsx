@@ -19,11 +19,15 @@ import { RootState, useAppDispatch } from "../state/store";
 import { useSelector } from "react-redux";
 import { ModifyTransactionDetails } from "../state/actions/transactionDetailsAction";
 import Page404 from "../components/404/page404";
+import { ModifyInvitationDetails } from "../state/actions/invitationDetailsAction";
 
 const SellerScreen: React.FC = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const invitation = useSelector(
+    (state: RootState) => state.invitation
+  ).invitation;
   const transaction = useSelector(
     (state: RootState) => state.transaction
   ).transaction;
@@ -38,7 +42,16 @@ const SellerScreen: React.FC = () => {
   };
 
   const fetchData = async () => {
+    if (client.email == transaction?.Invitation.Seller.email) {
+      setClient({ ...client, status: transaction.Invitation.Seller.status });
+    } else if (client.email == invitation?.Seller.email) {
+      setClient({ ...client, status: invitation.Seller.status });
+    }
+    
     const res = await getSellerHistorieAPI(client ? client.email : "");
+
+
+
     console.log(res);
     setHistories(res.historiy);
   };
@@ -74,24 +87,29 @@ const SellerScreen: React.FC = () => {
   const handleSubmitBlockClient = async () => {
     setisModalConfirmOfBlockClient(false);
     const res = await blockSellerAPI(client.email);
-    if (res.error) {
-      onAlert(false, res.error, true);
+    if (!res.seller) {
+      onAlert(false, res.error ? res.error : "An Error has occured !", true);
     } else {
-
       onAlert(true, "", true);
-      setClient({ ...client, status : EntityStatus.Rejected });
-      if (res.seller && transaction) {
-        if (transaction.Invitation.Seller.email == client.email) {
-          dispatch(
-            ModifyTransactionDetails({
-              ...transaction,
-              Invitation: {
-                ...transaction.Invitation,
-                Seller: res.seller,
-              },
-            })
-          );
-        }
+      setClient({ ...client, status: EntityStatus.Rejected });
+      if (transaction && transaction.Invitation.Seller.email == client.email) {
+        dispatch(
+          ModifyTransactionDetails({
+            ...transaction,
+            Invitation: {
+              ...transaction.Invitation,
+              Seller: res.seller,
+            },
+          })
+        );
+      }
+      if (invitation && invitation.Seller.email == client.email) {
+        dispatch(
+          ModifyInvitationDetails({
+            ...invitation,
+            Seller: res.seller,
+          })
+        );
       }
     }
   };
@@ -138,7 +156,7 @@ const SellerScreen: React.FC = () => {
         <Alert alert={alert} onAlert={onAlert} />
       </div>
     );
-  }else return <Page404 />
+  } else return <Page404 />;
 };
 
 export default SellerScreen;

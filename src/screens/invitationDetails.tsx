@@ -17,26 +17,37 @@ import { getDeliveryTypeTitle, getFormatDate } from "../helper/constant";
 import { useParams } from "react-router-dom";
 import Alert from "../components/Alert/alert";
 import { Carousel } from "rsuite";
-import {
-  ModifyTransactionDetails,
-  fetchTransactionDetails,
-} from "../state/actions/transactionDetailsAction";
+import { ModifyTransactionDetails } from "../state/actions/transactionDetailsAction";
 import HeaderPage from "../components/headerPage/headerPage";
 import Status from "../components/TransactionStatus/status";
 import InvitationActions from "../components/invitationAction/InvitationAction";
 import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
-import { fetchInvitationDetailsAPI, rejectInvitationAPI, validateInvitationAPI } from "../helper/callsApi";
+import {
+  fetchInvitationDetailsAPI,
+  rejectInvitationAPI,
+  validateInvitationAPI,
+} from "../helper/callsApi";
 import { Client, IInvitationComplete } from "../helper/types";
 import Page404 from "../components/404/page404";
 import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
+import {
+  AddInvitationDetails,
+  ModifyInvitationDetails,
+  fetchInvitationDetails,
+} from "../state/actions/invitationDetailsAction";
 
 const InvitationDetails: React.FC = () => {
   const dispatch = useAppDispatch();
   const { uuid } = useParams();
 
-  const transaction =  useSelector((state: RootState) => state.transaction).transaction;
+  const transaction = useSelector(
+    (state: RootState) => state.transaction
+  ).transaction;
+  const invitations = useSelector(
+    (state: RootState) => state.invitations
+  ).invitations;
 
-  const [invitation,setInvitation] = useState<IInvitationComplete>() ;
+  const invitationState = useSelector((state: RootState) => state.invitation);
 
   const [rejectInvModal, setrejectInvModal] = useState(false);
   const [validateInvModal, setvalidateInvModal] = useState(false);
@@ -52,27 +63,28 @@ const InvitationDetails: React.FC = () => {
   };
 
   const handleSubmitRejectInvitation = async () => {
-    setrejectInvModal(false)
+    setrejectInvModal(false);
     const res = await rejectInvitationAPI(
-      invitation?.uuid ? invitation.uuid : "k"
+      invitationState.invitation?.uuid ? invitationState.invitation?.uuid : "k"
     );
     if (!res.invitation) {
       onAlert(false, res.error ? res.error : "an error has occured !", true);
     } else {
-      onAlert(true,"",true)
-      if (invitation) {
-        setInvitation({
-          ...res.invitation,
-          Seller : invitation.Seller
-        })
-
-        if ( transaction != undefined &&  transaction?.Invitation.uuid == uuid ) {
+      onAlert(true, "", true);
+      if (invitationState.invitation) {
+        dispatch(
+          ModifyInvitationDetails({
+            ...res.invitation,
+            Seller: invitationState.invitation.Seller,
+          })
+        );
+        if (transaction != undefined && transaction?.Invitation.uuid == uuid) {
           dispatch(
             ModifyTransactionDetails({
               ...transaction,
               Invitation: {
                 ...res.invitation,
-                Seller: invitation.Seller,
+                Seller: invitationState.invitation.Seller,
               },
             })
           );
@@ -90,33 +102,34 @@ const InvitationDetails: React.FC = () => {
   };
 
   const handleSubmitValidateInvitation = async () => {
-    setvalidateInvModal(false)
+    setvalidateInvModal(false);
     const res = await validateInvitationAPI(
-        invitation?.uuid ? invitation.uuid : ""
-      );
-      if (!res.invitation) {
-        onAlert(false, res.error ? res.error : "an error has occured !", true);
-      } else {
-        onAlert(true,"",true)
-        if (invitation) {
-          setInvitation({
+      invitationState.invitation?.uuid ? invitationState.invitation.uuid : ""
+    );
+    if (!res.invitation) {
+      onAlert(false, res.error ? res.error : "an error has occured !", true);
+    } else {
+      onAlert(true, "", true);
+      if (invitationState.invitation) {
+        dispatch(
+          ModifyInvitationDetails({
             ...res.invitation,
-            Seller : invitation.Seller
+            Seller: invitationState.invitation.Seller,
           })
-
-          if ( transaction != undefined &&  transaction?.Invitation.uuid == uuid ) {
-            dispatch(
-              ModifyTransactionDetails({
-                ...transaction,
-                Invitation: {
-                  ...res.invitation,
-                  Seller: invitation.Seller,
-                },
-              })
-            );
-          }
+        );
+        if (transaction != undefined && transaction?.Invitation.uuid == uuid) {
+          dispatch(
+            ModifyTransactionDetails({
+              ...transaction,
+              Invitation: {
+                ...res.invitation,
+                Seller: invitationState.invitation.Seller,
+              },
+            })
+          );
         }
       }
+    }
   };
 
   /* End Invitation function */
@@ -140,22 +153,33 @@ const InvitationDetails: React.FC = () => {
   /* End alert function */
 
   const getInvitation = async (uuid: string) => {
-    if (uuid == transaction?.Invitation.uuid) {
-      setInvitation(transaction.Invitation)
-    }else {
-      const res = await fetchInvitationDetailsAPI(uuid);
-      if (res.invitation) {
-        setInvitation(res.invitation);
+    if (
+      !invitationState.invitation ||
+      invitationState.invitation.uuid != uuid
+    ) {
+      const inv = invitations.filter(
+        (it) => it.uuid.toLocaleLowerCase() === uuid?.toLocaleLowerCase()
+      )[0];
+      if (inv) {
+        console.log(1);
+        dispatch(AddInvitationDetails(inv));
+      } else {
+        console.log(2);
+        if (uuid == transaction?.Invitation.uuid) {
+          dispatch(AddInvitationDetails(transaction.Invitation));
+        } else {
+          console.log(3);
+          dispatch(fetchInvitationDetails(uuid));
+        }
       }
     }
   };
 
   useEffect(() => {
-    console.log(uuid)
     getInvitation(uuid ? uuid : "");
   }, []);
 
-  if (invitation) {
+  if (!invitationState.error && invitationState.invitation) {
     return (
       <div key={uuid} className="invitation-details-page">
         <InvitationActions
@@ -165,7 +189,10 @@ const InvitationDetails: React.FC = () => {
         <div className="invitation-section">
           <HeaderPage
             title={"Invitation : " + uuid}
-            descr={"All infomation about invitaion " + invitation.uuid}
+            descr={
+              "All infomation about invitaion " +
+              invitationState.invitation.uuid
+            }
           />
           <div className="invitation-section-content">
             <div className="invitation-gallery inv-card">
@@ -175,7 +202,7 @@ const InvitationDetails: React.FC = () => {
                 autoplay
                 className="custom-slider"
               >
-                {invitation.images?.map((img, i) => (
+                {invitationState.invitation.images?.map((img, i) => (
                   <img key={i} src={img} className="img-inv" />
                 ))}
               </Carousel>
@@ -183,70 +210,79 @@ const InvitationDetails: React.FC = () => {
             <div className="invitation-info inv-card">
               <TitleCard title="Invitation" />
               <div className="card-content">
-                <div className="title">{invitation.product}</div>
-                <div className="descr">{invitation.description}</div>
+                <div className="title">
+                  {invitationState.invitation?.product}
+                </div>
+                <div className="descr">
+                  {invitationState.invitation?.description}
+                </div>
                 <div className="card-information">
                   <div className="information-title">active</div>
-                  <Status status={invitation.active} />
+                  <Status status={invitationState.invitation?.active} />
                 </div>
                 <LigneInfoInCard
                   title="Price"
-                  value={invitation.price.toString()}
+                  value={invitationState.invitation.price.toString()}
                   icon={<FaDollarSign />}
                 />
                 <LigneInfoInCard
                   title="Date"
                   value={getFormatDate(
-                    invitation.date.toString().split("T")[0]
+                    invitationState.invitation.date.toString().split("T")[0]
                   )}
                   icon={<IoMdCalendar />}
                 />
                 <LigneInfoInCard
                   title="Store Wilaya"
-                  value={invitation.storeWilaya}
+                  value={invitationState.invitation.storeWilaya}
                   icon={<FaMapMarked />}
                 />
                 <LigneInfoInCard
                   title="Store Location"
-                  value={invitation.storeLocation}
+                  value={invitationState.invitation.storeLocation}
                   icon={<FaSearchLocation />}
                 />
                 <LigneInfoInCard
                   title="Delivery Type"
-                  value={getDeliveryTypeTitle(invitation.deliveryType)}
+                  value={getDeliveryTypeTitle(
+                    invitationState.invitation.deliveryType
+                  )}
                   icon={<FaTruck />}
                 />
                 <LigneInfoInCard
                   title="Delivery Time"
-                  value={invitation.deliveryDelayHours.toString() + " H"}
+                  value={
+                    invitationState.invitation.deliveryDelayHours.toString() +
+                    " H"
+                  }
                   icon={<IoMdTime />}
                 />
                 <LigneInfoInCard
                   title="Local Delivery Price"
-                  value={invitation.localDeliveryPrice.toString()}
+                  value={invitationState.invitation.localDeliveryPrice.toString()}
                   icon={<FaDollarSign />}
                 />
               </div>
               <div className="seller">
-              <BuyerOrSellerCard
-                      onNavigate
-                      client={{
-                        client: Client.SELLER,
-                        address: null,
-                        birthDay: null,
-                        businessName:
-                          invitation.Seller.businessName,
-                        description: null,
-                        email: invitation.Seller.email,
-                        firstName: invitation.Seller.firstName,
-                        gender: null,
-                        location: invitation.Seller.location,
-                        phoneNumber: invitation.Seller.phoneNumber,
-                        status:invitation.Seller.status,
-                        wilaya: invitation.Seller.wilaya,
-                      }}
-                    />
-                    </div>
+                <BuyerOrSellerCard
+                  onNavigate
+                  client={{
+                    client: Client.SELLER,
+                    address: null,
+                    birthDay: null,
+                    businessName:
+                      invitationState.invitation.Seller.businessName,
+                    description: null,
+                    email: invitationState.invitation.Seller.email,
+                    firstName: invitationState.invitation.Seller.firstName,
+                    gender: null,
+                    location: invitationState.invitation.Seller.location,
+                    phoneNumber: invitationState.invitation.Seller.phoneNumber,
+                    status: invitationState.invitation.Seller.status,
+                    wilaya: invitationState.invitation.Seller.wilaya,
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -267,7 +303,7 @@ const InvitationDetails: React.FC = () => {
       </div>
     );
   } else {
-    return <Page404 />
+    return <Page404 />;
   }
 };
 

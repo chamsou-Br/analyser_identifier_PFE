@@ -1,17 +1,20 @@
 import React , { useState , useEffect} from 'react'
 import "../styles/invitations.css"
 import HeaderPage from '../components/headerPage/headerPage'
-import { IInvitationComplete } from '../helper/types';
 import ClientHistoryCard from '../components/clientHistoryCard/clientHistoryCard';
-import { fetchInvitationsAPI } from '../helper/callsApi';
 import { useNavigate } from 'react-router';
+import { RootState, useAppDispatch } from '../state/store';
+import { fetchInvitations } from '../state/actions/invitationsAction';
+import { useSelector } from 'react-redux';
+import Page404 from '../components/404/page404';
 
 
 function InvitaionsScreen() {
 
     const [search, setSearch] = useState<string>("");
     const navigate = useNavigate()
-    const [invitations , setInvitation] = useState<IInvitationComplete[]>([])
+    const disaptch = useAppDispatch();
+    const invitationsState = useSelector((state : RootState) => state.invitations)
 
     const handleInputSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -25,10 +28,7 @@ function InvitaionsScreen() {
       };
 
     const handleGetInvitations = async () => {
-       const res =  await fetchInvitationsAPI();
-       if (res.invitation) {
-        setInvitation(res.invitation);
-       }
+      disaptch(fetchInvitations())
     }
 
     useEffect(()=>{
@@ -37,6 +37,7 @@ function InvitaionsScreen() {
   
 
 
+    if (!invitationsState.error) {
   return (
     <div className='invitations-page'>
       <HeaderPage
@@ -49,7 +50,7 @@ function InvitaionsScreen() {
         descr="Information about Pending Invitation !"
         />
             <div className="content">
-            {invitations.map((his, i) => (
+            {invitationsState.invitations.map((his, i) => (
                 <div className='invitation'>
               <ClientHistoryCard key={i} history={his}  />
               </div>
@@ -58,6 +59,9 @@ function InvitaionsScreen() {
 
     </div>
   )
+            }else {
+              return <Page404 />
+            }
 }
 
 export default InvitaionsScreen
