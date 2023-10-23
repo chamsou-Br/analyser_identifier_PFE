@@ -7,6 +7,7 @@ type Props = {
   handleSubmit: () => void;
   handleCanceled: () => void;
   confirmationText: string;
+  submitButton? : string
 };
 
 function ActionConfirmation(props: Props) {
@@ -26,7 +27,7 @@ function ActionConfirmation(props: Props) {
           onClick={() => props.handleSubmit()}
           appearance="primary"
         >
-          Submit
+        {props.submitButton ? props.submitButton : "Submit"}
         </Button>
         <Button
           className="button"

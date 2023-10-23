@@ -10,6 +10,7 @@ import HeaderTable from "../headerTable/headerTable";
 import "./table.css";
 import Status from "../TransactionStatus/status";
 import { tableLimit } from "../../helper/constant";
+import DelivryType from "../DelivryType/delivryType";
 
 type props = {
   getDefaultData: () => ITransacionForTable[];
@@ -32,12 +33,11 @@ function TableCompo(props: props) {
 
   const handleChangeLimit = (dataKey: number) => {
     setPage(1);
-    localStorage.setItem(tableLimit,dataKey.toString())
+    localStorage.setItem(tableLimit, dataKey.toString());
     setLimit(dataKey);
   };
 
   useEffect(() => {
-
     setTimeout(() => {
       setLoading(false);
     }, 1000);
@@ -148,6 +148,12 @@ function TableCompo(props: props) {
               <Cell>
                 {(dataRow) => (
                   <Status status={(dataRow as ITransacionForTable).state} />
+                )}
+              </Cell>
+            ) : row.headerCell == "Delivery Type" ? (
+              <Cell>
+                {(dataRow) => (
+                  <DelivryType deliveryType={(dataRow as ITransacionForTable).deliveryType || "sdjksk"} />
                 )}
               </Cell>
             ) : (

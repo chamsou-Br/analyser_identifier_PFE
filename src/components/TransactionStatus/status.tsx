@@ -28,7 +28,7 @@ function Status(props: Props) {
     pending: "#EB904F",
     ongoing : "#EB904F",
     started: "#3782ec",
-    payed : "#44E46A",
+    payed : "#b7ec4d",
     accepted: "#44E46A",
     fulfilled : "#44E46A",
     rejected: "#E84949",

@@ -88,7 +88,6 @@
     .informations
     .card-information-lign,
   .client-history-card
-    .client-transaction-content
     .informations
     .state-information {
     flex: 0 0 calc(50% - 10px); /* Make each item 50% wide with some spacing */
@@ -112,7 +111,7 @@
     margin-bottom: 5px;
   }
   
-  .client-history-card .client-transactions-content .state-information {
+  .client-history-card  .state-information {
     display: flex;
     justify-content: start;
     align-items: center;
@@ -120,7 +119,7 @@
     letter-spacing: 1px;
   }
   
-  .client-history-card .client-transactions-content .state-information .title {
+  .client-history-card  .state-information .title {
     font-size: 11px;
     font-weight: 600;
     color: #949898;
@@ -136,6 +135,23 @@
     color: #010101aa;
     cursor: pointer;
   }
+
+  .client-history-card .card-information {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.client-history-card  .card-information .information-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #949898;
+    margin-right: 30px;
+    width: 120px;
+}
+
   
   @media (max-width: 1199px) {
     .client-history-card

@@ -3,22 +3,37 @@ import { IoMdLogOut } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../state/store";
 import { logout } from "../../state/actions/authAction";
+import ActionConfirmation from "../ActionConfirmation/ActionConfirmation";
+import { useState } from "react";
 
 function NavBar() {
   const navigate = useNavigate();
   const history = useLocation();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+  const [open, setIsOpen] = useState(false);
 
   const handleLogOut = () => {
+    setIsOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsOpen(false);
+  };
+  const handleSubmit = () => {
     dispatch(logout());
-    navigate("/auth")
-  }
+    navigate("/auth");
+  };
 
   return (
     <div className="navBar">
-      <div
-        className="navBar-left"
-      >
+      <ActionConfirmation
+        submitButton="Logout"
+        isOpen={open}
+        handleCanceled={handleCancel}
+        handleSubmit={handleSubmit}
+        confirmationText="Are you sure that you want to LogOut ?"
+      />
+      <div className="navBar-left">
         <div>
           <span>D</span>
         </div>

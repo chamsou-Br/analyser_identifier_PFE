@@ -50,7 +50,7 @@ const LoginScreen: React.FC = () => {
             Login
           </div>
           <div  className="desc">
-            Welcom ! Please Enter your details
+            Welcome ! Please Enter your details
           </div>
           <label>userName</label>
           <input
@@ -59,9 +59,9 @@ const LoginScreen: React.FC = () => {
             value={userName}
             onChange={HandlerInputuserNameChange}
           />
-          <label>Key</label>
+          <label>Password</label>
           <input
-            placeholder="Enter your userName"
+            placeholder="Enter your password"
             type="password"
             value={password}
             onChange={HandlerInputPasswordChange}

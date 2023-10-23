@@ -64,7 +64,6 @@ const TransactionScreen: React.FC = () => {
     return newData;
   };
 
-
   const onRefreshData = () => {
       dispatch(fetchTransactions());
   };

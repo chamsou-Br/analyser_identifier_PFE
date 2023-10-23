@@ -1,0 +1,12 @@
+/* ----------------------------------------
+            delivry type Composant
+    ----------------------------------- */
+
+  .delivry-type-container{
+        color: #FFF;
+        padding: 5px 15px;
+        text-align: center;
+
+        font-size: 12px;
+        border-radius: 0.5rem;
+      }

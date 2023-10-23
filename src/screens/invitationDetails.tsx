@@ -35,6 +35,7 @@ import {
   ModifyInvitationDetails,
   fetchInvitationDetails,
 } from "../state/actions/invitationDetailsAction";
+import DelivryType from "../components/DelivryType/delivryType";
 
 const InvitationDetails: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -190,7 +191,7 @@ const InvitationDetails: React.FC = () => {
           <HeaderPage
             title={"Invitation : " + uuid}
             descr={
-              "All infomation about invitaion " +
+              "All information about invitation " +
               invitationState.invitation.uuid
             }
           />
@@ -242,13 +243,15 @@ const InvitationDetails: React.FC = () => {
                   value={invitationState.invitation.storeLocation}
                   icon={<FaSearchLocation />}
                 />
-                <LigneInfoInCard
-                  title="Delivery Type"
-                  value={getDeliveryTypeTitle(
-                    invitationState.invitation.deliveryType
-                  )}
-                  icon={<FaTruck />}
-                />
+                <div className="card-information">
+                  <div className="information-title">Delivery Type</div>
+                  <DelivryType
+                    deliveryType={getDeliveryTypeTitle(
+                      invitationState.invitation.deliveryType
+                    )}
+                  />
+                </div>
+
                 <LigneInfoInCard
                   title="Delivery Time"
                   value={
@@ -280,7 +283,7 @@ const InvitationDetails: React.FC = () => {
                     phoneNumber: invitationState.invitation.Seller.phoneNumber,
                     status: invitationState.invitation.Seller.status,
                     wilaya: invitationState.invitation.Seller.wilaya,
-                    createdAt : invitationState.invitation.Seller.createdAt
+                    createdAt: invitationState.invitation.Seller.createdAt,
                   }}
                 />
               </div>

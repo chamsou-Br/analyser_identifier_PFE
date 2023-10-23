@@ -31,7 +31,6 @@ const HistorieScreen: React.FC = () => {
           title={"History"}
           descr="Information about all action of admin!"
         />
-        <div className="jdskbkzejfb"></div>
         <div className="historie-admin-content">
           {history.map((hist, index) => (
             <div key={index} className="historie-admin-card">
@@ -47,7 +46,7 @@ const HistorieScreen: React.FC = () => {
           ))}
           {history.length == 0 && (
             <div className="no-action-yet">
-              No action existe yet !
+              No action exist yet !
             </div>
           )}
         </div>

@@ -51,6 +51,7 @@ import {
   fetchTransactionDetails,
 } from "../state/actions/transactionDetailsAction";
 import Page404 from "../components/404/page404";
+import DelivryType from "../components/DelivryType/delivryType";
 
 type infoClosing = {
   info: ITransactionClosing | undefined;
@@ -92,9 +93,7 @@ const TransactionDetails: React.FC = () => {
     (state: RootState) => state.transaction
   ).transaction;
 
-  const error = useSelector(
-    (state: RootState) => state.transaction
-  ).error;
+  const error = useSelector((state: RootState) => state.transaction).error;
   const handleNavigateToInvitationDetails = () => {
     navigate("/invitation/" + transaction?.Invitation.uuid);
   };
@@ -243,7 +242,7 @@ const TransactionDetails: React.FC = () => {
   };
 
   const handleSearch = () => {
-    navigate("/details/" + search)
+    navigate("/details/" + search);
     setSearch("");
   };
 
@@ -282,7 +281,7 @@ const TransactionDetails: React.FC = () => {
             value={search}
             isSeach
             title="Transaction Details"
-            descr="All Information about Transaction , Invitaion , seller and Buyer"
+            descr="All Information about Transaction , Invitation , seller and Buyer"
             handleChangeInput={handleInputSearchChange}
             handleFocusInput={handleInputFocus}
             handleSearch={handleSearch}
@@ -293,7 +292,7 @@ const TransactionDetails: React.FC = () => {
               <div className="card-content">
                 <div className="title">Transaction : {transaction.uuid}</div>
                 <div className="card-information">
-                  <div className="information-title">Outcom</div>
+                  <div className="information-title">Outcome</div>
                   <Status status={transaction.outcome} />
                 </div>
                 <LigneInfoInCard
@@ -302,18 +301,19 @@ const TransactionDetails: React.FC = () => {
                   icon={<IoMdTime />}
                 />
                 <LigneInfoInCard
-                  title="Delivry date"
+                  title="Delivery date"
                   value={getFullFormatDate(transaction.deliveryDate.toString())}
                   icon={<IoMdCalendar />}
                 />
 
-                  <LigneInfoInCard
-                    title="Delivry type"
-                    value={getDeliveryTypeTitle(transaction.deliveryType)}
-                    icon={<FaTruck />}
+                <div className="card-information">
+                  <div className="information-title">Delivery Type</div>
+                  <DelivryType
+                    deliveryType={getDeliveryTypeTitle(transaction.deliveryType)}
                   />
+                </div>
                 <LigneInfoInCard
-                  title="Delivry place"
+                  title="Delivery place"
                   value={transaction.deliveryPlace}
                   icon={<FaMapMarkedAlt />}
                 />
@@ -352,7 +352,7 @@ const TransactionDetails: React.FC = () => {
                       }
                       onClick={handleShowHistoriesInfo}
                     >
-                      Histories
+                      History
                     </div>
                   </div>
                   {isClaimsOrHistories === 0 ? (
@@ -441,11 +441,13 @@ const TransactionDetails: React.FC = () => {
                   }
                   icon={<IoMdTime />}
                 />
-                  <LigneInfoInCard
-                    title="Delivry type"
-                    value={getDeliveryTypeTitle(transaction.deliveryType)}
-                    icon={<FaTruck />}
+                <div className="card-information">
+                  <div className="information-title">Delivery Type</div>
+                  <DelivryType
+                    deliveryType={getDeliveryTypeTitle(transaction.Invitation.deliveryType)}
                   />
+                </div>
+
                 <LigneInfoInCard
                   title="Local Delivery Price"
                   value={transaction.Invitation.localDeliveryPrice.toString()}
@@ -510,7 +512,7 @@ const TransactionDetails: React.FC = () => {
                         phoneNumber: transaction.Invitation.Seller.phoneNumber,
                         status: transaction.Invitation.Seller.status,
                         wilaya: transaction.Invitation.Seller.wilaya,
-                        createdAt : transaction.Invitation.Seller.createdAt
+                        createdAt: transaction.Invitation.Seller.createdAt,
                       }}
                     />
                   )}

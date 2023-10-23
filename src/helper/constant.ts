@@ -21,7 +21,7 @@ export function getDeliveryTypeTitle(deliveryType: DeliveryType): string {
     case DeliveryType.LOCAL_WILAYA_ONLY:
       return "Local";
     case DeliveryType.BETWEEN_WILAYAS:
-      return "Inter-Wilaya";
+      return "Inter Wilaya";
     case DeliveryType.PICK_FROM_SHOP:
       return "Pickup";
     case DeliveryType.NOT_NEEDED:

@@ -108,7 +108,7 @@ const  BuyerScreen : React.FC  = ()  => {
       <div className="client-page">
         <HeaderPage
           title={client.firstName}
-          descr="Information and Historie of the Buyer !"
+          descr="Information and History of the Buyer !"
         />
         <div className="client-page-content">
           <div className="client-historie">
