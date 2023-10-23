@@ -11,7 +11,6 @@ import {
   FaMapMarked,
   FaMapMarkedAlt,
   FaSearchLocation,
-  FaTruck,
 } from "react-icons/fa";
 import {
   getDeliveryTypeTitle,

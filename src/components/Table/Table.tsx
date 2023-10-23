@@ -153,7 +153,7 @@ function TableCompo(props: props) {
             ) : row.headerCell == "Delivery Type" ? (
               <Cell>
                 {(dataRow) => (
-                  <DelivryType deliveryType={(dataRow as ITransacionForTable).deliveryType || "sdjksk"} />
+                  <DelivryType deliveryType={(dataRow as ITransacionForTable).deliveryType } />
                 )}
               </Cell>
             ) : (
