@@ -9,7 +9,7 @@ import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmat
 import DeliveryCompanyForm from "../components/deliveryCompany/deliveryCompanyForm";
 
 
-const DeliveryCompanyScreen = () => {
+const DeliveryCompanyScreen: React.FC = () => {
 
   const [companies, setCompanies] = useState<IDeliveryOffice[]>([]);
 

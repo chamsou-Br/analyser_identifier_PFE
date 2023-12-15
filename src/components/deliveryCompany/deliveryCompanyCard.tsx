@@ -7,12 +7,12 @@ import phone from "../../assets/phone.svg";
 
 type props = {
   company: IDeliveryOffice;
-  onDelete : () => void
+  onDelete: () => void;
 };
 
-const DeliveryCompanyCard = ({ company,onDelete }: props) => {
+const DeliveryCompanyCard = ({ company, onDelete }: props) => {
   const onDeleteCompany = () => {
-    onDelete()
+    onDelete();
   };
 
   if (company)
@@ -30,9 +30,7 @@ const DeliveryCompanyCard = ({ company,onDelete }: props) => {
           </div>
         </div>
         <div className="delivery-company-content">
-          <div className="company-name">
-            {company.company}
-          </div>
+          <div className="company-name">{company.company}</div>
           <div className="email">
             <span>Email </span>
             {company.email}
@@ -40,10 +38,7 @@ const DeliveryCompanyCard = ({ company,onDelete }: props) => {
           <div onClick={onDeleteCompany} className="delete-company">
             delete
           </div>
-          <div className="email-sm">
-            {company.email} 
-            
-          </div>
+          <div className="email-sm">{company.email}</div>
         </div>
       </div>
     );

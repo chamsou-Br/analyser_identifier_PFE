@@ -10,28 +10,28 @@ type Props = {
   submitButton? : string
 };
 
-function ActionConfirmation(props: Props) {
+const ActionConfirmation = ({isOpen , confirmationText , handleCanceled , handleSubmit , submitButton}: Props) =>  {
   return (
     <Modal
       className="transaction-note"
-      open={props.isOpen}
+      open={isOpen}
       backdrop="static"
-      onClose={props.handleCanceled}
+      onClose={handleCanceled}
     >
       <Modal.Header closeButton={false}>
-        <Modal.Title>{props.confirmationText}</Modal.Title>
+        <Modal.Title>{confirmationText}</Modal.Title>
       </Modal.Header>
       <Modal.Footer>
         <Button
           className="button"
-          onClick={() => props.handleSubmit()}
+          onClick={() => handleSubmit()}
           appearance="primary"
         >
-        {props.submitButton ? props.submitButton : "Submit"}
+        {submitButton ? submitButton : "Submit"}
         </Button>
         <Button
           className="button"
-          onClick={props.handleCanceled}
+          onClick={handleCanceled}
           appearance="subtle"
         >
           Cancel

@@ -20,32 +20,32 @@ type Props = {
   onNavigate?: true;
 };
 
-function BuyerOrSellerCard(props: Props) {
+const BuyerOrSellerCard = ({ client, onNavigate }: Props) => {
   const navigate = useNavigate();
 
   const onNavigateToDetails = () => {
-    navigate(props.client.client == Client.BUYER ? "/buyer" : "/seller", {
-      state: props.client,
+    navigate(client.client == Client.BUYER ? "/buyer" : "/seller", {
+      state: client,
     });
   };
   return (
     <div className="client-card">
       <div className="client-card-header">
-        <div className="userName">{props.client.firstName}</div>
-        <Status status={props.client.status} />
+        <div className="userName">{client.firstName}</div>
+        <Status status={client.status} />
       </div>
       <div className="client-card-content">
-        {props.client.createdAt ? (
+        {client.createdAt ? (
           <LigneInfoInCard
             title="Creation date"
-            value={ getTimeAgo(props.client.createdAt.toString())}
+            value={getTimeAgo(client.createdAt.toString())}
             icon={<IoMdTime />}
           />
         ) : null}
-        {props.client.businessName ? (
+        {client.businessName ? (
           <LigneInfoInCard
             title="Business Name"
-            value={props.client.businessName}
+            value={client.businessName}
             icon={<FaLocationArrow />}
           />
         ) : null}
@@ -57,20 +57,20 @@ function BuyerOrSellerCard(props: Props) {
         />
         <LigneInfoInCard
           title="phone"
-          value={props.client.phoneNumber}
+          value={client.phoneNumber}
           icon={<FaPhone />}
         />
-        {props.client.gender ? (
+        {client.gender ? (
           <LigneInfoInCard
             title="Sexe"
-            value={props.client.gender}
+            value={client.gender}
             icon={<FaAddressCard />}
           />
         ) : null}
 
         <LigneInfoInCard
           title="Wilaya"
-          value={props.client.wilaya}
+          value={client.wilaya}
           icon={<FaLocationArrow />}
         />
         <div className="address-buyer-and-seller">
@@ -78,14 +78,10 @@ function BuyerOrSellerCard(props: Props) {
             <FaMapMarked />
           </div>
 
-          <span>
-            {props.client.address
-              ? props.client.address
-              : props.client.location}
-          </span>
+          <span>{client.address ? client.address : client.location}</span>
         </div>
       </div>
-      {props.onNavigate ? (
+      {onNavigate ? (
         <div
           onClick={() => onNavigateToDetails()}
           className="details-navigate-icon"
@@ -95,6 +91,6 @@ function BuyerOrSellerCard(props: Props) {
       ) : null}
     </div>
   );
-}
+};
 
 export default BuyerOrSellerCard;

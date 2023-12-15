@@ -16,7 +16,7 @@ export const Authorization = () => {
     : "";
 };
 
-export function getDeliveryTypeTitle(deliveryType: DeliveryType): string {
+export const getDeliveryTypeTitle = (deliveryType: DeliveryType): string => {
   switch (deliveryType) {
     case DeliveryType.LOCAL_WILAYA_ONLY:
       return "Local";
@@ -31,7 +31,7 @@ export function getDeliveryTypeTitle(deliveryType: DeliveryType): string {
   }
 }
 
-export function getFormatDate(inputDate: string) {
+export const getFormatDate = (inputDate: string) => {
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",
@@ -57,7 +57,7 @@ export const getFullFormatDate = (inputDate: string) => {
   return formattedDate;
 };
 
-export function getFormatPrice(price: number | undefined): string {
+export const getFormatPrice = (price: number | undefined): string  => {
   if (price != undefined) {
     // Use toFixed(2) to ensure two decimal places and convert it to a string
     const formattedPrice = price.toFixed(2);

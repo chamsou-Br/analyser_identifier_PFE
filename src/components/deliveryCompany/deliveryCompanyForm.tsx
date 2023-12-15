@@ -10,9 +10,9 @@ type Props = {
 function DeliveryCompanyForm({ isOpen, handleCanceled, handleSubmit }: Props) {
   const onHandleNewCompany = () => {
     handleSubmit(company, email, phoneNumber);
-    setCompany("")
-    setEmail("")
-    setPhoneNumber("")
+    setCompany("");
+    setEmail("");
+    setPhoneNumber("");
   };
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import Page404 from '../components/404/page404';
 
 
-function InvitaionsScreen() {
+const InvitaionsScreen: React.FC = () => {
 
     const [search, setSearch] = useState<string>("");
     const navigate = useNavigate()

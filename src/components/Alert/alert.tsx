@@ -1,6 +1,6 @@
 import { FaCheck, FaWindowClose } from "react-icons/fa";
 import { Modal } from "rsuite";
-import "./alert.css"
+import "./alert.css";
 
 type Props = {
   alert: {
@@ -11,21 +11,20 @@ type Props = {
   onAlert: (show: boolean, message: string, isSucess: boolean) => void;
 };
 
-function Alert(props: Props) {
-
-    const onCancel = () => {
-        props.onAlert(props.alert.isSucess , props.alert.message , false)
-    }
+const Alert = ({ alert, onAlert }: Props) => {
+  const onCancel = () => {
+    onAlert(alert.isSucess, alert.message, false);
+  };
   return (
     <Modal
       className="transaction-note"
-      open={props.alert.show}
+      open={alert.show}
       backdrop={true}
       onClose={onCancel}
     >
       <Modal.Title></Modal.Title>
       <Modal.Body className="Alert">
-        {props.alert.isSucess ? (
+        {alert.isSucess ? (
           <div className="icon-container-sucess">
             <FaCheck />
           </div>
@@ -34,14 +33,17 @@ function Alert(props: Props) {
             <FaWindowClose />
           </div>
         )}
-        <div className="message" style={props.alert.isSucess ? { color: "#44E46A"} : { color: "#f17777"}}>
-          {props.alert.isSucess
+        <div
+          className="message"
+          style={alert.isSucess ? { color: "#44E46A" } : { color: "#f17777" }}
+        >
+          {alert.isSucess
             ? "Your treatment is done successfully"
-            : props.alert.message}
+            : alert.message}
         </div>
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default Alert;

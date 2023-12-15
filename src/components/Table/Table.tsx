@@ -20,7 +20,8 @@ type props = {
 
 const styleHeaderOfTable = { background: "#FFF", color: "#000" };
 
-function TableCompo(props: props) {
+const TableCompo = ({getDefaultData , onRefreshData , rows}: props) => {
+
   const [sortColumn, setSortColumn] = useState<string>();
   const [sortType, setSortType] = useState<SortType | undefined>();
   const [limit, setLimit] = useState<number>(
@@ -59,7 +60,7 @@ function TableCompo(props: props) {
     navigate("/details/" + uuid);
   };
 
-  const defaultData: ITransacionForTable[] = props.getDefaultData();
+  const defaultData: ITransacionForTable[] = getDefaultData();
 
   const getData = () => {
     const data = defaultData;
@@ -110,10 +111,10 @@ function TableCompo(props: props) {
   const handleSearch = () => {
     navigate("/details/" + search);
   };
-  const onRefreshData = () => {
+  const onRefreshDataHandler = () => {
     setLoading(true);
     setTimeout(() => {
-      props.onRefreshData();
+      onRefreshData();
       setLoading(false);
       setSearch("");
     }, 1000);
@@ -128,7 +129,7 @@ function TableCompo(props: props) {
         handleChangeInput={handleInputSearchChange}
         handleFocusInput={handleInputFocus}
         handleSearch={handleSearch}
-        handleRefresh={onRefreshData}
+        handleRefresh={onRefreshDataHandler}
       />
       <Table
         className="table"
@@ -141,7 +142,7 @@ function TableCompo(props: props) {
         onSortColumn={handleSortColumn}
         loading={loading}
       >
-        {props.rows.map((row, i) => (
+        {rows.map((row, i) => (
           <Column key={i} width={row.size} sortable resizable>
             <HeaderCell style={styleHeaderOfTable}>{row.headerCell}</HeaderCell>
             {row.headerCell == "State" ? (

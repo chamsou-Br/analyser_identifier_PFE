@@ -9,21 +9,21 @@ type Props = {
   handleCloseSucessed: (state: string, raison: string) => void;
 };
 
-function TransactionStatusUpdate(props: Props) {
+const  TransactionStatusUpdate = ({handleCloseCanceled , handleCloseSucessed , isOpen}: Props) => {
   const [state, setState] = useState<string>("payed-ghosted");
   const [raison, setRaison] = useState<string>("");
   const [open, setIsOpen] = useState(false);
 
   const onOpenConfirmationNote = () => {
     setIsOpen(true);
-    props.handleCloseCanceled();
+    handleCloseCanceled();
   };
   const handleCancel = () => {
     setIsOpen(false);
   };
   const handleSubmit = () => {
     setIsOpen(false);
-    props.handleCloseSucessed(state, raison);
+    handleCloseSucessed(state, raison);
     setTimeout(() => {
       setRaison("");
       setState("");
@@ -57,9 +57,9 @@ function TransactionStatusUpdate(props: Props) {
       />
       <Modal
         className="transaction-note"
-        open={props.isOpen}
+        open={isOpen}
         backdrop="static"
-        onClose={props.handleCloseCanceled}
+        onClose={handleCloseCanceled}
       >
         <Modal.Body className="content">
           <div className="label">Status : </div>
@@ -105,7 +105,7 @@ function TransactionStatusUpdate(props: Props) {
           </Button>
           <Button
             className="button"
-            onClick={props.handleCloseCanceled}
+            onClick={handleCloseCanceled}
             appearance="subtle"
           >
             Cancel

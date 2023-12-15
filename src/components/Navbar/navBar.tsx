@@ -6,7 +6,7 @@ import { logout } from "../../state/actions/authAction";
 import ActionConfirmation from "../ActionConfirmation/ActionConfirmation";
 import { useState } from "react";
 
-function NavBar() {
+const NavBar = () => {
   const navigate = useNavigate();
   const history = useLocation();
   const dispatch = useAppDispatch();
@@ -72,7 +72,9 @@ function NavBar() {
           Invitations
         </div>
         <div
-          style={history.pathname == "/deliveryCompany" ? { color: "#3782ec" } : {}}
+          style={
+            history.pathname == "/deliveryCompany" ? { color: "#3782ec" } : {}
+          }
           onClick={() => navigate("/deliveryCompany")}
         >
           deliveryCompanies
@@ -86,6 +88,6 @@ function NavBar() {
       </div>
     </div>
   );
-}
+};
 
 export default NavBar;

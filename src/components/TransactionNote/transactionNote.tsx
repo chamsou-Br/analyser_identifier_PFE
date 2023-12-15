@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Input, Modal } from "rsuite";
 import ActionConfirmation from "../ActionConfirmation/ActionConfirmation";
-import "./transactionNote.css"
+import "./transactionNote.css";
 
 type Props = {
   isOpen: boolean;
@@ -9,27 +9,30 @@ type Props = {
   handleCloseSucessed: (title: string, text: string) => void;
 };
 
-function TransactionNote(props: Props) {
+const TransactionNote = ({
+  handleCloseCanceled,
+  handleCloseSucessed,
+  isOpen,
+}: Props) => {
   const [title, setTitle] = useState<string>("");
   const [text, setText] = useState<string>("");
   const [open, setIsOpen] = useState(false);
 
   const onOpenConfirmationNote = () => {
     setIsOpen(true);
-    props.handleCloseCanceled();
+    handleCloseCanceled();
   };
   const handleCancel = () => {
     setIsOpen(false);
   };
   const handleSubmit = () => {
     setIsOpen(false);
-    props.handleCloseCanceled();
-    props.handleCloseSucessed(title, text);
-    setTimeout(()=>{
+    handleCloseCanceled();
+    handleCloseSucessed(title, text);
+    setTimeout(() => {
       setTitle("");
-      setText("")
-    },2000)
-
+      setText("");
+    }, 2000);
   };
 
   return (
@@ -43,9 +46,9 @@ function TransactionNote(props: Props) {
 
       <Modal
         className="transaction-note"
-        open={props.isOpen}
+        open={isOpen}
         backdrop="static"
-        onClose={props.handleCloseCanceled}
+        onClose={handleCloseCanceled}
       >
         <Modal.Body className="content">
           <div className="label">Title : </div>
@@ -73,7 +76,7 @@ function TransactionNote(props: Props) {
           </Button>
           <Button
             className="button"
-            onClick={props.handleCloseCanceled}
+            onClick={handleCloseCanceled}
             appearance="subtle"
           >
             Cancel
@@ -82,6 +85,6 @@ function TransactionNote(props: Props) {
       </Modal>
     </div>
   );
-}
+};
 
 export default TransactionNote;

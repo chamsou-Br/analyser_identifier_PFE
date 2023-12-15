@@ -12,26 +12,26 @@ type Props = {
   isSeach?: boolean;
 };
 
-function HeaderPage(props: Props) {
+const HeaderPage = ({descr , title , handleChangeInput , handleFocusInput , handleSearch , isSeach , value}: Props)  => {
 
 
   return (
     <div className="header-page">
       <div className="header-left">
-        <div className="title">{props.title}</div>
-        <div className="descr">{props.descr}</div>
+        <div className="title">{title}</div>
+        <div className="descr">{descr}</div>
       </div>
 
-      {props.isSeach ? (
+      {isSeach ? (
         <div className="header-right">
-          <div onClick={props.handleSearch} className="search-icon-container">
+          <div onClick={handleSearch} className="search-icon-container">
             <FaSearch />
           </div>
           <div className="search-bar-container">
             <input
-              value={props.value}
-              onFocus={props.handleFocusInput}
-              onChange={props.handleChangeInput}
+              value={value}
+              onFocus={handleFocusInput}
+              onChange={handleChangeInput}
               placeholder="Search uuid"
             />
           </div>

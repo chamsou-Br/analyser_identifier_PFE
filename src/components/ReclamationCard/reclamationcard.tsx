@@ -8,32 +8,37 @@ type Props = {
   onNavigateToDetails: () => void;
 };
 
-
-function Reclamationcard(props: Props) {
+const Reclamationcard = ({
+  date,
+  onNavigateToDetails,
+  raison,
+  sender,
+  text,
+}: Props) => {
   return (
     <div className="reclamation-card">
       <div className="content">
-      <div className="raison">{props.raison}</div>
-      <p className="reclamation-card-descr">{props.text}</p>
+        <div className="raison">{raison}</div>
+        <p className="reclamation-card-descr">{text}</p>
       </div>
 
       <div className="reclamation-card-header">
         <div style={{ display: "flex", alignItems: "center" }}>
           <div
             onClick={() => {
-              props.onNavigateToDetails();
+              onNavigateToDetails();
             }}
             className="details-navigate-icon"
           >
             <FaExclamation />
           </div>
           <span style={{ marginLeft: 10, marginRight: 10 }}> | </span>
-          <div className="sender">{props.sender}</div>
+          <div className="sender">{sender}</div>
         </div>
-        <div className="date">{props.date}</div>
+        <div className="date">{date}</div>
       </div>
     </div>
   );
-}
+};
 
 export default Reclamationcard;

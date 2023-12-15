@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   IInvitationComplete,
   IInvitationTransaction,
@@ -27,7 +28,7 @@ type Props = {
   onNavigate?: () => void;
 };
 
-function ClientHistoryCard(props: Props) {
+const ClientHistoryCard = ({ history }: Props) => {
   const navigate = useNavigate();
 
   const handleNavigateToTransactionDetails = (uuid: string) => {
@@ -35,7 +36,7 @@ function ClientHistoryCard(props: Props) {
   };
 
   const handleNavigateToInvitationDetails = () => {
-    navigate("/invitation/" + props.history.uuid);
+    navigate("/invitation/" + history.uuid);
   };
 
   return (
@@ -48,50 +49,50 @@ function ClientHistoryCard(props: Props) {
         >
           <FaEye />
         </div>
-        <div className="title">{props.history.product}</div>
-        <div className="descr">{props.history.description}</div>
+        <div className="title">{history.product}</div>
+        <div className="descr">{history.description}</div>
         <div className="informations">
           <LigneInfoInCard
             title="Price"
-            value={getFormatPrice(props.history.price)}
+            value={getFormatPrice(history.price)}
             icon={<FaDollarSign />}
           />
           <LigneInfoInCard
             title="Date"
-            value={getFormatDate(props.history.date.toString().split("T")[0])}
+            value={getFormatDate(history.date.toString().split("T")[0])}
             icon={<IoMdCalendar />}
           />
           <LigneInfoInCard
             title="Store Wilaya"
-            value={props.history.storeWilaya}
+            value={history.storeWilaya}
             icon={<FaMapMarked />}
           />
           <LigneInfoInCard
             title="Store Location"
-            value={props.history.storeLocation}
+            value={history.storeLocation}
             icon={<FaSearchLocation />}
           />
           <div className="state-information">
             <div className="title">Delivery type</div>
             <DelivryType
-              deliveryType={getDeliveryTypeTitle(props.history.deliveryType)}
+              deliveryType={getDeliveryTypeTitle(history.deliveryType)}
             />
           </div>
           <LigneInfoInCard
             title="Delivery Time"
-            value={props.history.deliveryDelayHours.toString() + " H"}
+            value={history.deliveryDelayHours.toString() + " H"}
             icon={<IoMdTime />}
           />
           <LigneInfoInCard
             title="Local Delivery Price"
-            value={getFormatPrice(props.history.localDeliveryPrice)}
+            value={getFormatPrice(history.localDeliveryPrice)}
             icon={<FaDollarSign />}
           />
         </div>
       </div>
       <div className="client-transactions-content ">
-        {(props.history as IInvitationTransaction).InvitationTransactions &&
-          (props.history as IInvitationTransaction).InvitationTransactions.map(
+        {(history as IInvitationTransaction).InvitationTransactions &&
+          (history as IInvitationTransaction).InvitationTransactions.map(
             (transaction, index) => (
               <div className="client-transaction-content " key={index}>
                 <div
@@ -152,6 +153,6 @@ function ClientHistoryCard(props: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default ClientHistoryCard;
