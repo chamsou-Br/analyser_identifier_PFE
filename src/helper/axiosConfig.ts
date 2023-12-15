@@ -18,13 +18,5 @@ axios.interceptors.response.use(
     },
    )
 
-//   export const setAuthorization = (token) => {
-//     if (!token.trim()) return
-//     const Authorization = `Bearer ${token}`
-//     console.log('\setAuthorization', token)
-//     axios.defaults.headers.common = {
-//       Authorization,
-//     }
-//   }
 
 export default axios;

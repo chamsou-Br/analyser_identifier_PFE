@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from "react";
-import login from "../assets/login.png";
+import PPP from "../assets/PPP.png";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../state/store";
 import "../styles/login.css";
@@ -73,7 +73,7 @@ const LoginScreen: React.FC = () => {
           <div className="error">{authState.error}</div>
         </div>
         <div className="login-picture">
-          <img src={login} />
+          <img src={PPP} />
         </div>
       </div>
     </div>

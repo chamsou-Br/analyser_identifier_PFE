@@ -1,0 +1,151 @@
+
+.delivery-company {
+    border-radius: 0.3rem;
+    padding: 10px;
+    box-shadow: #8762d966 0px 2px 8px 0px;
+    margin-bottom: 20px;
+    background-color: white;
+    width: 100%;
+    
+  }
+  
+ .delivery-company .delivery-company-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 0px;
+    gap: 10px;
+  }
+  
+ .delivery-company .delivery-company-header .date {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color:#a1a1a1;
+    gap: 10px;
+  }
+  
+.delivery-company .delivery-company-header .phone {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #151B26;
+    font-size: 14px;
+  }
+
+  .delivery-company .delivery-company-header .phone img {
+    width: 20px;
+  }
+  
+ .delivery-company .delivery-company-header span:hover {
+    text-decoration: underline;
+  }
+
+
+.delivery-company .delivery-company-content {
+    border-radius: 0.7rem;
+    background-color: #f6f6f6;
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    line-height: 25px;
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+
+  }
+  
+ .delivery-company .delivery-company-content .company-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #151B26;
+    min-width: 150px;
+    @media screen and (max-width: 767px) {
+      font-size: 15px;
+    }
+  }
+  
+  
+.delivery-company .delivery-company-content .email {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #151B26;
+    font-size: 15px;
+    font-weight: normal;
+    padding-right: 15px;
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+  
+.delivery-company .delivery-company-content .email span {
+    color: #9f9f9f;
+    margin-right: 8px;
+    font-weight: normal;
+  }
+  
+
+
+  
+.delivery-company .delivery-company-content .delete-company {
+    color: #eb5151;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: normal;
+  }
+
+  .delivery-company .delivery-company-content .delete-company:hover {
+    text-decoration: underline;
+  }
+
+
+
+
+  .delivery-company .delivery-company-content .email-sm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #9f9f9f;
+    font-size: 15px;
+    font-weight: normal;
+    padding-right: 15px;
+    display: none;
+    width: 100%;
+    @media screen and (max-width: 767px) {   
+      display: block;
+    }
+  }
+
+  .delivery-company-form  .body{
+    padding: 0 10px;
+  }
+
+  .delivery-company-form .label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #010101aa;
+    margin: 5px 0;
+  }
+
+  .delivery-company-form .input {
+    margin-bottom: 10px;
+    width: 90%;
+    max-width: 400px;
+    padding: 10px;
+  }
+
+  .delivery-company-form .button:nth-child(1) {
+    padding: 8px 30px;
+    margin: 10px;
+  }
+  .delivery-company-form .button:nth-child(1):hover {
+    opacity: 0.7;
+  }
+
+
+  

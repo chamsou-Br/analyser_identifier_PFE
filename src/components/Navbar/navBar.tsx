@@ -71,6 +71,12 @@ function NavBar() {
         >
           Invitations
         </div>
+        <div
+          style={history.pathname == "/deliveryCompany" ? { color: "#3782ec" } : {}}
+          onClick={() => navigate("/deliveryCompany")}
+        >
+          deliveryCompanies
+        </div>
       </div>
       <div onClick={handleLogOut} className="navBar-right">
         <span>LogOut</span>

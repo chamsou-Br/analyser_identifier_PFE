@@ -12,6 +12,7 @@
     align-items: center;
   }
   
+
   .login-container {
     display: flex;
     justify-content: center;
@@ -109,7 +110,7 @@
   
   .login-picture img {
     /**/
-    width: 100%;
+    width: 70%;
   }
   
   .login .error {

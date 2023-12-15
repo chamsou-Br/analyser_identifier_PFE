@@ -33,3 +33,5 @@ export const VALIDATE_INVITATION  = "/admin/validate_invitation"
 export const INVITAION_DETAILS = "/invitation"
 
 export const INVITATIONS = "/admin/invitations"
+
+export const DELIVERY_COMPANY = "/admin/company"

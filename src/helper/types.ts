@@ -153,8 +153,10 @@ export interface ISellerBase {
     userName: string,
     company: string,
     email: string,
+    phoneNumber : string,
     password: string,
     adminLevel: number,
+    createdAt: Date,
   }
 
   export interface IRowsTable {

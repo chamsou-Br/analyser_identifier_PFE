@@ -16,6 +16,7 @@ import CustomElement from "./components/Layout/customElement";
 import HistorieScreen from "./screens/historieScreen";
 import InvitationDetails from "./screens/invitationDetails";
 import InvitaionsScreen from "./screens/invitaionsScreen";
+import DeliveryCompanyScreen from "./screens/deliveryCompanyScreen";
 
 
 
@@ -35,6 +36,7 @@ function App() {
             <Route path="/buyer" element={<CustomElement component={BuyerScreen} />} />
             <Route path="/seller" element={<CustomElement component={SellerScreen} />} />
             <Route path="/details/:uuid" element={<CustomElement component={TransactionDetails} />} />
+            <Route path="/deliveryCompany/" element={<CustomElement component={DeliveryCompanyScreen} />} />
             <Route path="/auth" element={<LoginScreen />} />
             <Route path="*" element={<Page404 />} />
           </Routes>

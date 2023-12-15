@@ -73,7 +73,7 @@
   color: #3782ec;
 }
 
-@media (max-width: 724px) {
+@media (max-width: 924px) {
   .navBar .navBar-mid {
     display: none;
   }
