@@ -103,6 +103,11 @@ const DeliveryCompanyScreen: React.FC = () => {
             <DeliveryCompanyCard onDelete={()=>onDeleteCompanyButton(item.id)} company={item} key={item.id} />
           </div>
         ))}
+        {companies.length == 0 && (
+          <div className="empty">
+            There is no delivery companies to display ...
+          </div>
+        )}
       </div>
       <ActionConfirmation 
       isOpen={isDeleteCompanyConfirmation}

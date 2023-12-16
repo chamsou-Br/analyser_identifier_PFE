@@ -64,7 +64,8 @@ export interface IInvitation {
   
   export interface IAdminFullTransaction extends IAdminTransaction {
     Claims: IClaim[],
-    Histories: IHistory[]
+    Histories: IHistory[],
+    DeliveryOffice?: IDeliveryOffice
   }
   
   export interface IClaim {

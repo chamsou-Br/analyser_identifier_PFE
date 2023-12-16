@@ -10,12 +10,15 @@ import {
   FaMapMarkedAlt,
   FaEye,
   FaTimes,
+  FaEnvelope,
+  FaPhone,
 } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import LigneInfoInCard from "../components/LignInfoCard/lignInfoIncard";
 import TitleCard from "../components/TitleCard/titleCard";
 import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 import Reclamationcard from "../components/ReclamationCard/reclamationcard";
+import { CiDeliveryTruck } from "react-icons/ci";
 import {
   Client,
   EntityStatus,
@@ -309,7 +312,9 @@ const TransactionDetails: React.FC = () => {
                 <div className="card-information">
                   <div className="information-title">Delivery Type</div>
                   <DelivryType
-                    deliveryType={getDeliveryTypeTitle(transaction.deliveryType)}
+                    deliveryType={getDeliveryTypeTitle(
+                      transaction.deliveryType
+                    )}
                   />
                 </div>
                 <LigneInfoInCard
@@ -328,10 +333,36 @@ const TransactionDetails: React.FC = () => {
                   subDescr={getTimeAgo(transaction.paymentDate.toString())}
                   icon={<IoMdCalendar />}
                 />
+                <LigneInfoInCard
+                  title="payment date"
+                  value={getFullFormatDate(transaction.paymentDate.toString())}
+                  subDescr={getTimeAgo(transaction.paymentDate.toString())}
+                  icon={<IoMdCalendar />}
+                />
                 <div className="card-information">
                   <div className="information-title">status</div>
                   <Status status={transaction.state} />
                 </div>
+                {transaction.DeliveryOffice && (
+                  <div className="transaction-delivery-company">
+                    <LigneInfoInCard
+                      title="delivery company"
+                      value={transaction.DeliveryOffice.company}
+                      icon={<CiDeliveryTruck />}
+                    />
+                    <LigneInfoInCard
+                      title="Email"
+                      value={transaction.DeliveryOffice.email}
+                      icon={<FaEnvelope />}
+                    />
+                    <LigneInfoInCard
+                      title="phone number"
+                      value={transaction.DeliveryOffice.phoneNumber}
+                      icon={<FaPhone />}
+                    />
+                  </div>
+                )}
+
                 <div className="Claims-Histories-container">
                   <div className="header">
                     <div
@@ -444,7 +475,9 @@ const TransactionDetails: React.FC = () => {
                 <div className="card-information">
                   <div className="information-title">Delivery Type</div>
                   <DelivryType
-                    deliveryType={getDeliveryTypeTitle(transaction.Invitation.deliveryType)}
+                    deliveryType={getDeliveryTypeTitle(
+                      transaction.Invitation.deliveryType
+                    )}
                   />
                 </div>
 
@@ -453,6 +486,7 @@ const TransactionDetails: React.FC = () => {
                   value={transaction.Invitation.localDeliveryPrice.toString()}
                   icon={<FaDollarSign />}
                 />
+
                 <div className="Seller-buyer-container">
                   <div className="header">
                     <div
