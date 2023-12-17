@@ -32,13 +32,21 @@ const DeliveryCompanyCard = ({ company, onDelete }: props) => {
         <div className="delivery-company-content">
           <div className="company-name">{company.company}</div>
           <div className="email">
-            <span>Email </span>
             {company.email}
+          </div>
+          <div className="email">
+            <span>password </span>
+            {company.password}
           </div>
           <div onClick={onDeleteCompany} className="delete-company">
             delete
           </div>
-          <div className="email-sm">{company.email}</div>
+          <div className="email-sm">
+            <div>{company.email}</div>
+            <div className="password">
+            {company.password}
+          </div>
+          </div>
         </div>
       </div>
     );

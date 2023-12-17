@@ -89,6 +89,15 @@
     font-weight: normal;
   }
   
+  .delivery-company .delivery-company-content .password {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #151B26;
+    font-size: 15px;
+    font-weight: normal;
+  }
+  
 
 
   
@@ -113,11 +122,10 @@
     color: #9f9f9f;
     font-size: 15px;
     font-weight: normal;
-    padding-right: 15px;
     display: none;
     width: 100%;
     @media screen and (max-width: 767px) {   
-      display: block;
+      display: flex;
     }
   }
 
