@@ -113,6 +113,7 @@ const DeliveryCompanyScreen: React.FC = () => {
       isOpen={isDeleteCompanyConfirmation}
       handleCanceled={onCancelModelDeleteCompanyConfirmation}
       handleSubmit={onConfirmDeleteCompany}
+      submitButton="Delete"
       confirmationText="You're sure you want to remove this campany.. ..."
        />
        <DeliveryCompanyForm 
