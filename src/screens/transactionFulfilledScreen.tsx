@@ -48,8 +48,8 @@ const TransactionFulfilledScreen: React.FC = () => {
     const newData = transactionState.transactions
       ? transactionState.transactions.map((item: IAdminFullTransaction) => ({
           uuid: item.uuid,
-          updateDate : getTimeAgo(item.updatedAt.toString()),
-          deliveryDate: getFullFormatDate(item.deliveryDate.toString()), // Convert Date to string
+          updateDate : getTimeAgo(item.updatedAt),
+          deliveryDate: getFullFormatDate(item.deliveryDate), // Convert Date to string
           deliveryPlace: item.deliveryPlace,
           deliveryType: getDeliveryTypeTitle(item.deliveryType),
           deliveryPrice: item.deliveryPrice.toString() + Currency,
@@ -57,7 +57,7 @@ const TransactionFulfilledScreen: React.FC = () => {
           Seller: item.Invitation.Seller.email,
           ProductName: item.Invitation.product,
           ProductPrice: item.Invitation.price.toString() + Currency,
-          paymentDate: getFullFormatDate( item.paymentDate.toString() ),
+          paymentDate: getFullFormatDate( item.paymentDate ),
           state: item.state,
           claims: item.Claims.length,
       

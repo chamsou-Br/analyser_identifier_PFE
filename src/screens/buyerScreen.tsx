@@ -44,14 +44,14 @@ const  BuyerScreen : React.FC  = ()  => {
       ? histories.map((item: ITransactionNoSeller) => ({
           uuid: item.uuid,
           deliveryDate: getFormatDate(
-            item.deliveryDate.toString().split("T")[0]
+            item.deliveryDate
           ), // Convert Date to string
           deliveryPlace: item.deliveryPlace,
           deliveryType: getDeliveryTypeTitle(item.deliveryType),
           deliveryPrice: item.deliveryPrice.toString() + Currency,
           ProductName: item.Invitation.product,
           ProductPrice: item.Invitation.price.toString() + Currency,
-          paymentDate: getFormatDate(item.paymentDate.toString().split("T")[0]),
+          paymentDate: getFormatDate(item.paymentDate),
           state: item.state,
         }))
       : [];

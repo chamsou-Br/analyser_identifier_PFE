@@ -21,7 +21,7 @@ const DeliveryCompanyCard = ({ company, onDelete }: props) => {
         <div className="delivery-company-header">
           <div className="date">
             <FaRegClock />
-            {getTimeAgo(company.createdAt.toString())}
+            {getTimeAgo(company.createdAt)}
           </div>
 
           <div className="phone">

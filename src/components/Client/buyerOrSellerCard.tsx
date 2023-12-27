@@ -38,7 +38,7 @@ const BuyerOrSellerCard = ({ client, onNavigate }: Props) => {
         {client.createdAt ? (
           <LigneInfoInCard
             title="Creation date"
-            value={getTimeAgo(client.createdAt.toString())}
+            value={getTimeAgo(client.createdAt)}
             icon={<IoMdTime />}
           />
         ) : null}

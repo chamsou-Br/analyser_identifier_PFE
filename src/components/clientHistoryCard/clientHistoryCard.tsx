@@ -59,7 +59,7 @@ const ClientHistoryCard = ({ history }: Props) => {
           />
           <LigneInfoInCard
             title="Date"
-            value={getFormatDate(history.date.toString().split("T")[0])}
+            value={getFormatDate(history.date)}
             icon={<IoMdCalendar />}
           />
           <LigneInfoInCard
@@ -112,7 +112,7 @@ const ClientHistoryCard = ({ history }: Props) => {
                   <LigneInfoInCard
                     title="Delivery date"
                     value={getFormatDate(
-                      transaction.deliveryDate.toString().split("T")[0]
+                      transaction.deliveryDate
                     )}
                     icon={<IoMdCalendar />}
                   />
@@ -138,7 +138,7 @@ const ClientHistoryCard = ({ history }: Props) => {
                   <LigneInfoInCard
                     title="payment date"
                     value={getFormatDate(
-                      transaction.paymentDate.toString().split("T")[0]
+                      transaction.paymentDate
                     )}
                     icon={<IoMdCalendar />}
                   />

@@ -300,12 +300,12 @@ const TransactionDetails: React.FC = () => {
                 </div>
                 <LigneInfoInCard
                   title="Creation date"
-                  value={getTimeAgo(transaction.createdAt.toString())}
+                  value={getTimeAgo(transaction.createdAt)}
                   icon={<IoMdTime />}
                 />
                 <LigneInfoInCard
                   title="Delivery date"
-                  value={getFullFormatDate(transaction.deliveryDate.toString())}
+                  value={getFullFormatDate(transaction.deliveryDate)}
                   icon={<IoMdCalendar />}
                 />
 
@@ -329,14 +329,14 @@ const TransactionDetails: React.FC = () => {
                 />
                 <LigneInfoInCard
                   title="payment date"
-                  value={getFullFormatDate(transaction.paymentDate.toString())}
-                  subDescr={getTimeAgo(transaction.paymentDate.toString())}
+                  value={getFullFormatDate(transaction.paymentDate)}
+                  subDescr={getTimeAgo(transaction.paymentDate)}
                   icon={<IoMdCalendar />}
                 />
                 <LigneInfoInCard
                   title="payment date"
-                  value={getFullFormatDate(transaction.paymentDate.toString())}
-                  subDescr={getTimeAgo(transaction.paymentDate.toString())}
+                  value={getFullFormatDate(transaction.paymentDate)}
+                  subDescr={getTimeAgo(transaction.paymentDate)}
                   icon={<IoMdCalendar />}
                 />
                 <div className="card-information">
@@ -397,7 +397,7 @@ const TransactionDetails: React.FC = () => {
                             sender={claim.sender}
                             text={claim.text}
                             raison={claim.reason}
-                            date={getFullFormatDate(claim.createdAt.toString())}
+                            date={getFullFormatDate(claim.createdAt)}
                           />
                         ))}
                     </div>
@@ -411,7 +411,7 @@ const TransactionDetails: React.FC = () => {
                             action={hist.action}
                             actionType={hist.actionType}
                             raison={hist.reason}
-                            date={getFullFormatDate(hist.createdAt.toString())}
+                            date={getFullFormatDate(hist.createdAt)}
                           />
                         ))}
                     </div>
@@ -439,7 +439,7 @@ const TransactionDetails: React.FC = () => {
                 <LigneInfoInCard
                   title="Creation date"
                   value={getTimeAgo(
-                    transaction.Invitation.createdAt.toString()
+                    transaction.Invitation.createdAt
                   )}
                   icon={<IoMdTime />}
                 />
@@ -451,7 +451,7 @@ const TransactionDetails: React.FC = () => {
                 <LigneInfoInCard
                   title="Date"
                   value={getFullFormatDate(
-                    transaction.Invitation.date.toString()
+                    transaction.Invitation.date
                   )}
                   icon={<IoMdCalendar />}
                 />

@@ -1,6 +1,6 @@
 import { DeliveryType } from "./types";
 
-export const BASE_URL = "http://localhost:7550/api";
+export const BASE_URL = "https://api.paypart.dz/api";
 
 export const tokenName = "pepper_token";
 
@@ -31,17 +31,20 @@ export const getDeliveryTypeTitle = (deliveryType: DeliveryType): string => {
   }
 }
 
-export const getFormatDate = (inputDate: string) => {
+export const getFormatDate = (inputDate: Date | undefined) => {
+
+  const date = inputDate ? inputDate.toString().split("T")[0] : ""
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",
     day: "numeric",
   };
-  const date = new Date(inputDate);
-  return date.toLocaleDateString(undefined, options);
+  const newDate = new Date(date);
+  return newDate.toLocaleDateString(undefined, options);
 }
 
-export const getFullFormatDate = (inputDate: string) => {
+export const getFullFormatDate = (date:  Date | undefined ) => {
+  const inputDate = date ? date.toString() : ""
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",
@@ -52,8 +55,8 @@ export const getFullFormatDate = (inputDate: string) => {
     hour12: false,
   };
 
-  const date = new Date(inputDate);
-  const formattedDate = date.toLocaleDateString("en-US", options);
+  const newDate = new Date(inputDate);
+  const formattedDate = newDate.toLocaleDateString("en-US", options);
   return formattedDate;
 };
 
@@ -68,8 +71,10 @@ export const getFormatPrice = (price: number | undefined): string  => {
 }
 
 
-export const getTimeAgo = (date : string) => {
+export const getTimeAgo = (input : Date | undefined) => {
 // Your initial timestamp
+const date = input ? input?.toString() : ""
+
 const timestamp = new Date(date);
 
 // Current time

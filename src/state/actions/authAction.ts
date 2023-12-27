@@ -4,6 +4,7 @@ import { RootState } from "../store";
 import axios from "../../helper/axiosConfig";
 import { tokenName } from "../../helper/constant";
 import { AxiosError } from "axios";
+import { AUTH_ADMIN } from "../../helper/API";
 
 export const LOGIN = "LOGIN";
 
@@ -55,7 +56,7 @@ export const authentificate = (name: string, privateKey: string) => {
     try {
       const options = {
         method: "PUT",
-        url: "http://localhost:7550/api/admin",
+        url: AUTH_ADMIN,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },

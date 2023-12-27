@@ -229,7 +229,7 @@ const InvitationDetails: React.FC = () => {
                 <LigneInfoInCard
                   title="Date"
                   value={getFormatDate(
-                    invitationState.invitation.date.toString().split("T")[0]
+                    invitationState.invitation.date
                   )}
                   icon={<IoMdCalendar />}
                 />
