@@ -52,7 +52,7 @@ const BuyerOrSellerCard = ({ client, onNavigate }: Props) => {
 
         <LigneInfoInCard
           title="Email"
-          value="Kris_Sipes@Landen.com"
+          value={client.email}
           icon={<FaEnvelopeOpen />}
         />
         <LigneInfoInCard
