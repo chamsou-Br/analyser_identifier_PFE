@@ -33,15 +33,14 @@ const TransactionCanceledScreen: React.FC = () => {
   }, []);
 
   const rows : IRowsTable[] = [
-    {headerCell : "Buyer" , dataKey : "Buyer" , size : 150},
-    {headerCell : "Seller" , dataKey : "Seller" , size :150 },
+    {headerCell : "Buyer" , dataKey : "Buyer" , size : 200},
+    {headerCell : "Seller" , dataKey : "Seller" , size :200 },
     {headerCell : "Product" , dataKey : "ProductName" , size :150 },
     {headerCell : "Price" , dataKey : "ProductPrice" , size : 100},
-    {headerCell : "Delivery Type" , dataKey : "deliveryType" , size : 150},
     {headerCell : "Delivery Price" , dataKey : "deliveryPrice" , size : 100},
     {headerCell : "Delivery Date" , dataKey : "deliveryDate" , size : 150},
     {headerCell : "Payment Date" , dataKey : "paymentDate" , size :150 },
-    {headerCell : "State" , dataKey : "state" , size : 120},
+    {headerCell : "State" , dataKey : "state" , size : 170},
     {headerCell : "Claims" , dataKey : "claims" , size : 120},
   ]
   const getDataFromState = (): ITransacionForTable[] => {
