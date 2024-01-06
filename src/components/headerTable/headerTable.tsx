@@ -12,6 +12,7 @@ type Props = {
   handleFocusInput: () => void;
   handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleRefresh: () => void;
+  isSearch?: boolean;
 };
 
 const HeaderTable = ({
@@ -20,6 +21,7 @@ const HeaderTable = ({
   handleRefresh,
   handleSearch,
   value,
+  isSearch = true,
 }: Props) => {
   return (
     <div className="header-page">
@@ -29,19 +31,21 @@ const HeaderTable = ({
         </div>
       </div>
 
-      <div className="header-right">
-        <div onClick={() => handleSearch()} className="search-icon-container">
-          <FaSearch />
+      {isSearch && (
+        <div className="header-right">
+          <div onClick={() => handleSearch()} className="search-icon-container">
+            <FaSearch />
+          </div>
+          <div className="search-bar-container">
+            <input
+              value={value}
+              onFocus={handleFocusInput}
+              onChange={handleChangeInput}
+              placeholder="Search uuid"
+            />
+          </div>
         </div>
-        <div className="search-bar-container">
-          <input
-            value={value}
-            onFocus={handleFocusInput}
-            onChange={handleChangeInput}
-            placeholder="Search uuid"
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 };

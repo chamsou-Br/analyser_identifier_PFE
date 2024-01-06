@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaAddressCard,
+  FaBehance,
   FaEnvelopeOpen,
   FaExclamation,
   FaLocationArrow,
@@ -14,20 +15,40 @@ import { useNavigate } from "react-router";
 import "./client.css";
 import { getTimeAgo } from "../../helper/constant";
 import { IoMdTime } from "react-icons/io";
+import Garage from "../../assets/Garage.svg";
+import { Button, Carousel, Modal } from "rsuite";
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 
 type Props = {
   client: IClientBase;
   onNavigate?: true;
+  isDocs? : boolean;
 };
 
-const BuyerOrSellerCard = ({ client, onNavigate }: Props) => {
+const BuyerOrSellerCard = ({ client, onNavigate  }: Props) => {
   const navigate = useNavigate();
 
   const onNavigateToDetails = () => {
     navigate(client.client == Client.BUYER ? "/buyer" : "/seller", {
-      state: client,
+      state: client.email,
     });
   };
+
+  const [modalOfOfficialDocs, setModalOfOfficialDocs] = useState(false);
+  const [docs, setDocs] = useState({
+    type: 0,
+    images: client.official?.identity_urls,
+  });
+  const [activeIndex, setActiveIndex] = useState(0);
+  const onOpenModalOfOfficialDocs = () => {
+    setModalOfOfficialDocs(true);
+  };
+  const onCloseModalOfOfficialDocs = () => {
+    setModalOfOfficialDocs(false);
+  };
+
+
+
   return (
     <div className="client-card">
       <div className="client-card-header">
@@ -68,11 +89,19 @@ const BuyerOrSellerCard = ({ client, onNavigate }: Props) => {
           />
         ) : null}
 
+
         <LigneInfoInCard
           title="Wilaya"
           value={client.wilaya}
           icon={<FaLocationArrow />}
         />
+        {client.rib ? (
+          <LigneInfoInCard
+            title="Rib"
+            value={client.rib}
+            icon={<FaBehance />}
+          />
+        ) : null}
         <div className="address-buyer-and-seller">
           <div>
             <FaMapMarked />
@@ -80,6 +109,15 @@ const BuyerOrSellerCard = ({ client, onNavigate }: Props) => {
 
           <span>{client.address ? client.address : client.location}</span>
         </div>
+        {client.official && (
+          <div onClick={onOpenModalOfOfficialDocs} className="official-docs">
+            <img src={Garage} />
+              <div className="need-review">
+                See Documents
+              </div>
+          </div>
+        ) }
+        <div className="config"></div>
       </div>
       {onNavigate ? (
         <div
@@ -89,6 +127,85 @@ const BuyerOrSellerCard = ({ client, onNavigate }: Props) => {
           <FaExclamation />
         </div>
       ) : null}
+      {client.official && (
+        <Modal
+        open={modalOfOfficialDocs}
+        onClose={onCloseModalOfOfficialDocs}
+        size="full"
+        className="seller-docs"
+      >
+        <div className="docs-header">
+          {" "}
+          <span
+            onClick={() => {
+              setDocs({
+                type: 0,
+                images: client.official?.identity_urls,
+              });
+            }}
+            className={docs.type == 0 ? "active" : ""}
+          >
+            {" "}
+            Identity Docs
+          </span>{" "}
+          <span
+            onClick={() => {
+              setDocs({
+                type: 1,
+                images: client.official?.rib_urls,
+              });
+            }}
+            className={docs.type == 1 ? "active" : ""}
+          >
+            Rib Docs
+          </span>
+        </div>
+        <Modal.Body className="content">
+          <div className="docs-gallery">
+            <div
+              onClick={() => {
+                setActiveIndex((activeIndex) =>
+                  activeIndex ==
+                  (docs.images!.length || 1) - 1
+                    ? 0
+                    : activeIndex + 1
+                );
+              }}
+              className="right"
+            >
+              <BiChevronRight />
+            </div>
+            <div
+              onClick={() =>
+                setActiveIndex((activeIndex) =>
+                  activeIndex == 0
+                    ? (docs.images!.length || 1) - 1
+                    : activeIndex - 1
+                )
+              }
+              className="left"
+            >
+              <BiChevronLeft />{" "}
+            </div>
+            <Carousel className="custom-slider" activeIndex={activeIndex}>
+              {docs.images!.map((img, i) => (
+                <img key={i} src={img} className="img-doc" />
+              ))}
+            </Carousel>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            className="button"
+            onClick={onCloseModalOfOfficialDocs}
+            appearance="subtle"
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      )}
+      
     </div>
   );
 };

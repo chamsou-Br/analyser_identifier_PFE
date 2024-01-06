@@ -10,7 +10,7 @@ import {
   startLoadingTransaction,
   stopLoadingTransaction,
 } from "../state/actions/transactionAction";
-import {  IAdminFullTransaction, IRowsTable, ITransacionForTable, TransactionStatus } from "../helper/types";
+import {  IAdminFullTransaction, IRowsTable, IColumnsForTable, TransactionStatus } from "../helper/types";
 
 import TableCompo from "../components/Table/Table";
 import { Currency, getDeliveryTypeTitle  , getFormatDate, getFullFormatDate} from "../helper/constant";
@@ -44,7 +44,7 @@ const TransactionScreen: React.FC = () => {
     {headerCell : "State" , dataKey : "state" , size : 120},
     {headerCell : "Claims" , dataKey : "claims" , size : 120},
   ]
-  const getDataFromState = (): ITransacionForTable[] => {
+  const getDataFromState = (): IColumnsForTable[] => {
     const newData = transactionState.transactions
       ? transactionState.transactions.map((item: IAdminFullTransaction) => ({
           uuid: item.uuid,

@@ -515,6 +515,7 @@ const TransactionDetails: React.FC = () => {
                     <BuyerOrSellerCard
                       onNavigate
                       client={{
+                        ...transaction.Buyer,
                         client: Client.BUYER,
                         address: transaction.Buyer.address,
                         birthDay: transaction.Buyer.birthDay,
@@ -533,6 +534,7 @@ const TransactionDetails: React.FC = () => {
                     <BuyerOrSellerCard
                       onNavigate
                       client={{
+                        ...transaction.Invitation.Seller,
                         client: Client.SELLER,
                         address: null,
                         birthDay: null,

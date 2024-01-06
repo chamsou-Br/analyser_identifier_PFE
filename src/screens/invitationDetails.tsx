@@ -270,6 +270,7 @@ const InvitationDetails: React.FC = () => {
                 <BuyerOrSellerCard
                   onNavigate
                   client={{
+                    ...invitationState.invitation.Seller,
                     client: Client.SELLER,
                     address: null,
                     birthDay: null,
@@ -284,6 +285,7 @@ const InvitationDetails: React.FC = () => {
                     status: invitationState.invitation.Seller.status,
                     wilaya: invitationState.invitation.Seller.wilaya,
                     createdAt: invitationState.invitation.Seller.createdAt,
+
                   }}
                 />
               </div>

@@ -1,86 +1,32 @@
 
-/* ----------------------------------
-        Seller and buyer  
------------------------------------*/
-.client-card {
-    position: relative;
-  }
-  
-  .client-card .client-card-header {
+.rib-request {
+    background-color: #FFF;
+    padding: 10px;
+    border-radius: 0.3rem;
+    margin-top: 10px;
+}
+
+ .rib-request .rib-request-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
-  }
-  
-  .client-card .client-card-header .userName {
-    font-size: 16px;
-    font-weight: 600;
-    color: #010101;
-  }
-  
-  .client-card .details-navigate-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 12px;
-    background-color: #3782ec;
-    color: #fff;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    font-size: 12px;
-    cursor: pointer;
-  }
-  
-  .client-card .address-buyer-and-seller {
-    font-size: 12px;
-    font-weight: 600;
-    color: #010101;
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-  }
-  
-  .client-card .address-buyer-and-seller > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #949898;
-  }
-  
-  .client-card .address-buyer-and-seller span {
-    margin-left: 10px;
-  }
-  
-  .client-card .client-card-content {
-    padding-bottom: 40px;
-    position: relative;
-  }
-  
-  .client-card .official-docs {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: -10px;
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    background-color: #F6E8FC;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #00000022;
+}
+.rib-request .rib-request-header  .details {
     color: #7800A2;
-    border-radius: 0.3rem;
-  }
+    font-size: 16px;
+    
+
+}
+
+.rib-request .rib-request-header  .details:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 
-  .client-card .official-docs img {
-    width: 25px;
-  }
-
- 
 .seller-docs .docs-header span  {
     margin-right: 20px;
     font-size: 14px;

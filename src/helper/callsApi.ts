@@ -4,16 +4,18 @@ import axios from "./axiosConfig";
 import { Authorization } from "./constant";
 import {
   IAdminFullTransaction,
-  IAdminTransaction,
   IDeliveryOffice,
   IHistory,
   IInvitation,
   IInvitationComplete,
   IInvitationTransaction,
+  IRipRequests,
   ISellerBase,
+  ISellerWithRibRequests,
   ITransactionClosing,
 } from "./types";
 import {
+  ACCEPT_RIP_REQUEST,
   ADD_NOTE,
   ADMIN_ACTION,
   BLOCK_SELLER,
@@ -22,10 +24,10 @@ import {
   DECIDE_TRANSACTION,
   DELIVERY_COMPANY,
   GET_CLOSING_INFO,
-  GET_TRANSACTION,
   INVITAION_DETAILS,
-  INVITATIONS,
   REJECT_INVITATION,
+  REJECT_RIP_REQUEST,
+  RIB_REQUESTS,
   SELLER_HISTORY,
   VALIDATE_INVITATION,
 } from "./API";
@@ -174,6 +176,7 @@ export const getSellerHistorieAPI = async (email: string) => {
 
     return {
       historiy: response.data.invitations as IInvitationTransaction[],
+      requests : response.data.requests as IRipRequests[],
       error: undefined,
     };
   } catch (error: unknown) {
@@ -444,4 +447,103 @@ export const addDeliveryCompanyAPI = async (company  : string , email : string ,
     };
   }
 };
+
+
+export const getAllRibRequestsAPI = async () => {
+  try {
+
+    const options = {
+      method: 'GET',
+      url: RIB_REQUESTS,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: Authorization()
+      },
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      sellers: response.data.sellers as ISellerWithRibRequests[],
+      error: null,
+    };
+  } catch (error: unknown) {
+
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const acceptRibRequestAPI = async (email : string,id : number) => {
+  try {
+
+    const options = {
+      method: 'POST',
+      url: ACCEPT_RIP_REQUEST,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: Authorization()
+      },
+      data : {
+        sellerEmail : email,
+        ribId : id
+      }
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      seller : response.data.seller as ISellerBase,
+      error: null,
+    };
+  } catch (error: unknown) {
+
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const rejectRibRequest = async (email : string) => {
+  try {
+
+    const options = {
+      method: 'POST',
+      url: REJECT_RIP_REQUEST,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: Authorization()
+      },
+      data : {
+        sellerEmail : email
+      }
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      seller : response.data.seller as ISellerBase,
+      error: null,
+    };
+  } catch (error: unknown) {
+
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+
+
+
 

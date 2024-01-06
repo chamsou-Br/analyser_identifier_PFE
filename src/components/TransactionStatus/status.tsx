@@ -10,6 +10,7 @@ interface statusStyle {
   accepted: string;
   rejected: string;
   fulfilled: string;
+  active : string;
   payed: string;
   canceled: string;
   ongoing: string;
@@ -28,7 +29,8 @@ const Status = ({ status }: Props) => {
     ongoing: "#EB904F",
     started: "#3782ec",
     payed: "#b7ec4d",
-    accepted: "#44E46A",
+    accepted: "#88d399",
+    active : "#44E46A",
     fulfilled: "#44E46A",
     rejected: "#E84949",
     canceled: "#E84949",

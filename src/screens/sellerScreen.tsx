@@ -7,6 +7,8 @@ import {
   EntityStatus,
   IClientBase,
   IInvitationTransaction,
+  IRipRequests,
+  ISellerBase,
 } from "../helper/types";
 import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 import { useLocation, useNavigate } from "react-router";
@@ -20,6 +22,7 @@ import { useSelector } from "react-redux";
 import { ModifyTransactionDetails } from "../state/actions/transactionDetailsAction";
 import Page404 from "../components/404/page404";
 import { ModifyInvitationDetails } from "../state/actions/invitationDetailsAction";
+import RibRequest from "../components/ribRequest/ribRequest";
 
 const SellerScreen: React.FC = () => {
   const location = useLocation();
@@ -33,10 +36,13 @@ const SellerScreen: React.FC = () => {
   ).transaction;
 
   const [client, setClient] = useState<IClientBase>(location.state);
+  const [ribRequests, setRibRequests] = useState<IRipRequests[]>([]);
   const [histories, setHistories] = useState<IInvitationTransaction[]>([]);
   const [isModalConfirmOfBlockClient, setisModalConfirmOfBlockClient] =
     useState<boolean>(false);
 
+  const [isModalConfirmOfActivateClient, setisModalConfirmOfActivateClient] =
+    useState<boolean>(false);
   const handleNavigateToInvitationDetails = () => {
     navigate("/invitation/" + transaction?.Invitation.uuid);
   };
@@ -47,12 +53,8 @@ const SellerScreen: React.FC = () => {
     } else if (client.email == invitation?.Seller.email) {
       setClient({ ...client, status: invitation.Seller.status });
     }
-    
     const res = await getSellerHistorieAPI(client ? client.email : "");
-
-
-
-    console.log(res);
+    setRibRequests(res.requests!);
     setHistories(res.historiy);
   };
 
@@ -73,6 +75,20 @@ const SellerScreen: React.FC = () => {
   };
 
   /* End alert functions */
+
+  /* Start activate Seller Dunction*/
+
+  const handleActivateClient = () => {
+    setisModalConfirmOfActivateClient(true);
+  };
+
+  const handleCanceledModalOfActivateClient = () => {
+    setisModalConfirmOfActivateClient(false);
+  };
+
+  const handleSubmitActivateClient = async () => {
+    setisModalConfirmOfBlockClient(false);
+  };
 
   /* Start block Seller Dunction*/
 
@@ -120,6 +136,19 @@ const SellerScreen: React.FC = () => {
     fetchData();
   }, []);
 
+  const reviewRibRequest = (status : EntityStatus ,  id :  number , seller : ISellerBase) => {
+    setRibRequests(ribRequests.map(req => {
+      if (id == req.id && req.status == EntityStatus.Pending) {
+        return {...req, status : status}
+      }
+      if (req.status == EntityStatus.Pending){
+          return {...req, status : EntityStatus.Rejected}
+      }
+      return req
+    }))
+    setClient({...client , ...seller })
+  }
+
   if (client) {
     return (
       <div className="seller-page">
@@ -138,13 +167,23 @@ const SellerScreen: React.FC = () => {
             ))}
           </div>
           <div className="seller-info">
-            <div className="header">Seller Information</div>
-            <BuyerOrSellerCard client={client} />
-            {client.status != EntityStatus.Rejected ? (
-              <div onClick={handleBlockClient} className="block">
-                Block
-              </div>
-            ) : null}
+            <div className="seller-info-content">
+              <div className="header">Seller Information</div>
+              <BuyerOrSellerCard isDocs client={client} />
+            </div>
+            <div className="action">
+              {client.status != EntityStatus.Rejected ? (
+                <div onClick={handleBlockClient} className="block">
+                  Block
+                </div>
+              ) : null}
+            </div>
+            <div className="rib-requests">
+              <div className="header"  >Rib request</div>
+              {ribRequests.map((req, i) => (
+                  <RibRequest reviewRibRequest={reviewRibRequest} email={client.email} request={req} key={i} />
+              ))} 
+            </div>
           </div>
         </div>
         <TransactionActionConfirmation
@@ -152,6 +191,12 @@ const SellerScreen: React.FC = () => {
           handleCanceled={handleCanceledModalOfBlockClient}
           handleSubmit={handleSubmitBlockClient}
           confirmationText="Are you sure that you want to block this client ?"
+        />
+        <TransactionActionConfirmation
+          isOpen={isModalConfirmOfActivateClient}
+          handleCanceled={handleCanceledModalOfActivateClient}
+          handleSubmit={handleSubmitActivateClient}
+          confirmationText="Are you sure that you want to Activate this client ?"
         />
         <Alert alert={alert} onAlert={onAlert} />
       </div>

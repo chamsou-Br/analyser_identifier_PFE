@@ -35,3 +35,13 @@ export const INVITAION_DETAILS = "/invitation"
 export const INVITATIONS = "/admin/invitations"
 
 export const DELIVERY_COMPANY = "/admin/company"
+
+export const RIB_REQUESTS = "/admin/rib_requests"
+
+export const GET_SELLER = "/admin/seller"
+
+export const GET_BUYER = "/admin/buyer"
+
+export const ACCEPT_RIP_REQUEST = "/admin/accept_rib"
+
+export const REJECT_RIP_REQUEST = "/admin/reject_rib"

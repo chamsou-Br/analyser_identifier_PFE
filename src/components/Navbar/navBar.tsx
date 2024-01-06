@@ -79,6 +79,14 @@ const NavBar = () => {
         >
           deliveryCompanies
         </div>
+        <div
+          style={
+            history.pathname == "/sellers" ? { color: "#3782ec" } : {}
+          }
+          onClick={() => navigate("/sellers")}
+        >
+          Rib Request
+        </div>
       </div>
       <div onClick={handleLogOut} className="navBar-right">
         <span>LogOut</span>

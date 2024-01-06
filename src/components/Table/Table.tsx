@@ -4,7 +4,7 @@ const { Column, HeaderCell, Cell } = Table;
 import "rsuite/dist/rsuite-no-reset-rtl.css";
 import { SortType } from "rsuite/esm/Table";
 import { useNavigate } from "react-router-dom";
-import { IRowsTable, ITransacionForTable } from "../../helper/types";
+import { IRowsTable, IColumnsForTable } from "../../helper/types";
 import { FaEye } from "react-icons/fa";
 import HeaderTable from "../headerTable/headerTable";
 import "./table.css";
@@ -13,15 +13,22 @@ import { tableLimit } from "../../helper/constant";
 import DelivryType from "../DelivryType/delivryType";
 
 type props = {
-  getDefaultData: () => ITransacionForTable[];
+  getDefaultData: () => IColumnsForTable[];
   onRefreshData: () => void;
   rows: IRowsTable[];
+  isSearch?: boolean;
+  onNavigateSeller?: (email : string) => void;
 };
 
 const styleHeaderOfTable = { background: "#FFF", color: "#000" };
 
-const TableCompo = ({getDefaultData , onRefreshData , rows}: props) => {
-
+const TableCompo = ({
+  getDefaultData,
+  onRefreshData,
+  rows,
+  onNavigateSeller,
+  isSearch = true,
+}: props) => {
   const [sortColumn, setSortColumn] = useState<string>();
   const [sortType, setSortType] = useState<SortType | undefined>();
   const [limit, setLimit] = useState<number>(
@@ -57,17 +64,17 @@ const TableCompo = ({getDefaultData , onRefreshData , rows}: props) => {
   };
 
   const navigateToDetailsScreen = (uuid: string) => {
-    navigate("/details/" + uuid);
+     navigate("/details/" + uuid);
   };
 
-  const defaultData: ITransacionForTable[] = getDefaultData();
+  const defaultData: IColumnsForTable[] = getDefaultData();
 
   const getData = () => {
     const data = defaultData;
     if (sortColumn && sortType) {
       return data
         .sort((a, b) => {
-          const index = sortColumn as keyof ITransacionForTable;
+          const index = sortColumn as keyof IColumnsForTable;
           if (sortColumn in a && sortColumn in b) {
             let x = a[index];
             let y = b[index];
@@ -123,6 +130,7 @@ const TableCompo = ({getDefaultData , onRefreshData , rows}: props) => {
   return (
     <div className="table-container">
       <HeaderTable
+        isSearch={isSearch}
         value={search}
         title="Transaction List"
         descr="Information about Transaction which have reclamation !"
@@ -148,13 +156,15 @@ const TableCompo = ({getDefaultData , onRefreshData , rows}: props) => {
             {row.headerCell == "State" ? (
               <Cell>
                 {(dataRow) => (
-                  <Status status={(dataRow as ITransacionForTable).state} />
+                  <Status status={(dataRow as IColumnsForTable).state || ""} />
                 )}
               </Cell>
             ) : row.headerCell == "Delivery Type" ? (
               <Cell>
                 {(dataRow) => (
-                  <DelivryType deliveryType={(dataRow as ITransacionForTable).deliveryType } />
+                  <DelivryType
+                    deliveryType={(dataRow as IColumnsForTable).deliveryType}
+                  />
                 )}
               </Cell>
             ) : (
@@ -169,7 +179,7 @@ const TableCompo = ({getDefaultData , onRefreshData , rows}: props) => {
             {(rowData) => (
               <FaEye
                 onClick={() =>
-                  navigateToDetailsScreen((rowData as ITransacionForTable).uuid)
+                  onNavigateSeller ? onNavigateSeller((rowData as IColumnsForTable).email as string) : navigateToDetailsScreen((rowData as IColumnsForTable).uuid)
                 }
                 className="icon-details"
               />
@@ -195,6 +205,6 @@ const TableCompo = ({getDefaultData , onRefreshData , rows}: props) => {
       </div>
     </div>
   );
-}
+};
 
 export default TableCompo;

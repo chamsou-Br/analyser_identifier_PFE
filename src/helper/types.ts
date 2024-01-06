@@ -32,6 +32,7 @@ export interface IInvitation {
     certifiedDelivery: boolean,
     certifiedCompany: string
   }
+
   
   // Seller interfaces
   export interface IInvitationTransaction extends IInvitation {
@@ -96,6 +97,7 @@ export interface IInvitation {
   address: string,
   status: EntityStatus,
   email: string,
+  rib: string
 }
 
   
@@ -110,8 +112,27 @@ export interface ISellerBase {
   wilaya: string
   description: string,
   status: EntityStatus,
-  createdAt: Date
+  createdAt: Date,
+  rib: string,
+  official? : IOfficialDocuments , 
+
 }
+
+export interface ISellerWithRibRequests extends ISellerBase {
+  ChangeRibRequests : IRipRequests[]
+}
+
+export interface IRipRequests {
+  id : number,
+  rib: string,
+  official: IOfficialDocuments,
+  status : EntityStatus; 
+  SellerId : number,
+  AcceptDate : Date,
+  createdAt : Date,
+  updatedAt : Date,
+  deletedAt : Date,
+ }
 
 
   export interface IClientBase {
@@ -127,12 +148,14 @@ export interface ISellerBase {
     description: string | null | undefined,
     status: EntityStatus ,
     client? : Client
-    createdAt? : Date
+    createdAt? : Date,
+    rib?: string,
+    official? : IOfficialDocuments , 
 
   }
 
 
-  export interface ITransacionForTable {
+  export interface IColumnsForTable {
     uuid: string;
     deliveryDate: string;
     deliveryPlace: string;
@@ -145,7 +168,14 @@ export interface ISellerBase {
     ProductPrice: string;
     paymentDate: string;
     claims?: number;
-    state: TransactionStatus;
+    state? : TransactionStatus,
+    name?: string,
+    firstName?: string,
+    email?: string,
+    phoneNumber?: string,
+    businessName?: string,
+    ribRequest?: number,
+    rib?: string,
     // Add other properties you need
   }
 
@@ -242,6 +272,7 @@ export enum TransactionOutcome {
     Started = 'started',
     Accepted = 'accepted',
     Rejected = 'rejected',
+    Active = "active"
   }
 
 
@@ -252,3 +283,7 @@ export enum TransactionOutcome {
     payed_money: number;
 }
   
+export interface IOfficialDocuments {
+  rib_urls: string[],
+  identity_urls: string[],
+}

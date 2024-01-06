@@ -1,6 +1,6 @@
 import { DeliveryType } from "./types";
 
-export const BASE_URL = "https://api.paypart.dz/api";
+export const BASE_URL = "http://localhost:7550/api" // "https://api.paypart.dz/api";
 
 export const tokenName = "pepper_token";
 
