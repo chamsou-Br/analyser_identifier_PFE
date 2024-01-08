@@ -478,7 +478,7 @@ export const getAllRibRequestsAPI = async () => {
   }
 };
 
-export const acceptRibRequestAPI = async (email : string,id : number) => {
+export const acceptRibRequestAPI = async (sellerEmail : string,ribRequestId : number) => {
   try {
 
     const options = {
@@ -489,8 +489,8 @@ export const acceptRibRequestAPI = async (email : string,id : number) => {
         Authorization: Authorization()
       },
       data : {
-        sellerEmail : email,
-        ribId : id
+        sellerEmail : sellerEmail,
+        ribRequestId : ribRequestId
       }
     };
 
@@ -511,7 +511,7 @@ export const acceptRibRequestAPI = async (email : string,id : number) => {
   }
 };
 
-export const rejectRibRequest = async (email : string) => {
+export const rejectRibRequest = async (sellerEmail : string) => {
   try {
 
     const options = {
@@ -522,7 +522,7 @@ export const rejectRibRequest = async (email : string) => {
         Authorization: Authorization()
       },
       data : {
-        sellerEmail : email
+        sellerEmail : sellerEmail
       }
     };
 

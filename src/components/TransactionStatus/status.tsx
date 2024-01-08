@@ -44,6 +44,8 @@ const Status = ({ status }: Props) => {
     closed_success: "#44E46A",
   };
 
+  console.log(status , "mokgdsmok")
+
   return (
     <div className="status">
       <div

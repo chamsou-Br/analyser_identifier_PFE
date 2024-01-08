@@ -1,193 +1,127 @@
-
 /* ----------------------------------
         Seller and buyer  
 -----------------------------------*/
 .client-card {
-    position: relative;
-  }
-  
-  .client-card .client-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
-  }
-  
-  .client-card .client-card-header .userName {
-    font-size: 16px;
-    font-weight: 600;
-    color: #010101;
-  }
-  
-  .client-card .details-navigate-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 12px;
-    background-color: #3782ec;
-    color: #fff;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    font-size: 12px;
-    cursor: pointer;
-  }
-  
-  .client-card .address-buyer-and-seller {
-    font-size: 12px;
-    font-weight: 600;
-    color: #010101;
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-  }
-  
-  .client-card .address-buyer-and-seller > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #949898;
-  }
-  
-  .client-card .address-buyer-and-seller span {
-    margin-left: 10px;
-  }
-  
-  .client-card .client-card-content {
-    padding-bottom: 40px;
-    position: relative;
-  }
-  
-  .client-card .official-docs {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: -10px;
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    background-color: #F6E8FC;
-    color: #7800A2;
-    border-radius: 0.3rem;
-  }
+  position: relative;
+}
 
+.client-card .client-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
 
-  .client-card .official-docs img {
-    width: 25px;
-  }
+.client-card .client-card-header .userName {
+  font-size: 16px;
+  font-weight: 600;
+  color: #010101;
+}
 
- 
-.seller-docs .docs-header span  {
-    margin-right: 20px;
-    font-size: 14px;
-    color: #010101;
-    cursor: pointer;
+.client-card .details-navigate-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  background-color: #3782ec;
+  color: #fff;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
 
-  }
+.client-card .address-buyer-and-seller {
+  font-size: 12px;
+  font-weight: 600;
+  color: #010101;
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
 
-  .seller-docs .docs-header span.active {
-    color: #7800A2;
-    font-weight: bold;
-    border-bottom: 2px solid #7800A2;
-  }
+.client-card .address-buyer-and-seller > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #949898;
+}
 
+.client-card .address-buyer-and-seller span {
+  margin-left: 10px;
+}
 
-  .seller-docs .content {
-    margin-bottom: 20px;
-  }
-  
-  .seller-docs .docs-gallery {
+.client-card .client-card-content {
+  padding-bottom: 40px;
+  position: relative;
+}
+
+.client-card .official-docs {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: -10px;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #f6e8fc;
+  color: #7800a2;
+  border-radius: 0.3rem;
+}
+
+.client-card .official-docs img {
+  width: 25px;
+}
+
+.seller-docs .docs-header span {
+  margin-right: 20px;
+  font-size: 14px;
+  color: #010101;
+  cursor: pointer;
+}
+
+.seller-docs .docs-header span.active {
+  color: #7800a2;
+  font-weight: bold;
+  border-bottom: 2px solid #7800a2;
+}
+
+.seller-docs .content {
+  margin-bottom: 20px;
+}
+
+.seller-docs .docs-gallery {
   width: 100%;
   height: 100%;
   border: 0.1px solid #01010111;
   border-radius: 1rem;
   overflow: hidden;
   position: relative;
-  @media screen and (max-width : 600px) {
-      border-radius: 0;
-   }
+  @media screen and (max-width: 600px) {
+    border-radius: 0;
+  }
 }
-
-.seller-docs .docs-gallery .navigation {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: fit-content;
-  height: fit-content;
-  padding: 10px;
-  border-radius: 100%;
-  font-size: 10px;
-  background-color: #FFF;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  color: var(--blue-color);
-  cursor: pointer;
-  
-}
-
-.seller-docs .docs-gallery .right {
-
-  z-index: 10;
-  width: 25px;
-  height: 25px;
-  background-color: #FFF;
-  border-radius: 100%;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  color: var(--blue-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font: 12px;
-  position: absolute;
-  right: 10px;
-  top: 47%;
-  cursor: pointer;
-  display: none;
-}
-
-.seller-docs .docs-gallery:hover .right{
-  display: flex;
-}
-
-.seller-docs .docs-gallery .left {
-
-  z-index: 10;
-  width: 25px;
-  height: 25px;
-  background-color: #FFF;
-  border-radius: 100%;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  color: var(--blue-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font: 12px;
-  position: absolute;
-  left: 10px;
-  top:47%;
-  cursor: pointer;
-  display: none;
-}
-.seller-docs .docs-gallery:hover .left {
-  display: flex;
-}
-
-
-.seller-docs .docs-gallery .custom-slider {
+.seller-docs .docs-gallery .img-doc-container {
   width: 100%;
   height: fit-content;
-  cursor: pointer;
-  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.seller-docs  .button  {
+.seller-docs .docs-gallery .img-doc-container img {
+  width: 100%;
+}
+
+.seller-docs .button {
   margin-right: 10px;
 }
 
-.seller-docs .button.block  {
-  background-color: #EE4563;
+.seller-docs .button.block {
+  background-color: #ee4563;
 }
-

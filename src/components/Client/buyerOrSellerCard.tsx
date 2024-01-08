@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   FaAddressCard,
   FaBehance,
@@ -16,8 +16,7 @@ import "./client.css";
 import { getTimeAgo } from "../../helper/constant";
 import { IoMdTime } from "react-icons/io";
 import Garage from "../../assets/Garage.svg";
-import { Button, Carousel, Modal } from "rsuite";
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { Button, Modal } from "rsuite";
 
 type Props = {
   client: IClientBase;
@@ -30,7 +29,7 @@ const BuyerOrSellerCard = ({ client, onNavigate  }: Props) => {
 
   const onNavigateToDetails = () => {
     navigate(client.client == Client.BUYER ? "/buyer" : "/seller", {
-      state: client.email,
+      state: client,
     });
   };
 
@@ -39,14 +38,12 @@ const BuyerOrSellerCard = ({ client, onNavigate  }: Props) => {
     type: 0,
     images: client.official?.identity_urls,
   });
-  const [activeIndex, setActiveIndex] = useState(0);
   const onOpenModalOfOfficialDocs = () => {
     setModalOfOfficialDocs(true);
   };
   const onCloseModalOfOfficialDocs = () => {
     setModalOfOfficialDocs(false);
   };
-
 
 
   return (
@@ -162,36 +159,11 @@ const BuyerOrSellerCard = ({ client, onNavigate  }: Props) => {
         </div>
         <Modal.Body className="content">
           <div className="docs-gallery">
-            <div
-              onClick={() => {
-                setActiveIndex((activeIndex) =>
-                  activeIndex ==
-                  (docs.images!.length || 1) - 1
-                    ? 0
-                    : activeIndex + 1
-                );
-              }}
-              className="right"
-            >
-              <BiChevronRight />
-            </div>
-            <div
-              onClick={() =>
-                setActiveIndex((activeIndex) =>
-                  activeIndex == 0
-                    ? (docs.images!.length || 1) - 1
-                    : activeIndex - 1
-                )
-              }
-              className="left"
-            >
-              <BiChevronLeft />{" "}
-            </div>
-            <Carousel className="custom-slider" activeIndex={activeIndex}>
+            <div className="img-doc-container" >
               {docs.images!.map((img, i) => (
                 <img key={i} src={img} className="img-doc" />
               ))}
-            </Carousel>
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer>

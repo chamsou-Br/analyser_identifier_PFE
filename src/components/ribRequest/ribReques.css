@@ -58,75 +58,16 @@
    }
 }
 
-.seller-docs .docs-gallery .navigation {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: fit-content;
-  height: fit-content;
-  padding: 10px;
-  border-radius: 100%;
-  font-size: 10px;
-  background-color: #FFF;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  color: var(--blue-color);
-  cursor: pointer;
-  
-}
-
-.seller-docs .docs-gallery .right {
-
-  z-index: 10;
-  width: 25px;
-  height: 25px;
-  background-color: #FFF;
-  border-radius: 100%;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  color: var(--blue-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font: 12px;
-  position: absolute;
-  right: 10px;
-  top: 47%;
-  cursor: pointer;
-  display: none;
-}
-
-.seller-docs .docs-gallery:hover .right{
-  display: flex;
-}
-
-.seller-docs .docs-gallery .left {
-
-  z-index: 10;
-  width: 25px;
-  height: 25px;
-  background-color: #FFF;
-  border-radius: 100%;
-  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  color: var(--blue-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font: 12px;
-  position: absolute;
-  left: 10px;
-  top:47%;
-  cursor: pointer;
-  display: none;
-}
-.seller-docs .docs-gallery:hover .left {
-  display: flex;
-}
-
-
-.seller-docs .docs-gallery .custom-slider {
+.seller-docs .docs-gallery .img-doc-container {
   width: 100%;
   height: fit-content;
-  cursor: pointer;
-  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.seller-docs .docs-gallery .img-doc-container img {
+  width: 100%;
 }
 
 .seller-docs  .button  {

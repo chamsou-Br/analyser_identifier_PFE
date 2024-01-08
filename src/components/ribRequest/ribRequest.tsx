@@ -6,8 +6,7 @@ import { IoMdTime } from 'react-icons/io'
 import { getFullFormatDate } from '../../helper/constant'
 import { FaBehance } from 'react-icons/fa'
 import "./ribReques.css"
-import { Button, Carousel, Modal } from 'rsuite'
-import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
+import { Button, Modal } from 'rsuite'
 import TransactionActionConfirmation from "../ActionConfirmation/ActionConfirmation";
 import { acceptRibRequestAPI, rejectRibRequest } from '../../helper/callsApi'
 import Alert from '../Alert/alert'
@@ -32,7 +31,6 @@ const RibRequest = ({request,email , reviewRibRequest}: Props) => {
     const onOpenModalOfOfficialDocs = () => {
         setModalOfOfficialDocs(true)
     }
-    const [activeIndex, setActiveIndex] = useState(0);
 
     const [isModalConfirmOfAcceptRibRequest , setIsModalConfirmOfAcceptRibRequest ] = useState(false)
 
@@ -149,36 +147,11 @@ const RibRequest = ({request,email , reviewRibRequest}: Props) => {
         </div>
         <Modal.Body className="content">
           <div className="docs-gallery">
-            <div
-              onClick={() => {
-                setActiveIndex((activeIndex) =>
-                  activeIndex ==
-                  (docs.images!.length || 1) - 1
-                    ? 0
-                    : activeIndex + 1
-                );
-              }}
-              className="right"
-            >
-              <BiChevronRight />
-            </div>
-            <div
-              onClick={() =>
-                setActiveIndex((activeIndex) =>
-                  activeIndex == 0
-                    ? (docs.images!.length || 1) - 1
-                    : activeIndex - 1
-                )
-              }
-              className="left"
-            >
-              <BiChevronLeft />{" "}
-            </div>
-            <Carousel className="custom-slider" activeIndex={activeIndex}>
+          <div className="img-doc-container" >
               {docs.images!.map((img, i) => (
                 <img key={i} src={img} className="img-doc" />
               ))}
-            </Carousel>
+            </div>
           </div>
         </Modal.Body>
         <Modal.Footer>

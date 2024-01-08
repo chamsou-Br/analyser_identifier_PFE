@@ -35,6 +35,7 @@ const SellerScreen: React.FC = () => {
     (state: RootState) => state.transaction
   ).transaction;
 
+
   const [client, setClient] = useState<IClientBase>(location.state);
   const [ribRequests, setRibRequests] = useState<IRipRequests[]>([]);
   const [histories, setHistories] = useState<IInvitationTransaction[]>([]);
@@ -48,13 +49,14 @@ const SellerScreen: React.FC = () => {
   };
 
   const fetchData = async () => {
+
     if (client.email == transaction?.Invitation.Seller.email) {
       setClient({ ...client, status: transaction.Invitation.Seller.status });
     } else if (client.email == invitation?.Seller.email) {
       setClient({ ...client, status: invitation.Seller.status });
     }
     const res = await getSellerHistorieAPI(client ? client.email : "");
-    setRibRequests(res.requests!);
+    setRibRequests(res.requests!.reverse());
     setHistories(res.historiy);
   };
 
@@ -78,9 +80,6 @@ const SellerScreen: React.FC = () => {
 
   /* Start activate Seller Dunction*/
 
-  const handleActivateClient = () => {
-    setisModalConfirmOfActivateClient(true);
-  };
 
   const handleCanceledModalOfActivateClient = () => {
     setisModalConfirmOfActivateClient(false);

@@ -39,6 +39,7 @@ const ClientHistoryCard = ({ history }: Props) => {
     navigate("/invitation/" + history.uuid);
   };
 
+
   return (
     <div className="client-history-card">
       <TitleCard title="Invitation" />
