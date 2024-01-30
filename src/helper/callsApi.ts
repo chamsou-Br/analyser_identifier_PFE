@@ -3,6 +3,7 @@ import { AxiosError } from "axios";
 import axios from "./axiosConfig";
 import { Authorization } from "./constant";
 import {
+  IAdmin,
   IAdminFullTransaction,
   IDeliveryOffice,
   IHistory,
@@ -16,15 +17,19 @@ import {
 } from "./types";
 import {
   ACCEPT_RIP_REQUEST,
+  ADD_ADMIN,
   ADD_NOTE,
   ADMIN_ACTION,
+  BLOCK_ADMIN,
   BLOCK_SELLER,
   BUYER_HISTORY,
   CLOSE_TRANSACTION,
+  CREATE_PAYMENT,
   DECIDE_TRANSACTION,
   DELIVERY_COMPANY,
   GET_CLOSING_INFO,
   INVITAION_DETAILS,
+  LIST_ADMINS,
   REJECT_INVITATION,
   REJECT_RIP_REQUEST,
   RIB_REQUESTS,
@@ -534,6 +539,130 @@ export const rejectRibRequest = async (sellerEmail : string) => {
     };
   } catch (error: unknown) {
 
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+
+
+export const fetchListAdminsAPI = async () => {
+  try {
+    const options = {
+      method: "GET",
+      url: LIST_ADMINS,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      admins: response.data.admins as IAdmin[],
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const blockAdminAPI = async (id : number) => {
+  try {
+    const options = {
+      method: "DELETE",
+      url: BLOCK_ADMIN,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data : {
+        id : id
+      }
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      admins: response.data.admins as IAdmin[],
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const addAdminAPI = async (name : string) => {
+  try {
+    const options = {
+      method: "POST",
+      url: ADD_ADMIN,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data : {
+        name : name      
+      }
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      admin: response.data.admin as IAdmin,
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+
+export const createPaymentAPI = async (transactionUuid : string) => {
+  try {
+    const options = {
+      method: "POST",
+      url: CREATE_PAYMENT,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data : {
+        transactionUuid : transactionUuid      
+      }
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      transaction: response.data.transaction as IAdminFullTransaction,
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
     return {
       
       error: (error as AxiosError<{ message: string }>).response?.data.message

@@ -44,6 +44,7 @@ import {
   addNoteOfTransactionAPI,
   changeStateOfTransactionAPI,
   closeTransactionAPI,
+  createPaymentAPI,
   getClosingInfoAPI,
 } from "../helper/callsApi";
 import HistorieTransactioncard from "../components/transactionHistory/TransactionHistory";
@@ -55,6 +56,7 @@ import {
 } from "../state/actions/transactionDetailsAction";
 import Page404 from "../components/404/page404";
 import DelivryType from "../components/DelivryType/delivryType";
+import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
 
 type infoClosing = {
   info: ITransactionClosing | undefined;
@@ -82,6 +84,8 @@ const TransactionDetails: React.FC = () => {
     isOpenModalOfChangementTransactionState,
     setisOpenModalOfChangementTransactionState,
   ] = useState<boolean>(false);
+
+  const [isOpeModalOfPayment, setIsOpeModalOfPayment] = useState(false);
 
   const [infoClosing, setInfoClosing] = useState<infoClosing>({
     error: null,
@@ -216,6 +220,28 @@ const TransactionDetails: React.FC = () => {
 
   /* End Action Functions */
 
+  /* start add payment Modal */
+
+  const handleOpenModalOfPayment = () => {
+    setIsOpeModalOfPayment(true);
+  };
+
+  const handleCanceledModalOfPayment = () => {
+    setIsOpeModalOfPayment(false);
+  };
+
+  const handleSubmitAddPayment = async () => {
+    setIsOpeModalOfPayment(false);
+    const res = await createPaymentAPI(transaction?.uuid || "");
+    if (res.error) onAlert(false, res.error, true);
+    else {
+      dispatch(AddTransactionDetails(res.transaction!));
+      onAlert(true, "the payment has been successfully created", true);
+    }
+  };
+
+  /* End add payment Modal */
+
   /* Start  Buyer , Seller , Reclamation , Histories Functions */
 
   const handleShowBuyerInfo = () => {
@@ -277,7 +303,9 @@ const TransactionDetails: React.FC = () => {
           handleChangeTransactionStatusAction={
             handleOpenModalOfChangementTransactionState
           }
+          isPaymentCreated={transaction.BuyerPaymentId || transaction.SellerPaymentId ? true : false}
           handleCloseTransactionAction={handleOpenModalOfTransactionClose}
+          handleAddPayment={handleOpenModalOfPayment}
         />
         <div className="transaction-section">
           <HeaderPage
@@ -438,9 +466,7 @@ const TransactionDetails: React.FC = () => {
                 </div>
                 <LigneInfoInCard
                   title="Creation date"
-                  value={getTimeAgo(
-                    transaction.Invitation.createdAt
-                  )}
+                  value={getTimeAgo(transaction.Invitation.createdAt)}
                   icon={<IoMdTime />}
                 />
                 <LigneInfoInCard
@@ -450,9 +476,7 @@ const TransactionDetails: React.FC = () => {
                 />
                 <LigneInfoInCard
                   title="Date"
-                  value={getFullFormatDate(
-                    transaction.Invitation.date
-                  )}
+                  value={getFullFormatDate(transaction.Invitation.date)}
                   icon={<IoMdCalendar />}
                 />
                 <LigneInfoInCard
@@ -557,6 +581,12 @@ const TransactionDetails: React.FC = () => {
             </div>
           </div>
         </div>
+        <ActionConfirmation
+          confirmationText="Are you sure that you want to create payment to this Transaction !"
+          isOpen={isOpeModalOfPayment}
+          handleCanceled={handleCanceledModalOfPayment}
+          handleSubmit={handleSubmitAddPayment}
+        />
         <TransactionNote
           isOpen={isOpenModalOfTransactionNote}
           handleCloseCanceled={handleCanceledModalOfNote}

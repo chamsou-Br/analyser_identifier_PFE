@@ -1,3 +1,41 @@
+export interface IAdmin {
+  id: number , 
+  name : string,
+  createdAt: Date,
+  updatedAt: Date,
+}
+
+export interface IPayment {
+  id: string,
+  rib: string,
+  type: PaymentType,
+  executed: boolean,
+  fullAmount : number,
+  createdAt: Date,
+  updatedAt: Date,
+}
+
+export interface IPaymentGroup {
+  id: string,
+  rib: string,
+  executed: boolean ,
+  fullAmount : number,
+  createdAt: Date,
+  updatedAt: Date,
+}
+
+export interface IFullPayment extends IPayment {
+  Seller: ISellerBase , 
+  Buyer : IBuyerBase , 
+  Transaction : ITransaction
+}
+
+export interface IFullPaymentGroup extends IPaymentGroup{
+  Payments : IFullPayment[]
+}
+
+
+
 export interface IInvitation {
     uuid: string,
     product: string,
@@ -30,7 +68,9 @@ export interface IInvitation {
     createdAt: Date,
     updatedAt: Date,
     certifiedDelivery: boolean,
-    certifiedCompany: string
+    certifiedCompany: string,
+    BuyerPaymentId : number , 
+    SellerPaymentId : number
   }
 
   
@@ -252,6 +292,12 @@ export enum TransactionOutcome {
     CLOSED_SUCCESS = 'closed-success',
     CANCELED = 'canceled',
     ONGOING = 'ongoing'
+  }
+
+  export enum PaymentType {
+    REIMBURSEMENT = 'Reimbursement',
+    FULFILLMENT = 'Fulfillment',
+    COMPENSATION_FOR_GHOSTING = 'Compensation-for-Ghosting',
   }
   
   export enum Gender {

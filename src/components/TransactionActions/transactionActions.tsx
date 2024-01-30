@@ -8,12 +8,16 @@ type props = {
   handleAddNoteAction: () => void;
   handleCloseTransactionAction: () => void;
   handleChangeTransactionStatusAction: () => void;
+  handleAddPayment : () => void,
+  isPaymentCreated? : boolean
 };
 
 const TransactionActions = ({
   handleAddNoteAction,
   handleChangeTransactionStatusAction,
   handleCloseTransactionAction,
+  handleAddPayment,
+  isPaymentCreated
 }: props) => {
   return (
     <div className="transaction-actions">
@@ -37,6 +41,12 @@ const TransactionActions = ({
           <GiMatterStates />
         </div>
         <div className="action-title">change Status</div>
+      </div>
+      <div className="action">
+        <div onClick={()=> isPaymentCreated ? null : handleAddPayment()  } className={isPaymentCreated ? "action-icon disabled" : "action-icon"}>
+          <HiOutlineLockClosed />
+        </div>
+        <div className="action-title">{isPaymentCreated ? "Payment already created" : " Add Payment"}</div>
       </div>
     </div>
   );

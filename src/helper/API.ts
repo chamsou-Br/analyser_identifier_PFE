@@ -45,3 +45,11 @@ export const GET_BUYER = "/admin/buyer"
 export const ACCEPT_RIP_REQUEST = "/admin/accept_rib"
 
 export const REJECT_RIP_REQUEST = "/admin/reject_rib"
+
+export const LIST_ADMINS = "/admin/list"
+
+export const BLOCK_ADMIN = "/admin"
+
+export const ADD_ADMIN = "/admin"
+
+export const CREATE_PAYMENT = "/admin/payment"

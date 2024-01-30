@@ -38,6 +38,7 @@
         border-radius: 0.4rem;
         cursor: pointer;
       }
+
       
       .transaction-actions .action:nth-child(1) .action-icon:hover {
         color: #eb904f;
@@ -51,6 +52,11 @@
       .transaction-actions .action:nth-child(3) .action-icon:hover {
         color: #44e46a;
         background-color: #44e46a22;
+      }
+
+      .transaction-actions .action:nth-child(4) .action-icon:hover {
+        color: #3782ec;
+        background-color: #3782ec22;
       }
       
       .transaction-actions .action:nth-child(1) .action-icon {
@@ -68,10 +74,27 @@
         background-color: #fff;
         border: 1px solid #44e46a;
       }
+      .transaction-actions .action:nth-child(4) .action-icon {
+        color: #3782ec;
+        background-color: #fff;
+        border: 1px solid #3782ec;
+      }
       .transaction-actions .action .action-title {
         font-size: 12px;
         font-weight: bold;
         color: #010101;
+      }
+
+      .transaction-actions .action .action-icon.disabled {
+        background-color: #01010122;
+   
+        border-color: #01010122;
+      }
+
+      .transaction-actions .action .action-icon.disabled:hover {
+        background-color: #01010122;
+        cursor: not-allowed;
+        border-color: #01010122;
       }
 
 
