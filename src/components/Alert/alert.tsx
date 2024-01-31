@@ -9,18 +9,21 @@ type Props = {
     show: boolean;
   };
   onAlert: (show: boolean, message: string, isSucess: boolean) => void;
+  onCancelInSuccess? : () => void
 };
 
-const Alert = ({ alert, onAlert }: Props) => {
-  const onCancel = () => {
-    onAlert(alert.isSucess, alert.message, false);
-  };
+const Alert = ({ alert, onAlert  , onCancelInSuccess}: Props) => {
+
+  const onHandlenCancel = () => {
+    onAlert(alert.isSucess , alert.message , false)
+    onCancelInSuccess && alert.isSucess ? onCancelInSuccess() : null
+}
   return (
     <Modal
       className="transaction-note"
       open={alert.show}
       backdrop={true}
-      onClose={onCancel}
+      onClose={onHandlenCancel}
     >
       <Modal.Title></Modal.Title>
       <Modal.Body className="Alert">
@@ -38,7 +41,7 @@ const Alert = ({ alert, onAlert }: Props) => {
           style={alert.isSucess ? { color: "#44E46A" } : { color: "#f17777" }}
         >
           {alert.isSucess
-            ? "Your treatment is done successfully"
+            ? alert.message ? alert.message : "Your treatment is done successfully"
             : alert.message}
         </div>
       </Modal.Body>

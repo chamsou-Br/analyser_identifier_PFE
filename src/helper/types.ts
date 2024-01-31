@@ -65,6 +65,15 @@ export interface IInvitation {
     outcome: TransactionOutcome,
     activationKey: string,
     paymentDate?: Date,
+    satimOrderNumber: string, //?
+    satimOrderId: string, // ?
+    // TO-DO: add maybe satimFullConfirmationJson
+    // date validation
+    validationDate: Date, // ?
+    // without counting the transfer fee 0.7% [+delivery]
+    fullAmountIn: number,
+    // without counting transfer fees [+delivery]
+    fullAmountOut: number,
     createdAt: Date,
     updatedAt: Date,
     certifiedDelivery: boolean,

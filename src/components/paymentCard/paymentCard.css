@@ -1,0 +1,130 @@
+
+.payment-card {
+    border-radius: 0.3rem;
+    padding: 10px;
+    box-shadow: #8762d966 0px 2px 8px 0px;
+    margin-bottom: 20px;
+    background-color: white;
+    width: 100%;
+    
+  }
+  
+ .payment-card .payment-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 0px;
+    gap: 10px;
+  }
+  
+ .payment-card .payment-card-header .date {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color:#a1a1a1;
+    gap: 10px;
+  }
+  
+.payment-card .payment-card-header .state {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #151B26;
+    font-size: 14px;
+  }
+
+ .payment-card .payment-card-header span:hover {
+    text-decoration: underline;
+  }
+
+
+.payment-card .payment-card-content {
+    border-radius: 0.7rem;
+    background-color: #f6f6f6;
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    line-height: 25px;
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+
+  }
+  
+ .payment-card .payment-card-content .client-name {
+    display: flex;
+    align-items: center;
+    color: #151B26;
+    min-width: 150px;
+    @media screen and (max-width: 767px) {
+      font-size: 15px;
+    }
+  }
+  
+  .payment-card .payment-card-content .client-name  span {
+    color: #9f9f9f;
+    font-weight: normal;
+    margin-right:  5px;
+  }
+  
+.payment-card .payment-card-content .email {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #151B26;
+    font-size: 15px;
+    font-weight: normal;
+    padding-right: 15px;
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+  
+.payment-card .payment-card-content .email span {
+    color: #9f9f9f;
+    margin-right: 8px;
+    font-weight: normal;
+  }
+  
+  .payment-card .payment-card-content .password {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #151B26;
+    font-size: 15px;
+    font-weight: normal;
+  }
+  
+
+
+  
+.payment-card .payment-card-content .lock-payment-group {
+    color: #3782ec;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: normal;
+  }
+
+  .payment-card .payment-card-content .lock-payment-group:hover {
+    text-decoration: underline;
+  }
+
+
+
+
+  .payment-card .payment-card-content .email-sm {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #9f9f9f;
+    font-size: 15px;
+    font-weight: normal;
+    display: none;
+    width: 100%;
+    @media screen and (max-width: 767px) {   
+      display: flex;
+    }
+  }

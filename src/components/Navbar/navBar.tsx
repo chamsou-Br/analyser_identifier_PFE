@@ -95,6 +95,14 @@ const NavBar = () => {
         >
           Admins
         </div>
+        <div
+          style={
+            history.pathname == "/payment" ? { color: "#3782ec" } : {}
+          }
+          onClick={() => navigate("/payment")}
+        >
+          Payment
+        </div>
       </div>
       <div onClick={handleLogOut} className="navBar-right">
         <span>LogOut</span>

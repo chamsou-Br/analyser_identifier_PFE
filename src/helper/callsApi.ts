@@ -6,6 +6,7 @@ import {
   IAdmin,
   IAdminFullTransaction,
   IDeliveryOffice,
+  IFullPaymentGroup,
   IHistory,
   IInvitation,
   IInvitationComplete,
@@ -20,6 +21,7 @@ import {
   ADD_ADMIN,
   ADD_NOTE,
   ADMIN_ACTION,
+  APPROVE_PAYMENT_GROUP,
   BLOCK_ADMIN,
   BLOCK_SELLER,
   BUYER_HISTORY,
@@ -27,9 +29,12 @@ import {
   CREATE_PAYMENT,
   DECIDE_TRANSACTION,
   DELIVERY_COMPANY,
+  GENERATE_PAYMENT_GROUP,
   GET_CLOSING_INFO,
   INVITAION_DETAILS,
   LIST_ADMINS,
+  LOCK_PAYMENT_GROUP,
+  PAYMENT_GROUP,
   REJECT_INVITATION,
   REJECT_RIP_REQUEST,
   RIB_REQUESTS,
@@ -672,7 +677,153 @@ export const createPaymentAPI = async (transactionUuid : string) => {
   }
 };
 
+export const fetchPaymentGroupsAPI = async ( ) => {
+  try {
+    const options = {
+      method: "GET",
+      url: PAYMENT_GROUP,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      groups: response.data.groups as IFullPaymentGroup[],
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const generatePaymentGroupsAPI = async ( ) => {
+  try {
+    const options = {
+      method: "GET",
+      url: GENERATE_PAYMENT_GROUP,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      success: response.data.success as boolean,
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const lockPaymentGroupsAPI = async (id : number) => {
+  try {
+    const options = {
+      method: "POST",
+      url: LOCK_PAYMENT_GROUP,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data : {
+        groupId : id
+      }
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      group: response.data.group as IFullPaymentGroup,
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const approvePaymentGroupsAPI = async (id : number) => {
+  try {
+    const options = {
+      method: "POST",
+      url: APPROVE_PAYMENT_GROUP,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data : {
+        groupId : id
+      }
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      group: response.data.group as IFullPaymentGroup,
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
 
 
+export const getPaymentGroupAPI = async (id : number) => {
+  try {
+    const options = {
+      method: "POST",
+      url: PAYMENT_GROUP,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data : {
+        groupId : id
+      }
+    };
 
+    const response = await axios.request(options);
+
+    return {
+      group: response.data.group as IFullPaymentGroup,
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
 

@@ -53,3 +53,11 @@ export const BLOCK_ADMIN = "/admin"
 export const ADD_ADMIN = "/admin"
 
 export const CREATE_PAYMENT = "/admin/payment"
+
+export const PAYMENT_GROUP =  "admin/payment/group"
+
+export const GENERATE_PAYMENT_GROUP =  "admin/payment/group/generate"
+
+export const LOCK_PAYMENT_GROUP = "admin/payment/group/lock"
+
+export const APPROVE_PAYMENT_GROUP = "admin/payment/group/approve"

@@ -34,7 +34,7 @@
 
 .payment-page .list .admin {
     width: 100%;
-    max-width: 600px;
+    max-width: 900px;
     @media screen and (max-width : 1250px) {
         margin: auto;
         width: 100%;
