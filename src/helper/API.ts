@@ -56,8 +56,16 @@ export const CREATE_PAYMENT = "/admin/payment"
 
 export const PAYMENT_GROUP =  "admin/payment/group"
 
+export const PAYMENT_GROUP_PENDING =  "admin/payment/group/pending"
+
+export const PAYMENT_GROUP_APPROVED =  "admin/payment/group/approved" 
+
 export const GENERATE_PAYMENT_GROUP =  "admin/payment/group/generate"
 
 export const LOCK_PAYMENT_GROUP = "admin/payment/group/lock"
 
 export const APPROVE_PAYMENT_GROUP = "admin/payment/group/approve"
+
+export const ADMIN_PROFILE = "admin/profile"
+
+export const PAYMENTS_OF_TRANSACTION = "admin/payment/transaction"

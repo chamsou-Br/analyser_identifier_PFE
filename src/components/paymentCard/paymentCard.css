@@ -108,6 +108,11 @@
     font-weight: normal;
   }
 
+  .payment-card .payment-card-content .lock-payment-group.disabled {
+    cursor: not-allowed;
+    color: #a1a1a1;
+  }
+
   .payment-card .payment-card-content .lock-payment-group:hover {
     text-decoration: underline;
   }

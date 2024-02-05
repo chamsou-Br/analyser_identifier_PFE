@@ -57,3 +57,13 @@
     color: #01010199;
     margin-left: 20px;
   }
+
+  .card-information-lign .sub-descr.action {
+    color: #3782ec;
+
+  }
+
+  .card-information-lign .sub-descr.action:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }

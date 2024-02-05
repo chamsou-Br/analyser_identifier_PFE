@@ -1,6 +1,6 @@
-import { DeliveryType } from "./types";
+import { DeliveryType, TransactionStatus } from "./types";
 
-export const BASE_URL = "https://api.paypart.dz/api" // "http://localhost:7550/api" 
+export const BASE_URL =  "http://localhost:7550/api" 
 
 export const tokenName = "pepper_token";
 
@@ -99,3 +99,43 @@ if (timeDifference < 1000 * 60 * 60) {
 }
 
 }
+
+
+export const getShortStatusDescriptionFr = (
+  status: TransactionStatus
+): string => {
+  switch (status) {
+    case TransactionStatus.OPENED:
+      return "Opened";
+    case TransactionStatus.ACCEPTED:
+      return "Accepted";
+    case TransactionStatus.PAYED:
+      return "Payed";
+    case TransactionStatus.FULFILLED:
+      return "Validated";
+    case TransactionStatus.FULFILLED_HOLD:
+      return "Validated with claims";
+    case TransactionStatus.FULFILLED_CONTINUE:
+      return "Validated After review";
+    case TransactionStatus.CANCELED:
+      return "Canceled";
+    case TransactionStatus.PAYED_BUYER_CANCEL_EARLY:
+      return "Canceled by buyer early";
+    case TransactionStatus.PAYED_BUYER_CANCEL_MID:
+      return "Canceled by buyer mid";
+    case TransactionStatus.PAYED_BUYER_CANCEL_LATE:
+      return "Canceled by buyer late";
+    case TransactionStatus.PAYED_GHOSTED:
+      return "Canceled by buyer absence ";
+    case TransactionStatus.PAYED_SELLER_CANCEL:
+      return "Canceled by seller [payed]";
+    case TransactionStatus.PAYED_REIMBURSED:
+      return "Reimbursed";
+    case TransactionStatus.PAYED_COMPLEX_CANCEL:
+      return "Reimbursed complex";
+
+    default:
+      return "Statut inconnu";
+  }
+};
+

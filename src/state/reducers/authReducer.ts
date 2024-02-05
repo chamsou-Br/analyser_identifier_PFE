@@ -1,18 +1,21 @@
 
-import { AuthAction, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT, START_LOADING_AUTH, STOP_LOADING_AUTH } from "../actions/authAction";
+import { IAdmin } from "../../helper/types";
+import { AuthAction, GET_ADMIN, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT, START_LOADING_AUTH, STOP_LOADING_AUTH } from "../actions/authAction";
   
   interface authState {
     isAuth : boolean,
     error? : string | undefined ,
     token : string | null,
-    loading? : boolean
+    loading? : boolean,
+    admin? : IAdmin | null
   }
   
   const initialState: authState = {
     isAuth: false,
     token: "",
     error : undefined,
-    loading : false
+    loading : false,
+    admin : null
   };
   
 
@@ -50,6 +53,8 @@ import { AuthAction, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT, START_LOADING_AUTH, ST
             token : "",
             error : undefined
       }
+      case GET_ADMIN:
+        return {...state  , admin : action.payload}
       default:
         return state;
     }

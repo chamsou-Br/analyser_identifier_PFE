@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import HeaderPage from '../components/headerPage/headerPage'
 import "../styles/payment.css"
 import { IFullPaymentGroup } from '../helper/types'
-import { fetchPaymentGroupsAPI, generatePaymentGroupsAPI, lockPaymentGroupsAPI } from '../helper/callsApi'
+import { fetchPaymentGroupsPendingAPI, generatePaymentGroupsAPI, lockPaymentGroupsAPI } from '../helper/callsApi'
 import PaymentGroupCard from '../components/paymentCard/paymentGroupCard'
 import ActionConfirmation from '../components/ActionConfirmation/ActionConfirmation'
 import Alert from '../components/Alert/alert'
 import { useNavigate } from 'react-router'
+import { FaCheckCircle } from 'react-icons/fa'
 
 
 const PaymentScreen : React.FC = () => {
@@ -46,8 +47,6 @@ const PaymentScreen : React.FC = () => {
     }else {
       navigate("/payment/" + groupToLock)
     }
-  
-
   }
 
   const onCancelModalOfGenerateNewGroups = () => {
@@ -58,10 +57,14 @@ const PaymentScreen : React.FC = () => {
   }
 
   const fetchGroups = async () => {
-    const res = await fetchPaymentGroupsAPI()
+    const res = await fetchPaymentGroupsPendingAPI()
     if (res.groups) {
       setGroups(res.groups)
     }
+  }
+
+  const onNavigateToPaymentApproved = () => {
+    navigate("/payment/approved" )
   }
 
   const onHandleGenerateGroups = async () => {
@@ -79,6 +82,7 @@ const PaymentScreen : React.FC = () => {
   useEffect(()=>{
      fetchGroups()
   },[])
+
   return (
     <div className="payment-page">
         <div className="header">
@@ -88,6 +92,22 @@ const PaymentScreen : React.FC = () => {
             />
         <div onClick={onOpenModalOfGenerateNewGroups} className="generate-new-groups" >Generate Groups</div>
         </div>
+        <div
+            className="payment-approved"
+            onClick={onNavigateToPaymentApproved}
+          >
+            <div className="left">
+              <FaCheckCircle className="icon" />
+            </div>
+            <div className="right">
+              <div className="title">
+              View approved payments  
+              </div>
+              <div className="description">
+              You can consult the payments already approved
+              </div>
+            </div>
+          </div>
         <div className="list">
         {groups.map((item) => (
           <div className="admin" key={item.id}>

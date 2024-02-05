@@ -139,7 +139,6 @@
 .payment-details-page .body .left .info .value {
     color: #353535;
     font-size: 16px;
-    font-family: IstokWeb;
 }
 
 .payment-details-page .body .left .info .value span {
@@ -149,7 +148,6 @@
 .payment-details-page .body .left .info .value .sub-value {
     font-size: 14px;
     color: black;
-    font-family: OpenSans-Light;
 }
 
 
@@ -164,7 +162,6 @@
 .payment-details-page .body .left .price  .label {
     font-size: 16px;
     color: #353535;
-    font-family: IstokWeb;
     padding-left: 30px;
     width: 120px;
 }
@@ -172,7 +169,6 @@
 .payment-details-page .body .left .price  .value {
     font-size: 16px;
     color: #353535;
-    font-family: OpenSans-SemiBold;
 }
 
 .payment-details-page .body .left .price.total {
@@ -186,13 +182,11 @@
 .payment-details-page .body .left .price.total .label {
     font-size: 18px;
     padding-left: 0;
-    font-family: OpenSans-Light;
 }
 
 .payment-details-page .body .left .price.total  .value {
     font-size: 18px;
     color: #2B9B67;
-    font-family: IstokWeb;
     font-weight: bold;
 }
 
@@ -272,7 +266,7 @@
   }
   
   
-  .payment-details-page .transaction-card .transaction-card-content .email {
+  .payment-details-page .transaction-card .transaction-card-content .info {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -285,7 +279,7 @@
     }
   }
   
-  .payment-details-page .transaction-card .transaction-card-content .email span {
+  .payment-details-page .transaction-card .transaction-card-content .info span {
     color: #9f9f9f;
     margin-right: 8px;
     font-weight: normal;

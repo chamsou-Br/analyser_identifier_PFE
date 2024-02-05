@@ -15,10 +15,15 @@ export interface IPayment {
   updatedAt: Date,
 }
 
+export interface IPaymentWithGroup extends IPayment {
+  PaymentGroup : IPaymentGroup
+}
+
 export interface IPaymentGroup {
   id: string,
   rib: string,
-  executed: boolean ,
+  state: PaymentGroupStatus ,
+  AdminLockedId : number,
   fullAmount : number,
   createdAt: Date,
   updatedAt: Date,
@@ -33,6 +38,15 @@ export interface IFullPayment extends IPayment {
 export interface IFullPaymentGroup extends IPaymentGroup{
   Payments : IFullPayment[]
 }
+
+
+export enum PaymentGroupStatus {
+PENDING = "Pending" ,
+LOCKED = "Locked" , 
+APPROVED = 'approved',
+}
+
+
 
 
 

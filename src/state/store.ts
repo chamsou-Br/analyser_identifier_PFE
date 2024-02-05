@@ -45,7 +45,8 @@ const initState = {
   auth : {
     token : localStorage.getItem(tokenName) ? localStorage.getItem(tokenName) : "",
     isAuth : localStorage.getItem(tokenName) ? true : false,
-    error : undefined
+    error : undefined,
+    admin : null
   },
   invitations : {
     invitations :[],

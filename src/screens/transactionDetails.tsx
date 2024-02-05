@@ -22,7 +22,9 @@ import { CiDeliveryTruck } from "react-icons/ci";
 import {
   Client,
   EntityStatus,
+  IPaymentWithGroup,
   ITransactionClosing,
+  PaymentGroupStatus,
   TransactionStatus,
 } from "../helper/types";
 import { useSelector } from "react-redux";
@@ -46,6 +48,7 @@ import {
   closeTransactionAPI,
   createPaymentAPI,
   getClosingInfoAPI,
+  getPaymentsOfTransactionAPI,
 } from "../helper/callsApi";
 import HistorieTransactioncard from "../components/transactionHistory/TransactionHistory";
 import CloseTransactionAction from "../components/closeTransactionAction/closeTransactionAction";
@@ -57,6 +60,7 @@ import {
 import Page404 from "../components/404/page404";
 import DelivryType from "../components/DelivryType/delivryType";
 import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
+import { GrTransaction } from "react-icons/gr";
 
 type infoClosing = {
   info: ITransactionClosing | undefined;
@@ -91,6 +95,9 @@ const TransactionDetails: React.FC = () => {
     error: null,
     info: undefined,
   });
+
+  const [sellerPayment, setSellerPayment] = useState<IPaymentWithGroup>();
+  const [buyerPayment, setBuyerPayment] = useState<IPaymentWithGroup>();
 
   const Transactions = useSelector(
     (state: RootState) => state.transactions
@@ -290,10 +297,23 @@ const TransactionDetails: React.FC = () => {
     }
   };
 
+  const fetchPaymentOfTransaction = async (uuid: string) => {
+    const res = await getPaymentsOfTransactionAPI(uuid);
+    setBuyerPayment(res.buyerPayment);
+    setSellerPayment(res.sellerPayment);
+  };
+
   useEffect(() => {
     getTransaction(uuid ? uuid : "");
     fetchClosingInfo(uuid ? uuid : "");
+    fetchPaymentOfTransaction(uuid ? uuid : "");
   }, [uuid]);
+
+  const onNavigateToPaymentOfTransaction = (payment : IPaymentWithGroup) => {
+    if (payment && payment.PaymentGroup && payment.PaymentGroup.state === PaymentGroupStatus.APPROVED) {
+      navigate("/payment/"+ payment.PaymentGroup.id)
+    }
+  }
 
   if (transaction && !error) {
     return (
@@ -303,7 +323,11 @@ const TransactionDetails: React.FC = () => {
           handleChangeTransactionStatusAction={
             handleOpenModalOfChangementTransactionState
           }
-          isPaymentCreated={transaction.BuyerPaymentId || transaction.SellerPaymentId ? true : false}
+          isPaymentCreated={
+            transaction.BuyerPaymentId || transaction.SellerPaymentId
+              ? true
+              : false
+          }
           handleCloseTransactionAction={handleOpenModalOfTransactionClose}
           handleAddPayment={handleOpenModalOfPayment}
         />
@@ -387,6 +411,44 @@ const TransactionDetails: React.FC = () => {
                       title="phone number"
                       value={transaction.DeliveryOffice.phoneNumber}
                       icon={<FaPhone />}
+                    />
+                  </div>
+                )}
+                {(sellerPayment || buyerPayment) && (
+                  <div className="paymentOfTransactionTop"></div>
+                )}
+                {sellerPayment && (
+                  <div className="paymentOfTransaction">
+                    <LigneInfoInCard
+                      title="payment of seller"
+                      value={
+                        sellerPayment.PaymentGroup &&
+                        sellerPayment.PaymentGroup.state ==
+                          PaymentGroupStatus.APPROVED
+                          ? "Approved"
+                          : "Pending"
+                      }
+                      subDescr={sellerPayment && sellerPayment.PaymentGroup && sellerPayment.PaymentGroup.state === PaymentGroupStatus.APPROVED ? "Detail" : ""}
+                      action={()=> onNavigateToPaymentOfTransaction(sellerPayment)}
+                      icon={<GrTransaction />}
+                    />
+                  </div>
+                )}
+
+                {buyerPayment && (
+                  <div className="paymentOfTransaction">
+                    <LigneInfoInCard
+                      title="payment of buyer"
+                      value={
+                        buyerPayment.PaymentGroup &&
+                        buyerPayment.PaymentGroup.state ==
+                          PaymentGroupStatus.APPROVED
+                          ? "Approved"
+                          : "Pending"
+                      }
+                      subDescr={buyerPayment && buyerPayment.PaymentGroup && buyerPayment.PaymentGroup.state === PaymentGroupStatus.APPROVED ? "Detail" : ""}
+                      action={()=> onNavigateToPaymentOfTransaction(buyerPayment)}
+                      icon={<GrTransaction />}
                     />
                   </div>
                 )}

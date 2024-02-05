@@ -4,7 +4,8 @@ import { RootState } from "../store";
 import axios from "../../helper/axiosConfig";
 import { tokenName } from "../../helper/constant";
 import { AxiosError } from "axios";
-import { AUTH_ADMIN } from "../../helper/API";
+import { ADMIN_PROFILE, AUTH_ADMIN } from "../../helper/API";
+import { IAdmin } from "../../helper/types";
 
 export const LOGIN = "LOGIN";
 
@@ -17,6 +18,13 @@ export const LOGOUT = "LOGOUT";
 export const START_LOADING_AUTH = "START_LOADING_AUTH";
 
 export const STOP_LOADING_AUTH = "STOP_LOADING_AUTH";
+
+export const GET_ADMIN = "GET_ADMIN"
+
+export interface getAdminAction {
+  type: typeof GET_ADMIN;
+  payload: IAdmin;
+}
 
 export interface LoginSuncessAction {
   type: typeof LOGIN_SUCCESS;
@@ -45,6 +53,7 @@ export type AuthAction =
   | LoginfailedAction
   | LogoutAction
   | StartLoadingAction
+  | getAdminAction
   | StopLoadingAction;
 
 export const authentificate = (name: string, privateKey: string) => {
@@ -101,3 +110,36 @@ export const logout = (): AuthAction => {
     type: LOGOUT,
   };
 };
+
+
+export const getAdminProfile = ( token: string) => {
+  return async (dispatch: Dispatch<AuthAction>) => {
+    try {
+     const options = {
+       method: 'GET',
+       url: ADMIN_PROFILE,
+       headers: {
+         'Content-Type': 'application/x-www-form-urlencoded',
+         Authorization: token,
+       },      
+     };
+      const response = await axios.request(options);
+      dispatch({
+        type: GET_ADMIN,
+        payload: response.data.admin as IAdmin,
+      });
+    } catch (error: unknown) { 
+      dispatch({
+        type: LOGOUT,
+      });
+    }
+  }
+}
+
+export const addAdmin = (admin : IAdmin): AuthAction => {
+  return {
+    type: GET_ADMIN,
+    payload : admin
+  };
+};
+

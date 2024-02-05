@@ -1,10 +1,11 @@
 import "./navbar.css";
 import { IoMdLogOut } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../state/store";
+import { RootState, useAppDispatch } from "../../state/store";
 import { logout } from "../../state/actions/authAction";
 import ActionConfirmation from "../ActionConfirmation/ActionConfirmation";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const NavBar = () => {
     navigate("/auth");
   };
 
+  const auth = useSelector((state : RootState) => state.auth)
   return (
     <div className="navBar">
       <ActionConfirmation
@@ -87,7 +89,8 @@ const NavBar = () => {
         >
           Rib Request
         </div>
-        <div
+        {auth.admin?.id == 0 && (
+          <div
           style={
             history.pathname == "/admins" ? { color: "#3782ec" } : {}
           }
@@ -95,6 +98,8 @@ const NavBar = () => {
         >
           Admins
         </div>
+        )}
+
         <div
           style={
             history.pathname == "/payment" ? { color: "#3782ec" } : {}

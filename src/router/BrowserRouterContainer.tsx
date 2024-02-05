@@ -13,9 +13,10 @@ import InvitationDetails from "../screens/invitationDetails";
 import InvitaionsScreen from "../screens/invitaionsScreen";
 import DeliveryCompanyScreen from "../screens/deliveryCompanyScreen";
 import SellersScreen from "../screens/sellers";
-import AdminsScreen from "../screens/adminsScreen";
+import AdminsScreen from "../screens/AdminScreen"
 import PaymentScreen from "../screens/paymentScreen";
 import PaymentDetailsScreen from "../screens/paymentDetailsScreen";
+import PaymentApprovedScreen from "../screens/paymentApprovedScreen";
 
 
 const BrowserRouterContainer = () => {
@@ -35,6 +36,7 @@ const BrowserRouterContainer = () => {
       <Route path="/deliveryCompany/" element={<CustomElement component={DeliveryCompanyScreen} />} />
       <Route path="/admins/" element={<CustomElement component={AdminsScreen} />} />
       <Route path="/payment/" element={<CustomElement component={PaymentScreen} />} />
+      <Route path="/payment/approved" element={<CustomElement component={PaymentApprovedScreen} />} />
       <Route path="/payment/:id" element={<CustomElement component={PaymentDetailsScreen} />} />
       <Route path="/auth" element={<LoginScreen />} />
       <Route path="*" element={<Page404 />} />

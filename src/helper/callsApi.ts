@@ -11,6 +11,7 @@ import {
   IInvitation,
   IInvitationComplete,
   IInvitationTransaction,
+  IPaymentWithGroup,
   IRipRequests,
   ISellerBase,
   ISellerWithRibRequests,
@@ -34,7 +35,10 @@ import {
   INVITAION_DETAILS,
   LIST_ADMINS,
   LOCK_PAYMENT_GROUP,
+  PAYMENTS_OF_TRANSACTION,
   PAYMENT_GROUP,
+  PAYMENT_GROUP_APPROVED,
+  PAYMENT_GROUP_PENDING,
   REJECT_INVITATION,
   REJECT_RIP_REQUEST,
   RIB_REQUESTS,
@@ -677,11 +681,39 @@ export const createPaymentAPI = async (transactionUuid : string) => {
   }
 };
 
-export const fetchPaymentGroupsAPI = async ( ) => {
+export const fetchPaymentGroupsPendingAPI = async ( ) => {
   try {
     const options = {
       method: "GET",
-      url: PAYMENT_GROUP,
+      url: PAYMENT_GROUP_PENDING,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      groups: response.data.groups as IFullPaymentGroup[],
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const fetchPaymentGroupsApprovedAPI = async ( ) => {
+  try {
+    const options = {
+      method: "GET",
+      url: PAYMENT_GROUP_APPROVED,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
@@ -826,4 +858,38 @@ export const getPaymentGroupAPI = async (id : number) => {
     };
   }
 };
+
+export const getPaymentsOfTransactionAPI = async (uuid : string) => {
+  try {
+    const options = {
+      method: "POST",
+      url: PAYMENTS_OF_TRANSACTION,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data : {
+        transactionUuid : uuid
+      }
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      sellerPayment: response.data.sellerPayment as IPaymentWithGroup,
+      buyerPayment: response.data.buyerPayment as IPaymentWithGroup,
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+
 

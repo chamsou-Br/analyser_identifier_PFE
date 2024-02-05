@@ -9,6 +9,9 @@ import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmat
 import NewAdminForm from "../components/newAdmin/newAdminForm";
 import "../styles/admins.css"
 import NewAdminCard from "../components/newAdmin/newAdminCard";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
+import { useNavigate } from "react-router";
 
 const AdminsScreen: React.FC = () => {
 
@@ -78,6 +81,7 @@ const AdminsScreen: React.FC = () => {
   };
 
   useEffect(() => {
+
     fetchAdmins();
   }, []);
 
@@ -103,6 +107,8 @@ const AdminsScreen: React.FC = () => {
     }
 
   }
+
+
   
   return (
     <div className="admins-page">
