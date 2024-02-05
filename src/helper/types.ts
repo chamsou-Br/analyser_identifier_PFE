@@ -27,6 +27,7 @@ export interface IPaymentGroup {
   fullAmount : number,
   createdAt: Date,
   updatedAt: Date,
+
 }
 
 export interface IFullPayment extends IPayment {
@@ -36,7 +37,8 @@ export interface IFullPayment extends IPayment {
 }
 
 export interface IFullPaymentGroup extends IPaymentGroup{
-  Payments : IFullPayment[]
+  Payments : IFullPayment[],
+  Admin : IAdmin
 }
 
 

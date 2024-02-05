@@ -45,7 +45,7 @@ const PaymentGroupCard = ({ paymentGroup, onLock }: props) => {
             paymentGroup.AdminLockedId != auth.admin!.id ? (
               <>
                 <FaLock />
-                <span>Locked</span>
+                <span>Locked ( {paymentGroup.Admin.name} )</span>
               </>
             ) : (
               <>
