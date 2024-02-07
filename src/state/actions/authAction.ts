@@ -62,6 +62,8 @@ export const authentificate = (name: string, privateKey: string) => {
       type: START_LOADING_AUTH,
     });
 
+    console.log(name , privateKey , " auth")
+
     try {
       const options = {
         method: "PUT",
@@ -76,6 +78,7 @@ export const authentificate = (name: string, privateKey: string) => {
       };
 
         const res = await axios.request(options);
+        console.log("res => " , res)
 
         localStorage.setItem(tokenName, res.data.adminToken);
   
@@ -90,6 +93,7 @@ export const authentificate = (name: string, privateKey: string) => {
 
 
     } catch (error) {
+      console.log("error " , error)
       dispatch({
         type: STOP_LOADING_AUTH,
       });

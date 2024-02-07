@@ -116,7 +116,7 @@ const PaymentScreen : React.FC = () => {
         ))}
         {groups.length == 0 && (
           <div className="empty">
-            There is no admin to display ...
+            There is no pending payment to display ...
           </div>
         )}
       </div>

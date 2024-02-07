@@ -30,6 +30,7 @@ const LoginScreen: React.FC = () => {
   };
 
   const HandlerLogin = () => {
+    console.log("what th efukc")
       dispatch(authentificate(userName, password));
       setuserName("");
       setPassword("");
