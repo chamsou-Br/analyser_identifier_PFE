@@ -3,6 +3,7 @@
 -----------------------------------*/
 .client-card {
   position: relative;
+  padding-bottom: 10px;
 }
 
 .client-card .client-card-header {
@@ -20,7 +21,7 @@
 
 .client-card .details-navigate-icon {
   position: absolute;
-  bottom: 10px;
+  bottom: 2px;
   right: 12px;
   background-color: #3782ec;
   color: #fff;

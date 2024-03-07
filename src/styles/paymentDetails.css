@@ -80,6 +80,13 @@
     flex-wrap: wrap;
 }
 
+.payment-details-page .body .left-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #9F9F9F;
+} 
+
 .payment-details-page .body .left {
     width: fit-content;
     min-width: 400px;

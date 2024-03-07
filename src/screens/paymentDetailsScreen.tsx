@@ -30,6 +30,7 @@ import {
   getShortStatusDescriptionFr,
 } from "../helper/constant";
 import { productPriceCalculator } from "../helper/pricing";
+import JsonFormatter from "react-json-formatter";
 
 const PaymentDetailsScreen: React.FC = () => {
   const { id } = useParams();
@@ -111,55 +112,75 @@ const PaymentDetailsScreen: React.FC = () => {
           )}
         </div>
         <div className="body">
-          <div className="left">
-            <div className="title">
-              <div className="label">Payment Group :</div>
-              <div className="value">{group.Payments[0].type}</div>
+          <div className="left-container">
+            <div className="left">
+              <div className="title">
+                <div className="label">Payment Group :</div>
+                <div className="value">{group.Payments[0].type}</div>
+              </div>
+              <div className="content">
+                <div>
+                  <div className="info">
+                    <div className="label">Name</div>
+                    <div className="value">
+                      {client?.name + " " + client?.firstName}
+                    </div>
+                  </div>
+                  <div className="info">
+                    <div className="label">Type</div>
+                    <div className="value">{clientProfile}</div>
+                  </div>
+                  {client?.rib && (
+                    <div className="info">
+                      <div className="label">
+                        <GrTransaction className="icon" />
+                      </div>
+                      <div className="value">
+                        <div className="sub-value">{client?.rib}</div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="info">
+                    <div className="label">
+                      <FaPhone className="icon" />
+                    </div>
+                    <div className="value">{client?.phoneNumber}</div>
+                  </div>
+                  <div className="info">
+                    <div className="label">
+                      <FaEnvelopeOpen className="icon" />
+                    </div>
+                    <div className="value">{client?.email}</div>
+                  </div>
+                </div>
+                <div className="prices-container">
+                  <div className="price total">
+                    <div className="label">FullAmount :</div>
+                    <div className="value">
+                      {getFormatPrice(group.fullAmount)}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="content">
-              <div>
-              <div className="info">
-                  <div className="label">Name</div>
-                  <div className="value">
-                    {client?.name + " " + client?.firstName}
-                  </div>
-                </div>
-                <div className="info">
-                  <div className="label">Type</div>
-                  <div className="value">
-                  {clientProfile}
-                  </div>
-                </div>
-                <div className="info">
-                  <div className="label">
-                    <GrTransaction className="icon" />
-                  </div>
-                  <div className="value">
-                    <span>rib</span>
-                    <div className="sub-value">{client?.rib}</div>
-                  </div>
-                </div>
-                <div className="info">
-                  <div className="label">
-                    <FaPhone className="icon" />
-                  </div>
-                  <div className="value">{client?.phoneNumber}</div>
-                </div>
-                <div className="info">
-                  <div className="label">
-                    <FaEnvelopeOpen className="icon" />
-                  </div>
-                  <div className="value">{client?.email}</div>
-                </div>
-              </div>
-              <div className="prices-container">
-                <div className="price total">
-                  <div className="label">FullAmount :</div>
-                  <div className="value">
-                    {getFormatPrice(group.fullAmount)}
-                  </div>
-                </div>
-              </div>
+            <div className="left">
+              <JsonFormatter
+                json={{
+                  rib : client?.rib || "",
+                  name :client?.name ,
+                  firstName :client?.firstName,
+                  amount : group.fullAmount
+
+                }}
+                tabWith={6}
+                jsonStyle={{
+                  
+                  propertyStyle: { color: "#151B26" },
+                  stringStyle: { color: "green" },
+                  numberStyle: { color: "green" },
+                }}
+              />
             </div>
           </div>
 

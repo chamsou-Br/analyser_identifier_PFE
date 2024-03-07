@@ -34,6 +34,7 @@ const SellerScreen: React.FC = () => {
   const transaction = useSelector(
     (state: RootState) => state.transaction
   ).transaction;
+  const admin = useSelector((state : RootState) => state.auth).admin
 
 
   const [client, setClient] = useState<IClientBase>(location.state);
@@ -48,6 +49,20 @@ const SellerScreen: React.FC = () => {
     navigate("/invitation/" + transaction?.Invitation.uuid);
   };
 
+
+  const getLastAcceptedItem = (items : IRipRequests[]) => {
+
+    const acceptedItems = items.filter(item => item.status === EntityStatus.Accepted);
+    
+    if (acceptedItems.length === 0) {
+        return null;
+    }
+    
+    acceptedItems.sort((a, b) => new Date(b.AcceptDate).getTime() - new Date(a.AcceptDate).getTime());
+    
+    return acceptedItems[0];
+}
+
   const fetchData = async () => {
 
     if (client.email == transaction?.Invitation.Seller.email) {
@@ -57,6 +72,8 @@ const SellerScreen: React.FC = () => {
     }
     const res = await getSellerHistorieAPI(client ? client.email : "");
     setRibRequests(res.requests!.reverse());
+    const ribRequestActive = getLastAcceptedItem(res.requests || [])
+    setClient({...client , rib : ribRequestActive?.rib , official: ribRequestActive?.official})
     setHistories(res.historiy);
   };
 
@@ -132,16 +149,18 @@ const SellerScreen: React.FC = () => {
   /*  End block Seller Dunction*/
 
   useEffect(() => {
+    console.log(client)
     fetchData();
   }, []);
 
-  const reviewRibRequest = (status : EntityStatus ,  id :  number , seller : ISellerBase) => {
+
+  const reviewRibRequest = (status : EntityStatus ,  id :  number , seller : ISellerBase ) => {
     setRibRequests(ribRequests.map(req => {
       if (id == req.id && req.status == EntityStatus.Pending) {
-        return {...req, status : status}
+        return {...req, status : status , approverAdminName : admin!.name! }
       }
       if (req.status == EntityStatus.Pending){
-          return {...req, status : EntityStatus.Rejected}
+          return {...req, status : EntityStatus.Rejected , approverAdminName : admin!.name! }
       }
       return req
     }))

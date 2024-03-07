@@ -12,6 +12,7 @@ import {
   FaTimes,
   FaEnvelope,
   FaPhone,
+  FaFirstOrder,
 } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import LigneInfoInCard from "../components/LignInfoCard/lignInfoIncard";
@@ -285,6 +286,7 @@ const TransactionDetails: React.FC = () => {
   /* End Search Functions */
 
   const getTransaction = async (uuid: string) => {
+    console.log(transaction)
     if (!transaction || transaction.uuid != uuid) {
       const data = Transactions.filter(
         (it) => it.uuid.toLocaleLowerCase() === uuid?.toLocaleLowerCase()
@@ -309,11 +311,15 @@ const TransactionDetails: React.FC = () => {
     fetchPaymentOfTransaction(uuid ? uuid : "");
   }, [uuid]);
 
-  const onNavigateToPaymentOfTransaction = (payment : IPaymentWithGroup) => {
-    if (payment && payment.PaymentGroup && payment.PaymentGroup.state === PaymentGroupStatus.APPROVED) {
-      navigate("/payment/"+ payment.PaymentGroup.id)
+  const onNavigateToPaymentOfTransaction = (payment: IPaymentWithGroup) => {
+    if (
+      payment &&
+      payment.PaymentGroup &&
+      payment.PaymentGroup.state === PaymentGroupStatus.APPROVED
+    ) {
+      navigate("/payment/" + payment.PaymentGroup.id);
     }
-  }
+  };
 
   if (transaction && !error) {
     return (
@@ -360,15 +366,11 @@ const TransactionDetails: React.FC = () => {
                   value={getFullFormatDate(transaction.deliveryDate)}
                   icon={<IoMdCalendar />}
                 />
-
-                <div className="card-information">
-                  <div className="information-title">Delivery Type</div>
-                  <DelivryType
-                    deliveryType={getDeliveryTypeTitle(
-                      transaction.deliveryType
-                    )}
-                  />
-                </div>
+                <LigneInfoInCard
+                  title="Delivery Type"
+                  value={getDeliveryTypeTitle(transaction.deliveryType)}
+                  icon={<FaMapMarked />}
+                />
                 <LigneInfoInCard
                   title="Delivery place"
                   value={transaction.deliveryPlace}
@@ -379,22 +381,26 @@ const TransactionDetails: React.FC = () => {
                   value={getFormatPrice(transaction.deliveryPrice)}
                   icon={<FaDollarSign />}
                 />
-                <LigneInfoInCard
-                  title="payment date"
-                  value={getFullFormatDate(transaction.paymentDate)}
-                  subDescr={getTimeAgo(transaction.paymentDate)}
-                  icon={<IoMdCalendar />}
-                />
-                <LigneInfoInCard
-                  title="payment date"
-                  value={getFullFormatDate(transaction.paymentDate)}
-                  subDescr={getTimeAgo(transaction.paymentDate)}
-                  icon={<IoMdCalendar />}
-                />
+                {transaction.paymentDate && (
+                  <LigneInfoInCard
+                    title="payment date"
+                    value={getFullFormatDate(transaction.paymentDate)}
+                    subDescr={getTimeAgo(transaction.paymentDate)}
+                    icon={<IoMdCalendar />}
+                  />
+                )}
+
                 <div className="card-information">
                   <div className="information-title">status</div>
                   <Status status={transaction.state} />
                 </div>
+                {transaction.satimOrderNumber && (
+                  <LigneInfoInCard
+                    title="satim Order"
+                    value={transaction.satimOrderNumber}
+                    icon={<FaFirstOrder />}
+                  />
+                )}
                 {transaction.DeliveryOffice && (
                   <div className="transaction-delivery-company">
                     <LigneInfoInCard
@@ -428,8 +434,17 @@ const TransactionDetails: React.FC = () => {
                           ? "Approved"
                           : "Pending"
                       }
-                      subDescr={sellerPayment && sellerPayment.PaymentGroup && sellerPayment.PaymentGroup.state === PaymentGroupStatus.APPROVED ? "Detail" : ""}
-                      action={()=> onNavigateToPaymentOfTransaction(sellerPayment)}
+                      subDescr={
+                        sellerPayment &&
+                        sellerPayment.PaymentGroup &&
+                        sellerPayment.PaymentGroup.state ===
+                          PaymentGroupStatus.APPROVED
+                          ? "Detail"
+                          : ""
+                      }
+                      action={() =>
+                        onNavigateToPaymentOfTransaction(sellerPayment)
+                      }
                       icon={<GrTransaction />}
                     />
                   </div>
@@ -446,8 +461,17 @@ const TransactionDetails: React.FC = () => {
                           ? "Approved"
                           : "Pending"
                       }
-                      subDescr={buyerPayment && buyerPayment.PaymentGroup && buyerPayment.PaymentGroup.state === PaymentGroupStatus.APPROVED ? "Detail" : ""}
-                      action={()=> onNavigateToPaymentOfTransaction(buyerPayment)}
+                      subDescr={
+                        buyerPayment &&
+                        buyerPayment.PaymentGroup &&
+                        buyerPayment.PaymentGroup.state ===
+                          PaymentGroupStatus.APPROVED
+                          ? "Detail"
+                          : ""
+                      }
+                      action={() =>
+                        onNavigateToPaymentOfTransaction(buyerPayment)
+                      }
                       icon={<GrTransaction />}
                     />
                   </div>
@@ -558,15 +582,13 @@ const TransactionDetails: React.FC = () => {
                   }
                   icon={<IoMdTime />}
                 />
-                <div className="card-information">
-                  <div className="information-title">Delivery Type</div>
-                  <DelivryType
-                    deliveryType={getDeliveryTypeTitle(
-                      transaction.Invitation.deliveryType
-                    )}
-                  />
-                </div>
-
+                <LigneInfoInCard
+                  title="Delivery Type"
+                  value={getDeliveryTypeTitle(
+                    transaction.Invitation.deliveryType
+                  )}
+                  icon={<FaMapMarked />}
+                />
                 <LigneInfoInCard
                   title="Local Delivery Price"
                   value={transaction.Invitation.localDeliveryPrice.toString()}
@@ -635,6 +657,8 @@ const TransactionDetails: React.FC = () => {
                         status: transaction.Invitation.Seller.status,
                         wilaya: transaction.Invitation.Seller.wilaya,
                         createdAt: transaction.Invitation.Seller.createdAt,
+                        rib : transaction.Invitation.Seller.rib,
+                        official : transaction.Invitation.Seller.official
                       }}
                     />
                   )}

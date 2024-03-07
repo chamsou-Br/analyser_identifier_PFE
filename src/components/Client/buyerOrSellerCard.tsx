@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FaAddressCard,
   FaBehance,
@@ -21,10 +21,10 @@ import { Button, Modal } from "rsuite";
 type Props = {
   client: IClientBase;
   onNavigate?: true;
-  isDocs? : boolean;
+  isDocs?: boolean;
 };
 
-const BuyerOrSellerCard = ({ client, onNavigate  }: Props) => {
+const BuyerOrSellerCard = ({ client, onNavigate }: Props) => {
   const navigate = useNavigate();
 
   const onNavigateToDetails = () => {
@@ -45,6 +45,12 @@ const BuyerOrSellerCard = ({ client, onNavigate  }: Props) => {
     setModalOfOfficialDocs(false);
   };
 
+  useEffect(() => {
+    setDocs({
+      type: 0,
+      images: client.official?.identity_urls,
+    });
+  }, [client]);
 
   return (
     <div className="client-card">
@@ -86,7 +92,6 @@ const BuyerOrSellerCard = ({ client, onNavigate  }: Props) => {
           />
         ) : null}
 
-
         <LigneInfoInCard
           title="Wilaya"
           value={client.wilaya}
@@ -109,11 +114,9 @@ const BuyerOrSellerCard = ({ client, onNavigate  }: Props) => {
         {client.official && (
           <div onClick={onOpenModalOfOfficialDocs} className="official-docs">
             <img src={Garage} />
-              <div className="need-review">
-                See Documents
-              </div>
+            <div className="need-review">See Documents</div>
           </div>
-        ) }
+        )}
         <div className="config"></div>
       </div>
       {onNavigate ? (
@@ -126,58 +129,65 @@ const BuyerOrSellerCard = ({ client, onNavigate  }: Props) => {
       ) : null}
       {client.official && (
         <Modal
-        open={modalOfOfficialDocs}
-        onClose={onCloseModalOfOfficialDocs}
-        size="full"
-        className="seller-docs"
-      >
-        <div className="docs-header">
-          {" "}
-          <span
-            onClick={() => {
-              setDocs({
-                type: 0,
-                images: client.official?.identity_urls,
-              });
-            }}
-            className={docs.type == 0 ? "active" : ""}
-          >
+          open={modalOfOfficialDocs}
+          onClose={onCloseModalOfOfficialDocs}
+          size="full"
+          className="seller-docs"
+        >
+          <div className="docs-header">
             {" "}
-            Identity Docs
-          </span>{" "}
-          <span
-            onClick={() => {
-              setDocs({
-                type: 1,
-                images: client.official?.rib_urls,
-              });
-            }}
-            className={docs.type == 1 ? "active" : ""}
-          >
-            Rib Docs
-          </span>
-        </div>
-        <Modal.Body className="content">
-          <div className="docs-gallery">
-            <div className="img-doc-container" >
-              {docs.images!.map((img, i) => (
-                <img key={i} src={img} className="img-doc" />
-              ))}
-            </div>
+            <span
+              onClick={() => {
+                setDocs({
+                  type: 0,
+                  images: client.official?.identity_urls,
+                });
+              }}
+              className={docs.type == 0 ? "active" : ""}
+            >
+              {" "}
+              Identity Docs
+            </span>{" "}
+            <span
+              onClick={() => {
+                setDocs({
+                  type: 1,
+                  images: client.official?.rib_urls,
+                });
+              }}
+              className={docs.type == 1 ? "active" : ""}
+            >
+              Rib Docs
+            </span>
           </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            className="button"
-            onClick={onCloseModalOfOfficialDocs}
-            appearance="subtle"
-          >
-            Cancel
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          <Modal.Body className="content">
+            <div className="docs-gallery">
+              {docs.type == 0 ? (
+                <div className="img-doc-container">
+                  {client.official.identity_urls!.map((img, i) => (
+                    <img key={i} src={img} className="img-doc" />
+                  ))}
+                </div>
+              ) : (
+                <div className="img-doc-container">
+                  {client.official.rib_urls!.map((img, i) => (
+                    <img key={i} src={img} className="img-doc" />
+                  ))}
+                </div>
+              )}
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              className="button"
+              onClick={onCloseModalOfOfficialDocs}
+              appearance="subtle"
+            >
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
       )}
-      
     </div>
   );
 };

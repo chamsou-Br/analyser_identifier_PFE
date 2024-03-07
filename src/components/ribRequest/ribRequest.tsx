@@ -4,7 +4,7 @@ import LigneInfoInCard from '../LignInfoCard/lignInfoIncard'
 import Status from '../TransactionStatus/status'
 import { IoMdTime } from 'react-icons/io'
 import { getFullFormatDate } from '../../helper/constant'
-import { FaBehance } from 'react-icons/fa'
+import { FaBehance, FaUser } from 'react-icons/fa'
 import "./ribReques.css"
 import { Button, Modal } from 'rsuite'
 import TransactionActionConfirmation from "../ActionConfirmation/ActionConfirmation";
@@ -14,7 +14,7 @@ import Alert from '../Alert/alert'
 type Props = {
     request : IRipRequests;
     email : string;
-    reviewRibRequest : (status : EntityStatus , id: number , seller : ISellerBase) => void
+    reviewRibRequest : (status : EntityStatus , id: number , seller : ISellerBase ) => void
 
 }
 
@@ -71,12 +71,11 @@ const RibRequest = ({request,email , reviewRibRequest}: Props) => {
     const handleSubmitRejectRibRequest = async () => {
         setIsModalConfirmOfRejectRibRequest(false)
         const res = await rejectRibRequest(email)
-        console.log(res , "gf")
         if (res.error) {
             onAlert(false , res.error , true)
         }else {
             onAlert(true ,'',true)
-            reviewRibRequest(EntityStatus.Rejected , request.id , res.seller!)
+            reviewRibRequest(EntityStatus.Rejected , request.id , res.seller! )
         }
     }
 
@@ -113,6 +112,14 @@ const RibRequest = ({request,email , reviewRibRequest}: Props) => {
       value={getFullFormatDate(request.createdAt)}
       icon={<IoMdTime />}
     />
+    {request.status != EntityStatus.Pending && (
+        <LigneInfoInCard
+        title="Admin"
+        value={request.approverAdminName}
+        icon={<FaUser />}
+      />
+    )}
+
     <Modal
         open={modalOfOfficialDocs}
         onClose={onCloseModalOfOfficialDocs}

@@ -162,14 +162,11 @@ const InvitationDetails: React.FC = () => {
         (it) => it.uuid.toLocaleLowerCase() === uuid?.toLocaleLowerCase()
       )[0];
       if (inv) {
-        console.log(1);
         dispatch(AddInvitationDetails(inv));
       } else {
-        console.log(2);
         if (uuid == transaction?.Invitation.uuid) {
           dispatch(AddInvitationDetails(transaction.Invitation));
         } else {
-          console.log(3);
           dispatch(fetchInvitationDetails(uuid));
         }
       }
@@ -285,6 +282,8 @@ const InvitationDetails: React.FC = () => {
                     status: invitationState.invitation.Seller.status,
                     wilaya: invitationState.invitation.Seller.wilaya,
                     createdAt: invitationState.invitation.Seller.createdAt,
+                    rib : invitationState.invitation.Seller.rib,
+                    official :  invitationState.invitation.Seller.official
 
                   }}
                 />

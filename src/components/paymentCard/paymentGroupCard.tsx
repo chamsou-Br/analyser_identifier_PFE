@@ -41,7 +41,7 @@ const PaymentGroupCard = ({ paymentGroup, onLock }: props) => {
           </div>
 
           <div className="date">
-            {paymentGroup.state == PaymentGroupStatus.APPROVED ? "Approved" :  paymentGroup.state == PaymentGroupStatus.LOCKED &&
+            {paymentGroup.state == PaymentGroupStatus.APPROVED ? `Approved ( ${paymentGroup.Admin.name} )` :  paymentGroup.state == PaymentGroupStatus.LOCKED &&
             paymentGroup.AdminLockedId != auth.admin!.id ? (
               <>
                 <FaLock />

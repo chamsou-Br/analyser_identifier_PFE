@@ -191,7 +191,8 @@ export interface IRipRequests {
   id : number,
   rib: string,
   official: IOfficialDocuments,
-  status : EntityStatus; 
+  status : EntityStatus;
+  approverAdminName : string, 
   SellerId : number,
   AcceptDate : Date,
   createdAt : Date,
