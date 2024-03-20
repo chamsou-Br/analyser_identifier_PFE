@@ -42,6 +42,7 @@ const InvitaionsScreen: React.FC = () => {
     <div className='invitations-page'>
       <HeaderPage
         isSeach
+        searchPlaceHolder='Search Invitation'
         handleChangeInput={handleInputSearchChange}
         handleFocusInput={handleInputFocus}
         handleSearch={handleSearch}

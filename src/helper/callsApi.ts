@@ -11,6 +11,7 @@ import {
   IInvitation,
   IInvitationComplete,
   IInvitationTransaction,
+  IInvitationTransactionsCount,
   IPaymentWithGroup,
   IRipRequests,
   ISellerBase,
@@ -189,7 +190,7 @@ export const getSellerHistorieAPI = async (email: string) => {
     const response = await axios.request(options);
 
     return {
-      historiy: response.data.invitations as IInvitationTransaction[],
+      historiy: response.data.invitations as IInvitationTransactionsCount[],
       requests : response.data.requests as IRipRequests[],
       error: undefined,
     };
@@ -349,7 +350,7 @@ export const fetchInvitationDetailsAPI = async (uuid: string) => {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data: { InvitationUuid: uuid },
+      data: { uuid: uuid },
     };
 
     const response = await axios.request(options);

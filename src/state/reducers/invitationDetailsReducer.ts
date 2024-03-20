@@ -1,11 +1,11 @@
-import {  IInvitationComplete } from "../../helper/types";
+import {  IAdminInvitation } from "../../helper/types";
 import { ADD_INVITATION_DETAILS, DELETE_INVITATION_DETAILS, FETCH_INVITATION_DETAILS_FAILED, FETCH_INVITATION_DETAILS_SUCCESS, InvitationDetailsAction, MODIFY_INVITATION_DETAILS, START_LOADING_INVITATION_DETAILS, STOP_LOADING_INVITATION_DETAILS } from "../actions/invitationDetailsAction";
 
 
 
   
   interface InvitationState {
-    invitation : IInvitationComplete | undefined;
+    invitation : IAdminInvitation | undefined;
     error: string | null,
     loading : boolean
   }

@@ -17,7 +17,8 @@ type props = {
   onRefreshData: () => void;
   rows: IRowsTable[];
   isSearch?: boolean;
-  onNavigateSeller?: (email : string) => void;
+  onNavigateSeller?: (email: string) => void;
+  searchPlaceHolder?: string;
 };
 
 const styleHeaderOfTable = { background: "#FFF", color: "#000" };
@@ -28,6 +29,7 @@ const TableCompo = ({
   rows,
   onNavigateSeller,
   isSearch = true,
+  searchPlaceHolder,
 }: props) => {
   const [sortColumn, setSortColumn] = useState<string>();
   const [sortType, setSortType] = useState<SortType | undefined>();
@@ -64,10 +66,12 @@ const TableCompo = ({
   };
 
   const navigateToDetailsScreen = (uuid: string) => {
-     navigate("/details/" + uuid);
+    navigate("/details/" + uuid);
   };
 
   const defaultData: IColumnsForTable[] = getDefaultData();
+
+ 
 
   const getData = () => {
     const data = defaultData;
@@ -127,9 +131,11 @@ const TableCompo = ({
     }, 1000);
   };
 
+
   return (
     <div className="table-container">
       <HeaderTable
+        searchPlaceHolder={searchPlaceHolder}
         isSearch={isSearch}
         value={search}
         title="Transaction List"
@@ -179,7 +185,13 @@ const TableCompo = ({
             {(rowData) => (
               <FaEye
                 onClick={() =>
-                  onNavigateSeller ? onNavigateSeller((rowData as IColumnsForTable).email as string) : navigateToDetailsScreen((rowData as IColumnsForTable).uuid)
+                  onNavigateSeller
+                    ? onNavigateSeller(
+                        (rowData as IColumnsForTable).email as string
+                      )
+                    : navigateToDetailsScreen(
+                        (rowData as IColumnsForTable).uuid
+                      )
                 }
                 className="icon-details"
               />

@@ -103,6 +103,16 @@ export interface IInvitation {
   export interface IInvitationTransaction extends IInvitation {
     InvitationTransactions: ITransaction[]
   }
+
+  export interface IInvitationTransactionsCount extends IInvitation {
+    TransactionsCount: number
+  }
+
+  export interface IAdminInvitation extends IInvitation {
+    InvitationTransactions?: ITransaction[],
+    Seller: ISellerBase
+  }
+  
   
   export interface ITransactionSellerSide extends ITransaction {
     Invitation: IInvitation,

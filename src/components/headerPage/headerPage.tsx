@@ -10,9 +10,11 @@ type Props = {
   handleFocusInput?: () => void;
   handleChangeInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isSeach?: boolean;
+  searchPlaceHolder? : string
+
 };
 
-const HeaderPage = ({descr , title , handleChangeInput , handleFocusInput , handleSearch , isSeach , value}: Props)  => {
+const HeaderPage = ({descr , title , handleChangeInput , handleFocusInput , handleSearch , isSeach , value , searchPlaceHolder}: Props)  => {
 
 
   return (
@@ -32,7 +34,7 @@ const HeaderPage = ({descr , title , handleChangeInput , handleFocusInput , hand
               value={value}
               onFocus={handleFocusInput}
               onChange={handleChangeInput}
-              placeholder="Search uuid"
+              placeholder={searchPlaceHolder || "Search by uuid" }
             />
           </div>
         </div>

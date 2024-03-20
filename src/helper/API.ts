@@ -30,7 +30,7 @@ export const REJECT_INVITATION = "/admin/block_invitation"
 
 export const VALIDATE_INVITATION  = "/admin/validate_invitation"
 
-export const INVITAION_DETAILS = "/invitation"
+export const INVITAION_DETAILS = "/admin/invitation"
 
 export const INVITATIONS = "/admin/invitations"
 

@@ -4,7 +4,9 @@ import React, { useEffect, useState } from "react";
 import "../styles/invitationDetails.css";
 import {
   FaDollarSign,
+  FaEye,
   FaMapMarked,
+  FaMapMarkedAlt,
   FaSearchLocation,
   FaTruck,
 } from "react-icons/fa";
@@ -13,8 +15,14 @@ import LigneInfoInCard from "../components/LignInfoCard/lignInfoIncard";
 import TitleCard from "../components/TitleCard/titleCard";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../state/store";
-import { getDeliveryTypeTitle, getFormatDate } from "../helper/constant";
-import { useParams } from "react-router-dom";
+import {
+  getDeliveryTypeTitle,
+  getFormatDate,
+  getFormatPrice,
+  getFullFormatDate,
+  getTimeAgo,
+} from "../helper/constant";
+import { useNavigate, useParams } from "react-router-dom";
 import Alert from "../components/Alert/alert";
 import { Carousel } from "rsuite";
 import { ModifyTransactionDetails } from "../state/actions/transactionDetailsAction";
@@ -23,15 +31,13 @@ import Status from "../components/TransactionStatus/status";
 import InvitationActions from "../components/invitationAction/InvitationAction";
 import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
 import {
-  fetchInvitationDetailsAPI,
   rejectInvitationAPI,
   validateInvitationAPI,
 } from "../helper/callsApi";
-import { Client, IInvitationComplete } from "../helper/types";
+import { Client } from "../helper/types";
 import Page404 from "../components/404/page404";
 import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 import {
-  AddInvitationDetails,
   ModifyInvitationDetails,
   fetchInvitationDetails,
 } from "../state/actions/invitationDetailsAction";
@@ -47,6 +53,8 @@ const InvitationDetails: React.FC = () => {
   const invitations = useSelector(
     (state: RootState) => state.invitations
   ).invitations;
+
+  const navigate = useNavigate();
 
   const invitationState = useSelector((state: RootState) => state.invitation);
 
@@ -154,28 +162,16 @@ const InvitationDetails: React.FC = () => {
   /* End alert function */
 
   const getInvitation = async (uuid: string) => {
-    if (
-      !invitationState.invitation ||
-      invitationState.invitation.uuid != uuid
-    ) {
-      const inv = invitations.filter(
-        (it) => it.uuid.toLocaleLowerCase() === uuid?.toLocaleLowerCase()
-      )[0];
-      if (inv) {
-        dispatch(AddInvitationDetails(inv));
-      } else {
-        if (uuid == transaction?.Invitation.uuid) {
-          dispatch(AddInvitationDetails(transaction.Invitation));
-        } else {
-          dispatch(fetchInvitationDetails(uuid));
-        }
-      }
-    }
+    dispatch(fetchInvitationDetails(uuid));
   };
 
   useEffect(() => {
     getInvitation(uuid ? uuid : "");
   }, []);
+
+  const handleNavigateToTransactionDetails = (uuid: string) => {
+    navigate("/details/" + uuid);
+  };
 
   if (!invitationState.error && invitationState.invitation) {
     return (
@@ -204,6 +200,64 @@ const InvitationDetails: React.FC = () => {
                   <img key={i} src={img} className="img-inv" />
                 ))}
               </Carousel>
+              <div className="client-transactions-content ">
+                {invitationState.invitation.InvitationTransactions &&
+                  invitationState.invitation.InvitationTransactions.map(
+                    (transaction, index) => (
+                      <div
+                        key={transaction.uuid}
+                        className="client-transaction-content "
+                      >
+                        <div
+                          onClick={() =>
+                            handleNavigateToTransactionDetails(
+                              transaction!.uuid
+                            )
+                          }
+                          className="navigate-icon"
+                        >
+                          <FaEye />
+                        </div>
+                        <div className="title">
+                          Transaction N {transaction!.uuid}
+                        </div>
+                        <div className="informations">
+                          <LigneInfoInCard
+                            title="Creation date"
+                            value={getTimeAgo(transaction!.createdAt)}
+                            icon={<IoMdTime />}
+                          />
+                          <LigneInfoInCard
+                            title="Delivery date"
+                            value={getFullFormatDate(transaction!.deliveryDate)}
+                            icon={<IoMdCalendar />}
+                          />
+                          <LigneInfoInCard
+                            title="Delivery place"
+                            value={transaction!.deliveryPlace}
+                            icon={<FaMapMarkedAlt />}
+                          />
+                          <LigneInfoInCard
+                            title="Price"
+                            value={getFormatPrice(transaction!.deliveryPrice)}
+                            icon={<FaDollarSign />}
+                          />
+                          {transaction!.paymentDate && (
+                            <LigneInfoInCard
+                              title="payment date"
+                              value={getFormatDate(transaction!.paymentDate)}
+                              icon={<IoMdCalendar />}
+                            />
+                          )}
+                          <div className="state-information">
+                            <div className="title">status</div>
+                            <Status status={transaction!.state} />
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  )}
+              </div>
             </div>
             <div className="invitation-info inv-card">
               <TitleCard title="Invitation" />
@@ -225,9 +279,7 @@ const InvitationDetails: React.FC = () => {
                 />
                 <LigneInfoInCard
                   title="Date"
-                  value={getFormatDate(
-                    invitationState.invitation.date
-                  )}
+                  value={getFormatDate(invitationState.invitation.date)}
                   icon={<IoMdCalendar />}
                 />
                 <LigneInfoInCard
@@ -282,9 +334,8 @@ const InvitationDetails: React.FC = () => {
                     status: invitationState.invitation.Seller.status,
                     wilaya: invitationState.invitation.Seller.wilaya,
                     createdAt: invitationState.invitation.Seller.createdAt,
-                    rib : invitationState.invitation.Seller.rib,
-                    official :  invitationState.invitation.Seller.official
-
+                    rib: invitationState.invitation.Seller.rib,
+                    official: invitationState.invitation.Seller.official,
                   }}
                 />
               </div>

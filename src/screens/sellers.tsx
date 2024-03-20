@@ -56,9 +56,8 @@ const SellersScreen: React.FC = () => {
     return newData;
   };
 
-
   const onRefreshData = () => {
-      dispatch(fetchFulfilledTransaction());
+      fetchData()
   };
 
   const onNavigateToSeller = (email : string ) => {
@@ -82,7 +81,6 @@ const SellersScreen: React.FC = () => {
       rib : seller.rib,
       official : seller.official
     }
-    console.log(client)
     navigate("/seller", {
       state: client,
     });

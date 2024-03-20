@@ -1,6 +1,6 @@
 import { DeliveryType, TransactionStatus } from "./types";
 
-export const BASE_URL =  "https://api.paypart.dz/api"  // "http://localhost:7550/api" 
+export const BASE_URL = "https://api.paypart.dz/api" //"http://localhost:7550/api" 
 
 export const tokenName = "pepper_token";
 
@@ -32,7 +32,7 @@ export const getDeliveryTypeTitle = (deliveryType: DeliveryType): string => {
 }
 
 export const getFormatDate = (inputDate: Date | undefined) => {
-
+  if (!inputDate) return ""
   const date = inputDate ? inputDate.toString().split("T")[0] : ""
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",

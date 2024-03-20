@@ -7,6 +7,7 @@ import {
   EntityStatus,
   IClientBase,
   IInvitationTransaction,
+  IInvitationTransactionsCount,
   IRipRequests,
   ISellerBase,
 } from "../helper/types";
@@ -39,7 +40,7 @@ const SellerScreen: React.FC = () => {
 
   const [client, setClient] = useState<IClientBase>(location.state);
   const [ribRequests, setRibRequests] = useState<IRipRequests[]>([]);
-  const [histories, setHistories] = useState<IInvitationTransaction[]>([]);
+  const [histories, setHistories] = useState<IInvitationTransactionsCount[]>([]);
   const [isModalConfirmOfBlockClient, setisModalConfirmOfBlockClient] =
     useState<boolean>(false);
 
@@ -75,6 +76,7 @@ const SellerScreen: React.FC = () => {
     const ribRequestActive = getLastAcceptedItem(res.requests || [])
     setClient({...client , rib : ribRequestActive?.rib , official: ribRequestActive?.official})
     setHistories(res.historiy);
+    console.log(res.historiy,"kk")
   };
 
   /* start alert function */
@@ -149,7 +151,6 @@ const SellerScreen: React.FC = () => {
   /*  End block Seller Dunction*/
 
   useEffect(() => {
-    console.log(client)
     fetchData();
   }, []);
 

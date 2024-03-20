@@ -123,6 +123,105 @@
         margin-left: 0;
     }
 }
+
+
+
+ 
+.invitation-details-page .client-transactions-content {
+    width:100%;
+  }
+  
+  
+  
+  .invitation-details-page .client-transactions-content .informations {
+    display: flex;
+    flex-direction: column;
+  }
+  
+
+  
+  .invitation-details-page .client-transactions-content .client-transaction-content {
+    margin: 20px 0px;
+    padding: 10px;
+    position: relative;
+    border: 1px solid #00000022;
+    border-radius: 0.3rem;
+    width: 100%;
+    background-color: #FFF;
+  
+    /* min-width: 650px; */
+  }
+  
+  .invitation-details-page .client-transactions-content .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #010101;
+    margin-bottom: 5px;
+  }
+  
+  .invitation-details-page  .state-information {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  
+  .invitation-details-page  .state-information .title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #949898;
+    margin-right: 30px;
+    width: 120px;
+  }
+  
+  .invitation-details-page .client-transaction-content .navigate-icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 16px;
+    color: #010101aa;
+    cursor: pointer;
+  }
+
+  .invitation-details-page .card-information {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.invitation-details-page   .card-information .information-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #949898;
+    margin-right: 30px;
+    width: 120px;
+}
+
+  
+  @media (max-width: 1199px) {
+    .invitation-details-page 
+      .client-invitation-content
+      .informations
+      .card-information-lign,
+      .invitation-details-page 
+      .client-transaction-content
+      .informations
+      .card-information-lign,
+      .invitation-details-page 
+      .client-transaction-content
+      .informations
+      .state-information {
+      flex: calc(100% - 10px); /* Make each item 50% wide with some spacing */
+      margin: 5px;
+    }
+    .invitation-details-page  .client-transactions-content .client-transaction-content {
+      margin: 20px 0;
+    }
+  
+  }
   
 
 

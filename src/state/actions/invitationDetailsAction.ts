@@ -4,7 +4,7 @@
 import { ThunkAction } from "redux-thunk"
 import { GET_ONGOING_CANCELED, GET_ONGOING_FULFILLED, GET_ONGOIN_WITH_CLAIMS, GET_TRANSACTION, INVITAION_DETAILS } from "../../helper/API"
 import axios from "../../helper/axiosConfig"
-import { IAdminFullTransaction, IInvitationComplete } from "../../helper/types"
+import { IAdminFullTransaction, IAdminInvitation, IInvitationComplete } from "../../helper/types"
 import { RootState } from "../store"
 import { Dispatch } from "redux"
 import { Authorization } from "../../helper/constant"
@@ -19,7 +19,7 @@ export const STOP_LOADING_INVITATION_DETAILS = 'STOP_LOADING_INVITATION_DETAILS'
 
 export interface IAddInvitationDetailsAction {
     type :typeof ADD_INVITATION_DETAILS,
-    payload : IInvitationComplete
+    payload : IAdminInvitation
   }
 
 export interface IDeleteInvitationDetailsAction {
@@ -28,13 +28,13 @@ export interface IDeleteInvitationDetailsAction {
 
 export interface IModifyInvitationDetailsAction {
     type: typeof MODIFY_INVITATION_DETAILS,
-    paylaod : IInvitationComplete | undefined
+    paylaod : IAdminInvitation | undefined
 
 }
 
 export interface IFetchInvitationDetailsSucessAction {
     type : typeof FETCH_INVITATION_DETAILS_SUCCESS , 
-    payload :  IInvitationComplete
+    payload :  IAdminInvitation
 }
 
 export interface IFetchInvitationDetailsFailedAction {
@@ -48,7 +48,7 @@ export interface ILoadingInvitationDetailsAction {
 
 export type InvitationDetailsAction = IAddInvitationDetailsAction | IModifyInvitationDetailsAction | IDeleteInvitationDetailsAction  | IFetchInvitationDetailsSucessAction | IFetchInvitationDetailsFailedAction | ILoadingInvitationDetailsAction
 
-export const AddInvitationDetails =  (inv : IInvitationComplete) : IAddInvitationDetailsAction =>  {
+export const AddInvitationDetails =  (inv : IAdminInvitation) : IAddInvitationDetailsAction =>  {
         return {
             type  : ADD_INVITATION_DETAILS,
             payload : inv
@@ -66,7 +66,7 @@ export const fetchInvitationDetails = (uuid : string) => {
                   "Content-Type": "application/x-www-form-urlencoded",
                   Authorization: Authorization(),
                 },
-                data: { InvitationUuid: uuid },
+                data: { uuid: uuid },
               };   
             const res = await axios.request(options)
             dispatch({
@@ -86,7 +86,7 @@ export const fetchInvitationDetails = (uuid : string) => {
 
 
 
-export const ModifyInvitationDetails = (inv : IInvitationComplete | undefined) : IModifyInvitationDetailsAction => {
+export const ModifyInvitationDetails = (inv : IAdminInvitation | undefined) : IModifyInvitationDetailsAction => {
     return {
         type : MODIFY_INVITATION_DETAILS , 
         paylaod : inv

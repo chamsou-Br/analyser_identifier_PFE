@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "rsuite/dist/rsuite-no-reset-rtl.css"; // Adjust the path as needed
 import "../styles/transaction.css";
 import { RootState, useAppDispatch } from "../state/store";
@@ -10,12 +10,20 @@ import {
   startLoadingTransaction,
   stopLoadingTransaction,
 } from "../state/actions/transactionAction";
-import {  IAdminFullTransaction, IRowsTable, IColumnsForTable, TransactionStatus } from "../helper/types";
+import {
+  IAdminFullTransaction,
+  IRowsTable,
+  IColumnsForTable,
+  TransactionStatus,
+} from "../helper/types";
 
 import TableCompo from "../components/Table/Table";
-import { Currency, getDeliveryTypeTitle  , getFormatDate, getFullFormatDate} from "../helper/constant";
+import {
+  Currency,
+  getDeliveryTypeTitle,
+  getFullFormatDate,
+} from "../helper/constant";
 import HeaderPage from "../components/headerPage/headerPage";
-import { logout } from "../state/actions/authAction";
 
 // eslint-disable-next-line no-empty-pattern
 const TransactionScreen: React.FC = () => {
@@ -26,24 +34,25 @@ const TransactionScreen: React.FC = () => {
 
   useEffect(() => {
     dispatch(startLoadingTransaction());
-      dispatch(fetchTransactions());
-      dispatch(stopLoadingTransaction());
+    dispatch(fetchTransactions());
+    dispatch(stopLoadingTransaction());
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const rows : IRowsTable[] = [
-    {headerCell : "Buyer" , dataKey : "Buyer" , size : 150},
-    {headerCell : "Seller" , dataKey : "Seller" , size :150 },
-    {headerCell : "Product" , dataKey : "ProductName" , size :150 },
-    {headerCell : "Price" , dataKey : "ProductPrice" , size : 100},
-    {headerCell : "Delivery Type" , dataKey : "deliveryType" , size : 150},
-    {headerCell : "Delivery Price" , dataKey : "deliveryPrice" , size : 100},
-    {headerCell : "Delivery Date" , dataKey : "deliveryDate" , size : 150},
-    {headerCell : "Payment Date" , dataKey : "paymentDate" , size :150 },
-    {headerCell : "State" , dataKey : "state" , size : 120},
-    {headerCell : "Claims" , dataKey : "claims" , size : 120},
-  ]
+  const rows: IRowsTable[] = [
+    { headerCell: "Buyer", dataKey: "Buyer", size: 150 },
+    { headerCell: "Seller", dataKey: "Seller", size: 150 },
+    { headerCell: "Product", dataKey: "ProductName", size: 150 },
+    { headerCell: "Price", dataKey: "ProductPrice", size: 100 },
+    { headerCell: "Delivery Type", dataKey: "deliveryType", size: 150 },
+    { headerCell: "Delivery Price", dataKey: "deliveryPrice", size: 100 },
+    { headerCell: "Delivery Date", dataKey: "deliveryDate", size: 150 },
+    { headerCell: "Payment Date", dataKey: "paymentDate", size: 150 },
+    { headerCell: "State", dataKey: "state", size: 120 },
+    { headerCell: "Claims", dataKey: "claims", size: 120 },
+  ];
+
   const getDataFromState = (): IColumnsForTable[] => {
     const newData = transactionState.transactions
       ? transactionState.transactions.map((item: IAdminFullTransaction) => ({
@@ -56,7 +65,7 @@ const TransactionScreen: React.FC = () => {
           Seller: item.Invitation.Seller.email,
           ProductName: item.Invitation.product,
           ProductPrice: item.Invitation.price.toString() + Currency,
-          paymentDate: getFullFormatDate( item.paymentDate ),
+          paymentDate: getFullFormatDate(item.paymentDate),
           state: item.state,
           claims: item.Claims.length,
         }))
@@ -65,25 +74,22 @@ const TransactionScreen: React.FC = () => {
   };
 
   const onRefreshData = () => {
-      dispatch(fetchTransactions());
+    dispatch(fetchTransactions());
   };
-
 
   return (
     <div className="transaction-container">
- 
       <div className="table-container">
-      <HeaderPage
-
-        title="Transaction List"
-        descr="Information about Transaction which have reclamation !"
+        <HeaderPage
+          title="Transaction List"
+          descr="Information about Transaction which have reclamation !"
         />
 
         <TableCompo
           rows={rows}
           getDefaultData={getDataFromState}
           onRefreshData={onRefreshData}
-          
+          searchPlaceHolder="Search Transaction"
         />
       </div>
     </div>

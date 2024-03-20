@@ -13,6 +13,7 @@ type Props = {
   handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleRefresh: () => void;
   isSearch?: boolean;
+  searchPlaceHolder? : string
 };
 
 const HeaderTable = ({
@@ -22,6 +23,7 @@ const HeaderTable = ({
   handleSearch,
   value,
   isSearch = true,
+  searchPlaceHolder
 }: Props) => {
   return (
     <div className="header-page">
@@ -41,7 +43,7 @@ const HeaderTable = ({
               value={value}
               onFocus={handleFocusInput}
               onChange={handleChangeInput}
-              placeholder="Search uuid"
+              placeholder={searchPlaceHolder || "Search uuid"}
             />
           </div>
         </div>

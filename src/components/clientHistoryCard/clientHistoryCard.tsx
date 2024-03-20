@@ -2,6 +2,7 @@
 import {
   IInvitationComplete,
   IInvitationTransaction,
+  IInvitationTransactionsCount,
 } from "../../helper/types";
 import "./clientHistoryCard.css";
 import TitleCard from "../TitleCard/titleCard";
@@ -22,9 +23,10 @@ import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import Status from "../TransactionStatus/status";
 import { useNavigate } from "react-router";
 import DelivryType from "../DelivryType/delivryType";
+import { MdPriceChange } from "react-icons/md";
 
 type Props = {
-  history: IInvitationTransaction | IInvitationComplete;
+  history: IInvitationTransactionsCount | IInvitationTransaction | IInvitationComplete;
   onNavigate?: () => void;
 };
 
@@ -73,7 +75,7 @@ const ClientHistoryCard = ({ history }: Props) => {
             value={history.storeLocation}
             icon={<FaSearchLocation />}
           />
-          <div className="state-information">
+          <div onClick={()=> console.log(history)} className="state-information">
             <div className="title">Delivery type</div>
             <DelivryType
               deliveryType={getDeliveryTypeTitle(history.deliveryType)}
@@ -89,6 +91,13 @@ const ClientHistoryCard = ({ history }: Props) => {
             value={getFormatPrice(history.localDeliveryPrice)}
             icon={<FaDollarSign />}
           />
+          {(history as unknown as IInvitationTransactionsCount).TransactionsCount && (
+            <LigneInfoInCard
+            title="Transactions"
+            value={(history as unknown as IInvitationTransactionsCount).TransactionsCount.toString()}
+            icon={<MdPriceChange />}
+          />            
+          )}
         </div>
       </div>
       <div className="client-transactions-content ">
