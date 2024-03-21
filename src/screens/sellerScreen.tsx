@@ -40,7 +40,7 @@ const SellerScreen: React.FC = () => {
 
   const [client, setClient] = useState<IClientBase>(location.state);
   const [ribRequests, setRibRequests] = useState<IRipRequests[]>([]);
-  const [histories, setHistories] = useState<IInvitationTransactionsCount[]>([]);
+  const [sellerInvitations, setSellerInvitations] = useState<IInvitationTransactionsCount[]>([]);
   const [isModalConfirmOfBlockClient, setisModalConfirmOfBlockClient] =
     useState<boolean>(false);
 
@@ -75,7 +75,7 @@ const SellerScreen: React.FC = () => {
     setRibRequests(res.requests!.reverse());
     const ribRequestActive = getLastAcceptedItem(res.requests || [])
     setClient({...client , rib : ribRequestActive?.rib , official: ribRequestActive?.official})
-    setHistories(res.historiy);
+    setSellerInvitations(res.historiy);
     console.log(res.historiy,"kk")
   };
 
@@ -177,7 +177,7 @@ const SellerScreen: React.FC = () => {
         />
         <div className="content">
           <div className="seller-historie">
-            {histories.map((his, i) => (
+            {sellerInvitations.map((his, i) => (
               <ClientHistoryCard
                 key={i}
                 history={his}

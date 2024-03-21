@@ -85,6 +85,7 @@ const InvitationDetails: React.FC = () => {
           ModifyInvitationDetails({
             ...res.invitation,
             Seller: invitationState.invitation.Seller,
+            InvitationTransactions : invitationState.invitation.InvitationTransactions
           })
         );
         if (transaction != undefined && transaction?.Invitation.uuid == uuid) {
@@ -124,6 +125,7 @@ const InvitationDetails: React.FC = () => {
           ModifyInvitationDetails({
             ...res.invitation,
             Seller: invitationState.invitation.Seller,
+            InvitationTransactions : invitationState.invitation.InvitationTransactions
           })
         );
         if (transaction != undefined && transaction?.Invitation.uuid == uuid) {

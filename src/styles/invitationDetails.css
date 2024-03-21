@@ -200,7 +200,6 @@
     width: 120px;
 }
 
-  
   @media (max-width: 1199px) {
     .invitation-details-page 
       .client-invitation-content
@@ -209,12 +208,8 @@
       .invitation-details-page 
       .client-transaction-content
       .informations
-      .card-information-lign,
-      .invitation-details-page 
-      .client-transaction-content
-      .informations
       .state-information {
-      flex: calc(100% - 10px); /* Make each item 50% wide with some spacing */
+      flex: calc(100% - 10px);
       margin: 5px;
     }
     .invitation-details-page  .client-transactions-content .client-transaction-content {

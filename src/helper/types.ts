@@ -109,7 +109,7 @@ export interface IInvitation {
   }
 
   export interface IAdminInvitation extends IInvitation {
-    InvitationTransactions?: ITransaction[],
+    InvitationTransactions: ITransaction[],
     Seller: ISellerBase
   }
   

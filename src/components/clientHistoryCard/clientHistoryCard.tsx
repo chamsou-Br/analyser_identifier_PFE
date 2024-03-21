@@ -75,7 +75,7 @@ const ClientHistoryCard = ({ history }: Props) => {
             value={history.storeLocation}
             icon={<FaSearchLocation />}
           />
-          <div onClick={()=> console.log(history)} className="state-information">
+          <div className="state-information">
             <div className="title">Delivery type</div>
             <DelivryType
               deliveryType={getDeliveryTypeTitle(history.deliveryType)}
