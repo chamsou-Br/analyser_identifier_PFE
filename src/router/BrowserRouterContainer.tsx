@@ -17,6 +17,7 @@ import AdminsScreen from "../screens/AdminScreen"
 import PaymentScreen from "../screens/paymentScreen";
 import PaymentDetailsScreen from "../screens/paymentDetailsScreen";
 import PaymentApprovedScreen from "../screens/paymentApprovedScreen";
+import DeliveryCompanyDetailsScreen from "../screens/deliveryCompanyDetailsScreen";
 
 
 const BrowserRouterContainer = () => {
@@ -34,6 +35,7 @@ const BrowserRouterContainer = () => {
       <Route path="/sellers" element={<CustomElement component={SellersScreen} />} />
       <Route path="/details/:uuid" element={<CustomElement component={TransactionDetails} />} />
       <Route path="/deliveryCompany/" element={<CustomElement component={DeliveryCompanyScreen} />} />
+      <Route path="/deliveryCompany/:id" element={<CustomElement component={DeliveryCompanyDetailsScreen} />} />
       <Route path="/admins/" element={<CustomElement component={AdminsScreen} />} />
       <Route path="/payment/" element={<CustomElement component={PaymentScreen} />} />
       <Route path="/payment/approved" element={<CustomElement component={PaymentApprovedScreen} />} />

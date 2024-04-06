@@ -4,13 +4,16 @@ import "../styles/payment.css";
 import {
   Client,
   IBuyerBase,
+  IDeliveryOffice,
   IFullPaymentGroup,
   ISellerBase,
   PaymentGroupStatus,
+  PaymentType,
 } from "../helper/types";
 import {
   approvePaymentGroupsAPI,
   getPaymentGroupAPI,
+  lockPaymentGroupsAPI,
 } from "../helper/callsApi";
 import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
 import Alert from "../components/Alert/alert";
@@ -31,14 +34,24 @@ import {
 } from "../helper/constant";
 import { productPriceCalculator } from "../helper/pricing";
 import JsonFormatter from "react-json-formatter";
+import { useSelector } from "react-redux";
+import { RootState } from "../state/store";
+import { CSVLink } from "react-csv";
 
 const PaymentDetailsScreen: React.FC = () => {
+  const auth = useSelector((state: RootState) => state.auth);
+
   const { id } = useParams();
   const [group, setGroup] = useState<IFullPaymentGroup>();
-  const [client, setClient] = useState<ISellerBase | IBuyerBase>();
+  const [client, setClient] = useState<
+    ISellerBase | IBuyerBase | IDeliveryOffice
+  >();
   const [clientProfile, setClientProfile] = useState(Client.SELLER);
+
   const [modalOfApprovePaymentGroup, setModalOfApprovePaymentGroup] =
     useState(false);
+
+  const [modalOfLockPaymentGroup, setModalOfLockPaymentGroup] = useState(false);
 
   const navigate = useNavigate();
 
@@ -63,28 +76,69 @@ const PaymentDetailsScreen: React.FC = () => {
     setModalOfApprovePaymentGroup(true);
   };
 
+  const onCancelModalOfLockPaymentGroup = () => {
+    setModalOfLockPaymentGroup(false);
+  };
+  const onOpenModalOfLockPaymentGroup = () => {
+    setModalOfLockPaymentGroup(true);
+  };
+
   const fetchGroup = async () => {
     const res = await getPaymentGroupAPI(id as unknown as number);
     if (res.group) {
       setGroup(res.group);
       setClient(
-        res.group.Payments[0].Seller
+        res.group.Payments[0].DeliveryOffice
+          ? res.group.Payments[0].DeliveryOffice
+          : res.group.Payments[0].Seller
           ? res.group.Payments[0].Seller
           : res.group.Payments[0].Buyer
       );
       setClientProfile(
-        res.group.Payments[0].Seller ? Client.SELLER : Client.BUYER
+        res.group.Payments[0].DeliveryOffice
+          ? Client.DELIVERYOFFICE
+          : res.group.Payments[0].Seller
+          ? Client.SELLER
+          : Client.BUYER
       );
     } else {
       navigate("/payment");
     }
   };
 
-  const onHandleGenerateGroups = async () => {
+  const DateToApproveDeliveryPayment = new Date();
+  DateToApproveDeliveryPayment.setDate(
+    DateToApproveDeliveryPayment.getDate() - 1
+  );
+
+  const onHandleApprovePaymentGroup = async () => {
     setModalOfApprovePaymentGroup(false);
+    if (
+      group?.Payments[0].type === PaymentType.DELIVERY &&
+      new Date(group?.createdAt) > DateToApproveDeliveryPayment
+    ) {
+      onAlert(
+        false,
+        "This payment cannot be approved until five days have passed after its creation",
+        true
+      );
+      return;
+    }
     const res = await approvePaymentGroupsAPI(id as unknown as number);
     if (res.group) {
       onAlert(true, "payment group is approved with success", true);
+      setGroup({ ...group!, state: PaymentGroupStatus.APPROVED });
+    } else {
+      onAlert(false, res.error!, true);
+    }
+  };
+
+  const onHandleLockPaymentGroup = async () => {
+    setModalOfLockPaymentGroup(false);
+    const res = await lockPaymentGroupsAPI(group?.id as unknown as number);
+    if (res.group) {
+      onAlert(true, "payment group is locked with success", true);
+      setGroup({ ...group!, state: PaymentGroupStatus.LOCKED });
     } else {
       onAlert(false, res.error!, true);
     }
@@ -97,19 +151,86 @@ const PaymentDetailsScreen: React.FC = () => {
   const onNavigateToTransactionDetails = (uuid: string) => {
     navigate("/details/" + uuid);
   };
+
+  const setCsvData = () => {
+    const csvData = [
+      [
+        "paymentId",
+        "paymentDate",
+        "fullAmount",
+        "state",
+        "clientType",
+        "name",
+        "rib",
+        "transactionId",
+        "createdAt",
+        "deliveryType",
+        "deliveryPlace",
+        "deliveryDate",
+        "paymentDate",
+        "fullAmountIn",
+        "fullAmountOut",
+      ],
+    ];
+
+    group?.Payments.forEach((payment) => {
+      const name =
+        clientProfile != Client.DELIVERYOFFICE
+          ? (client as unknown as ISellerBase)?.name +
+            " " +
+            (client as unknown as ISellerBase)?.firstName
+          : (client as unknown as IDeliveryOffice).userName;
+      csvData.push([
+        payment.id,
+        getFullFormatDate(payment.createdAt),
+        getFormatPrice(payment.fullAmount),
+        group.state,
+        clientProfile,
+        name,
+        client!.rib,
+        payment.Transaction.uuid,
+        getFullFormatDate(payment.Transaction.createdAt),
+        payment.Transaction.deliveryType,
+        getFullFormatDate(payment.Transaction.deliveryDate),
+        getFullFormatDate(payment.Transaction.paymentDate),
+        getFormatPrice(payment.Transaction.fullAmountIn),
+        getFormatPrice(payment.Transaction.fullAmountOut),
+      ]);
+    });
+
+    return csvData;
+  };
+
   if (group)
     return (
       <div className="payment-details-page">
         <div className="header">
-          <HeaderPage title="Payment Group" descr={"Group Payment : " + id} />
-          {group.state != PaymentGroupStatus.APPROVED && (
-            <div
-              onClick={onOpenModalOfApprovePaymentGroup}
-              className="generate-new-groups"
-            >
-              Approve Payment
+          <HeaderPage title="Payment Group" descr={""} />
+          <div className="action">
+            {group.state === PaymentGroupStatus.LOCKED &&
+              auth.admin?.id !== 0 && (
+                <div
+                  onClick={onOpenModalOfApprovePaymentGroup}
+                  className="generate-new-groups"
+                >
+                  Approve Payment
+                </div>
+              )}
+            {group.state === PaymentGroupStatus.PENDING &&
+              group.Payments[0].type === PaymentType.DELIVERY && (
+                <div
+                  onClick={onOpenModalOfLockPaymentGroup}
+                  className="generate-new-groups"
+                >
+                  Lock Payment
+                </div>
+              )}
+            <div className="generate-new-groups csv-button">
+              <CSVLink className="csv-button" data={setCsvData()}>
+                Export csv
+              </CSVLink>
             </div>
-          )}
+          </div>
         </div>
         <div className="body">
           <div className="left-container">
@@ -123,7 +244,11 @@ const PaymentDetailsScreen: React.FC = () => {
                   <div className="info">
                     <div className="label">Name</div>
                     <div className="value">
-                      {client?.name + " " + client?.firstName}
+                      {clientProfile != Client.DELIVERYOFFICE
+                        ? (client as unknown as ISellerBase)?.name +
+                          " " +
+                          (client as unknown as ISellerBase)?.firstName
+                        : (client as unknown as IDeliveryOffice).userName}
                     </div>
                   </div>
                   <div className="info">
@@ -167,15 +292,18 @@ const PaymentDetailsScreen: React.FC = () => {
             <div className="left">
               <JsonFormatter
                 json={{
-                  rib : client?.rib || "",
-                  name :client?.name ,
-                  firstName :client?.firstName,
-                  amount : group.fullAmount
-
+                  rib: client?.rib || "",
+                  firstName:
+                    clientProfile != Client.DELIVERYOFFICE
+                      ? (client as unknown as ISellerBase)?.name +
+                        " " +
+                        (client as unknown as ISellerBase)?.firstName
+                      : (client as unknown as IDeliveryOffice).userName,
+                  amount: group.fullAmount,
+                  label: group.id,
                 }}
                 tabWith={6}
                 jsonStyle={{
-                  
                   propertyStyle: { color: "#151B26" },
                   stringStyle: { color: "green" },
                   numberStyle: { color: "green" },
@@ -231,12 +359,26 @@ const PaymentDetailsScreen: React.FC = () => {
         </div>
         <ActionConfirmation
           handleCanceled={onCancelModalOfApprovePaymentGroup}
-          handleSubmit={onHandleGenerateGroups}
+          handleSubmit={onHandleApprovePaymentGroup}
           isOpen={modalOfApprovePaymentGroup}
           confirmationText="Are you sure that you want to approve this payment groups !"
         />
+        <ActionConfirmation
+          handleCanceled={onCancelModalOfLockPaymentGroup}
+          handleSubmit={onHandleLockPaymentGroup}
+          isOpen={modalOfLockPaymentGroup}
+          confirmationText="Are you sure that you want to Lock this payment groups !"
+        />
         <Alert
-          onCancelInSuccess={() => navigate("/payment")}
+          onCancelInSuccess={() =>
+            group.state === PaymentGroupStatus.APPROVED
+              ? group.Payments[0].type === PaymentType.DELIVERY
+                ? navigate(
+                    "/deliveryCompany/" + group.Payments[0].DeliveryOffice.id
+                  )
+                : navigate("/payment")
+              : null
+          }
           alert={alert}
           onAlert={onAlert}
         />

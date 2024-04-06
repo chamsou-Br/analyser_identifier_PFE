@@ -36,6 +36,8 @@ export const INVITATIONS = "/admin/invitations"
 
 export const DELIVERY_COMPANY = "/admin/company"
 
+export const DELIVERY_COMPANY_DETAILS =  "admin/company/details"
+
 export const RIB_REQUESTS = "/admin/rib_requests"
 
 export const GET_SELLER = "/admin/seller"
@@ -69,3 +71,9 @@ export const APPROVE_PAYMENT_GROUP = "admin/payment/group/approve"
 export const ADMIN_PROFILE = "admin/profile"
 
 export const PAYMENTS_OF_TRANSACTION = "admin/payment/transaction"
+
+export const TRANSACTIONS_OF_DELIVERY_COMPANY = "admin/company/transaction"
+
+export const PAYMENT_GROUP_PENDING_DELIVERY_COMPANY =  "admin/company/payment/pending"
+
+export const PAYMENT_GROUP_APPROVED_DELIVERY_COMPANY =  "admin/company/payment/approved"

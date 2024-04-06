@@ -60,7 +60,7 @@ const PaymentApprovedScreen : React.FC = () => {
         <div className="list">
         {groups.map((item) => (
           <div className="admin" key={item.id}>
-            <PaymentGroupCard paymentGroup={item} onLock={onNavigateToPaymentGroupDetails} />
+            <PaymentGroupCard paymentGroup={item} onLock={() =>onNavigateToPaymentGroupDetails(item.id as unknown as number)} />
           </div>
         ))}
         {groups.length == 0 && (

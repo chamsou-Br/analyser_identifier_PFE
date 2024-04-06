@@ -6,7 +6,7 @@
     margin-bottom: 20px;
     background-color: white;
     width: 100%;
-    
+    cursor: pointer;
   }
   
  .delivery-company .delivery-company-header {
@@ -101,15 +101,24 @@
 
 
   
-.delivery-company .delivery-company-content .delete-company {
-    color: #eb5151;
+.delivery-company .delivery-company-content .action-company {
+    color: #151B26;
     font-size: 13px;
     cursor: pointer;
     font-weight: normal;
   }
 
-  .delivery-company .delivery-company-content .delete-company:hover {
+  .delivery-company .action-company .delete {
+    color: #eb5151;
+  }
+
+  .delivery-company .action-company .details {
+    color: #3782ec;
+  }
+
+  .delivery-company .action-company span:hover {
     text-decoration: underline;
+    cursor: pointer;
   }
 
 

@@ -3,7 +3,7 @@
 import { Provider } from "react-redux";
 
 import store from "./state/store";
-
+import 'rsuite/dist/rsuite-no-reset.min.css';
 import BrowserRouterContainer from "./router/BrowserRouterContainer";
 
 function App() {

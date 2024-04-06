@@ -1,6 +1,6 @@
 import { DeliveryType, TransactionStatus } from "./types";
 
-export const BASE_URL = "https://api.paypart.dz/api" //"http://localhost:7550/api" 
+export const BASE_URL = "https://api.paypart.dz/api" // "http://localhost:7550/api" 
 
 export const tokenName = "pepper_token";
 
@@ -45,6 +45,8 @@ export const getFormatDate = (inputDate: Date | undefined) => {
 
 export const getFullFormatDate = (date:  Date | undefined ) => {
   const inputDate = date ? date.toString() : ""
+  if (!inputDate) return "-"
+
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "short",
@@ -52,7 +54,7 @@ export const getFullFormatDate = (date:  Date | undefined ) => {
     hour: "2-digit",
     minute: "2-digit",
     timeZone: "UTC",
-    hour12: false,
+    hour12: true,
   };
 
   const newDate = new Date(inputDate);

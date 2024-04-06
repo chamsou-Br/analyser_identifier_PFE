@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IAdmin {
   id: number , 
   name : string,
@@ -33,6 +34,7 @@ export interface IPaymentGroup {
 export interface IFullPayment extends IPayment {
   Seller: ISellerBase , 
   Buyer : IBuyerBase , 
+  DeliveryOffice : IDeliveryOffice,
   Transaction : ITransaction
 }
 
@@ -95,7 +97,8 @@ export interface IInvitation {
     certifiedDelivery: boolean,
     certifiedCompany: string,
     BuyerPaymentId : number , 
-    SellerPaymentId : number
+    SellerPaymentId : number,
+    DeliveryOfficePaymentId : number
   }
 
   
@@ -234,10 +237,11 @@ export interface IRipRequests {
   export interface IColumnsForTable {
     uuid: string;
     deliveryDate: string;
-    deliveryPlace: string;
+    deliveryPlace?: string;
     deliveryType?: string;
     updateDate? : string;
     deliveryPrice: string;
+    validationDate?:string;
     Buyer?: string;
     Seller?: string;
     ProductName: string;
@@ -252,6 +256,7 @@ export interface IRipRequests {
     businessName?: string,
     ribRequest?: number,
     rib?: string,
+    hadPaymentOfDelivery?:string
     // Add other properties you need
   }
 
@@ -262,8 +267,10 @@ export interface IRipRequests {
     email: string,
     phoneNumber : string,
     password: string,
+    rib:string,
     adminLevel: number,
     createdAt: Date,
+
   }
 
   export interface IRowsTable {
@@ -275,7 +282,8 @@ export interface IRipRequests {
 
   export enum Client {
     BUYER  = "BUYER" , 
-    SELLER = "SELLER"
+    SELLER = "SELLER",
+    DELIVERYOFFICE = "DELIVERY COMPANY"
   }
 
   
@@ -334,6 +342,7 @@ export enum TransactionOutcome {
     REIMBURSEMENT = 'Reimbursement',
     FULFILLMENT = 'Fulfillment',
     COMPENSATION_FOR_GHOSTING = 'Compensation-for-Ghosting',
+    DELIVERY = 'Delivery'
   }
   
   export enum Gender {
@@ -368,4 +377,37 @@ export enum TransactionOutcome {
 export interface IOfficialDocuments {
   rib_urls: string[],
   identity_urls: string[],
+}
+
+export enum TypeField  {
+  text = "text",
+  email = "email",
+  password = "password",
+  number = "number",
+  date = "date",
+  select = "select",
+  checkbox = "checkbox",
+  textarea = "textarea",
+  upload = "upload"
+  
+}
+
+
+export interface FilterField {
+  type: TypeField,
+  disabled? : boolean ,
+  placeHolder: string;
+  value: any;
+  onSet : (v : any) => void;
+  label:string;
+  name: string;
+  data? : { label: string; value: any }[]
+}
+  
+export interface PayPartFormValues {
+  [key: string]: string | any[] ;
+}
+
+export interface PayPartFilterValues {
+  [key: string]: string | Date | number | boolean | null |any[] ;
 }

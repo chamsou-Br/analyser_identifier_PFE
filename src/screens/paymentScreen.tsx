@@ -8,15 +8,21 @@ import ActionConfirmation from '../components/ActionConfirmation/ActionConfirmat
 import Alert from '../components/Alert/alert'
 import { useNavigate } from 'react-router'
 import { FaCheckCircle } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
+import { RootState } from '../state/store'
 
 
 const PaymentScreen : React.FC = () => {
+
+  const auth = useSelector((state: RootState) => state.auth);
 
   const [groups , setGroups ] = useState<IFullPaymentGroup[]>([])
   const [modalOfGenerateNewGroups , setModalOfGenerateNewGroups] = useState(false)
   const [modalOfLockGroup , setModalOfLockGroup] = useState(false)
   const [groupToLock , setGroupToLock] = useState(-1)
+
   const navigate = useNavigate()
+
   const [alert, setAlert] = React.useState({
     isSucess: false,
     message: "",
@@ -34,9 +40,14 @@ const PaymentScreen : React.FC = () => {
   const onCancelModalOfLockGroup = () => {
     setModalOfLockGroup(false)
   }
-  const onOpenModalOfLockGroup = (id : number) => {
-    setModalOfLockGroup(true)
-    setGroupToLock(id)
+  const onOpenModalOfLockGroup = (group : IFullPaymentGroup) => {
+    if ((group.AdminLockedId && group.AdminLockedId === auth.admin?.id) || auth.admin?.id === 0) {
+      navigate("/payment/" + group.id)
+    }else {
+      setModalOfLockGroup(true)
+      setGroupToLock(group.id as unknown as number)
+    }
+
   }
 
   const onHandleLockGroup = async () => {

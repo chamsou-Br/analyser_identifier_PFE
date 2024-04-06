@@ -4,12 +4,12 @@ import { Button, Input, Modal } from "rsuite";
 type Props = {
   isOpen: boolean;
   handleCanceled: () => void;
-  handleSubmit: (company: string, email: string, phoneNumber: string) => void;
+  handleSubmit: (company: string, email: string, phoneNumber: string , rib : string) => void;
 };
 
 function DeliveryCompanyForm({ isOpen, handleCanceled, handleSubmit }: Props) {
   const onHandleNewCompany = () => {
-    handleSubmit(company, email, phoneNumber);
+    handleSubmit(company, email, phoneNumber , rib);
     setCompany("");
     setEmail("");
     setPhoneNumber("");
@@ -17,6 +17,7 @@ function DeliveryCompanyForm({ isOpen, handleCanceled, handleSubmit }: Props) {
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [rib, setRib] = useState("");
   return (
     <Modal
       className="delivery-company-form"
@@ -45,6 +46,13 @@ function DeliveryCompanyForm({ isOpen, handleCanceled, handleSubmit }: Props) {
           value={phoneNumber}
           onChange={(v: string) => setPhoneNumber(v)}
           placeholder="Phone number of company "
+        />
+        <div className="label">Rib : </div>
+        <Input
+          className="input"
+          value={rib}
+          onChange={(v: string) => setRib(v)}
+          placeholder="Rib of company "
         />
       </Modal.Body>
       <Modal.Footer>

@@ -1,0 +1,169 @@
+.transaction-of-company-container {
+  padding: 40px 40px;
+  margin-bottom: 30px;
+}
+
+.transaction-of-company-container .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
+.transaction-of-company-container .generate-new-groups {
+  padding: 10px 40px ;
+  border-radius: 0.3rem;
+  background-color: #3782ec; 
+  width: fit-content;
+  color: #FFF;
+  font-size: 14px;
+  font-weight: bold;
+  @media screen and (max-width : 500px) {
+      padding: 7px 20px;
+      font-size: 12px;
+      margin-bottom: 20px;
+  }
+
+}
+
+.transaction-of-company-container .generate-new-groups:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+
+.transaction-of-company-container .sections {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.transaction-of-company-container .sections .section {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  cursor: pointer;
+}
+
+.transaction-of-company-container .sections .section.active {
+  border-bottom: 2px solid #3782ec;
+  color: #3782ec;
+}
+
+.transaction-of-company-container .table {
+  margin: auto;
+}
+
+.transaction-of-company-container .table::-webkit-scrollbar {
+  width: 3px; /* Set the width of the scrollbar */
+}
+
+.transaction-of-company-container .table::-webkit-scrollbar-thumb {
+  background: #888; /* Set the color of the thumb */
+  border-radius: 6px; /* Add round corners to the thumb */
+}
+
+.transaction-of-company-container .table::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Change color on hover */
+}
+
+.transaction-of-company-container .table::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Set the background color of the track */
+}
+
+
+
+.transaction-of-company-container  .payment-navigation-type {
+  padding: 20px 30px;
+  box-shadow: #3782ec44 0px 2px 8px 0px;
+  display: flex;
+  align-items: center;
+  background-color: #3782ec22;
+  gap: 20px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  @media screen and (max-width : 600px) {
+    padding: 10px;
+  }
+  
+}
+
+.transaction-of-company-container .payment-navigation-type:hover {
+  background-color: #3782ec66;
+}
+
+.transaction-of-company-container .payment-navigation-type .left {
+  @media screen and (max-width : 600px) {
+    display: none;
+  }
+}
+
+.transaction-of-company-container .payment-navigation-type .left .icon {
+  font-size: 30px;
+  margin-top: 10px;
+}
+
+.transaction-of-company-container  .payment-navigation-type img {
+  width: 30px;
+
+}
+
+.transaction-of-company-container  .payment-navigation-type .title {
+  color:  #3782ec;
+  font-size: 16px;
+  margin-bottom: 3px;
+}
+
+.transaction-of-company-container  .payment-navigation-type .description {
+  color:  #151B26;
+  font-size: 14px;
+}
+
+
+.transaction-of-company-container  .list {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: fit-content;
+  margin: auto;
+  margin-top: 30px;
+  gap: 2%;
+  @media screen and (max-width : 1250px) {
+      flex-direction: column;
+      gap: 0px;
+  }
+}
+
+.transaction-of-company-container  .list .admin {
+  width: 100%;
+  max-width: 900px;
+  min-width: 800px;
+  @media screen and (max-width : 1250px) {
+      margin: auto;
+      width: 100%;
+      min-width: 0      
+  }
+}
+
+.transaction-of-company-container  .list .pagination-payment-approved {
+  width: 100%;
+  padding: 4px 10px ;
+  background-color: #FFF;
+  border-radius: 0.3rem;
+  min-width: 800px;
+}
+
+.transaction-of-company-container  .list .empty {
+  margin: 20px;
+}

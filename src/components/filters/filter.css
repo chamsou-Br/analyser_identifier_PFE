@@ -1,0 +1,152 @@
+.filter-component .filters-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0;
+    @media screen and (max-width : 767px) {
+        display: none;
+    }
+}
+
+.filter-component .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: start;
+    align-items: center;
+
+}
+
+.filter-component .filters-content  .filter-clear {
+    color: #7800A2;
+    font-size: 14px;
+    font-family: OpenSans-SemiBold;
+    cursor: pointer;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.filter-component .filter {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    @media screen and (max-width : 767px) {
+        margin: auto;
+    }
+}
+
+
+.filter-component .filter .label {
+    color: #000;
+    font-size: 14px;
+    font-family: OpenSans-Regular;
+}
+
+.filter-component .filter .input-container {
+    width: 220px;
+}
+
+ .filter-component .filter-input  {
+    width: 260px;
+}
+
+.filter-component .filter-input.checkbox {
+    width: fit-content;
+}
+
+
+.filters-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+} 
+
+.filters-modal .title {
+    font-size: 16px;
+    font-family: OpenSans-SemiBold;
+    margin-bottom: 10px;
+    
+}
+
+ .filter-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    @media screen and (max-width : 767px) {
+        margin: auto;
+    }
+}
+
+
+ .filter-modal .label {
+    color: #000;
+    font-size: 14px;
+    font-family: OpenSans-Regular;
+}
+
+ .filter-modal .input-container {
+    width: 220px;
+}
+.filter-modal .filter-input  {
+    width: 260px;
+}
+
+
+.filters-modal .filter-button {
+    padding: 8px 0px ;
+    text-align: center;
+    border: 1px solid #7800A2;
+    border-radius: 0.3rem;
+    color: #7800A2;
+    font-size: 16px;
+    font-family: OpenSans-SemiBold;
+    width: 220px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+ .filter-clear {
+    color: #7800A2;
+    font-size: 14px;
+    font-family: OpenSans-SemiBold;
+    cursor: pointer;
+}
+
+
+
+.filter-component .filter-header {
+    width: 100vw;
+    color: #151B26;
+    font-size: 18px;
+    font-family: OpenSans-Light;
+    display: none;
+    @media screen and (max-width : 767px) {
+        display: block;
+    }
+}
+
+.filter-component .filter-header .title {
+    margin-bottom: 15px;
+    @media screen and (max-width : 767px) {
+        font-family: OpenSans-SemiBold;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: space-between;
+    }
+
+}
+
+.filter-component .filter-header .title .filter-open-modal {
+    width: 80px;
+    font-size: 14px;
+    font-family: IstokWeb;
+    font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 10px;
+}

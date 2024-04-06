@@ -18,6 +18,18 @@
     }
 }
 
+.payment-details-page .header .action {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.payment-details-page .header .csv-button {
+  color: #FFF;
+  text-decoration: none;
+  background-color: #2B9B67 ;
+}
+
 .payment-details-page .list {
 
     display: flex;

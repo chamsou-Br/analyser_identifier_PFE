@@ -13,7 +13,8 @@ type Props = {
   handleChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleRefresh: () => void;
   isSearch?: boolean;
-  searchPlaceHolder? : string
+  searchPlaceHolder?: string;
+  isRefresh?: boolean;
 };
 
 const HeaderTable = ({
@@ -23,14 +24,17 @@ const HeaderTable = ({
   handleSearch,
   value,
   isSearch = true,
-  searchPlaceHolder
+  searchPlaceHolder,
+  isRefresh = true,
 }: Props) => {
   return (
     <div className="header-page">
       <div className="header-left">
-        <div onClick={handleRefresh} className="refresh-icon-container">
-          <IoMdRefresh />
-        </div>
+        {isRefresh && (
+          <div onClick={handleRefresh} className="refresh-icon-container">
+            <IoMdRefresh />
+          </div>
+        )}
       </div>
 
       {isSearch && (

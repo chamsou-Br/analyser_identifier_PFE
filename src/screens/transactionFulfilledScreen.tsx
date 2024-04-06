@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { useEffect } from "react";
-import "rsuite/dist/rsuite-no-reset-rtl.css"; // Adjust the path as needed
 import "../styles/transaction.css";
 import { RootState, useAppDispatch } from "../state/store";
 import { useSelector } from "react-redux";

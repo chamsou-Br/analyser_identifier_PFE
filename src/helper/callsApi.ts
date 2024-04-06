@@ -31,6 +31,7 @@ import {
   CREATE_PAYMENT,
   DECIDE_TRANSACTION,
   DELIVERY_COMPANY,
+  DELIVERY_COMPANY_DETAILS,
   GENERATE_PAYMENT_GROUP,
   GET_CLOSING_INFO,
   INVITAION_DETAILS,
@@ -39,11 +40,14 @@ import {
   PAYMENTS_OF_TRANSACTION,
   PAYMENT_GROUP,
   PAYMENT_GROUP_APPROVED,
+  PAYMENT_GROUP_APPROVED_DELIVERY_COMPANY,
   PAYMENT_GROUP_PENDING,
+  PAYMENT_GROUP_PENDING_DELIVERY_COMPANY,
   REJECT_INVITATION,
   REJECT_RIP_REQUEST,
   RIB_REQUESTS,
   SELLER_HISTORY,
+  TRANSACTIONS_OF_DELIVERY_COMPANY,
   VALIDATE_INVITATION,
 } from "./API";
 
@@ -429,7 +433,7 @@ const options = {
 };
 
 
-export const addDeliveryCompanyAPI = async (company  : string , email : string , phoneNumber : string) => {
+export const addDeliveryCompanyAPI = async (company  : string , email : string , phoneNumber : string , rib : string) => {
   try {
 
     const options = {
@@ -442,7 +446,8 @@ export const addDeliveryCompanyAPI = async (company  : string , email : string ,
       data: {
         company: company,
         email: email,
-        phoneNumber: phoneNumber
+        phoneNumber: phoneNumber,
+        rib : rib
       }
     };
 
@@ -700,7 +705,6 @@ export const fetchPaymentGroupsPendingAPI = async ( ) => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
     return {
       
       error: (error as AxiosError<{ message: string }>).response?.data.message
@@ -894,3 +898,147 @@ export const getPaymentsOfTransactionAPI = async (uuid : string) => {
 
 
 
+
+
+export const fetchTransactionsOfCompany = async (id : string , page : number , pageSize : number ,  createAfter? : Date | null, createBefore? : Date | null , hadPaymentOfDelivery? : boolean | null) => {
+  try {
+    const baseUrl = TRANSACTIONS_OF_DELIVERY_COMPANY;
+    const queryParams = [];
+
+    if (createAfter !== null && createAfter !== undefined) {
+        queryParams.push(`createAfter=${createAfter}`);
+    }
+
+    if (createBefore !== null && createBefore !== undefined) {
+        queryParams.push(`createBefore=${createBefore}`);
+    }
+    if (hadPaymentOfDelivery !== null && hadPaymentOfDelivery !== undefined) {
+      queryParams.push(`hadPaymentOfDelivery=${hadPaymentOfDelivery}`);
+    }
+
+    const queryString = queryParams.length > 0 ? `&${queryParams.join('&')}` : '';
+
+    const options = {
+      method: "POST",
+      url: `${baseUrl}?page=${page}&pageSize=${pageSize}${queryString}`,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data: {companyId: id}
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      transactions: response.data.transactions as IAdminFullTransaction[],
+      page : response.data.page as number, 
+      total : response.data.total as number,
+      error: null,
+    };
+  } catch (error: unknown) {
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const getDeliveryCompanyDetailsAPI = async (id : string ) => {
+  try {
+    const options = {
+      method: "POST",
+      url: DELIVERY_COMPANY_DETAILS,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data : {
+        companyId : id
+      }
+    };
+
+    const response = await axios.request(options);
+    return {
+      company: response.data.company as IDeliveryOffice,
+      error: null,
+    };
+  } catch (error: unknown) {
+
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const fetchPaymentGroupsPendingOfDeliveryCompanyAPI = async (id : string ) => {
+  try {
+    const options = {
+      method: "POST",
+      url: PAYMENT_GROUP_PENDING_DELIVERY_COMPANY,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data : {
+        companyId : id
+      }
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      groups: response.data.groups as IFullPaymentGroup[],
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+
+
+export const fetchPaymentGroupsApprovedOfDeliveryCompanyAPI = async (id : string ,page : number , pageSize : number ) => {
+  try {
+    const baseUrl = PAYMENT_GROUP_APPROVED_DELIVERY_COMPANY
+    const options = {
+      method: "POST",
+      url:  `${baseUrl}?page=${page}&pageSize=${pageSize}` ,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data : {
+        companyId : id
+      }
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      groups: response.data.groups as IFullPaymentGroup[],
+      page : response.data.page as number, 
+      total : response.data.total as number,
+      error: null,
+    };
+  } catch (error: unknown) {
+    console.log("e",error)
+    return {
+      
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};

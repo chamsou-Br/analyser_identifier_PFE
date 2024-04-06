@@ -14,6 +14,7 @@
     "@types/redux-thunk": "^2.1.0",
     "axios": "^1.5.1",
     "react": "^18.2.0",
+    "react-csv": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-json-formatter": "^0.4.0",
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@types/react": "^18.2.15",
     "@types/react-alert": "^7.0.3",
+    "@types/react-csv": "^1.1.10",
     "@types/react-dom": "^18.2.7",
     "@types/redux-logger": "^3.0.10",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

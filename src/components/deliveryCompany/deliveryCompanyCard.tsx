@@ -4,6 +4,9 @@ import { FaRegClock } from "react-icons/fa";
 
 import { IDeliveryOffice } from "../../helper/types";
 import phone from "../../assets/phone.svg";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
+import { RootState } from "../../state/store";
 
 type props = {
   company: IDeliveryOffice;
@@ -11,8 +14,15 @@ type props = {
 };
 
 const DeliveryCompanyCard = ({ company, onDelete }: props) => {
+  const auth = useSelector((state: RootState) => state.auth).admin;
   const onDeleteCompany = () => {
     onDelete();
+  };
+
+  const navigate = useNavigate();
+
+  const onNavigateToDetails = () => {
+    navigate("/deliveryCompany/" + company.id);
   };
 
   if (company)
@@ -31,21 +41,27 @@ const DeliveryCompanyCard = ({ company, onDelete }: props) => {
         </div>
         <div className="delivery-company-content">
           <div className="company-name">{company.company}</div>
+          <div className="email">{company.email}</div>
           <div className="email">
-            {company.email}
+            <span>rib : </span>
+            {company.rib}
           </div>
-          <div className="email">
-            <span>password </span>
-            {company.password}
-          </div>
-          <div onClick={onDeleteCompany} className="delete-company">
-            delete
+          <div className="action-company">
+            {auth?.id === 0 && (
+              <>
+                <span onClick={onDeleteCompany} className="delete">
+                  delete
+                </span>{" "}
+                /{" "}
+              </>
+            )}
+            <span onClick={onNavigateToDetails} className="details">
+              Details
+            </span>
           </div>
           <div className="email-sm">
             <div>{company.email}</div>
-            <div className="password">
-            {company.password}
-          </div>
+            <div className="password">{company.rib}</div>
           </div>
         </div>
       </div>
