@@ -69,7 +69,7 @@
     margin-right:  5px;
   }
   
-.payment-card .payment-card-content .email {
+.payment-card .payment-card-content .info {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -81,11 +81,16 @@
       display: none;
     }
   }
+
+  .payment-card .payment-card-content .info.price {
+    font-weight: 700;
+  }
   
-.payment-card .payment-card-content .email span {
+.payment-card .payment-card-content .info span {
     color: #9f9f9f;
     margin-right: 8px;
     font-weight: normal;
+    font-size: 15px;
   }
   
   .payment-card .payment-card-content .password {
@@ -119,7 +124,7 @@
 
 
 
-  .payment-card .payment-card-content .email-sm {
+  .payment-card .payment-card-content .info-sm {
     display: flex;
     justify-content: space-between;
     align-items: center;

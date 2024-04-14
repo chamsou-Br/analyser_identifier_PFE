@@ -31,6 +31,9 @@ import {
   getFormatPrice,
   getFullFormatDate,
   getShortStatusDescriptionFr,
+  headerOFPaymentsExportForBuyer,
+  headerOFPaymentsExportForDeliveryCompany,
+  headerOFPaymentsExportForSeller,
 } from "../helper/constant";
 import { productPriceCalculator } from "../helper/pricing";
 import JsonFormatter from "react-json-formatter";
@@ -152,55 +155,6 @@ const PaymentDetailsScreen: React.FC = () => {
     navigate("/details/" + uuid);
   };
 
-  const setCsvData = () => {
-    const csvData = [
-      [
-        "paymentId",
-        "paymentDate",
-        "fullAmount",
-        "state",
-        "clientType",
-        "name",
-        "rib",
-        "transactionId",
-        "createdAt",
-        "deliveryType",
-        "deliveryPlace",
-        "deliveryDate",
-        "paymentDate",
-        "fullAmountIn",
-        "fullAmountOut",
-      ],
-    ];
-
-    group?.Payments.forEach((payment) => {
-      const name =
-        clientProfile != Client.DELIVERYOFFICE
-          ? (client as unknown as ISellerBase)?.name +
-            " " +
-            (client as unknown as ISellerBase)?.firstName
-          : (client as unknown as IDeliveryOffice).userName;
-      csvData.push([
-        payment.id,
-        getFullFormatDate(payment.createdAt),
-        getFormatPrice(payment.fullAmount),
-        group.state,
-        clientProfile,
-        name,
-        client!.rib,
-        payment.Transaction.uuid,
-        getFullFormatDate(payment.Transaction.createdAt),
-        payment.Transaction.deliveryType,
-        getFullFormatDate(payment.Transaction.deliveryDate),
-        getFullFormatDate(payment.Transaction.paymentDate),
-        getFormatPrice(payment.Transaction.fullAmountIn),
-        getFormatPrice(payment.Transaction.fullAmountOut),
-      ]);
-    });
-
-    return csvData;
-  };
-
   if (group)
     return (
       <div className="payment-details-page">
@@ -226,7 +180,18 @@ const PaymentDetailsScreen: React.FC = () => {
                 </div>
               )}
             <div className="generate-new-groups csv-button">
-              <CSVLink className="csv-button" data={setCsvData()}>
+              <CSVLink
+                className="csv-button"
+                headers={
+                  clientProfile === Client.DELIVERYOFFICE
+                    ? headerOFPaymentsExportForDeliveryCompany
+                    : clientProfile === Client.SELLER
+                    ? headerOFPaymentsExportForSeller
+                    : headerOFPaymentsExportForBuyer
+                }
+                filename={`payment_group_${id}_${new Date()}`}
+                data={group.Payments}
+              >
                 Export csv
               </CSVLink>
             </div>

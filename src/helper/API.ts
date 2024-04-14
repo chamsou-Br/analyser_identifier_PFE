@@ -74,6 +74,8 @@ export const PAYMENTS_OF_TRANSACTION = "admin/payment/transaction"
 
 export const TRANSACTIONS_OF_DELIVERY_COMPANY = "admin/company/transaction"
 
+export const EXPORT_TRANSACTIONS_OF_DELIVERY_COMPANY = "admin/company/transaction/export"
+
 export const PAYMENT_GROUP_PENDING_DELIVERY_COMPANY =  "admin/company/payment/pending"
 
 export const PAYMENT_GROUP_APPROVED_DELIVERY_COMPANY =  "admin/company/payment/approved"

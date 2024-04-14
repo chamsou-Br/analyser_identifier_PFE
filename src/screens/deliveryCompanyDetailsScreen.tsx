@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../styles/deliveryCompanyDetails.css";
 import {
   IAdminFullTransaction,
@@ -14,10 +14,15 @@ import {
   IDeliveryOffice,
 } from "../helper/types";
 import TableCompo from "../components/Table/Table";
-import { Currency, getFullFormatDate } from "../helper/constant";
+import {
+  Currency,
+  getFullFormatDate,
+  headerOfTransactionsExport,
+} from "../helper/constant";
 import HeaderPage from "../components/headerPage/headerPage";
 import { useNavigate, useParams } from "react-router";
 import {
+  exportTransactionsOfCompanyAPI,
   fetchPaymentGroupsApprovedOfDeliveryCompanyAPI,
   fetchPaymentGroupsPendingOfDeliveryCompanyAPI,
   fetchTransactionsOfCompany,
@@ -26,16 +31,26 @@ import {
   lockPaymentGroupsAPI,
 } from "../helper/callsApi";
 import PaymentGroupCard from "../components/paymentCard/paymentGroupCard";
-import { Pagination } from "rsuite";
+import { Loader, Pagination } from "rsuite";
 import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
 import Alert from "../components/Alert/alert";
+import Filter from "../components/filters/filter";
+import { CSVDownload, CSVLink } from "react-csv";
+import { LinkProps } from "react-csv/components/Link";
 
 // eslint-disable-next-line no-empty-pattern
 const DeliveryCompanyDetailsScreen: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
 
+  const [transactionsToExports, setTransactionsToExports] = useState<{
+    data: IAdminFullTransaction[];
+    loading: boolean;
+  }>({
+    data: [],
+    loading: false,
+  });
   const [alert, setAlert] = useState({
     isSucess: false,
     message: "",
@@ -68,12 +83,12 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
   const [pageArchives, setPageArchives] = useState(1);
   const navigate = useNavigate();
 
-  const onFetchData = async (
+  const onFetchDataTransactions = async (
     page: number,
     pageSize: number,
     createAfterValue?: Date | null,
     createBeforeValue?: Date | null,
-    hadPaymentOfDelivery? : boolean | null
+    hadPaymentOfDelivery?: boolean | null
   ) => {
     const res = await fetchTransactionsOfCompany(
       id || "",
@@ -96,8 +111,12 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
     { headerCell: "Delivery Date", dataKey: "deliveryDate", size: 150 },
     { headerCell: "Payment Date", dataKey: "paymentDate", size: 150 },
     { headerCell: "State", dataKey: "state", size: 120 },
-    {headerCell : "validation Date" , dataKey : "validationDate" , size : 150},
-    {headerCell : "Delivery Payment" , dataKey : "hadPaymentOfDelivery" , size : 200}
+    { headerCell: "validation Date", dataKey: "validationDate", size: 150 },
+    {
+      headerCell: "Delivery Payment",
+      dataKey: "hadPaymentOfDelivery",
+      size: 200,
+    },
   ];
 
   const getDataFromState = (): IColumnsForTable[] => {
@@ -107,29 +126,21 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
       deliveryPrice: item.deliveryPrice.toString() + Currency,
       ProductName: item.Invitation.product,
       ProductPrice: item.Invitation.price.toString() + Currency,
-      paymentDate: getFullFormatDate(item.paymentDate) ,
+      paymentDate: getFullFormatDate(item.paymentDate),
       state: item.state,
-      validationDate : getFullFormatDate(item.validationDate),
-      hadPaymentOfDelivery : item.DeliveryOfficePaymentId ? "true" : "false"
+      validationDate: getFullFormatDate(item.validationDate),
+      hadPaymentOfDelivery: item.DeliveryOfficePaymentId ? "true" : "false",
     }));
     return newData;
   };
 
   const onRefreshData = () => {
-    onFetchData(1, limit);
+    onFetchDataTransactions(1, limit);
   };
 
   const [createdAfter, setCreateAfter] = useState<Date | null>(null);
-
   const [createBefore, setCreateBefore] = useState<Date | null>(null);
   const [hasPaymentOfDelivery, setHasPaymentOfDelivery] = useState(null);
-
-  const onClearFilter = (pageSize: number) => {
-    setCreateAfter(null);
-    setCreateBefore(null);
-    setHasPaymentOfDelivery(null)
-    onFetchData(1, pageSize);
-  };
 
   const filters: FilterField[] = [
     {
@@ -154,9 +165,9 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
     },
     {
       type: TypeField.select,
-      data : [
-        {label : "true" , value : "true"},
-        {label : "false" , value : "false"}
+      data: [
+        { label: "true", value: "true" },
+        { label: "false", value: "false" },
       ],
       label: "has payment of delivery",
       name: "hasPaymentOfDelivery",
@@ -168,15 +179,71 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
     },
   ];
 
+  const onClearFilter = (pageSize: number) => {
+    setCreateAfter(null);
+    setCreateBefore(null);
+    setHasPaymentOfDelivery(null);
+    onFetchDataTransactions(1, pageSize);
+  };
+
   const onFilter = (values: PayPartFilterValues, pageSize: number) => {
     const createAfter = values.createAfter as Date | undefined;
     const createBefore = values.createBefore as Date | undefined;
-    const hadPaymentOfDelivery = values.hasPaymentOfDelivery as boolean | undefined
-    onFetchData(1, pageSize, createAfter, createBefore , hadPaymentOfDelivery);
+    const hadPaymentOfDelivery = values.hasPaymentOfDelivery as
+      | boolean
+      | undefined;
+    onFetchDataTransactions(
+      1,
+      pageSize,
+      createAfter,
+      createBefore,
+      hadPaymentOfDelivery
+    );
   };
 
-  const onPaginate = (page: number, pageSize: number) => {
-    onFetchData(page, pageSize, createdAfter, createBefore);
+  const [createdAfterPaymentGroup, setCreateAfterPaymentGroup] =
+    useState<Date | null>(null);
+
+  const [createBeforePaymentGroup, setCreateBeforePaymentGroup] =
+    useState<Date | null>(null);
+
+  const filtersPaymentGroups: FilterField[] = [
+    {
+      type: TypeField.date,
+      label: "Créée après",
+      name: "createAfterPaymentGroup",
+      placeHolder: "Date de début",
+      onSet: (d) => {
+        setCreateAfterPaymentGroup(d);
+      },
+      value: createdAfterPaymentGroup,
+    },
+    {
+      type: TypeField.date,
+      label: "Et avant",
+      name: "createBeforePaymentGroup",
+      placeHolder: "Date de fin",
+      onSet: (d) => {
+        setCreateBeforePaymentGroup(d);
+      },
+      value: createBeforePaymentGroup,
+    },
+  ];
+
+  const onFilterPaymentGroups = (values: PayPartFilterValues) => {
+    const createAfter = values.createAfterPaymentGroup as Date | undefined;
+    const createBefore = values.createBeforePaymentGroup as Date | undefined;
+    fetchGroupsApproved(1, limit, createAfter, createBefore);
+  };
+
+  const onClearFilterPaymentGroup = () => {
+    setCreateAfterPaymentGroup(null);
+    setCreateBeforePaymentGroup(null);
+    fetchGroupsApproved(1, limit);
+  };
+
+  const onPaginateTransaction = (page: number, pageSize: number) => {
+    onFetchDataTransactions(page, pageSize, createdAfter, createBefore);
   };
 
   const fetchGroupsPending = async () => {
@@ -186,11 +253,18 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
     }
   };
 
-  const fetchGroupsApproved = async (page: number, pageSize: number) => {
+  const fetchGroupsApproved = async (
+    page: number,
+    pageSize: number,
+    createAfterValue?: Date | null,
+    createBeforeValue?: Date | null
+  ) => {
     const res = await fetchPaymentGroupsApprovedOfDeliveryCompanyAPI(
       id || "",
       page,
-      pageSize
+      pageSize,
+      createAfterValue,
+      createBeforeValue
     );
     if (res.groups) {
       setGroupsApproved(res.groups);
@@ -208,16 +282,24 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
 
   const handleChangePageArchives = (page: number) => {
     setPageArchives(page);
-    fetchGroupsApproved(page, limit);
+    fetchGroupsApproved(
+      page,
+      limit,
+      createBeforePaymentGroup,
+      createBeforePaymentGroup
+    );
   };
 
   useEffect(() => {
-    onFetchData(1, limit, createdAfter, createBefore);
+    onFetchDataTransactions(1, limit, createdAfter, createBefore);
     fetchGroupsPending();
-    fetchGroupsApproved(1, limit);
+    fetchGroupsApproved(
+      1,
+      limit,
+      createdAfterPaymentGroup,
+      createBeforePaymentGroup
+    );
   }, []);
-
-
 
   const onCancelModalOfGenerateNewGroups = () => {
     setModalOfGenerateNewGroups(false);
@@ -241,6 +323,38 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
     }
   };
 
+  const exportDataCsv = async () => {
+    setTransactionsToExports({ ...transactionsToExports, loading: true });
+    const res = await exportTransactionsOfCompanyAPI(
+      id || "",
+      createdAfter,
+      createBefore,
+      hasPaymentOfDelivery
+    );
+    if (res.transactions) {
+      setTransactionsToExports({
+        loading : true,
+        data: res.transactions,
+      });
+      setTimeout(() => {
+        csvLink?.current?.link.click();
+        setTransactionsToExports({
+          loading : false,
+          data: res.transactions,
+        });
+      }, 2000);
+    } else {
+      setTransactionsToExports({
+        data: [],
+        loading: false,
+      });
+    }
+  };
+
+  const csvLink = useRef<
+    CSVLink & HTMLAnchorElement & { link: HTMLAnchorElement }
+  >(null);
+
   return (
     <div className="transaction-of-company-container">
       <div className="header">
@@ -257,7 +371,10 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
           }
         />
         {section == 1 && (
-          <div onClick={onOpenModalOfGenerateNewGroups} className="generate-new-groups">
+          <div
+            onClick={onOpenModalOfGenerateNewGroups}
+            className="generate-new-groups"
+          >
             Generate Groups
           </div>
         )}
@@ -283,21 +400,34 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
         </div>
       </div>
       {section === 0 && (
-        <TableCompo
-          isSearch={false}
-          searchPlaceHolder="Search Transaction"
-          rows={rows}
-          getDefaultData={getDataFromState}
-          onRefreshData={onRefreshData}
-          pageSize={limit}
-          total={totalTransactionsOfCompany}
-          onPaginate={onPaginate}
-          isFilter
-          fields={filters}
-          onClear={onClearFilter}
-          onFilter={onFilter}
-          isRefresh={false}
-        />
+        <>
+          <CSVLink
+            ref={csvLink}
+            className="csv-button"
+            headers={headerOfTransactionsExport}
+            filename={`delivery_company_${id}_${new Date()}`}
+            data={transactionsToExports.data}
+          ></CSVLink>
+
+          <div onClick={() => exportDataCsv()} className="export-csv">
+            {transactionsToExports.loading ? <Loader /> : "Export csv"}
+          </div>
+          <TableCompo
+            isSearch={false}
+            searchPlaceHolder="Search Transaction"
+            rows={rows}
+            getDefaultData={getDataFromState}
+            onRefreshData={onRefreshData}
+            pageSize={limit}
+            total={totalTransactionsOfCompany}
+            onPaginate={onPaginateTransaction}
+            isFilter
+            fields={filters}
+            onClear={onClearFilter}
+            onFilter={onFilter}
+            isRefresh={false}
+          />
+        </>
       )}
       {section == 1 && (
         <>
@@ -320,6 +450,11 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
       )}
       {section == 2 && (
         <>
+          <Filter
+            fields={filtersPaymentGroups}
+            onFilter={onFilterPaymentGroups}
+            onClear={onClearFilterPaymentGroup}
+          />
           <div className="list">
             {groupsApproved.map((item) => (
               <div className="admin" key={item.id}>
@@ -364,6 +499,7 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
         submitButton="generate"
         confirmationText="Are you sure that you want to generate new payment groups !"
       />
+
       <Alert alert={alert} onAlert={onAlert} />
     </div>
   );

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { getFormatPrice, getFullFormatDate } from "../../helper/constant";
+import { formatRIB, getFormatPrice, getFullFormatDate } from "../../helper/constant";
 import {
   Client,
   IDeliveryOffice,
@@ -29,7 +29,7 @@ const PaymentGroupCard = ({ paymentGroup, onLock }: props) => {
     ? paymentGroup.Payments[0].Seller
     : paymentGroup.Payments[0].Buyer;
   const typeClient = paymentGroup.Payments[0].DeliveryOffice
-    ? "Company"
+    ? Client.DELIVERYOFFICE
     : paymentGroup.Payments[0].Seller
     ? Client.SELLER
     : Client.BUYER;
@@ -90,13 +90,21 @@ const PaymentGroupCard = ({ paymentGroup, onLock }: props) => {
         </div>
 
         <div className="payment-card-content">
-          <div className="client-name">
+          {typeClient !== Client.DELIVERYOFFICE ? (
+            <div className="client-name">
             <span>{typeClient} : </span>
             {(client as ISellerBase).firstName ||
               (client as IDeliveryOffice).userName}
           </div>
-          <div className="email">{client.rib}</div>
-          <div className="email">
+          ) : (
+            <div className="client-name">
+            <span>id : </span>
+            {paymentGroup.id}
+          </div>
+          )} 
+
+          <div className="info"><span>Rib : </span>{formatRIB(client.rib)}</div>
+          <div className="info price">
             <span>Amount due : </span>
             {getFormatPrice(paymentGroup.fullAmount)}
           </div>
@@ -121,7 +129,7 @@ const PaymentGroupCard = ({ paymentGroup, onLock }: props) => {
               ? "Lock"
               : "details"}
           </div>
-          <div className="email-sm">
+          <div className="info-sm">
             <div>{client.rib}</div>
             <div className="password">
               {getFormatPrice(paymentGroup.fullAmount)}

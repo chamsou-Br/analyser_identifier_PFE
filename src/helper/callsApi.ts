@@ -32,6 +32,7 @@ import {
   DECIDE_TRANSACTION,
   DELIVERY_COMPANY,
   DELIVERY_COMPANY_DETAILS,
+  EXPORT_TRANSACTIONS_OF_DELIVERY_COMPANY,
   GENERATE_PAYMENT_GROUP,
   GET_CLOSING_INFO,
   INVITAION_DETAILS,
@@ -195,7 +196,7 @@ export const getSellerHistorieAPI = async (email: string) => {
 
     return {
       historiy: response.data.invitations as IInvitationTransactionsCount[],
-      requests : response.data.requests as IRipRequests[],
+      requests: response.data.requests as IRipRequests[],
       error: undefined,
     };
   } catch (error: unknown) {
@@ -385,16 +386,15 @@ export const fetchDeliveryCompanyAPI = async () => {
     };
 
     const response = await axios.request(options);
-    console.log(response,"oo")
+    console.log(response, "oo");
 
     return {
       companies: response.data.companies as IDeliveryOffice[],
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -402,18 +402,17 @@ export const fetchDeliveryCompanyAPI = async () => {
   }
 };
 
-export const deleteDeliveryCompanyAPI = async (id : number) => {
+export const deleteDeliveryCompanyAPI = async (id: number) => {
   try {
-
-const options = {
-      method: 'DELETE',
+    const options = {
+      method: "DELETE",
       url: DELIVERY_COMPANY,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: Authorization()
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
       },
-      data: {id: id}
-};
+      data: { id: id },
+    };
 
     const response = await axios.request(options);
 
@@ -422,9 +421,8 @@ const options = {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -432,23 +430,26 @@ const options = {
   }
 };
 
-
-export const addDeliveryCompanyAPI = async (company  : string , email : string , phoneNumber : string , rib : string) => {
+export const addDeliveryCompanyAPI = async (
+  company: string,
+  email: string,
+  phoneNumber: string,
+  rib: string
+) => {
   try {
-
     const options = {
-      method: 'POST',
+      method: "POST",
       url: DELIVERY_COMPANY,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: Authorization()
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
       },
       data: {
         company: company,
         email: email,
         phoneNumber: phoneNumber,
-        rib : rib
-      }
+        rib: rib,
+      },
     };
 
     const response = await axios.request(options);
@@ -458,9 +459,8 @@ export const addDeliveryCompanyAPI = async (company  : string , email : string ,
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -468,16 +468,14 @@ export const addDeliveryCompanyAPI = async (company  : string , email : string ,
   }
 };
 
-
 export const getAllRibRequestsAPI = async () => {
   try {
-
     const options = {
-      method: 'GET',
+      method: "GET",
       url: RIB_REQUESTS,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: Authorization()
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
       },
     };
 
@@ -488,9 +486,7 @@ export const getAllRibRequestsAPI = async () => {
       error: null,
     };
   } catch (error: unknown) {
-
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -498,32 +494,32 @@ export const getAllRibRequestsAPI = async () => {
   }
 };
 
-export const acceptRibRequestAPI = async (sellerEmail : string,ribRequestId : number) => {
+export const acceptRibRequestAPI = async (
+  sellerEmail: string,
+  ribRequestId: number
+) => {
   try {
-
     const options = {
-      method: 'POST',
+      method: "POST",
       url: ACCEPT_RIP_REQUEST,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: Authorization()
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
       },
-      data : {
-        sellerEmail : sellerEmail,
-        ribRequestId : ribRequestId
-      }
+      data: {
+        sellerEmail: sellerEmail,
+        ribRequestId: ribRequestId,
+      },
     };
 
     const response = await axios.request(options);
 
     return {
-      seller : response.data.seller as ISellerBase,
+      seller: response.data.seller as ISellerBase,
       error: null,
     };
   } catch (error: unknown) {
-
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -531,39 +527,34 @@ export const acceptRibRequestAPI = async (sellerEmail : string,ribRequestId : nu
   }
 };
 
-export const rejectRibRequest = async (sellerEmail : string) => {
+export const rejectRibRequest = async (sellerEmail: string) => {
   try {
-
     const options = {
-      method: 'POST',
+      method: "POST",
       url: REJECT_RIP_REQUEST,
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: Authorization()
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
       },
-      data : {
-        sellerEmail : sellerEmail
-      }
+      data: {
+        sellerEmail: sellerEmail,
+      },
     };
 
     const response = await axios.request(options);
 
     return {
-      seller : response.data.seller as ISellerBase,
+      seller: response.data.seller as ISellerBase,
       error: null,
     };
   } catch (error: unknown) {
-
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
     };
   }
 };
-
-
 
 export const fetchListAdminsAPI = async () => {
   try {
@@ -583,9 +574,8 @@ export const fetchListAdminsAPI = async () => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -593,7 +583,7 @@ export const fetchListAdminsAPI = async () => {
   }
 };
 
-export const blockAdminAPI = async (id : number) => {
+export const blockAdminAPI = async (id: number) => {
   try {
     const options = {
       method: "DELETE",
@@ -602,9 +592,9 @@ export const blockAdminAPI = async (id : number) => {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data : {
-        id : id
-      }
+      data: {
+        id: id,
+      },
     };
 
     const response = await axios.request(options);
@@ -614,9 +604,8 @@ export const blockAdminAPI = async (id : number) => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -624,7 +613,7 @@ export const blockAdminAPI = async (id : number) => {
   }
 };
 
-export const addAdminAPI = async (name : string) => {
+export const addAdminAPI = async (name: string) => {
   try {
     const options = {
       method: "POST",
@@ -633,9 +622,9 @@ export const addAdminAPI = async (name : string) => {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data : {
-        name : name      
-      }
+      data: {
+        name: name,
+      },
     };
 
     const response = await axios.request(options);
@@ -645,9 +634,8 @@ export const addAdminAPI = async (name : string) => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -655,8 +643,7 @@ export const addAdminAPI = async (name : string) => {
   }
 };
 
-
-export const createPaymentAPI = async (transactionUuid : string) => {
+export const createPaymentAPI = async (transactionUuid: string) => {
   try {
     const options = {
       method: "POST",
@@ -665,9 +652,9 @@ export const createPaymentAPI = async (transactionUuid : string) => {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data : {
-        transactionUuid : transactionUuid      
-      }
+      data: {
+        transactionUuid: transactionUuid,
+      },
     };
 
     const response = await axios.request(options);
@@ -677,9 +664,8 @@ export const createPaymentAPI = async (transactionUuid : string) => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -687,7 +673,7 @@ export const createPaymentAPI = async (transactionUuid : string) => {
   }
 };
 
-export const fetchPaymentGroupsPendingAPI = async ( ) => {
+export const fetchPaymentGroupsPendingAPI = async () => {
   try {
     const options = {
       method: "GET",
@@ -706,7 +692,6 @@ export const fetchPaymentGroupsPendingAPI = async ( ) => {
     };
   } catch (error: unknown) {
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -714,7 +699,7 @@ export const fetchPaymentGroupsPendingAPI = async ( ) => {
   }
 };
 
-export const fetchPaymentGroupsApprovedAPI = async ( ) => {
+export const fetchPaymentGroupsApprovedAPI = async () => {
   try {
     const options = {
       method: "GET",
@@ -732,9 +717,8 @@ export const fetchPaymentGroupsApprovedAPI = async ( ) => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -742,7 +726,7 @@ export const fetchPaymentGroupsApprovedAPI = async ( ) => {
   }
 };
 
-export const generatePaymentGroupsAPI = async ( ) => {
+export const generatePaymentGroupsAPI = async () => {
   try {
     const options = {
       method: "GET",
@@ -760,9 +744,8 @@ export const generatePaymentGroupsAPI = async ( ) => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -770,7 +753,7 @@ export const generatePaymentGroupsAPI = async ( ) => {
   }
 };
 
-export const lockPaymentGroupsAPI = async (id : number) => {
+export const lockPaymentGroupsAPI = async (id: number) => {
   try {
     const options = {
       method: "POST",
@@ -779,9 +762,9 @@ export const lockPaymentGroupsAPI = async (id : number) => {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data : {
-        groupId : id
-      }
+      data: {
+        groupId: id,
+      },
     };
 
     const response = await axios.request(options);
@@ -791,9 +774,8 @@ export const lockPaymentGroupsAPI = async (id : number) => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -801,7 +783,7 @@ export const lockPaymentGroupsAPI = async (id : number) => {
   }
 };
 
-export const approvePaymentGroupsAPI = async (id : number) => {
+export const approvePaymentGroupsAPI = async (id: number) => {
   try {
     const options = {
       method: "POST",
@@ -810,9 +792,9 @@ export const approvePaymentGroupsAPI = async (id : number) => {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data : {
-        groupId : id
-      }
+      data: {
+        groupId: id,
+      },
     };
 
     const response = await axios.request(options);
@@ -822,9 +804,8 @@ export const approvePaymentGroupsAPI = async (id : number) => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -832,8 +813,7 @@ export const approvePaymentGroupsAPI = async (id : number) => {
   }
 };
 
-
-export const getPaymentGroupAPI = async (id : number) => {
+export const getPaymentGroupAPI = async (id: number) => {
   try {
     const options = {
       method: "POST",
@@ -842,9 +822,9 @@ export const getPaymentGroupAPI = async (id : number) => {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data : {
-        groupId : id
-      }
+      data: {
+        groupId: id,
+      },
     };
 
     const response = await axios.request(options);
@@ -854,9 +834,8 @@ export const getPaymentGroupAPI = async (id : number) => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -864,7 +843,7 @@ export const getPaymentGroupAPI = async (id : number) => {
   }
 };
 
-export const getPaymentsOfTransactionAPI = async (uuid : string) => {
+export const getPaymentsOfTransactionAPI = async (uuid: string) => {
   try {
     const options = {
       method: "POST",
@@ -873,9 +852,9 @@ export const getPaymentsOfTransactionAPI = async (uuid : string) => {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data : {
-        transactionUuid : uuid
-      }
+      data: {
+        transactionUuid: uuid,
+      },
     };
 
     const response = await axios.request(options);
@@ -886,9 +865,8 @@ export const getPaymentsOfTransactionAPI = async (uuid : string) => {
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -896,27 +874,31 @@ export const getPaymentsOfTransactionAPI = async (uuid : string) => {
   }
 };
 
-
-
-
-
-export const fetchTransactionsOfCompany = async (id : string , page : number , pageSize : number ,  createAfter? : Date | null, createBefore? : Date | null , hadPaymentOfDelivery? : boolean | null) => {
+export const fetchTransactionsOfCompany = async (
+  id: string,
+  page: number,
+  pageSize: number,
+  createAfter?: Date | null,
+  createBefore?: Date | null,
+  hadPaymentOfDelivery?: boolean | null
+) => {
   try {
     const baseUrl = TRANSACTIONS_OF_DELIVERY_COMPANY;
     const queryParams = [];
 
     if (createAfter !== null && createAfter !== undefined) {
-        queryParams.push(`createAfter=${createAfter}`);
+      queryParams.push(`createAfter=${createAfter}`);
     }
 
     if (createBefore !== null && createBefore !== undefined) {
-        queryParams.push(`createBefore=${createBefore}`);
+      queryParams.push(`createBefore=${createBefore}`);
     }
     if (hadPaymentOfDelivery !== null && hadPaymentOfDelivery !== undefined) {
       queryParams.push(`hadPaymentOfDelivery=${hadPaymentOfDelivery}`);
     }
 
-    const queryString = queryParams.length > 0 ? `&${queryParams.join('&')}` : '';
+    const queryString =
+      queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
 
     const options = {
       method: "POST",
@@ -925,20 +907,19 @@ export const fetchTransactionsOfCompany = async (id : string , page : number , p
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data: {companyId: id}
+      data: { companyId: id },
     };
 
     const response = await axios.request(options);
 
     return {
       transactions: response.data.transactions as IAdminFullTransaction[],
-      page : response.data.page as number, 
-      total : response.data.total as number,
+      page: response.data.page as number,
+      total: response.data.total as number,
       error: null,
     };
   } catch (error: unknown) {
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -946,7 +927,58 @@ export const fetchTransactionsOfCompany = async (id : string , page : number , p
   }
 };
 
-export const getDeliveryCompanyDetailsAPI = async (id : string ) => {
+
+
+export const exportTransactionsOfCompanyAPI = async (
+  id: string,
+  createAfter?: Date | null,
+  createBefore?: Date | null,
+  hadPaymentOfDelivery?: boolean | null
+) => {
+  try {
+    const baseUrl = EXPORT_TRANSACTIONS_OF_DELIVERY_COMPANY;
+    const queryParams = [];
+
+    if (createAfter !== null && createAfter !== undefined) {
+      queryParams.push(`createAfter=${createAfter}`);
+    }
+
+    if (createBefore !== null && createBefore !== undefined) {
+      queryParams.push(`createBefore=${createBefore}`);
+    }
+    if (hadPaymentOfDelivery !== null && hadPaymentOfDelivery !== undefined) {
+      queryParams.push(`hadPaymentOfDelivery=${hadPaymentOfDelivery}`);
+    }
+
+    const queryString =
+      queryParams.length > 0 ? `${queryParams.join("&")}` : "";
+
+    const options = {
+      method: "POST",
+      url: `${baseUrl}?${queryString}`,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: Authorization(),
+      },
+      data: { companyId: id },
+    };
+
+    const response = await axios.request(options);
+
+    return {
+      transactions: response.data.transactions as IAdminFullTransaction[],
+      error: null,
+    };
+  } catch (error: unknown) {
+    return {
+      error: (error as AxiosError<{ message: string }>).response?.data.message
+        ? (error as AxiosError<{ message: string }>).response?.data.message
+        : "An unknown error occurred",
+    };
+  }
+};
+
+export const getDeliveryCompanyDetailsAPI = async (id: string) => {
   try {
     const options = {
       method: "POST",
@@ -955,9 +987,9 @@ export const getDeliveryCompanyDetailsAPI = async (id : string ) => {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data : {
-        companyId : id
-      }
+      data: {
+        companyId: id,
+      },
     };
 
     const response = await axios.request(options);
@@ -966,9 +998,7 @@ export const getDeliveryCompanyDetailsAPI = async (id : string ) => {
       error: null,
     };
   } catch (error: unknown) {
-
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -976,7 +1006,9 @@ export const getDeliveryCompanyDetailsAPI = async (id : string ) => {
   }
 };
 
-export const fetchPaymentGroupsPendingOfDeliveryCompanyAPI = async (id : string ) => {
+export const fetchPaymentGroupsPendingOfDeliveryCompanyAPI = async (
+  id: string
+) => {
   try {
     const options = {
       method: "POST",
@@ -985,9 +1017,9 @@ export const fetchPaymentGroupsPendingOfDeliveryCompanyAPI = async (id : string 
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data : {
-        companyId : id
-      }
+      data: {
+        companyId: id,
+      },
     };
 
     const response = await axios.request(options);
@@ -997,9 +1029,8 @@ export const fetchPaymentGroupsPendingOfDeliveryCompanyAPI = async (id : string 
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",
@@ -1007,35 +1038,51 @@ export const fetchPaymentGroupsPendingOfDeliveryCompanyAPI = async (id : string 
   }
 };
 
-
-
-export const fetchPaymentGroupsApprovedOfDeliveryCompanyAPI = async (id : string ,page : number , pageSize : number ) => {
+export const fetchPaymentGroupsApprovedOfDeliveryCompanyAPI = async (
+  id: string,
+  page: number,
+  pageSize: number,
+  createAfter?: Date | null,
+  createBefore?: Date | null
+) => {
   try {
-    const baseUrl = PAYMENT_GROUP_APPROVED_DELIVERY_COMPANY
+    const baseUrl = PAYMENT_GROUP_APPROVED_DELIVERY_COMPANY;
+
+    const queryParams = [];
+
+    if (createAfter !== null && createAfter !== undefined) {
+      queryParams.push(`createAfter=${createAfter}`);
+    }
+
+    if (createBefore !== null && createBefore !== undefined) {
+      queryParams.push(`createBefore=${createBefore}`);
+    }
+
+    const queryString =
+      queryParams.length > 0 ? `&${queryParams.join("&")}` : "";
     const options = {
       method: "POST",
-      url:  `${baseUrl}?page=${page}&pageSize=${pageSize}` ,
+      url: `${baseUrl}?page=${page}&pageSize=${pageSize}${queryString}`,
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: Authorization(),
       },
-      data : {
-        companyId : id
-      }
+      data: {
+        companyId: id,
+      },
     };
 
     const response = await axios.request(options);
 
     return {
       groups: response.data.groups as IFullPaymentGroup[],
-      page : response.data.page as number, 
-      total : response.data.total as number,
+      page: response.data.page as number,
+      total: response.data.total as number,
       error: null,
     };
   } catch (error: unknown) {
-    console.log("e",error)
+    console.log("e", error);
     return {
-      
       error: (error as AxiosError<{ message: string }>).response?.data.message
         ? (error as AxiosError<{ message: string }>).response?.data.message
         : "An unknown error occurred",

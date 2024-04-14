@@ -167,3 +167,25 @@
 .transaction-of-company-container  .list .empty {
   margin: 20px;
 }
+
+.transaction-of-company-container .export-csv {
+  padding: 10px 40px ;
+  border-radius: 0.3rem;
+  background-color: #2B9B67; 
+  width: fit-content;
+  color: #FFF;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.transaction-of-company-container .export-csv:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.transaction-of-company-container .csv-button {
+  color: #FFF;
+  text-decoration: none;
+  background-color: #2B9B67 ;
+}

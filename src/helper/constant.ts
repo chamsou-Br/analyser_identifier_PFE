@@ -1,6 +1,6 @@
 import { DeliveryType, TransactionStatus } from "./types";
 
-export const BASE_URL = "https://api.paypart.dz/api" // "http://localhost:7550/api" 
+export const BASE_URL =  "https://api.paypart.dz/api"  //"http://localhost:7550/api" 
 
 export const tokenName = "pepper_token";
 
@@ -141,3 +141,106 @@ export const getShortStatusDescriptionFr = (
   }
 };
 
+
+export const formatRIB = (rib : string)  => {
+  // Remove non-numeric characters
+  rib = rib.replace(/\D/g, '');
+
+  // Insert spaces every 5 characters for better readability
+  rib = rib.replace(/(.{5})/g, '$1 ').trim();
+
+  return rib;
+}
+
+
+export const headerOfTransactionsExport = [
+  { label: 'UUID', key: 'uuid' },
+  { label: 'Delivery Date', key: 'deliveryDate' },
+  { label: 'Delivery Place', key: 'deliveryPlace' },
+  { label: 'Delivery Type', key: 'deliveryType' },
+  { label: 'Delivery Price', key: 'deliveryPrice' },
+  { label: 'Payment Date', key: 'paymentDate' },
+  { label: 'Validation Date', key: 'validationDate' },
+  { label: 'Satim Order Id', key: 'satimOrderId' },
+  { label: 'Satim Order Number', key: 'satimOrderNumber' },
+  { label: 'State', key: 'state' },
+  { label: 'Certified Delivery', key: 'certifiedDelivery' },
+  { label: 'Certified Company', key: 'certifiedCompany' },
+  { label: 'Buyer First Name', key: 'Buyer.firstName' },
+  { label: 'Buyer Last Name', key: 'Buyer.lastName' },
+  { label: 'Buyer Phone Number', key: 'Buyer.phoneNumber' },
+  { label: 'Invitation Product', key: 'Invitation.product' },
+  { label: 'Invitation Delivery Type', key: 'Invitation.deliveryType' },
+  { label: 'Seller Phone Number', key: 'Invitation.Seller.phoneNumber' },
+  { label: 'Seller Email', key: 'Invitation.Seller.email' },
+  { label: 'Seller Business Name', key: 'Invitation.Seller.businessName' },
+]
+
+export const headerOFPaymentsExportForDeliveryCompany = [
+    { label: 'ID', key: 'id' },
+    { label: 'RIB', key: 'rib' },
+    { label: 'Type', key: 'type' },
+    { label: 'payment Amount', key: 'fullAmount' },
+    { label: 'Created At', key: 'createdAt' },
+    { label: 'Executed Date', key: 'executedDate' },
+    { label: 'Delivery Office Company', key: 'DeliveryOffice.company' },
+    { label: 'Delivery Office Email', key: 'DeliveryOffice.email' },
+    { label: 'Delivery Office Phone Number', key: 'DeliveryOffice.phoneNumber' },
+    { label: 'Transaction UUID', key: 'Transaction.uuid' },
+    { label: 'Creation Date', key: 'Transaction.createdAt' },
+    { label: 'Transaction State', key: 'Transaction.state' },
+    { label: 'Satim Order Id', key: 'Transaction.satimOrderId' },
+    { label: 'Satim Order Number', key: 'Transaction.satimOrderNumber' },
+    { label: 'Delivery Date', key: 'Transaction.deliveryDate' },
+    { label: 'Delivery Place', key: 'Transaction.deliveryPlace' },
+    { label: 'Delivery Type', key: 'Transaction.deliveryType' },
+    { label: 'Delivery Price', key: 'Transaction.deliveryPrice' },
+    { label: 'Payment Date', key: 'Transaction.paymentDate' },
+    { label: 'Validation Date', key: 'Transaction.validationDate' },   
+  ];
+
+  export const headerOFPaymentsExportForSeller = [
+    { label: 'ID', key: 'id' },
+    { label: 'RIB', key: 'rib' },
+    { label: 'Type', key: 'type' },
+    { label: 'payment Amount', key: 'fullAmount' },
+    { label: 'Created At', key: 'createdAt' },
+    { label: 'Executed Date', key: 'executedDate' },
+    { label: 'Seller Phone Number', key: 'Seller.phoneNumber' },
+    { label: 'Seller Email', key: 'Seller.email' },
+    { label: 'Seller Business Name', key: 'Seller.businessName' },
+    { label: 'Transaction UUID', key: 'Transaction.uuid' },
+    { label: 'Creation Date', key: 'Transaction.createdAt' },
+    { label: 'Transaction State', key: 'Transaction.state' },
+    { label: 'Satim Order Id', key: 'Transaction.satimOrderId' },
+    { label: 'Satim Order Number', key: 'Transaction.satimOrderNumber' },
+    { label: 'Delivery Date', key: 'Transaction.deliveryDate' },
+    { label: 'Delivery Place', key: 'Transaction.deliveryPlace' },
+    { label: 'Delivery Type', key: 'Transaction.deliveryType' },
+    { label: 'Delivery Price', key: 'Transaction.deliveryPrice' },
+    { label: 'Payment Date', key: 'Transaction.paymentDate' },
+    { label: 'Validation Date', key: 'Transaction.validationDate' },   
+  ];
+
+  export const headerOFPaymentsExportForBuyer = [
+    { label: 'ID', key: 'id' },
+    { label: 'RIB', key: 'rib' },
+    { label: 'Type', key: 'type' },
+    { label: 'payment Amount', key: 'fullAmount' },
+    { label: 'Created At', key: 'createdAt' },
+    { label: 'Executed Date', key: 'executedDate' },
+    { label: 'Buyer First Name', key: 'Buyer.firstName' },
+    { label: 'Buyer Last Name', key: 'Buyer.lastName' },
+    { label: 'Buyer Phone Number', key: 'Buyer.phoneNumber' },
+    { label: 'Transaction UUID', key: 'Transaction.uuid' },
+    { label: 'Creation Date', key: 'Transaction.createdAt' },
+    { label: 'Transaction State', key: 'Transaction.state' },
+    { label: 'Satim Order Id', key: 'Transaction.satimOrderId' },
+    { label: 'Satim Order Number', key: 'Transaction.satimOrderNumber' },
+    { label: 'Delivery Date', key: 'Transaction.deliveryDate' },
+    { label: 'Delivery Place', key: 'Transaction.deliveryPlace' },
+    { label: 'Delivery Type', key: 'Transaction.deliveryType' },
+    { label: 'Delivery Price', key: 'Transaction.deliveryPrice' },
+    { label: 'Payment Date', key: 'Transaction.paymentDate' },
+    { label: 'Validation Date', key: 'Transaction.validationDate' },   
+  ];
