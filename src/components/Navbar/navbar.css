@@ -24,7 +24,7 @@
   cursor: pointer;
 }
 
-.navBar .navBar-left > div {
+.navBar .navBar-left > div.home {
   background-color: #3782ec;
   display: flex;
   justify-content: center;
@@ -59,6 +59,7 @@
 
 .navBar .navBar-mid {
   display: flex;
+  gap: 50px;
 }
 
 .navBar .navBar-mid div {
@@ -71,6 +72,29 @@
 
 .navBar .navBar-mid div:hover {
   color: #3782ec;
+}
+
+.navBar .navBar-mid .info {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.navBar .navBar-mid .info .label {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #00000077;
+  border-radius: 100%;
+  padding: 10px;
+}
+
+.navBar .navBar-mid .info .value {
+  display: flex;
+  flex-direction: column;
 }
 
 @media (max-width: 924px) {

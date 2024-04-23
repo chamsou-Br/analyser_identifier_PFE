@@ -14,13 +14,13 @@ const LoginScreen: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [userName, setuserName] = useState<string>("");
+  const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const HandlerInputuserNameChange = (
+  const HandlerInputUserNameChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setuserName(e.target.value);
+    setUserName(e.target.value);
   };
 
   const HandlerInputPasswordChange = (
@@ -30,9 +30,8 @@ const LoginScreen: React.FC = () => {
   };
 
   const HandlerLogin = () => {
-    console.log("what th efukc")
       dispatch(authentificate(userName, password));
-      setuserName("");
+      setUserName("");
       setPassword("");
   };
 
@@ -58,7 +57,7 @@ const LoginScreen: React.FC = () => {
             placeholder="Enter your userName"
             type="userName"
             value={userName}
-            onChange={HandlerInputuserNameChange}
+            onChange={HandlerInputUserNameChange}
           />
           <label>Password</label>
           <input

@@ -26,19 +26,14 @@ import {
   fetchPaymentGroupsApprovedOfDeliveryCompanyAPI,
   fetchPaymentGroupsPendingOfDeliveryCompanyAPI,
   fetchTransactionsOfCompany,
-  generatePaymentGroupsAPI,
   getDeliveryCompanyDetailsAPI,
-  lockPaymentGroupsAPI,
 } from "../helper/callsApi";
 import PaymentGroupCard from "../components/paymentCard/paymentGroupCard";
 import { Loader, Pagination } from "rsuite";
 import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
-import ActionConfirmation from "../components/ActionConfirmation/ActionConfirmation";
-import Alert from "../components/Alert/alert";
 import Filter from "../components/filters/filter";
-import { CSVDownload, CSVLink } from "react-csv";
-import { LinkProps } from "react-csv/components/Link";
+import { CSVLink } from "react-csv";
 
 // eslint-disable-next-line no-empty-pattern
 const DeliveryCompanyDetailsScreen: React.FC = () => {
@@ -51,31 +46,17 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
     data: [],
     loading: false,
   });
-  const [alert, setAlert] = useState({
-    isSucess: false,
-    message: "",
-    show: false,
-  });
 
-  const onAlert = (isSucess: boolean, message: string, show: boolean) => {
-    setAlert({
-      isSucess,
-      message,
-      show,
-    });
-  };
-
-  const [section, setSection] = useState(1);
+  const [section, setSection] = useState(0);
   const [groupsPending, setGroupsPending] = useState<IFullPaymentGroup[]>([]);
   const [groupsApproved, setGroupsApproved] = useState<IFullPaymentGroup[]>([]);
-  const [modalOfGenerateNewGroups, setModalOfGenerateNewGroups] =
-    useState(false);
 
-  const { id } = useParams();
+  const id = auth.deliveryOffice ? auth.deliveryOffice.id.toString() : "";
 
   const [transactionsCompany, setTransactionsCompany] = useState<
     IAdminFullTransaction[]
   >([]);
+
   const [totalTransactionsOfCompany, setTotalTransactionsOfCompany] =
     useState(0);
   const [totalGroupsApproved, setTotalGroupsApproved] = useState(0);
@@ -105,6 +86,7 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
   };
 
   const rows: IRowsTable[] = [
+    { headerCell: "Uuid", dataKey: "uuid", size: 150 },
     { headerCell: "Product", dataKey: "ProductName", size: 150 },
     { headerCell: "Price", dataKey: "ProductPrice", size: 150 },
     { headerCell: "Delivery Price", dataKey: "deliveryPrice", size: 150 },
@@ -247,7 +229,7 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
   };
 
   const fetchGroupsPending = async () => {
-    const res = await fetchPaymentGroupsPendingOfDeliveryCompanyAPI(id || "");
+    const res = await fetchPaymentGroupsPendingOfDeliveryCompanyAPI();
     if (res.groups) {
       setGroupsPending(res.groups);
     }
@@ -270,10 +252,6 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
       setGroupsApproved(res.groups);
       setTotalGroupsApproved(res.total);
     }
-  };
-
-  const onNavigateToPaymentGroupDetails = async (group: IFullPaymentGroup) => {
-    navigate("/payment/" + group.id);
   };
 
   const handleChangeLimit = (limit: number) => {
@@ -301,28 +279,6 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
     );
   }, []);
 
-  const onCancelModalOfGenerateNewGroups = () => {
-    setModalOfGenerateNewGroups(false);
-  };
-  const onOpenModalOfGenerateNewGroups = () => {
-    setModalOfGenerateNewGroups(true);
-  };
-
-  const onHandleGenerateGroups = async () => {
-    setModalOfGenerateNewGroups(false);
-    const res = await generatePaymentGroupsAPI();
-    if (res.success) {
-      onAlert(true, "new groups are generated with success ", true);
-      fetchGroupsPending();
-    } else {
-      onAlert(
-        true,
-        "the process of generation of new groups are failed ",
-        true
-      );
-    }
-  };
-
   const exportDataCsv = async () => {
     setTransactionsToExports({ ...transactionsToExports, loading: true });
     const res = await exportTransactionsOfCompanyAPI(
@@ -333,13 +289,13 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
     );
     if (res.transactions) {
       setTransactionsToExports({
-        loading : true,
+        loading: true,
         data: res.transactions,
       });
       setTimeout(() => {
         csvLink?.current?.link.click();
         setTransactionsToExports({
-          loading : false,
+          loading: false,
           data: res.transactions,
         });
       }, 2000);
@@ -359,27 +315,21 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
     <div className="transaction-of-company-container">
       <div className="header">
         <HeaderPage
-          title={
-            section === 0
-              ? "Transaction of company"
-              : "Payment Groups of company"
-          }
+          title={"Delivery company : " + auth.deliveryOffice?.company}
           descr={
             section === 0
               ? "All transaction delivered by this company"
               : "All groups to make the payment"
           }
         />
-        {section == 1 && (
-          <div
-            onClick={onOpenModalOfGenerateNewGroups}
-            className="generate-new-groups"
-          >
-            Generate Groups
-          </div>
-        )}
       </div>
       <div className="sections">
+        <div
+          onClick={() => setSection(0)}
+          className={section === 0 ? "section active" : "section"}
+        >
+          Transaction
+        </div>
         <div
           onClick={() => setSection(1)}
           className={section === 1 ? "section active" : "section"}
@@ -391,12 +341,6 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
           className={section === 2 ? "section active" : "section"}
         >
           Archives
-        </div>
-        <div
-          onClick={() => setSection(0)}
-          className={section === 0 ? "section active" : "section"}
-        >
-          Transaction
         </div>
       </div>
       {section === 0 && (
@@ -425,6 +369,9 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
             fields={filters}
             onClear={onClearFilter}
             onFilter={onFilter}
+            onViewable={(rowData: IColumnsForTable) =>
+              navigate("/transaction/" + rowData.uuid!)
+            }
             isRefresh={false}
           />
         </>
@@ -434,10 +381,7 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
           <div className="list">
             {groupsPending.map((item) => (
               <div className="admin" key={item.id}>
-                <PaymentGroupCard
-                  paymentGroup={item}
-                  onLock={onNavigateToPaymentGroupDetails}
-                />
+                <PaymentGroupCard paymentGroup={item} />
               </div>
             ))}
             {groupsPending.length == 0 && (
@@ -458,10 +402,7 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
           <div className="list">
             {groupsApproved.map((item) => (
               <div className="admin" key={item.id}>
-                <PaymentGroupCard
-                  paymentGroup={item}
-                  onLock={onNavigateToPaymentGroupDetails}
-                />
+                <PaymentGroupCard paymentGroup={item} />
               </div>
             ))}
 
@@ -492,15 +433,6 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
           </div>
         </>
       )}
-      <ActionConfirmation
-        handleCanceled={onCancelModalOfGenerateNewGroups}
-        handleSubmit={onHandleGenerateGroups}
-        isOpen={modalOfGenerateNewGroups}
-        submitButton="generate"
-        confirmationText="Are you sure that you want to generate new payment groups !"
-      />
-
-      <Alert alert={alert} onAlert={onAlert} />
     </div>
   );
 };

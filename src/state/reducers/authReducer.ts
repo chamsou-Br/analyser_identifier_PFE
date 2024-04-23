@@ -1,13 +1,13 @@
 
-import { IAdmin } from "../../helper/types";
-import { AuthAction, GET_ADMIN, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT, START_LOADING_AUTH, STOP_LOADING_AUTH } from "../actions/authAction";
+import { IDeliveryOffice } from "../../helper/types";
+import { AuthAction, GET_DELIVERY, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT, START_LOADING_AUTH, STOP_LOADING_AUTH } from "../actions/authAction";
   
   interface authState {
     isAuth : boolean,
     error? : string | undefined ,
     token : string | null,
     loading? : boolean,
-    admin? : IAdmin | null
+    deliveryOffice? : IDeliveryOffice | null
   }
   
   const initialState: authState = {
@@ -15,7 +15,7 @@ import { AuthAction, GET_ADMIN, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT, START_LOADI
     token: "",
     error : undefined,
     loading : false,
-    admin : null
+    deliveryOffice : null
   };
   
 
@@ -53,8 +53,8 @@ import { AuthAction, GET_ADMIN, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT, START_LOADI
             token : "",
             error : undefined
       }
-      case GET_ADMIN:
-        return {...state  , admin : action.payload}
+      case GET_DELIVERY:
+        return {...state  , deliveryOffice : action.payload}
       default:
         return state;
     }

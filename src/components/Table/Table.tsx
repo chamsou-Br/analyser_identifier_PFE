@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Table, Pagination } from "rsuite";
 import { useEffect, useState } from "react";
 const { Column, HeaderCell, Cell } = Table;
@@ -32,6 +33,8 @@ type props = {
   onFilter?: (values: PayPartFilterValues, pageSize: number) => void;
   onClear?: (pageSize: number) => void;
   isRefresh?: boolean;
+  isViewable? : boolean;
+  onViewable? : (rowData : IColumnsForTable) => void
 };
 
 const styleHeaderOfTable = { background: "#FFF", color: "#000" };
@@ -51,6 +54,8 @@ const TableCompo = ({
   onClear,
   onFilter,
   isRefresh = true,
+  isViewable = true,
+  onViewable
 }: props) => {
   const [sortColumn, setSortColumn] = useState<string>();
   const [sortType, setSortType] = useState<SortType | undefined>();
@@ -97,10 +102,6 @@ const TableCompo = ({
       setSortType(sortType);
       setLoading(false);
     }, 500);
-  };
-
-  const navigateToDetailsScreen = (uuid: string) => {
-    navigate("/details/" + uuid);
   };
 
   const defaultData: IColumnsForTable[] = getDefaultData();
@@ -234,20 +235,16 @@ const TableCompo = ({
         <Column width={80} fixed="right" align="center">
           <HeaderCell style={styleHeaderOfTable}>...</HeaderCell>
           <Cell style={{ padding: "12px" }}>
-            {(rowData) => (
-              <FaEye
-                onClick={() =>
-                  onNavigateSeller
-                    ? onNavigateSeller(
-                        (rowData as IColumnsForTable).email as string
-                      )
-                    : navigateToDetailsScreen(
-                        (rowData as IColumnsForTable).uuid
-                      )
-                }
-                className="icon-details"
-              />
-            )}
+            {(rowData) =>
+              isViewable ? (
+                <FaEye
+                  onClick={() =>
+                    onViewable ? onViewable(rowData as IColumnsForTable) : null
+                  }
+                  className="icon-details"
+                />
+              ) : null
+            }
           </Cell>
         </Column>
       </Table>

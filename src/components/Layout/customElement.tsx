@@ -3,7 +3,8 @@ import Layout from "./layout";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../state/store";
 import { useEffect } from "react";
-import { getAdminProfile } from "../../state/actions/authAction";
+import { getDeliveryProfile } from "../../state/actions/authAction";
+
 
 type props = {
   component: React.ComponentType;
@@ -17,13 +18,13 @@ const CustomElement = (props: props) => {
     if (!auth.isAuth) {
       navigate("/auth");
     } else {
-      if (!auth.admin) {
-        dispatch(getAdminProfile(auth.token ? auth.token : ""));
+      if (!auth.deliveryOffice) {
+        dispatch(getDeliveryProfile(auth.token ? auth.token : ""));
       }
     }
   }, [auth, navigate]);
 
-  if (auth.isAuth && auth.admin)
+  if (auth.isAuth && auth.deliveryOffice)
     return (
       <Layout>
         <props.component />

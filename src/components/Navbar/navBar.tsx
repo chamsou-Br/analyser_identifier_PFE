@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import "./navbar.css";
 import { IoMdLogOut } from "react-icons/io";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -6,10 +7,10 @@ import { logout } from "../../state/actions/authAction";
 import ActionConfirmation from "../ActionConfirmation/ActionConfirmation";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { FaHome, FaRecycle, FaUser } from "react-icons/fa";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const history = useLocation();
   const dispatch = useAppDispatch();
   const [open, setIsOpen] = useState(false);
 
@@ -35,79 +36,28 @@ const NavBar = () => {
         handleSubmit={handleSubmit}
         confirmationText="Are you sure that you want to LogOut ?"
       />
-      <div className="navBar-left">
-        <div>
-          <span>D</span>
+      <div onClick={()=> navigate("/")} className="navBar-left">
+        <div className="home">
+          <FaHome />
         </div>
-        <span>Dashboard</span>
+        <span>Home</span>
       </div>
 
       <div className="navBar-mid">
-        <div
-          style={history.pathname == "/" ? { color: "#3782ec" } : {}}
-          onClick={() => navigate("/")}
-        >
-          Claims Transaction
-        </div>
-        <div
-          style={history.pathname == "/fulfilled" ? { color: "#3782ec" } : {}}
-          onClick={() => navigate("/fulfilled")}
-        >
-          Fulfilled Transactions
-        </div>
-        <div
-          style={history.pathname == "/canceled" ? { color: "#3782ec" } : {}}
-          onClick={() => navigate("/canceled")}
-        >
-          Canceled Transaction
-        </div>
-        <div
-          style={history.pathname == "/history" ? { color: "#3782ec" } : {}}
-          onClick={() => navigate("/history")}
-        >
-          History
-        </div>
-        <div
-          style={history.pathname == "/invitation" ? { color: "#3782ec" } : {}}
-          onClick={() => navigate("/invitation")}
-        >
-          Invitations
-        </div>
-        <div
-          style={
-            history.pathname == "/deliveryCompany" ? { color: "#3782ec" } : {}
-          }
-          onClick={() => navigate("/deliveryCompany")}
-        >
-          deliveryCompanies
-        </div>
-        <div
-          style={
-            history.pathname == "/sellers" ? { color: "#3782ec" } : {}
-          }
-          onClick={() => navigate("/sellers")}
-        >
-          Rib Request
-        </div>
-        {auth.admin?.id == 0 && (
-          <div
-          style={
-            history.pathname == "/admins" ? { color: "#3782ec" } : {}
-          }
-          onClick={() => navigate("/admins")}
-        >
-          Admins
-        </div>
-        )}
-
-        <div
-          style={
-            history.pathname == "/payment" ? { color: "#3782ec" } : {}
-          }
-          onClick={() => navigate("/payment")}
-        >
-          Payment
-        </div>
+          <div className="info">
+            <div className="label"><FaUser /></div>
+            <div className="value">
+              <span>{auth.deliveryOffice?.email}</span>
+              <span>{auth.deliveryOffice?.phoneNumber}</span>
+            </div>
+          </div>
+          <div className="info">
+            <div className="label"><FaRecycle /></div>
+            <div className="value">
+              <span>{auth.deliveryOffice?.returnStrategy}</span>
+              <span>{auth.deliveryOffice?.rib}</span>
+            </div>
+          </div>
       </div>
       <div onClick={handleLogOut} className="navBar-right">
         <span>LogOut</span>

@@ -1,41 +1,38 @@
 import { useSelector } from "react-redux";
-import { formatRIB, getFormatPrice, getFullFormatDate } from "../../helper/constant";
+import {
+  formatRIB,
+  getFormatPrice,
+  getFullFormatDate,
+} from "../../helper/constant";
 import {
   Client,
-  IDeliveryOffice,
   IFullPaymentGroup,
-  ISellerBase,
+
   PaymentGroupStatus,
-  PaymentType,
+
 } from "../../helper/types";
 import "./paymentCard.css";
 import { GrTransaction } from "react-icons/gr";
 import { IoMdClock } from "react-icons/io";
 import { RootState } from "../../state/store";
-import { FaLock } from "react-icons/fa";
+
 import { MdOutlinePending } from "react-icons/md";
+import { useNavigate } from "react-router";
 
 type props = {
   paymentGroup: IFullPaymentGroup;
-  onLock: (paymentGroup: IFullPaymentGroup) => void;
 };
 
-const PaymentGroupCard = ({ paymentGroup, onLock }: props) => {
-  const auth = useSelector((state: RootState) => state.auth);
+const PaymentGroupCard = ({ paymentGroup }: props) => {
+  
+  const client = useSelector((state: RootState) => state.auth).deliveryOffice;
 
-  const client = paymentGroup.Payments[0].DeliveryOffice
-    ? paymentGroup.Payments[0].DeliveryOffice
-    : paymentGroup.Payments[0].Seller
-    ? paymentGroup.Payments[0].Seller
-    : paymentGroup.Payments[0].Buyer;
-  const typeClient = paymentGroup.Payments[0].DeliveryOffice
-    ? Client.DELIVERYOFFICE
-    : paymentGroup.Payments[0].Seller
-    ? Client.SELLER
-    : Client.BUYER;
+  const typeClient = Client.DELIVERYOFFICE;
 
-  const onLockPaymentGroup = () => {
-    onLock(paymentGroup);
+  const navigate = useNavigate()
+
+  const onNavigateToPayment = () => {
+    navigate("/payment/"+paymentGroup.id)
   };
 
   if (paymentGroup)
@@ -46,43 +43,16 @@ const PaymentGroupCard = ({ paymentGroup, onLock }: props) => {
             <IoMdClock />
             {getFullFormatDate(paymentGroup.createdAt)}
           </div>
-
-
-          {paymentGroup.Payments[0].type === PaymentType.DELIVERY ? (
-            <div className="date">
-              {paymentGroup.state == PaymentGroupStatus.APPROVED ? (
-                `Approved ( ${paymentGroup.Admin.name} )`
-              ) : (
-                <>
-                  <MdOutlinePending />
-                  <span>Pending</span>
-                </>
-              )}
-            </div>
-          ) : (
-            <div className="date">
-              {paymentGroup.state == PaymentGroupStatus.APPROVED ? (
-                `Approved ( ${paymentGroup.Admin.name} )`
-              ) : paymentGroup.state == PaymentGroupStatus.LOCKED ? (
-                <>
-                  <FaLock />
-                  <span>
-                    Locked ({" "}
-                    {paymentGroup.AdminLockedId != auth.admin!.id
-                      ? paymentGroup.Admin.name
-                      : "You"}{" "}
-                    )
-                  </span>
-                </>
-              ) : (
-                <>
-                  <MdOutlinePending />
-                  <span>Pending</span>
-                </>
-              )}
-            </div>
-          )}
-
+          <div className="date">
+            {paymentGroup.state == PaymentGroupStatus.APPROVED ? (
+              "Approved"
+            ) : (
+              <>
+                <MdOutlinePending />
+                <span>Pending</span>
+              </>
+            )}
+          </div>
           <div className="state">
             <GrTransaction />
             <span>{paymentGroup.Payments[0].type}</span>
@@ -92,45 +62,29 @@ const PaymentGroupCard = ({ paymentGroup, onLock }: props) => {
         <div className="payment-card-content">
           {typeClient !== Client.DELIVERYOFFICE ? (
             <div className="client-name">
-            <span>{typeClient} : </span>
-            {(client as ISellerBase).firstName ||
-              (client as IDeliveryOffice).userName}
-          </div>
+              <span>{typeClient} : </span>
+              {client!.userName}
+            </div>
           ) : (
             <div className="client-name">
-            <span>id : </span>
-            {paymentGroup.id}
-          </div>
-          )} 
+              <span>id : </span>
+              {paymentGroup.id}
+            </div>
+          )}
 
-          <div className="info"><span>Rib : </span>{formatRIB(client.rib)}</div>
+          <div className="info">
+            <span>Rib : </span>
+            {formatRIB(client!.rib)}
+          </div>
           <div className="info price">
             <span>Amount due : </span>
             {getFormatPrice(paymentGroup.fullAmount)}
           </div>
-          <div
-            onClick={() =>
-              (paymentGroup.state == PaymentGroupStatus.LOCKED &&
-                paymentGroup.AdminLockedId != auth.admin!.id &&
-                auth.admin!.id !== 0 ) 
-                ? null
-                : onLockPaymentGroup()
-            }
-            className={
-              paymentGroup.state == PaymentGroupStatus.LOCKED &&
-              paymentGroup.AdminLockedId != auth.admin!.id &&
-              auth.admin!.id !== 0
-                ? "lock-payment-group disabled"
-                : "lock-payment-group"
-            }
-          >
-            {paymentGroup.state != PaymentGroupStatus.APPROVED &&
-            auth.admin!.id !== 0 && paymentGroup.Payments[0].type !== PaymentType.DELIVERY
-              ? "Lock"
-              : "details"}
+          <div onClick={onNavigateToPayment} className="lock-payment-group">
+            details
           </div>
           <div className="info-sm">
-            <div>{client.rib}</div>
+            <div>{client!.rib}</div>
             <div className="password">
               {getFormatPrice(paymentGroup.fullAmount)}
             </div>

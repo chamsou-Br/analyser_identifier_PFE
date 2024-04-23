@@ -57,6 +57,7 @@
 .client-card .client-card-content {
   padding-bottom: 40px;
   position: relative;
+  padding-top: 20px;
 }
 
 .client-card .official-docs {

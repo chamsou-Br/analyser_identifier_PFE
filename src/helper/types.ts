@@ -217,20 +217,11 @@ export interface IRipRequests {
   export interface IClientBase {
     phoneNumber: string ,
     email: string ,
-    birthDay: Date | null | undefined,
-    gender: Gender | null | undefined,
     firstName: string ,
     businessName: string | null | undefined,
-    location: string | null | undefined,
     wilaya: string ,
     address: string | null | undefined,
-    description: string | null | undefined,
-    status: EntityStatus ,
     client? : Client
-    createdAt? : Date,
-    rib?: string,
-    official? : IOfficialDocuments , 
-
   }
 
 
@@ -270,7 +261,13 @@ export interface IRipRequests {
     rib:string,
     adminLevel: number,
     createdAt: Date,
+    returnStrategy: DeliveryOfficeReturnStrategy,
 
+  }
+
+  export enum DeliveryOfficeReturnStrategy {
+    REGULAR_DEFAULT = 'default',
+    NO_RETURN_COMPENSATION = 'no-return-compensation'
   }
 
   export interface IRowsTable {

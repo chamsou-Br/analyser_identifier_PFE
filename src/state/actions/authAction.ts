@@ -4,8 +4,8 @@ import { RootState } from "../store";
 import axios from "../../helper/axiosConfig";
 import { tokenName } from "../../helper/constant";
 import { AxiosError } from "axios";
-import { ADMIN_PROFILE, AUTH_ADMIN } from "../../helper/API";
-import { IAdmin } from "../../helper/types";
+import { DELIVERY_PROFILE, AUTH_DELIVERY } from "../../helper/API";
+import {  IDeliveryOffice } from "../../helper/types";
 
 export const LOGIN = "LOGIN";
 
@@ -19,11 +19,11 @@ export const START_LOADING_AUTH = "START_LOADING_AUTH";
 
 export const STOP_LOADING_AUTH = "STOP_LOADING_AUTH";
 
-export const GET_ADMIN = "GET_ADMIN"
+export const GET_DELIVERY = "GET_DELIVERY"
 
-export interface getAdminAction {
-  type: typeof GET_ADMIN;
-  payload: IAdmin;
+export interface getDeliveryAction {
+  type: typeof GET_DELIVERY;
+  payload: IDeliveryOffice;
 }
 
 export interface LoginSuncessAction {
@@ -53,38 +53,36 @@ export type AuthAction =
   | LoginfailedAction
   | LogoutAction
   | StartLoadingAction
-  | getAdminAction
+  | getDeliveryAction
   | StopLoadingAction;
 
-export const authentificate = (name: string, privateKey: string) => {
+export const authentificate = (name: string, password: string) => {
   return async (dispatch: Dispatch<AuthAction>, getState: () => RootState) => {
     dispatch({
       type: START_LOADING_AUTH,
     });
 
-    console.log(name , privateKey , " auth")
-
     try {
       const options = {
-        method: "PUT",
-        url: AUTH_ADMIN,
+        method: "POST",
+        url: AUTH_DELIVERY,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
         data: {
-          name: name,
-          privateKey: privateKey,
+          userName: name,
+          password : password,
         },
       };
 
         const res = await axios.request(options);
-        console.log("res => " , res)
 
-        localStorage.setItem(tokenName, res.data.adminToken);
+        console.log(res)
+        localStorage.setItem(tokenName, res.data.token);
   
         dispatch({
           type: LOGIN_SUCCESS,
-          payload: res.data.adminToken,
+          payload: res.data.token,
         });
 
         dispatch({
@@ -93,7 +91,6 @@ export const authentificate = (name: string, privateKey: string) => {
 
 
     } catch (error) {
-      console.log("error " , error)
       dispatch({
         type: STOP_LOADING_AUTH,
       });
@@ -116,12 +113,12 @@ export const logout = (): AuthAction => {
 };
 
 
-export const getAdminProfile = ( token: string) => {
+export const getDeliveryProfile = ( token: string) => {
   return async (dispatch: Dispatch<AuthAction>) => {
     try {
      const options = {
        method: 'GET',
-       url: ADMIN_PROFILE,
+       url: DELIVERY_PROFILE,
        headers: {
          'Content-Type': 'application/x-www-form-urlencoded',
          Authorization: token,
@@ -129,8 +126,8 @@ export const getAdminProfile = ( token: string) => {
      };
       const response = await axios.request(options);
       dispatch({
-        type: GET_ADMIN,
-        payload: response.data.admin as IAdmin,
+        type: GET_DELIVERY,
+        payload: response.data.company as IDeliveryOffice,
       });
     } catch (error: unknown) { 
       dispatch({
@@ -140,10 +137,10 @@ export const getAdminProfile = ( token: string) => {
   }
 }
 
-export const addAdmin = (admin : IAdmin): AuthAction => {
+export const addDelivery = (deliveryOffice : IDeliveryOffice): AuthAction => {
   return {
-    type: GET_ADMIN,
-    payload : admin
+    type: GET_DELIVERY,
+    payload : deliveryOffice
   };
 };
 

@@ -2,16 +2,13 @@
 
 import {  combineReducers, applyMiddleware, Dispatch, AnyAction, compose } from 'redux';
 import thunk, { ThunkDispatch } from 'redux-thunk'; 
-import { transactionsReducer } from './reducers/transactionReducer';
-// import { todosReducer } from './reducers/todoReducer';
 import {useDispatch} from "react-redux"
 import logger  from "redux-logger"
 import { legacy_createStore} from 'redux'
-import { transactionDetailsReducer } from './reducers/transactionDetailsReducer';
+
 import { authReducer } from './reducers/authReducer';
 import { tokenName } from '../helper/constant';
-import { invitationReducer } from './reducers/invitationsReducer';
-import { InvitationDetailsReducer } from './reducers/invitationDetailsReducer';
+
 
 // Define RootState
 export type RootState = ReturnType<typeof rootReducer>;
@@ -22,41 +19,17 @@ export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 // Combine Reducers
 const rootReducer = combineReducers({
-  invitations : invitationReducer,
-  invitation : InvitationDetailsReducer,
-  transactions: transactionsReducer, 
-  transaction : transactionDetailsReducer,
   auth : authReducer
 });
 
 const composeEnhancer =  compose;
 
 const initState = {
-  transaction: {
-    transaction : undefined,
-    error: null,
-    loading : false
-  },
-  transactions : {
-    transactions :[],
-    error: null,
-    loading : false
-  },
   auth : {
     token : localStorage.getItem(tokenName) ? localStorage.getItem(tokenName) : "",
     isAuth : localStorage.getItem(tokenName) ? true : false,
     error : undefined,
     admin : null
-  },
-  invitations : {
-    invitations :[],
-    error: null,
-    loading : false
-  },
-  invitation : {
-    invitation :undefined,
-    error: null,
-    loading : false
   }
 }
 
