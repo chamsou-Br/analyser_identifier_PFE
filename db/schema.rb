@@ -10,6 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
+
+
 ActiveRecord::Schema[7.0].define(version: 2023_02_23_140124) do
   create_table "act_attachments", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.integer "act_id"
@@ -223,6 +226,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_140124) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["assessment_scale_id"], name: "index_assessment_scale_ratings_on_assessment_scale_id"
   end
+
+
 
   create_table "assessment_scales", charset: "utf8", force: :cascade do |t|
     t.integer "impact_system_id"
@@ -533,7 +538,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_140124) do
   create_table "documents", id: :integer, charset: "utf8", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "uid"
     t.string "title"
-    t.string "url", limit: 2083
+    t.string "url", limit: 990
     t.string "reference"
     t.string "version"
     t.string "extension"
@@ -543,7 +548,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_140124) do
     t.integer "customer_id"
     t.string "file"
     t.integer "author_id"
-    t.string "purpose", limit: 12000
+    t.string "purpose", limit: 999
     t.string "state"
     t.text "domain"
     t.boolean "confidential", default: false
@@ -975,7 +980,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_140124) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "version"
     t.integer "model_id"
-    t.string "purpose", limit: 12000
+    t.string "purpose", limit: 999
     t.integer "directory_id"
     t.integer "customer_id"
     t.boolean "comment_index_int", default: true
@@ -1305,12 +1310,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_140124) do
     t.integer "groupdocument_id"
     t.string "groupdocument_uid"
     t.string "title"
-    t.string "url", limit: 2083
+    t.string "url", limit: 999
     t.string "reference"
     t.string "version"
     t.string "extension"
     t.string "file"
-    t.string "purpose", limit: 12000
+    t.string "purpose", limit: 999
     t.text "domain"
     t.boolean "confidential", default: false
     t.string "news", limit: 765
@@ -1369,7 +1374,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_140124) do
     t.string "reference"
     t.text "domain"
     t.string "version"
-    t.string "purpose", limit: 12000
+    t.string "purpose", limit: 999
     t.boolean "comment_index_int", default: true
     t.string "news", limit: 765
     t.boolean "confidential", default: false
@@ -1413,9 +1418,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_140124) do
     t.integer "role_id"
     t.string "title"
     t.string "type"
-    t.string "mission", limit: 2300
-    t.string "activities", limit: 2300
-    t.string "purpose", limit: 2300
+    t.string "mission", limit: 999
+    t.string "activities", limit: 999
+    t.string "purpose", limit: 999
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
   end
@@ -1618,12 +1623,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_140124) do
     t.string "type"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.string "mission", limit: 2300
-    t.string "activities", limit: 2300
+    t.string "mission", limit: 999
+    t.string "activities", limit: 999
     t.integer "author_id"
     t.integer "writer_id"
     t.integer "customer_id"
-    t.string "purpose", limit: 2300
+    t.string "purpose", limit: 999
     t.boolean "deactivated", default: false
     t.integer "imported_package_id"
     t.index ["author_id"], name: "index_roles_on_author_id"
@@ -1775,7 +1780,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_23_140124) do
     t.integer "author_id"
     t.integer "event_id"
     t.text "object"
-    t.string "comment", limit: 12000
+    t.string "comment", limit: 999
     t.string "action"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false

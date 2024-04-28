@@ -85,13 +85,13 @@ class User < ApplicationRecord
   #
   # All these modules should be renamed to ProcessResponsibilities, etc
   #
-  include ProcessRoles
-  include ImproverRoles
-  include RiskModuleRoles
+  # include ProcessRoles
+  # include ImproverRoles
+  # include RiskModuleRoles
   include EntityExporter
 
   # For elasticsearch integration
-  include SearchableUser
+  # include SearchableUser
   # User import from CSV
   include UserImport
   include Sanitizable

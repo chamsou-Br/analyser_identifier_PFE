@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  # resources :tags do
-  #   member do
-  #     get "confirm_delete"
-  #     get "confirm_rename"
-  #   end
-  # end
+  resources :tags do
+    member do
+      get "confirm_delete"
+      get "confirm_rename"
+    end
+  end
 
   get 'tags/new', to: 'tags#new'
   post 'tags/create', to: 'tags#create'
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :tags, only: [] do
     collection do
       get "suggest"
+      post "get_tags_by_label"
     end
   end
 

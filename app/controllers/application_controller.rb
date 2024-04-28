@@ -62,6 +62,17 @@ class ApplicationController < ActionController::Base
     user
   end
 
+  def current_user
+    session_id = get_token
+    headers = {'Cookie' => "_qualipso_session=#{session_id}"}
+    api_url = "#{MSQUALIPSO_BASE_URL}/get_current_user"
+
+    user = HTTParty.get(api_url, headers: headers, timeout: 20)
+    pp user
+    user = User.find(user['id'])
+    user
+  end
+
   private
 
   # returns the number of session keys available

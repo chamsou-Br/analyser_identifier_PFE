@@ -15,7 +15,7 @@ module SearchableTag
     include Elasticsearch::Model
     include SearchableCallbacks
 
-    index_name [Rails.application.engine_name, Rails.env, "tag"].join("_")
+    index_name ["qualipso_application", Rails.env, "tag"].join("_")
 
     ### Custom settings and mappings
     settings(

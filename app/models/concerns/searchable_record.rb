@@ -26,7 +26,7 @@ module SearchableRecord
     include SearchableCallbacks
 
     # example : "qualipso_application_production_graph"
-    index_name [Rails.application.engine_name, Rails.env, name.underscore].join("_")
+    index_name ["qualipso_application", Rails.env, name.underscore].join("_")
 
     ##
     # Create index and import all data to ElasticSearch

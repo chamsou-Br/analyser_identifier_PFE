@@ -13,12 +13,7 @@ class TagsController < ApplicationController
         render json: set_connexion.tags.autocompleter(query)
       end
       format.html do
-        tag = set_connexion.tags.order(label: :asc).first
-        if tag.nil?
-          render
-        else
-          redirect_to tag_path(tag)
-        end
+        render json: set_connexion.tags.autocompleter(query)
       end
     end
   end
@@ -39,6 +34,10 @@ class TagsController < ApplicationController
     @resources = response.parsed_response['resources']
 
     html_content = render_to_string('show', layout: true)
+
+    puts html_content 
+    puts @tag
+    puts "\n\n end \n\n"
     render json: { html_content: html_content, tag: @tag }
   end
 
@@ -105,5 +104,15 @@ class TagsController < ApplicationController
     else
       puts "deletion failed"
     end
+  end
+
+  def get_tags_by_label
+    tags = JSON.parse params[:tags]
+    records = []
+    tags.each do |tag|
+      tag_rec = set_connexion.tags.find_or_create_by(label: tag["text"])
+      records << tag_rec
+    end
+    render json: { tags: records }
   end
 end
