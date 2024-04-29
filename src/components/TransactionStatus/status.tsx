@@ -1,4 +1,3 @@
-import React from "react";
 import "./status.css";
 type Props = {
   status: string;

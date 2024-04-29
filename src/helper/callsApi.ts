@@ -53,7 +53,7 @@ export const getPaymentGroupAPI = async (id: number) => {
 
 
 export const fetchTransactionsOfCompany = async (
-  id: string,
+  _id: string,
   page: number,
   pageSize: number,
   createAfter?: Date | null,
@@ -107,7 +107,7 @@ export const fetchTransactionsOfCompany = async (
 
 
 export const exportTransactionsOfCompanyAPI = async (
-  id: string,
+  _id: string,
   createAfter?: Date | null,
   createBefore?: Date | null,
   hadPaymentOfDelivery?: boolean | null

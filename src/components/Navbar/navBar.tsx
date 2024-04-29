@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import "./navbar.css";
 import { IoMdLogOut } from "react-icons/io";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { RootState, useAppDispatch } from "../../state/store";
 import { logout } from "../../state/actions/authAction";
 import ActionConfirmation from "../ActionConfirmation/ActionConfirmation";

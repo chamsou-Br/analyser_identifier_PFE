@@ -11,7 +11,6 @@ import {
   TypeField,
   PayPartFilterValues,
   IFullPaymentGroup,
-  IDeliveryOffice,
 } from "../helper/types";
 import TableCompo from "../components/Table/Table";
 import {
@@ -20,13 +19,12 @@ import {
   headerOfTransactionsExport,
 } from "../helper/constant";
 import HeaderPage from "../components/headerPage/headerPage";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import {
   exportTransactionsOfCompanyAPI,
   fetchPaymentGroupsApprovedOfDeliveryCompanyAPI,
   fetchPaymentGroupsPendingOfDeliveryCompanyAPI,
   fetchTransactionsOfCompany,
-  getDeliveryCompanyDetailsAPI,
 } from "../helper/callsApi";
 import PaymentGroupCard from "../components/paymentCard/paymentGroupCard";
 import { Loader, Pagination } from "rsuite";
@@ -255,7 +253,7 @@ const DeliveryCompanyDetailsScreen: React.FC = () => {
   };
 
   const handleChangeLimit = (limit: number) => {
-    //
+    setLimit(limit)
   };
 
   const handleChangePageArchives = (page: number) => {

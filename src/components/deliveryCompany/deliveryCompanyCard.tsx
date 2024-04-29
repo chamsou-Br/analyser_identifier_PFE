@@ -5,19 +5,13 @@ import { FaRegClock } from "react-icons/fa";
 import { IDeliveryOffice } from "../../helper/types";
 import phone from "../../assets/phone.svg";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
-import { RootState } from "../../state/store";
 
 type props = {
   company: IDeliveryOffice;
   onDelete: () => void;
 };
 
-const DeliveryCompanyCard = ({ company, onDelete }: props) => {
-  const auth = useSelector((state: RootState) => state.auth).admin;
-  const onDeleteCompany = () => {
-    onDelete();
-  };
+const DeliveryCompanyCard = ({ company }: props) => {
 
   const navigate = useNavigate();
 
@@ -47,14 +41,6 @@ const DeliveryCompanyCard = ({ company, onDelete }: props) => {
             {company.rib}
           </div>
           <div className="action-company">
-            {auth?.id === 0 && (
-              <>
-                <span onClick={onDeleteCompany} className="delete">
-                  delete
-                </span>{" "}
-                /{" "}
-              </>
-            )}
             <span onClick={onNavigateToDetails} className="details">
               Details
             </span>

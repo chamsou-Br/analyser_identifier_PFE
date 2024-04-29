@@ -43,7 +43,6 @@ const TableCompo = ({
   getDefaultData,
   onRefreshData,
   rows,
-  onNavigateSeller,
   isSearch = true,
   searchPlaceHolder,
   pageSize,
@@ -133,7 +132,7 @@ const TableCompo = ({
       });
       if (pageSize && total) return newData;
       else {
-        return newData.filter((v, i) => {
+        return newData.filter((_v, i) => {
           const start = limit * (page - 1);
           const end = start + limit;
           return i >= start && i < end;
@@ -141,7 +140,7 @@ const TableCompo = ({
       }
     }
     if (pageSize && total) return data;
-    return data.filter((v, i) => {
+    return data.filter((_v, i) => {
       const start = limit * (page - 1);
       const end = start + limit;
       return i >= start && i < end;

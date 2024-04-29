@@ -57,7 +57,7 @@ export type AuthAction =
   | StopLoadingAction;
 
 export const authentificate = (name: string, password: string) => {
-  return async (dispatch: Dispatch<AuthAction>, getState: () => RootState) => {
+  return async (dispatch: Dispatch<AuthAction>, _getState: () => RootState) => {
     dispatch({
       type: START_LOADING_AUTH,
     });
@@ -77,7 +77,6 @@ export const authentificate = (name: string, password: string) => {
 
         const res = await axios.request(options);
 
-        console.log(res)
         localStorage.setItem(tokenName, res.data.token);
   
         dispatch({

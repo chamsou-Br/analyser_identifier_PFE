@@ -7,29 +7,22 @@ import {
   FaMapMarked,
   FaSearchLocation,
   FaMapMarkedAlt,
-  FaEnvelope,
-  FaPhone,
-  FaFirstOrder,
 } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import LigneInfoInCard from "../components/LignInfoCard/lignInfoIncard";
 import TitleCard from "../components/TitleCard/titleCard";
 import BuyerOrSellerCard from "../components/Client/buyerOrSellerCard";
 import Reclamationcard from "../components/ReclamationCard/reclamationcard";
-import { CiDeliveryTruck } from "react-icons/ci";
 import {
   Client,
   IAdminFullTransaction,
   IPaymentWithGroup,
-  ITransactionClosing,
   PaymentGroupStatus,
 } from "../helper/types";
 import Status from "../components/TransactionStatus/status";
 import {
   getDeliveryTypeTitle,
-  getFormatPrice,
   getFullFormatDate,
-  getTimeAgo,
 } from "../helper/constant";
 import { useParams, useNavigate } from "react-router-dom";
 import HeaderPage from "../components/headerPage/headerPage";
@@ -38,10 +31,6 @@ import { fetchTransactionDetailsForDeliveryCompanyAPI } from "../helper/callsApi
 import Page404 from "../components/404/page404";
 import { GrTransaction } from "react-icons/gr";
 
-type infoClosing = {
-  info: ITransactionClosing | undefined;
-  error: string | null | undefined;
-};
 
 const TransactionDetails: React.FC = () => {
   const { uuid } = useParams();

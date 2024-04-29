@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import { useState } from "react";
 import { FilterField, PayPartFilterValues, TypeField } from "../../helper/types";
 import { Button, Checkbox, DatePicker, Modal, SelectPicker } from "rsuite";
 import "./filter.css"
