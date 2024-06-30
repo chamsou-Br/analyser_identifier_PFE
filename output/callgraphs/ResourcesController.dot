@@ -1,0 +1,33 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_ResourcesController_absolute_url_ -> _ResourcesController_absolute_url_;
+_ResourcesController_absolute_url_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_create_ -> _ResourcesController_resource_params_;
+_ResourcesController_create_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_resource_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_delete_ -> _ResourcesController_humanize_delete_error_;
+_ResourcesController_delete_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_humanize_delete_error_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_update_ -> _ResourcesController_resource_params_;
+_ResourcesController_update_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_update_tags_ -> _ExternalUsersService_parse_;
+_ResourcesController_update_tags_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ExternalUsersService_parse_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_update_tags_ -> _SsoUsersService_parse_;
+_SsoUsersService_parse_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_update_url_ -> _ResourcesController_resource_params_;
+_ResourcesController_update_url_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_update_logo_ -> _ResourcesController_resource_params_;
+_ResourcesController_update_logo_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_reactivate_ -> _ResourcesController_reactivate_resource_;
+_ResourcesController_reactivate_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_reactivate_resource_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_list_index_definition_ -> _ResourcesController_power_user_tabs_;
+_ResourcesController_list_index_definition_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_power_user_tabs_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_list_index_definition_ -> _ResourcesController_simple_user_tabs_;
+_ResourcesController_simple_user_tabs_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

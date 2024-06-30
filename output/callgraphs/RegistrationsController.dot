@@ -1,0 +1,33 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_RegistrationsController_update_password_ -> _RegistrationsController_user_password_params_;
+_RegistrationsController_update_password_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_user_password_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_update_ -> _RegistrationsController_can_change_pyx4_module_responsibilities_;
+_RegistrationsController_update_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_can_change_pyx4_module_responsibilities_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_update_ -> _RegistrationsController_update_user_profile_;
+_RegistrationsController_update_user_profile_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_update_ -> _RegistrationsController_update_improver_profile_;
+_RegistrationsController_update_improver_profile_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_update_ -> _RegistrationsController_update_user_;
+_RegistrationsController_update_user_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_update_ -> _RegistrationsController_user_params_;
+_RegistrationsController_user_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_update_ -> _RegistrationsController_user_params_without_rights_;
+_RegistrationsController_user_params_without_rights_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_update_ -> _RegistrationsController_add_max_users_errors_;
+_RegistrationsController_add_max_users_errors_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_update_ -> _RegistrationsController_respond_bip_error_;
+_RegistrationsController_respond_bip_error_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_restore_ -> _Notificationmailer_inform_user_;
+_RegistrationsController_restore_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Notificationmailer_inform_user_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RegistrationsController_update_user_profile_ -> _RegistrationsController_user_params_;
+_RegistrationsController_update_improver_profile_ -> _RegistrationsController_user_params_;
+_RegistrationsController_update_user_ -> _RegistrationsController_improver_responsibilities_in_params_;
+_RegistrationsController_improver_responsibilities_in_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

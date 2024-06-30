@@ -1,0 +1,19 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_GraphqlController_execute_ -> _GraphqlController_execute_multi_;
+_GraphqlController_execute_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_GraphqlController_execute_multi_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_GraphqlController_execute_ -> _GraphqlController_execute_single_;
+_GraphqlController_execute_single_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_GraphqlController_execute_single_ -> _GraphqlController_ensure_hash_;
+_GraphqlController_ensure_hash_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_GraphqlController_execute_multi_ -> _GraphqlController_ensure_hash_;
+_GraphqlController_ensure_hash_ -> _GraphqlController_ensure_hash_;
+_GraphqlController_ensure_hash_ -> _ExternalUsersService_parse_;
+_ExternalUsersService_parse_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_GraphqlController_ensure_hash_ -> _SsoUsersService_parse_;
+_SsoUsersService_parse_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

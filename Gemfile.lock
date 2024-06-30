@@ -411,6 +411,7 @@ DEPENDENCIES
   notification-pusher (= 3.0.2)
   notification-pusher-actionmailer (= 3.0.2)
   notification-renderer (= 3.0.2)
+  parser
   puma (~> 5.0)
   pundit
   rack-cors

@@ -1,0 +1,38 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_UsersController_index_ -> _UsersController_generate_file_name_;
+_UsersController_index_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_generate_file_name_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_create_random_ -> _ExternalUsersService_parse_;
+_UsersController_create_random_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ExternalUsersService_parse_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_create_random_ -> _SsoUsersService_parse_;
+_SsoUsersService_parse_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_search_ -> _ActorsController_reject_;
+_UsersController_search_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorsController_reject_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_update_groups_ -> _ExternalUsersService_parse_;
+_UsersController_update_groups_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_update_groups_ -> _SsoUsersService_parse_;
+_UsersController_link_roles_ -> _UsersController_fill_errors_hash_;
+_UsersController_link_roles_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_fill_errors_hash_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_unlink_roles_ -> _ExternalUsersService_parse_;
+_UsersController_unlink_roles_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_unlink_roles_ -> _SsoUsersService_parse_;
+_UsersController_list_linked_graphs_ -> _ExternalUsersService_parse_;
+_UsersController_list_linked_graphs_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_list_linked_graphs_ -> _SsoUsersService_parse_;
+_UsersController_update_avatar_ -> _UsersController_user_params_;
+_UsersController_update_avatar_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_user_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_update_metadata_ -> _UsersController_general_user_params_;
+_UsersController_update_metadata_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_general_user_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_list_role_add_definition_ -> _UsersController_list_link_role_definition_;
+_UsersController_list_role_add_definition_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersController_list_link_role_definition_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

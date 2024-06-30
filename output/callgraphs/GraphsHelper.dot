@@ -1,0 +1,9 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_GraphsHelper_svg_printable_ -> _GraphsHelper_graph_font_substitution_;
+_GraphsHelper_svg_printable_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_GraphsHelper_graph_font_substitution_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

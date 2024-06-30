@@ -1,0 +1,28 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_UsersHelper_humanize_user_mail_weekly_day_ -> _UsersHelper_humanize_user_mail_weekly_days_;
+_UsersHelper_humanize_user_mail_weekly_day_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_humanize_user_mail_weekly_days_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_humanize_user_mail_locale_hour_ -> _UsersHelper_humanize_user_mail_locale_hours_;
+_UsersHelper_humanize_user_mail_locale_hour_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_humanize_user_mail_locale_hours_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_humanize_user_time_zone_ -> _SearchController_all_;
+_UsersHelper_humanize_user_time_zone_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SearchController_all_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_user_avatar_ -> _UsersHelper_user_avatar_url_;
+_UsersHelper_user_avatar_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_user_avatar_url_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_user_avatar_ -> _UsersHelper_user_avatar_image_tag_;
+_UsersHelper_user_avatar_image_tag_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_user_profile_badge_ -> _UsersHelper_user_profile_badge_url_;
+_UsersHelper_user_profile_badge_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_user_profile_badge_url_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_translate_errors_ -> _UsersHelper_build_msg_;
+_UsersHelper_translate_errors_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_build_msg_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_UsersHelper_show_freemium_msg_ -> _UsersHelper_build_msg_;
+_UsersHelper_show_freemium_msg_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

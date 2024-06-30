@@ -1,0 +1,30 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_TasksController_index_ -> _TasksController_tasks_for_graph_;
+_TasksController_index_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksController_tasks_for_graph_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksController_index_ -> _TasksController_tasks_for_document_;
+_TasksController_tasks_for_document_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksController_index_ -> _TasksController_tasks_for_event_;
+_TasksController_tasks_for_event_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksController_index_ -> _TasksController_tasks_for_audit_;
+_TasksController_tasks_for_audit_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksController_index_ -> _TasksController_tasks_for_act_;
+_TasksController_tasks_for_act_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksController_index_ -> _TasksController_tasks_for_improver_;
+_TasksController_tasks_for_improver_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksController_index_ -> _TasksController_tasks_for_process_;
+_TasksController_tasks_for_process_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksController_index_ -> _TasksController_tasks_for_all_;
+_TasksController_tasks_for_all_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksController_tasks_for_all_ -> _TasksController_tasks_for_process_;
+_TasksController_tasks_for_all_ -> _TasksController_tasks_for_improver_;
+_TasksController_tasks_for_improver_ -> _TasksController_tasks_for_act_;
+_TasksController_tasks_for_improver_ -> _TasksController_tasks_for_event_;
+_TasksController_tasks_for_improver_ -> _TasksController_tasks_for_audit_;
+_TasksController_tasks_for_process_ -> _TasksController_tasks_for_graph_;
+_TasksController_tasks_for_process_ -> _TasksController_tasks_for_document_;
+}

@@ -1,0 +1,35 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_ActorResponsibility_initialize_ -> _ActorResponsibility_setup_for_entity_;
+_ActorResponsibility_initialize_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_setup_for_entity_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_initialize_ -> _ActorResponsibility_setup_for_model_level_;
+_ActorResponsibility_setup_for_model_level_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_initialize_ -> _ActorResponsibility_setup_for_module_level_;
+_ActorResponsibility_setup_for_module_level_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_initialize_ -> _ActorResponsibility_setup_for_app_level_;
+_ActorResponsibility_setup_for_app_level_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_setup_for_entity_ -> _ActorResponsibility_responsibility_writers_;
+_ActorResponsibility_responsibility_writers_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_setup_for_entity_ -> _ActorResponsibility_user_in_responsibility_;
+_ActorResponsibility_user_in_responsibility_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_setup_for_model_level_ -> _ActorResponsibility_responsibility_writers_;
+_ActorResponsibility_setup_for_model_level_ -> _ActorResponsibility_user_in_responsibility_;
+_ActorResponsibility_setup_for_module_level_ -> _ActorResponsibility_responsibility_writers_;
+_ActorResponsibility_setup_for_module_level_ -> _ActorResponsibility_user_in_responsibility_;
+_ActorResponsibility_setup_for_app_level_ -> _ActorResponsibility_responsibility_writers_;
+_ActorResponsibility_setup_for_app_level_ -> _ActorResponsibility_user_in_responsibility_;
+_ActorResponsibility_responsibility_writers_ -> _ActorResponsibility_set_responsibility_;
+_ActorResponsibility_set_responsibility_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_responsibility_writers_ -> _ActorResponsibility_replace_responsibilities_;
+_ActorResponsibility_replace_responsibilities_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_responsibility_writers_ -> _ActorResponsibility_add_responsibilities_;
+_ActorResponsibility_add_responsibilities_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_responsibility_writers_ -> _ActorResponsibility_add_responsibility_;
+_ActorResponsibility_add_responsibility_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActorResponsibility_responsibility_writers_ -> _ActorResponsibility_remove_responsibility_;
+_ActorResponsibility_remove_responsibility_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

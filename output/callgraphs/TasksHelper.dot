@@ -1,0 +1,27 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_TasksHelper_task_message_ -> _TasksHelper_task_url_;
+_TasksHelper_task_message_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksHelper_task_url_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksHelper_task_message_ -> _TasksHelper_task_i18n_scope_;
+_TasksHelper_task_i18n_scope_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksHelper_task_message_ -> _TasksHelper_task_i18n_taskable_;
+_TasksHelper_task_i18n_taskable_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksHelper_task_message_ -> _TasksHelper_render_for_html_;
+_TasksHelper_render_for_html_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksHelper_task_message_ -> _TasksHelper_entity_title_;
+_TasksHelper_entity_title_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksHelper_task_message_ -> _TasksHelper_task_highlight_date_;
+_TasksHelper_task_highlight_date_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksHelper_task_message_ -> _TasksHelper_message_for_;
+_TasksHelper_message_for_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksHelper_task_url_ -> _TasksHelper_task_module_;
+_TasksHelper_task_module_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksHelper_task_i18n_scope_ -> _TasksHelper_audit_task_i18n_scope_;
+_TasksHelper_audit_task_i18n_scope_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TasksHelper_task_i18n_scope_ -> _TasksHelper_entity_confirmation_task_i18n_scope_;
+_TasksHelper_entity_confirmation_task_i18n_scope_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

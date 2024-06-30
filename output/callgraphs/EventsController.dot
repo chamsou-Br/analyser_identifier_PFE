@@ -1,0 +1,17 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_EventsController_create_ -> _EventsController_event_params_;
+_EventsController_create_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_EventsController_event_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_EventsController_update_ -> _EventsController_event_params_;
+_EventsController_update_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_EventsController_update_responsibilities_ -> _EventsController_notify_update_responsibilities_;
+_EventsController_update_responsibilities_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_EventsController_notify_update_responsibilities_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_EventsController_update_workflow_ -> _EventsController_validator_response_;
+_EventsController_update_workflow_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_EventsController_validator_response_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

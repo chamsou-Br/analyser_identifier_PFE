@@ -1,0 +1,29 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_ApplicationHelper_modal_errors_ -> _ApplicationHelper_filter_errors_;
+_ApplicationHelper_modal_errors_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_filter_errors_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_parse_iso8601_ -> _ExternalUsersService_parse_;
+_ApplicationHelper_parse_iso8601_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ExternalUsersService_parse_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_parse_iso8601_ -> _SsoUsersService_parse_;
+_SsoUsersService_parse_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_list_favor_tag_ -> _ApplicationHelper_directory_favor_links_;
+_ApplicationHelper_list_favor_tag_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_directory_favor_links_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_humanize_log_ -> _ApplicationHelper_get_wf_entity_;
+_ApplicationHelper_humanize_log_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_get_wf_entity_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_display_log_ -> _ApplicationHelper_get_wf_entity_;
+_ApplicationHelper_display_log_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_get_wf_entity_ -> _SearchController_document_;
+_SearchController_document_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_get_wf_entity_ -> _SearchController_graph_;
+_SearchController_graph_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_modular_polymorphic_path_ -> _ApplicationHelper_modular_array_for_path_;
+_ApplicationHelper_modular_polymorphic_path_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ApplicationHelper_modular_array_for_path_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

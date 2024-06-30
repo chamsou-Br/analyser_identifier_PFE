@@ -1,0 +1,17 @@
+digraph Microservices {
+  subgraph microservice_1 {
+    AdminController;
+  }
+  subgraph microservice_2 {
+    AnnouncesController;
+  }
+  subgraph microservice_3 {
+    BuyerController;
+  }
+  subgraph microservice_4 {
+    DeliveryController;
+  }
+  subgraph microservice_5 {
+    SellerController;
+  }
+}

@@ -1,0 +1,30 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_AuditElementsController_create_ -> _AuditElementsController_audit_element_params_;
+_AuditElementsController_create_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_audit_element_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_create_ -> _AuditElementsController_element_with_process_;
+_AuditElementsController_element_with_process_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_create_ -> _AuditElementsController_assign_roles_;
+_AuditElementsController_assign_roles_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_create_ -> _AuditElementsController_create_field_value_;
+_AuditElementsController_create_field_value_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_update_ -> _AuditElementsController_audit_element_params_;
+_AuditElementsController_update_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_update_ -> _AuditElementsController_assign_provided_roles_;
+_AuditElementsController_assign_provided_roles_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_update_ -> _AuditElementsController_element_with_process_;
+_AuditElementsController_destroy_ -> _AuditElementsController_delete_field_value_;
+_AuditElementsController_destroy_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_delete_field_value_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_assign_roles_ -> _AuditElementsController_assign_provided_roles_;
+_AuditElementsController_assign_roles_ -> _AuditElementsController_default_auditor_;
+_AuditElementsController_default_auditor_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_assign_roles_ -> _AuditElementsController_default_domain_owner_;
+_AuditElementsController_default_domain_owner_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_AuditElementsController_default_domain_owner_ -> _GraphsController_pilot_;
+_GraphsController_pilot_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

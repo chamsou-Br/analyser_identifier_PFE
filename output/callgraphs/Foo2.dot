@@ -1,0 +1,9 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_Foo2_perform_computations2_ -> _Bar_randomMats_;
+_Foo2_perform_computations2_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Bar_randomMats_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

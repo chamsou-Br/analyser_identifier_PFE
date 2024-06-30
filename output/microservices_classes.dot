@@ -1,0 +1,35 @@
+digraph Microservices {
+  subgraph microservice_1 {
+    AdminController;
+    DeliveryCompanyManager;
+    AdminManager;
+    AnnounceManager;
+    SellerManager;
+  }
+  subgraph microservice_2 {
+    AnnouncesController;
+    AnnounceManager;
+    BuyerManager;
+    TransacationManager;
+    PaymentManager;
+  }
+  subgraph microservice_3 {
+    BuyerController;
+    DeliveryCompanyManager;
+    BuyerManager;
+    TransacationManager;
+    AdminManager;
+  }
+  subgraph microservice_4 {
+    DeliveryController;
+    DeliveryCompanyManager;
+    TransacationManager;
+  }
+  subgraph microservice_5 {
+    SellerController;
+    DeliveryCompanyManager;
+    SellerManager;
+    AnnounceManager;
+    AdminManager;
+  }
+}

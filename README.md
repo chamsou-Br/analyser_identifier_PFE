@@ -21,4 +21,5 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+* ... cd /mnt/c/users/DELL/OneDrive/Bureau/chamsou/projects/PFE/code_analyzer_server
+

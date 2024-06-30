@@ -1,0 +1,18 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_NotifierService_log_operation_ -> _NotifierService_filter_fieldables_;
+_NotifierService_log_operation_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotifierService_filter_fieldables_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotifierService_log_operation_ -> _NotifierService_filter_attributes_;
+_NotifierService_filter_attributes_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotifierService_notify_update_responsibilities_ -> _NotifierService_email_and_notif_for_;
+_NotifierService_notify_update_responsibilities_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotifierService_email_and_notif_for_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotifierService_notify_by_role_ -> _NotifierService_email_and_notif_for_;
+_NotifierService_notify_by_role_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotifierService_email_and_notif_for_ -> _NotifierService_create_notification_;
+_NotifierService_create_notification_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

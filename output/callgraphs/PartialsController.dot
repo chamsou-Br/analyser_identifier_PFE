@@ -1,0 +1,9 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_PartialsController_show_ -> _PartialsController_get_partial_;
+_PartialsController_show_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_PartialsController_get_partial_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

@@ -22,6 +22,13 @@ module Mstags
     config.i18n.fallbacks = [I18n.default_locale]
 
 
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'  # You can specify specific origins here instead of '*'
+        resource '*', headers: :any, methods: [:get, :post, :put, :patch, :delete, :options]
+      end
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

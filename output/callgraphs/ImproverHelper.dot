@@ -1,0 +1,12 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_ImproverHelper_date_as_block_with_reminder_ -> _ImproverHelper_reminder_pull_link_for_;
+_ImproverHelper_date_as_block_with_reminder_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ImproverHelper_reminder_pull_link_for_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ImproverHelper_improver_print_title_for_ -> _ImproverHelper_truncate_print_title_;
+_ImproverHelper_improver_print_title_for_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ImproverHelper_truncate_print_title_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

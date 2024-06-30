@@ -1,0 +1,9 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_LdapNormalizerService_find_value_ -> _LdapNormalizerService_ldap_settings_;
+_LdapNormalizerService_find_value_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_LdapNormalizerService_ldap_settings_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

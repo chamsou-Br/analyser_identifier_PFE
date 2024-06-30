@@ -1,0 +1,12 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_SpaController_check_improver_access_ -> _SpaController_respond_unauthorized_;
+_SpaController_check_improver_access_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SpaController_respond_unauthorized_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SpaController_check_risk_access_ -> _SpaController_respond_unauthorized_;
+_SpaController_check_risk_access_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}
+paController_respond_unauthorized_ [shape=box, style=filled, fillcolor=lightblue  , color=white];

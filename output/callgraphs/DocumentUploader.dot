@@ -1,0 +1,9 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_DocumentUploader_delete_empty_dir_ -> _DocumentUploader_store_dir_;
+_DocumentUploader_delete_empty_dir_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_DocumentUploader_store_dir_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

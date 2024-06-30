@@ -1,0 +1,9 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_TagsController_rename_ -> _TagsController_fill_errors_hash_;
+_TagsController_rename_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TagsController_fill_errors_hash_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

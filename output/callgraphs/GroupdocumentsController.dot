@@ -1,0 +1,9 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_GroupdocumentsController_show_ -> _ResourcesController_absolute_url_;
+_GroupdocumentsController_show_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ResourcesController_absolute_url_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

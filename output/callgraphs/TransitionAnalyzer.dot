@@ -1,0 +1,27 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_TransitionAnalyzer_analyze_event_ -> _TransitionAnalyzer_when_under_analysis_;
+_TransitionAnalyzer_analyze_event_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransitionAnalyzer_when_under_analysis_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransitionAnalyzer_when_under_analysis_ -> _TransitionAnalyzer_check_start_processing_;
+_TransitionAnalyzer_check_start_processing_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransitionAnalyzer_when_under_analysis_ -> _TransitionAnalyzer_check_close_event_;
+_TransitionAnalyzer_check_close_event_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransitionAnalyzer_check_ask_approval_ -> _TransitionAnalyzer_cim_mode_;
+_TransitionAnalyzer_check_ask_approval_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransitionAnalyzer_cim_mode_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransitionAnalyzer_check_ask_approval_ -> _TransitionAnalyzer_actions_;
+_TransitionAnalyzer_actions_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransitionAnalyzer_check_ask_closure_approval_ -> _TransitionAnalyzer_cim_mode_;
+_TransitionAnalyzer_check_ask_closure_approval_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransitionAnalyzer_check_ask_closure_approval_ -> _TransitionAnalyzer_no_actions_;
+_TransitionAnalyzer_no_actions_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransitionAnalyzer_check_start_processing_ -> _TransitionAnalyzer_no_cim_mode_;
+_TransitionAnalyzer_no_cim_mode_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransitionAnalyzer_check_start_processing_ -> _TransitionAnalyzer_actions_;
+_TransitionAnalyzer_check_close_event_ -> _TransitionAnalyzer_no_cim_mode_;
+_TransitionAnalyzer_check_close_event_ -> _TransitionAnalyzer_no_actions_;
+}

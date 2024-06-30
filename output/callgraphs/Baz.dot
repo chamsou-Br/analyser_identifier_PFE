@@ -1,0 +1,26 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_Baz_print_x_ -> _Foo_print_x_;
+_Baz_print_x_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Foo_print_x_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Baz_multiply_x_by_10_ -> _Foo_multiply_x_;
+_Baz_multiply_x_by_10_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Foo_multiply_x_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Baz_multiply_x_by_10_ -> _Foo_print_x_;
+_Baz_process_ -> _Foo_multiply_x_;
+_Baz_process_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Baz_process_ -> _Foo_print_x_;
+_Baz_process_ -> _Baz_update_x_;
+_Baz_update_x_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Baz_process_ -> _Bar_perform_operations_;
+_Bar_perform_operations_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Baz_perform_operations_ -> _Foo_set_x_;
+_Baz_perform_operations_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Foo_set_x_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Baz_perform_operations_ -> _Foo_inc_x_;
+_Foo_inc_x_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Baz_perform_operations_ -> _Foo_print_x_;
+}

@@ -1,0 +1,11 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_ElementsController_index_ -> _SearchController_all_;
+_ElementsController_index_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SearchController_all_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ElementsController_index_ -> _SettingsController_colors_;
+_SettingsController_colors_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

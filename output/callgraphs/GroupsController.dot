@@ -1,0 +1,14 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_GroupsController_create_ -> _GroupsController_group_params_;
+_GroupsController_create_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_GroupsController_group_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_GroupsController_update_ -> _GroupsController_group_params_;
+_GroupsController_update_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_GroupsController_list_orders_add_ -> _GroupsController_list_orders_show_;
+_GroupsController_list_orders_add_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_GroupsController_list_orders_show_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

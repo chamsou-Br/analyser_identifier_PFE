@@ -1,0 +1,17 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_ActsController_create_ -> _ActsController_act_params_;
+_ActsController_create_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActsController_act_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActsController_update_ -> _ActsController_act_params_;
+_ActsController_update_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActsController_update_workflow_ -> _ActsController_validator_response_;
+_ActsController_update_workflow_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActsController_validator_response_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActsController_update_responsibilities_ -> _ActsController_notify_update_responsibilities_;
+_ActsController_update_responsibilities_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ActsController_notify_update_responsibilities_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

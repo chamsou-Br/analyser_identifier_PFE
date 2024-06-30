@@ -1,0 +1,47 @@
+digraph Microservices {
+  subgraph microservice_1 {
+    ActorsController;
+    ApproversController;
+    AuditElementsController;
+    ContributorsController;
+    GroupsController;
+    PublisherController;
+    RegistrationsController;
+    SearchController;
+    SettingsController;
+    UsersController;
+    VerifiersController;
+  }
+  subgraph microservice_2 {
+    ActsController;
+    EventsController;
+  }
+  subgraph microservice_3 {
+    ContributionsController;
+    ElementsController;
+    GraphBackgroundsController;
+    GraphsController;
+    GroupgraphsController;
+    TasksController;
+  }
+  subgraph microservice_4 {
+    DirectoriesController;
+    RepositoryController;
+  }
+  subgraph microservice_5 {
+    DocumentsController;
+    GroupdocumentsController;
+    PilotController;
+  }
+  subgraph microservice_6 {
+    InvitationsController;
+    ResourcesController;
+  }
+  subgraph microservice_7 {
+    RolesController;
+    ViewersController;
+  }
+  subgraph microservice_8 {
+    TagsController;
+  }
+}

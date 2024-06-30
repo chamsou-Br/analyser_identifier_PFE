@@ -1,0 +1,16 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_Foo_set_x_ -> _Foo_initialize_x_;
+_Foo_set_x_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Foo_initialize_x_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Foo_set_x_ -> _Foo_perform_computations_;
+_Foo_perform_computations_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Foo_perform_computations_ -> _Foo_inc_x_;
+_Foo_inc_x_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Foo_perform_computations_ -> _Foo_multiply_x_;
+_Foo_multiply_x_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Foo_inc_x_ -> _Foo_set_x_;
+}

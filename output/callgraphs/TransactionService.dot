@@ -1,0 +1,16 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_TransactionService;
+_TransactionService [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransactionService_initiate_transaction_ -> _Buyer_find_buyer_;
+_TransactionService_initiate_transaction_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Buyer_find_buyer_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransactionService_initiate_transaction_ -> _TransactionManager_initiate_transaction_manager_;
+_TransactionManager_initiate_transaction_manager_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransactionService_process_payment_ -> _TransactionManager_process_payment_manager_;
+_TransactionService_process_payment_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_TransactionManager_process_payment_manager_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

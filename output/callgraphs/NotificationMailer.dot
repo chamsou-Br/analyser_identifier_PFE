@@ -1,0 +1,12 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_NotificationMailer_bulk_email_ -> _NotificationMailer_addressee_uniqueness_;
+_NotificationMailer_bulk_email_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationMailer_addressee_uniqueness_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationMailer_entity_ -> _NotificationMailer_send_email_;
+_NotificationMailer_entity_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationMailer_send_email_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

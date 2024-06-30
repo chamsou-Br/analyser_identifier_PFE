@@ -1,0 +1,9 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_ContributionsController_create_ -> _ContributionsController_contribution_params_;
+_ContributionsController_create_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_ContributionsController_contribution_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

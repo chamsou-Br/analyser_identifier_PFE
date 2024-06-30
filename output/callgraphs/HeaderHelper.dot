@@ -1,0 +1,26 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_HeaderHelper_header_helper_options_ -> _HeaderHelper_online_help_item_;
+_HeaderHelper_header_helper_options_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_HeaderHelper_online_help_item_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_HeaderHelper_header_helper_options_ -> _HeaderHelper_contact_referent_;
+_HeaderHelper_contact_referent_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_HeaderHelper_header_helper_options_ -> _HeaderHelper_referent_item_;
+_HeaderHelper_referent_item_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_HeaderHelper_header_helper_options_ -> _HeaderHelper_power_user_items_;
+_HeaderHelper_power_user_items_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_HeaderHelper_online_help_item_ -> _HeaderHelper_language_prefix_;
+_HeaderHelper_language_prefix_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_HeaderHelper_online_help_item_ -> _HeaderHelper_user_prefix_;
+_HeaderHelper_user_prefix_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_HeaderHelper_referent_item_ -> _HeaderHelper_contact_referent_;
+_HeaderHelper_power_user_items_ -> _HeaderHelper_contact_us_item_;
+_HeaderHelper_contact_us_item_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_HeaderHelper_power_user_items_ -> _HeaderHelper_customer_space_item_;
+_HeaderHelper_customer_space_item_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_HeaderHelper_contact_us_item_ -> _HeaderHelper_language_prefix_;
+_HeaderHelper_customer_space_item_ -> _HeaderHelper_language_prefix_;
+}

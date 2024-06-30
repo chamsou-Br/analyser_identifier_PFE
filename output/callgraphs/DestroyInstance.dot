@@ -1,0 +1,9 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_DestroyInstance_kill_customer_ -> _MissingTranslationsController_message_;
+_DestroyInstance_kill_customer_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_MissingTranslationsController_message_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

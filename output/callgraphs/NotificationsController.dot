@@ -1,0 +1,27 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_NotificationsController_destroy_invalid_notifications_ -> _NotificationsController_destroy_invalid_notifications_;
+_NotificationsController_destroy_invalid_notifications_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationsController_destroy_invalid_notifications_ -> _NotifierService_destroy_invalid_notifications_;
+_NotifierService_destroy_invalid_notifications_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationsController_list_index_definition_ -> _NotificationsController_notification_type_;
+_NotificationsController_list_index_definition_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationsController_notification_type_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationsController_list_index_definition_ -> _NotificationsController_order_by_created_at_;
+_NotificationsController_order_by_created_at_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationsController_list_index_definition_ -> _NotificationsController_order_by_checked_at_inv_;
+_NotificationsController_order_by_checked_at_inv_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationsController_list_index_definition_ -> _NotificationsController_order_by_checked_at_;
+_NotificationsController_order_by_checked_at_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationsController_list_index_definition_ -> _NotificationsController_order_by_from_;
+_NotificationsController_order_by_from_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationsController_list_index_definition_ -> _NotificationsController_order_by_body_;
+_NotificationsController_order_by_body_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationsController_list_index_definition_ -> _NotificationsController_order_by_body_inv_;
+_NotificationsController_order_by_body_inv_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_NotificationsController_list_preview_definition_ -> _NotificationsController_order_by_created_at_;
+_NotificationsController_list_preview_definition_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

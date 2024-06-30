@@ -1,9 +1,0 @@
-<% if !@errors.nil? %>
-  <% res = modal_errors(@errors) %>
-  var modal = $("#modal");
-  modal.effect("shake", function(){
-    modal.find(".error_messages").empty().append("<%=j res %>").fadeIn();
-  });
-<% else %>
-  $(window.location.replace("<%= tag_path(@tag) %>"));
-<% end %>

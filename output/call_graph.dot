@@ -1,0 +1,14 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_Bar -> _Foo;
+_Bar [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Foo [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Baz -> _Foo;
+_Baz [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_Baz -> _Bar;
+_Foo2 -> _Bar;
+_Foo2 [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

@@ -1,0 +1,18 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_SessionsController_setup_ -> _SessionsController_use_customer_ldap_params_;
+_SessionsController_setup_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SessionsController_use_customer_ldap_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SessionsController_new_ -> _SessionsController_initialize_devise_session_;
+_SessionsController_new_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SessionsController_initialize_devise_session_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SessionsController_destroy_ -> _SessionsController_destroy_devise_session_;
+_SessionsController_destroy_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SessionsController_destroy_devise_session_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SessionsController_use_customer_ldap_params_ -> _SessionsController_ldap_settings_;
+_SessionsController_ldap_settings_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SessionsController_ldap_settings_ -> _SessionsController_ldap_settings_;
+}

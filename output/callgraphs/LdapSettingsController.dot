@@ -1,0 +1,19 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_LdapSettingsController_index_ -> _SessionsController_ldap_settings_;
+_LdapSettingsController_index_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_SessionsController_ldap_settings_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_LdapSettingsController_new_ -> _SessionsController_ldap_settings_;
+_LdapSettingsController_new_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_LdapSettingsController_create_ -> _SessionsController_ldap_settings_;
+_LdapSettingsController_create_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_LdapSettingsController_create_ -> _LdapSettingsController_ldap_settings_params_;
+_LdapSettingsController_ldap_settings_params_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_LdapSettingsController_update_ -> _LdapSettingsController_ldap_settings_params_;
+_LdapSettingsController_update_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_LdapSettingsController_load_ldap_settings_ -> _SessionsController_ldap_settings_;
+_LdapSettingsController_load_ldap_settings_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+}

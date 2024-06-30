@@ -1,0 +1,22 @@
+digraph CallGraph {
+ranksep=5;
+nodesep=0.5;
+node [fontname=Arial];
+edge [fontname=Arial];
+_RepositoryHelper_repository_dynasty_ -> _RepositoryHelper_repository_dynasty_list_;
+_RepositoryHelper_repository_dynasty_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RepositoryHelper_repository_dynasty_list_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RepositoryHelper_repository_content_ -> _RepositoryHelper_repository_content_list_;
+_RepositoryHelper_repository_content_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RepositoryHelper_repository_content_list_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RepositoryHelper_repository_dynasty_list_ -> _RepositoryHelper_directory_has_children_;
+_RepositoryHelper_directory_has_children_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RepositoryHelper_repository_dynasty_list_ -> _RepositoryHelper_repository_dynasty_list_;
+_RepositoryHelper_repository_dynasty_list_ -> _RepositoryHelper_graphs_list_;
+_RepositoryHelper_graphs_list_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RepositoryHelper_repository_dynasty_list_ -> _RepositoryHelper_documents_list_;
+_RepositoryHelper_documents_list_ [shape=box, style=filled, fillcolor=lightblue  , color=white];
+_RepositoryHelper_repository_content_list_ -> _RepositoryHelper_graphs_list_;
+_RepositoryHelper_repository_content_list_ -> _RepositoryHelper_documents_list_;
+_RepositoryHelper_repository_content_list_ -> _RepositoryHelper_directory_has_children_;
+}

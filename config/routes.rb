@@ -4,28 +4,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  resources :tags do
-    member do
-      get "confirm_delete"
-      get "confirm_rename"
-    end
-  end
+  post 'global', to: 'analyze#global'
 
-  get 'tags/new', to: 'tags#new'
-  post 'tags/create', to: 'tags#create'
-  post 'tags/delete/:id', to: 'tags#delete', as: :delete_tag
-  get 'tags/confirm_delete/:id', to: 'tags#confirm_delete'
-  post 'tags/rename/:id', to: 'tags#rename'
-  get 'tags/confirm_rename/:id', to: 'tags#confirm_rename'
+  post 'multiple', to: 'analyze#multiple'
 
-  get '/tags/:id', to: 'tags#show'
-  get '/tags/:id/render_show_html', to: 'tags#render_show_html'
+  get 'output/*filename', to: 'images#show'
 
-  resources :tags, only: [] do
-    collection do
-      get "suggest"
-      post "get_tags_by_label"
-    end
-  end
+  post "clusters" , to: "clusters#ms_identifiyer"
+  
 
 end
