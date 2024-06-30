@@ -1,0 +1,44 @@
+
+/* --------------------
+    trasaction note 
+-------------------------------- */
+
+.globalCallGraphModal .label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #010101aa;
+    margin: 5px 0;
+  }
+  
+  .globalCallGraphModal .content {
+    padding: 0 20px;
+  }
+  .globalCallGraphModal .button {
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 10px 30px;
+  }
+
+  .globalCallGraphModal .globalCallGraphPicture {
+    display: flex;
+    justify-content: center;
+  }
+
+  .globalCallGraphModal .globalCallGraphPicture.data {
+    justify-content: start;
+  }
+
+  .globalCallGraphModal .globalCallGraphPicture img {
+    max-height: 60vh;
+  }
+  
+  .title-global-graph {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+
+  .title-global-graph.active {
+    color: #3782ec;
+    border-bottom: 1px solid #3782ec;
+    font-weight: bold;
+  }

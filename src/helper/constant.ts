@@ -1,6 +1,6 @@
 import { DeliveryType, TransactionStatus } from "./types";
 
-export const BASE_URL = "http://localhost:7550/api" 
+export const BASE_URL = "http://localhost:3009" 
 
 export const tokenName = "pepper_token";
 
@@ -244,3 +244,11 @@ export const headerOFPaymentsExportForDeliveryCompany = [
     { label: 'Payment Date', key: 'Transaction.paymentDate' },
     { label: 'Validation Date', key: 'Transaction.validationDate' },   
   ];
+
+  export function getLastCapitalWord(str : string) {
+    // Match words that start with a capital letter at the end of the string
+    const matches = str.match(/[A-Z][a-z]*$/g);
+
+    // If matches found, return the last match, otherwise return an empty string
+    return matches ? matches[matches.length - 1] : '';
+}

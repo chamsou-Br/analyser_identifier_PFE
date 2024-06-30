@@ -6,10 +6,6 @@ import {useDispatch} from "react-redux"
 import logger  from "redux-logger"
 import { legacy_createStore} from 'redux'
 
-import { authReducer } from './reducers/authReducer';
-import { tokenName } from '../helper/constant';
-
-
 // Define RootState
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -19,18 +15,12 @@ export const useAppDispatch = () => useDispatch<AppDispatch>()
 
 // Combine Reducers
 const rootReducer = combineReducers({
-  auth : authReducer
 });
 
 const composeEnhancer =  compose;
 
 const initState = {
-  auth : {
-    token : localStorage.getItem(tokenName) ? localStorage.getItem(tokenName) : "",
-    isAuth : localStorage.getItem(tokenName) ? true : false,
-    error : undefined,
-    admin : null
-  }
+
 }
 
 

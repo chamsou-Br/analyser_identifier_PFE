@@ -26,7 +26,6 @@ import {
 } from "../helper/constant";
 import { useParams, useNavigate } from "react-router-dom";
 import HeaderPage from "../components/headerPage/headerPage";
-import { fetchTransactionDetailsForDeliveryCompanyAPI } from "../helper/callsApi";
 
 import Page404 from "../components/404/page404";
 import { GrTransaction } from "react-icons/gr";
@@ -55,11 +54,7 @@ const TransactionDetails: React.FC = () => {
   };
 
   const getTransaction = async (uuid: string) => {
-    const res = await fetchTransactionDetailsForDeliveryCompanyAPI(uuid);
-    if (res.transaction) {
-      setTransaction(res.transaction);
-      setDeliveryPayment(res.deliveryPayment);
-    }
+
   };
 
   useEffect(() => {

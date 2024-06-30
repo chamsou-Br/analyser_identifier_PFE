@@ -34,7 +34,8 @@ type props = {
   onClear?: (pageSize: number) => void;
   isRefresh?: boolean;
   isViewable? : boolean;
-  onViewable? : (rowData : IColumnsForTable) => void
+  onViewable? : (rowData : IColumnsForTable) => void;
+  loader?: boolean
 };
 
 const styleHeaderOfTable = { background: "#FFF", color: "#000" };
@@ -54,7 +55,8 @@ const TableCompo = ({
   onFilter,
   isRefresh = true,
   isViewable = true,
-  onViewable
+  onViewable,
+  loader
 }: props) => {
   const [sortColumn, setSortColumn] = useState<string>();
   const [sortType, setSortType] = useState<SortType | undefined>();
@@ -206,28 +208,13 @@ const TableCompo = ({
         sortColumn={sortColumn}
         sortType={sortType}
         onSortColumn={handleSortColumn}
-        loading={loading}
+        loading={loader}
       >
         {rows.map((row, i) => (
           <Column key={i} width={row.size} sortable resizable>
             <HeaderCell style={styleHeaderOfTable}>{row.headerCell}</HeaderCell>
-            {row.headerCell == "State" ? (
-              <Cell>
-                {(dataRow) => (
-                  <Status status={(dataRow as IColumnsForTable).state || ""} />
-                )}
-              </Cell>
-            ) : row.headerCell == "Delivery Type" ? (
-              <Cell>
-                {(dataRow) => (
-                  <DelivryType
-                    deliveryType={(dataRow as IColumnsForTable).deliveryType}
-                  />
-                )}
-              </Cell>
-            ) : (
+
               <Cell dataKey={row.dataKey} />
-            )}
           </Column>
         ))}
 
@@ -238,7 +225,7 @@ const TableCompo = ({
               isViewable ? (
                 <FaEye
                   onClick={() =>
-                    onViewable ? onViewable(rowData as IColumnsForTable) : null
+                    onViewable ? onViewable(rowData as unknown as IColumnsForTable) : null
                   }
                   className="icon-details"
                 />

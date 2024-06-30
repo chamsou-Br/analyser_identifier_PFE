@@ -226,29 +226,12 @@ export interface IRipRequests {
 
 
   export interface IColumnsForTable {
-    uuid: string;
-    deliveryDate: string;
-    deliveryPlace?: string;
-    deliveryType?: string;
-    updateDate? : string;
-    deliveryPrice: string;
-    validationDate?:string;
-    Buyer?: string;
-    Seller?: string;
-    ProductName: string;
-    ProductPrice: string;
-    paymentDate: string;
-    claims?: number;
-    state? : TransactionStatus,
-    name?: string,
-    firstName?: string,
-    email?: string,
-    phoneNumber?: string,
-    businessName?: string,
-    ribRequest?: number,
-    rib?: string,
-    hadPaymentOfDelivery?:string
-    // Add other properties you need
+    name : string ,
+    data : string , 
+    methods : number,
+    interDependencies : number , 
+    intraDependencies : number , 
+    fileName : string
   }
 
   export interface IDeliveryOffice {
@@ -407,4 +390,21 @@ export interface PayPartFormValues {
 
 export interface PayPartFilterValues {
   [key: string]: string | Date | number | boolean | null |any[] ;
+}
+
+
+export interface IClassAnalyzer {
+  class_name : string,
+  methods : string[],
+  intradependences : number , 
+  interdependences : string[],
+  filename: string
+
+}
+
+
+
+export interface ICluster {
+  class_names : string[] ,
+  name : string
 }

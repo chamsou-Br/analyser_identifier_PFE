@@ -4,7 +4,7 @@
 
 .navBar {
   width: 100%;
-  background-color: white;
+  background-color: #313131;
   padding: 18px 20px;
   box-sizing: border-box;
   border-bottom: 1px solid #00000022;
@@ -39,13 +39,13 @@
 }
 
 .navBar .navBar-left > span {
-  color: #010101;
+  color: #FFF;
   font-weight: bold;
   font-size: 18px;
 }
 
 .navBar .navBar-right span {
-  color: #010101;
+  color: #FFF;
   font-weight: bold;
   font-size: 14px;
   margin-right: 7px;
@@ -65,7 +65,7 @@
 .navBar .navBar-mid div {
   margin-right: 15px;
   font-size: 14px;
-  color: #010101cc;
+  color: #FFF;
   font-weight: bold;
   cursor: pointer;
 }
@@ -87,7 +87,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #00000077;
+  border: 1px solid #FFF;
   border-radius: 100%;
   padding: 10px;
 }

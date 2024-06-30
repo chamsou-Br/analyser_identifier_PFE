@@ -1,0 +1,748 @@
+\chapter{Microservices}
+
+\clearpage
+
+\section{Introduction}
+Les microservices sont considérés comme l'architecture la plus demandée par les entreprises et les compagnies en raison de leurs caractéristiques professionnelles distinctes. Dans la début de notre étude, nous nous efforcerons d'expliquer en détail ces caractéristiques et de les comparer avec d'autres architectures.
+
+\section{Evolution des architectures des applications}
+\hspace{0.5cm}La progression du domaine du génie logiciel a donné naissance à diverses conceptions architecturales logicielles, chacune élaborée pour répondre aux caractéristiques et aux défis spécifiques des systèmes au fil du temps. L'histoire de l'évolution de l'architecture logicielle remonte aux débuts de la programmation, une époque où les systèmes logiciels étaient relativement simples et conçus pour des tâches spécifiques. Cependant, avec l'accroissement de la complexité des systèmes et la nécessité de créer des architectures logicielles évolutives, maintenables et flexibles, divers styles architecturaux ont émergé pour répondre à ces nouvelles exigences d’une façon monolithique jusqu’aux microservices comme illustré à la figure \ref{fig:architecture_evolution}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/architecture_evolution.PNG}
+    \caption{ Évolution des architectures depuis le monolohique jusqu’aux microservices
+}
+    \label{fig:architecture_evolution}
+\end{figure}
+
+\subsection{Architecture monolothique }
+\hspace{0.5cm}Au commencement du développement logiciel, l'architecture monolithique prévalait comme l'approche la plus répandue. Les architectures monolithiques se caractérisent par un système logiciel à un seul niveau, étroitement couplé. Lors de l'exécution de l'application, celle-ci s'opère dans un unique processus, impliquant que toutes les parties de l'application partagent la même mémoire et les mêmes ressources. Bien que cette approche puisse être adéquate pour des applications simples, elle présente des défis substantiels lorsqu'une application devient complexe ou doit gérer un grand nombre d'utilisateurs, C’est pour cela que \parencite{dragoni2017microservices} ont proposé cette définition :
+\begin{quote}
+  \textit{\og Une application monolithique est une application où ses modules ne peuvent pas être exécutés d’une façon indépendante et où toutes les ressources sont localement partagées entre les modules.\fg}
+\end{quote}
+
+
+Parmi les principaux défis associés aux architectures monolithiques, la mise à l'échelle et la gestion des ressources émergent comme des problèmes cruciaux. À mesure que l'application croît en complexité, les limitations inhérentes à l'architecture monolithique se manifestent, entraînant des difficultés de mise à l'échelle. La migration des applications monolithiques vers une architecture orientée microservices émerge alors comme une solution viable. Cette transition permet au logiciel de retrouver une scalabilité perdue.
+Plusieurs technologies qui peuvent résoudre les problèmes des monolithes sont apparues : les composants, les services et les microservices.
+
+\subsection{Architecture orientée services (SOA) }
+\hspace{0.5cm}L'Architecture Orientée Services (SOA) est une approche qui répond aux exigences d'un système distribué avec un couplage faible, basée sur des normes et indépendante des protocoles. Cette conception logicielle se base sur le principe clé de fournir des services indépendamment des langages de programmation, plates-formes et protocoles utilisés par les autres composants applicatifs \parencite{papazoglou2007service} . L'objectif est d'encourager la réutilisation des services existants, de favoriser une plus grande flexibilité dans la conception logicielle et de viser à optimiser la prestation de services et à assurer une gestion efficace des processus métier. Les services dans une architecture SOA sont généralement de plus grande taille et sont conçus pour être réutilisables dans différents contextes. \newline
+
+Contrairement à une conception monolithique, SOA permet une certaine modularité, mais les services peuvent souvent rester liés, ce qui peut introduire des défis en termes de gestion et de maintenance. De plus, SOA met souvent l'accent sur la standardisation des protocoles de communication pour assurer l'interopérabilité. \newline
+
+À un niveau élevé d'abstraction, des similitudes entre SOA et l'architecture microservices peuvent parfois prêter à confusion, car les deux approches construisent une application comme un ensemble de services interconnectés. Cependant, leurs différences fondamentales résident dans la taille des services, le niveau de couplage, l'approche de la gestion de données, la standardisation des protocoles et les objectifs commerciaux
+
+\subsection{Architecture microservice }
+\hspace{0.5cm} Dans la littérature, de multiples définitions ont été proposées par Lewis et Fowler \parencite{lewis2014microservices}. D’après eux l'architecture microservices représente une approche innovante du développement logiciel visant à décomposer une application en fonctions isolées, appelées \textbf{services}. Chaque service est conçu pour répondre à un besoin métier spécifique et unique au sein de l'application, favorisant ainsi une modularité accrue et une orientation vers des fonctionnalités spécifiques  comme illustré dans la figure \ref{fig:microservice_architecture} . \newline
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/microservices.png}
+    \caption{Architecture des microservices}
+    \label{fig:microservice_architecture}
+\end{figure}
+
+L'architecture des microservices est généralement perçue comme une progression plus élaborée et spécifique de l'architecture orientée services (SOA). L'architecture orientée services a établi le concept fondamental de construire des applications modulaires sous la forme de services interconnectés. Les microservices poussent cette idée plus loin en promouvant des services plus petits, indépendants et hautement spécialisés, permettant une flexibilité et une évolutivité accrues. \newline
+
+Les principaux principes des microservices comprennent la modularité, la distribution, la scalabilité et l'indépendance. Contrairement aux architectures monolithiques, les microservices favorisent une conception modulaire où chaque service peut être développé, déployé et évolué indépendamment des autres. par conséquent, ce niveau d’indépendance conduit à des cycles de développement plus rapides et à une maintenance plus simple \parencite{da2019experience}. Cette approche offre une agilité significative, permettant aux équipes de développement de se concentrer sur des fonctionnalités spécifiques et d'itérer rapidement. 
+
+\section{Caractéristiques des microservices }
+\hspace{0.5cm}Martin et Fowler sont considérés dans la littérature comme étant les principaux fondateurs des microservices. Ils distinguent plusieurs caractéristiques principales de base pour chaque architecture de microservices \parencite{lewis2014microservices} :
+
+
+\subsubsection{Componentisation via les services :}
+Ce principe stipule que chaque microservice doit être un composant logiciel indépendant, exposé aux autres services via des interfaces bien définies (API). L'implémentation interne est masquée et peut utiliser n'importe quelle technologie. Cette modularité permet de remplacer ou redéployer un microservice facilement sans impacter les consommateurs de son API, Ce dernier est défini par  \parencite{alshara2015migrating} comme suit :
+\begin{quote}
+\textit{"Les composants sont des unités logicielles qui sont indépendantes, remplaçables et évolutives"}
+\end{quote}
+
+\subsubsection{Orientation métier :}
+Le découpage des microservices doit se baser en priorité sur les capacités métiers de l'entreprise plutôt que sur une segmentation technique (couches web, métier, données). L'objectif est d'aligner l'architecture sur les concepts business.
+
+\subsubsection{Gouvernance décentralisée :}
+Il n'y pas de gouvernance centralisée mais chaque équipe microservice possède son autonomie sur un périmètre fonctionnel et technique. La coordination se fait par la communication entre les équipes produits. En résumé,  chaque microservice est autonome dans son développement et sa gestion.
+
+\subsubsection{Produits plutôt que projets :}
+Chaque microservice est considéré comme un produit autonome, avec une équipe dédiée responsable de son développement et de sa maintenance. Ces équipes assurent la responsabilité complète d'un ensemble de microservices sur tout leur cycle de vie. Elles raisonnent en mode produit et non projet temporaire.
+
+\subsubsection{Automatisation de l'infrastructure :}
+Tous les aspects (intégration continue, tests, déploiement, mises à jour...) sont entièrement automatisés via des pipelines DevOps et des outils d'infrastructure. Cette automatisation facilite le déploiement, la mise à l'échelle et la gestion des microservices, optimisant ainsi les opérations.
+
+\subsubsection{Conception pour l'échec :}
+Les microservices intègrent la notion de conception pour l'échec, reconnaissant que les défaillances peuvent survenir et encourageant la résilience. Grâce à l'isolation de services, la défaillance technique d'un microservice n'impacte pas le fonctionnement global. Des mécanismes comme le repli grace aux API permet de masquer les erreurs aux utilisateurs finaux. 
+
+\subsubsection{Endpoints intelligents et canaux simples :}
+Les microservices adoptent des points d'extrémité (endpoints) intelligents, responsables de leur propre logique métier, avec des canaux de communication simples entre eux \parencite{hasselbring2018software} pour éviter de surcharger les microservices avec des fonctionnalités de routage ou transformation de données. Pour assurer ces aspects transverses, les microservices s'appuient sur des canaux de communication inter-services simples et légers comme REST/HTTP. La communication directe service à service utilise ces protocoles standards sans logique métier additionnelle.
+
+\subsubsection{Gestion décentralisée des données :}
+Chaque microservice possède sa propre base de données et en gère l'accès en lecture/écriture favorisant la décentralisation et l'indépendance et il n'y a pas de base de données centralisée. Cependant des mécanismes de cohérence et de réplication des données peuvent exister. \parencite{shadija2017towards}.
+ 
+\subsubsection{Conception évolutive :}
+Chaque microservice est un composant indépendant qui peut être mis à jour, remplacé ou retiré à tout moment sans impact de rupture sur le fonctionnement global. Cette propriété découle directement de l'isolation technique des services et de leurs interfaces stables. On peut ainsi faire évoluer chaque microservice, et donc chaque partie du SI, à la vitesse la mieux adaptée. Ce fort découplage technique au service de l'agilité business est la clé de voûte des architectures microservices.
+
+\subsubsection{Déploiement indépendant :}
+Le découpage en microservices permet de dissocier complètement le cycle de vie des différents services. Chaque microservice possède son propre backlog produit, son propre rythme de développement et peut être déployé indépendamment de tout autre composant du système. Cette déploiement indépendant des microservices permet  une livraison continue et rapide de fonctionnalités, tout en garantissant une grande sûreté de fonctionnement grâce à la réversibilité.
+
+\section{Messagerie dans les microservices }
+\hspace{0.5cm}Lorsque nous parlons d'applications monolithiques, nous disons que la communication se fait par appels de méthodes inter-processus. Cela signifie que l'application fonctionne dans un seul processus où les composants s'invoquent les uns les autres. Cette communication est simple mais les composants sont fortement couplés entre eux et difficiles à séparer et à faire évoluer de façon indépendante.
+
+L'un des plus grands défis lors du passage à une architecture basée sur les microservices est de changer le mécanisme de communication. En effet, les microservices sont distribués et communiquent entre eux par communication inter-services au niveau réseau. Chaque microservice a sa propre instance et son propre processus. Par conséquent, les services doivent interagir en utilisant des protocoles de communication inter-services comme HTTP, gRPC ou des brokers de messages avec le protocole AMQP. Pour relever ce défi, une exploration approfondie des types de communication s'avère essentielle \parencite{michael2023empirical}. Dans cette optique, notre analyse se focalise sur deux critères clés : la nature de la communication (asynchrone ou synchrone) comme
+illustré dans la figure \ref{fig:nature_of_communication} , et le style de passerelle (API centralisée ou point à point).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/nature_of_communication.PNG}
+    \caption{Frameworks de communication de microservices}
+    \label{fig:nature_of_communication}
+\end{figure}
+
+\subsection{Nature de communication}
+\subsubsection{Asynchrone :}
+La communication asynchrone dans les microservices est caractérisée par le fait que le client envoie une requête sans attendre une réponse immédiate du service \parencite{michael2023empirical}. Cela est particulièrement avantageux dans les scénarios où la réponse n'est pas nécessaire immédiatement, permettant ainsi au client de ne pas bloquer un thread pendant l'attente. Cette approche est souvent implémentée à l'aide de protocoles tels que AMQP, STOMP ou MQTT avec des systèmes de messagerie comme Kafka et RabbitMQ. 
+\subsubsection{Synchrone :}
+La communication synchrone, en revanche, utilise des protocoles tels que HTTP \parencite{michael2023empirical} ou gRPC, où le client envoie une requête et attend une réponse immédiate du service. Bien adaptée aux scénarios où une réponse rapide est cruciale, cette méthode implique une attente active du client pendant le traitement.
+
+\subsection{Style de Passerelle}
+\subsubsection{Point à Point :}
+Dans un style point à point, chaque microservice communique directement avec un autre service sans passer par une passerelle API centrale \parencite{richardson2018refactoring} comme illustré dans la figure \ref{fig:point_a_point}. Bien que cela puisse réduire la complexité globale du système, cela peut également rendre la découverte des services plus délicate et complexe. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/point_a_point.png}
+    \caption{Logique de communication entre microservices - point à point
+}
+    \label{fig:point_a_point}
+\end{figure}
+
+Il existe les types d'interactions un-à-un suivants \parencite{richardson2018refactoring} : 
+\begin{itemize}
+    \item Requête/réponse - Un client fait une requête à un service et attend une réponse. Le client s'attend à ce que la réponse arrive en temps opportun. Dans une application threadée, le thread qui fait la requête peut même se bloquer en attendant la réponse.
+    \item Notification (alias requête unidirectionnelle) - Un client envoie une requête à un service mais aucune réponse n'est attendue ni envoyée en retour. 
+    \item Requête/réponse asynchrone - Un client envoie une requête à un service, qui répond de manière asynchrone. Le client ne se bloque pas en attendant et est conçu en partant du principe que la réponse peut mettre un certain temps à arriver.
+\end{itemize}
+
+\subsubsection{Passerelle API :}
+L'utilisation d'une passerelle API centralisée est un style de communication où les microservices interagissent via des interfaces API \parencite{richardson2018refactoring} comme illustré dans la figure \ref{fig:passerelle_API}. Cette approche simplifie la gestion des communications en centralisant les points d'entrée, facilitant ainsi la découverte des services et la gestion des versions d'API. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/passerelle_API.png}
+    \caption{Logique de communication entre microservices - passerelle API
+}
+    \label{fig:passerelle_API}
+\end{figure}
+
+Il existe les types d'interactions un-à-plusieurs suivants :
+\begin{itemize}
+    \item Publication/souscription – Un client publie un message de notification, qui est consommé par zéro, un ou plusieurs services intéressés.
+    \item Publication/réponses asynchrones – Un client publie un message de requête, et attend alors un certain laps de temps les réponses des services intéressés.
+\end{itemize}
+Le tableau \ref{interaction_styles} présente les différents styles d’interaction entre les services dans l’architecture de microservices.
+
+\renewcommand*{\arraystretch}{1.8}
+\begin{table}[htbp]
+\centering
+\caption{Différents styles d’interaction entre les services}
+\label{interaction_styles}
+\begin{tabular}{|l|l|l|}
+\hline
+ & \textbf{Un-à-Un} & \textbf{Un-à-Plusieurs} \\
+\hline
+\textbf{Synchrone} & requête/réponse & --- \\
+\hline
+\textbf{Asynchrone} & Notification & Publication/abonnement \\
+\hline
+\textbf{requête/réponse asynchrone} & Publish/async responses & --- \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+\section{Déploiement des microservices}
+
+\hspace{0.5cm} L'approche par microservices implique la mise en place d'un grand nombre de services indépendants, de différents types (REST, batch, pilotés par événements etc.) et aux configurations propres. Malgré cette complexité, ces services doivent pouvoir être déployés rapidement, fréquemment et de manière automatique dans une logique DevOps et d'intégration/livraison continue. Au cœur de cette complexité, deux éléments technologiques se sont démarqués comme des catalyseurs essentiels : les conteneurs et les orchestrateurs \parencite{balalaie2016microservices}
+
+Un conteneur est similaire à une instance de machine virtuelle, mais au lieu d’inclure l’intégralité d’un système d’exploitations. Les conteneurs offrent un environnement d'exécution cohérent et isolé, résolvant les problèmes de portabilité et de dépendances qui peuvent entraver le déploiement harmonieux des applications. La technologie de conteneurisation (Docker, Rocket) est la plus adaptée pour faciliter le déploiement des architectures microservices car elle fournit pour chaque service un environnement isolé embarquant toutes les dépendances nécessaires comme illusté dans la figure \ref{fig:depoiment_docker} . Les conteneurs apportent ainsi portabilité, déploiement simplifié, environnements cohérents et reproductibles entre environnements. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/depoiment_docker.png}
+    \caption{Instance de déploiement des service utilisant les containers \parencite{richardson2016microservices}
+}
+    \label{fig:depoiment_docker}
+\end{figure}
+
+Cependant, à grande échelle, un déploiement massif de conteneurs requiert une orchestration centralisée qui présente des plates-formes spécialisées dans la distribution de charges de travail conteneurisées sur un groupe de serveurs.  L'orchestrateur le plus connu est Kubernetes. Ces dernières se chargent automatiquement du déploiement sur un cluster de serveurs, du monitoring, de l'auto-réparation, de la résilience et de la scalabilité des conteneurs selon la charge et donc automatisent la coordination du déploiement et garantissant que les microservices interagissent de manière harmonieuse dans un environnement distribué .
+
+Afin d'assurer la disponibilité des services lors des mises à jour, des techniques de déploiement spécifiques sont utilisées :
+
+\paragraph{Déploiements bleu/vert}la nouvelle version est déployée sur un nouvel environnement parallèle. Après tests, le trafic est basculé via le load balancer. Cela permet un switch instantané entre deux environnements identiques.
+
+\paragraph{Canary releases}la mise à jour n'est déployée que sur un sous-ensemble d'instances. Les métriques sont surveillées avant de étendre à la totalité. Cette progressivité permet de tester la version avec un impact limité. \newline
+
+Ces pratiques évitent les temps d'arrêt dus aux mises à jour. Elles permettent également de s'assurer de la stabilité d'une version avant son déploiement complet.
+Cependant, des problèmes peuvent toujours survenir nécessitant une restauration rapide. Les notions de volumes persistants et d'états découplés des conteneurs facilitent l'implémentation de rollbacks. Combine à des déploiements progressifs, cette capacité de rollback avec un impact minimal est essentielle pour assurer la résilience de l'architecture face aux défauts non détectés au préalable. Kubernetes permet ainsi d'automatiser entièrement le déploiement initial, la validation progressive, la détection de problèmes et le retour arrière vers un état stable connu.
+
+\section{Analyse comparative des architectures microservices et  monolithique}
+
+Pour mieux expliquer le style des microservices, il est utile de le comparer au style monolithique où une application est construite comme une seule unité. Cela peut bien illustrer le concept des microservices et montrer la différence entre les deux architectures. Voici les principaux facteurs de comparaison qui vous aideront à comprendre en profondeur les données sur les services monolithiques et les microservices \parencite{richardson2018refactoring} : 
+\begin{itemize}
+    \item  
+    Les monolithes contraignent les développeurs à utiliser un langage de programmation et des frameworks imposés et figés pour toute l'application. Ce verrou technologique limite la liberté des équipes et complique les évolutions.
+    A l'inverse, les microservices autorisent le choix de technologies différentes pour chaque service. La seule obligation étant de respecter les APIs de communication inter-services. Cette souplesse facilite l'évolution indépendante des services et accroît l'agilité des équipes.
+    \item La communication interne entre les composants est plus simple dans les monolithes grâce à des appels de méthodes directs, alors qu'elle nécessite des protocoles inter-services plus complexes dans les architectures microservices du fait de la distribution.
+    \item Le développement est généralement un peu plus lent sur les monolithes étant donné le code interconnecté et les dépendances entrelacées entre modules. En revanche, le déploiement se fait en une seule fois au niveau de toute l'application. À l'opposé, les microservices permettent un développement plus rapide de par la taille réduite des services, facilitant ainsi également les déploiements continus de manière indépendante sur chaque service.
+    \item La testabilité et la maintenabilité sont plus difficiles sur une architecture monolithique du fait du couplage important entre modules. La modularité des microservices favorise au contraire des tests et une évolution simplifiés de par l'isolation et la petite taille de chaque service.
+    \item Un monolithe implique de scaler ou répliquer toute l'application de manière globale, et la défaillance d'un de ses modules peut impacter toute l'application. À l'inverse, la décomposition en microservices permet une scalabilité précise sur chaque service ainsi qu'un impact limité en cas de défaillance grâce au découplage.
+    \item Le monitoring d'une application monolithique peut être plus facile étant donné la vision centralisée. Cependant, les microservices requièrent un monitoring plus fin, service par service, et non une vue d'ensemble.
+\end{itemize}
+
+Toutes ces différences peuvent être synthétisées et classifiées dans le tableau \ref{ms_vs_monolotic} ci-dessous .
+\renewcommand*{\arraystretch}{1.8}
+\begin{longtable}{|m{5cm}<{\centering}|m{5cm}<{\centering}|m{5cm}<{\centering}|}
+\caption{Comparaison entre les architectures monolithiques et microservices}\label{ms_vs_monolotic}\\
+\hline
+\textbf{Caractéristiques et fonctionnalités} & \textbf{Monolithe} & \textbf{Microservices} \\
+\hline
+\endfirsthead
+
+\multicolumn{3}{c}%
+{\tablename\ \thetable\ -- \textit{Suite de la page précédente}} \\
+\hline
+\textbf{Caractéristiques et fonctionnalités} & \textbf{Monolithe} & \textbf{Microservices} \\
+\hline
+\endhead
+
+\hline \multicolumn{3}{r}{\textit{Suite à la page suivante}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+Communication interne & Appels de méthodes directs, simple & Protocoles inter-services complexes du fait de la distribution \\
+\hline
+Développement & Plus lent car code interconnecté & Plus rapide grâce aux petites équipes sur services découplés \\
+\hline
+Déploiement & En une seule fois au niveau global & Continu, service par service de manière indépendante \\
+\hline
+Testabilité et maintenabilité & Complexes à cause des dépendances entrelacées & Accrues grâce à l'isolation et à la taille réduite des services \\
+\hline
+Scalabilité & Limitée, on scale toute l'application & Fine, on scale chaque service indépendamment \\
+\hline
+Disponibilité & La défaillance d'un module impacte toute l'application & L'isolation des services limite l'impact des pannes \\
+\hline
+Monitoring & Vision centralisée simplifiée & Nécessite un monitoring plus fin, service par service \\
+\hline
+Choix technologiques & Verrouillés pour toute l'application & Flexibles, peuvent varier par service \\
+\end{longtable}
+
+\section{Analyse comparative des architectures microservices et orientées services}
+
+A un niveau élevé d’abstraction, il existe certaines similitudes entre SOA et microservices et c’est pour cette raison que plusieurs gens les confondent. Les deux créent une
+application comme un ensemble de services communiquant entre eux. Cependant, creuser profondément dans les deux architectures révèlent des différences importantes.
+
+\begin{itemize}
+    \item L'architecture microservices repose sur des services légers et ciblés, axés sur un seul objectif, et pouvant fonctionner indépendamment. Contrairement à la SOA qui utilise des services plus volumineux et modulaires aux dépendances mutuelles, elle est conçue pour maximiser l'autonomie des ressources.
+    \item Dans les deux architectures, les services peuvent être développés avec des langages et outils variés, ce qui amène de la diversité technologique. Cependant, avec SOA les équipes doivent connaître le mécanisme de communication centralisé tandis qu'en microservices les services sont indépendants, ce qui facilite les déploiements et la mise à l'échelle.
+    \item  SOA utilise principalement un ESB comme structure centralisée tandis que les microservices privilégient des systèmes de messaging légers et décentralisés (HTTP/REST...).
+    \item Les services SOA sont déployés sur des plates-formes applicatives communes nécessitant une gestion centralisée. À l'opposé, les microservices sont déployés de façon décentralisée dans des containers facilitant l'automatisation.
+    \item Il est courant que les services SOA partagent des bases de données communes alors que chaque microservice gère généralement sa propre base.
+    \item SOA prône une gouvernance et des standards globalisés et centralisés au niveau de l'entreprise. Les microservices adoptent une gouvernance décentralisée avec plus d'indépendance laissée aux équipes.
+    \item SOA encourage le partage de composants là où les microservices cherchent à minimiser le partage à travers des contextes délimités. Un microservice est un composant couplé à ses données avec peu de dépendances, ce qui le rend plus rapide.
+    \item SOA implique des services de plus grande taille avec davantage de fonctionnalités métier. Les microservices sont de taille et de périmètre nettement plus réduits, avec une seule responsabilité ciblée.
+\end{itemize}
+
+Toutes ces différences peuvent être synthétisées et classifiées dans le tableau \ref{ms_vs_soa} ci-dessous : 
+\renewcommand*{\arraystretch}{1.8}
+\begin{longtable}{|m{5cm}<{\centering}|m{5cm}<{\centering}|m{5cm}<{\centering}|}
+\caption{Comparaison entre les architectures SOA et microservices}\label{ms_vs_soa}\\
+\hline
+\textbf{Caractéristiques et fonctionnalités} & \textbf{SOA} & \textbf{Microservices} \\
+\hline
+\endfirsthead
+
+\multicolumn{3}{c}%
+{\tablename\ \thetable\ -- \textit{Suite de la page précédente}} \\
+\hline
+\textbf{Caractéristiques et fonctionnalités} & \textbf{SOA} & \textbf{Microservices} \\
+\hline
+\endhead
+
+\hline \multicolumn{3}{r}{\textit{Suite à la page suivante}} \\
+\endfoot
+
+\hline
+\endlastfoot
+Granularité   & Services plus grands et plus modulaires & Des services fins\\
+\hline
+Stockage de données & Implique le partage du stockage entre les services & Chaque service peut avoir un stockage de données indépendant  \\
+\hline
+Communication &Communique via un ESB & Communique via une couche API
+(système de messagerie moins élaboré et simple \\
+\hline
+Services à distance & Prend en charge plusieurs
+protocoles de message comme SOAP et AMQP & utilise des protocoles légers tels que
+HTTP et REST \\
+\hline
+Déploiment &Moins de flexibilité dans le déploiement  & Déploiement simple et rapide \\
+\hline
+Couplage et cohésion  &S’appuie sur le partage des ressources &S’appuie sur le contexte borné (bounded context) pour le couplage \\
+\hline
+Choix technologiques &  peuvent varier avec la connaissance de mécanisme de communication centralisé  & Flexibles, peuvent varier par service \\
+\end{longtable}
+
+\section{Domain driven design avec les microservices}
+Afin d'obtenir une architecture logicielle robuste et de qualité, il est essentiel de partitionner efficacement l'application en microservices. L'objectif est de maximiser les bénéfices de ce style d'architecture - scalabilité, agilité, disponibilité - tout en conservant une compréhension globale du système. Parmi les approches possibles de décomposition, la plus répandue d'après \parencite{jamshidi2018microservices} est le Domain-Driven Design (DDD). Cette méthode modélise le domaine métier et les connaissances de experts pour délimiter des contextes business cohérents.\newline
+
+En gros, le DDD a été introduit pour résoudre le problème d'une base de code monolithique trop importante. Dans le monde monolithique, une fois que la base de code commence à croître avec le développement de l'entreprise, il devient difficile de maintenir le code organisé et structuré tel qu'il était initialement conçu. Les applications monolithiques conçues avec une architecture MVC ont une bonne séparation entre la couche métier et la couche de présentation. Cependant, en l'absence de directives architecturales strictes, la couche métier ne fournit pas de règles spécifiques pour maintenir les limites de responsabilité entre différents modules et classes. C'est pourquoi, à mesure que la base de code augmente, le risque de rupture logique et de fuite de responsabilité entre les différents composants de l'application augmente.\newline
+
+Le DDD tente de résoudre les défis mentionnés ci-dessus en maintenant les applications proches du MONDE RÉEL, ou plus précisément du domaine d'activité concerné. Dans le DDD, la logique de l'application tourne autour des problèmes métier avec des contextes de limites définis. Le DDD se concentre sur la modélisation de domaine. Discutons des principales caractéristiques du DDD : 
+
+\paragraph{Collaboratif : }Le DDD est collaboratif. Les entités métier, les parties prenantes et les développeurs travaillent ensemble pour résoudre un problème métier spécifique. C'est un peu comme une méthodologie AGILE où la collaboration est la clé.
+
+\paragraph{Modélisation de données : }
+La modélisation de données définit que la structure de code doit correspondre à la structure du domaine. Ici, le domaine ne fait pas référence à une entreprise, cela peut être une partie de l'entreprise. Le domaine peut être la comptabilité, le magasin, l'entrepôt, etc. L'idée derrière le maintien du modèle de code aligné sur le domaine est de rendre la structure globale de l'application compréhensible pour les utilisateurs métier. Ainsi, lorsqu'une entreprise se développe et qu'un domaine de l'entreprise a besoin d'améliorations dans l'application, on peut modifier les modèles et les logiques associées à ce domaine tout en maintenant l'autre partie de l'application intacte.
+
+\paragraph{Incrémental : }
+Le DDD est incrémental, on n'a donc pas besoin de concevoir l'ensemble de l'architecture de l'entreprise à l'avance. on doit simplement résoudre le problème actuel, puis faire évoluer le code à mesure que le domaine ou l'entreprise se développe. Encore une fois, le DDD s'aligne avec la méthodologie AGILE avec cette caractéristique d'approche incrémentale. Une approche incrémentale consiste à un processus de libération rapide et incrémentale de nouvelles fonctionnalités.
+
+Les microservices sont probablement la façon idéale de mettre en œuvre le DDD car ils partagent les notions clefs de contexte et d'approche incrémentale et permettent de concrétiser l'approche DDD sous une forme executable, dynamique et flexible grâce au déploiement indépendant des services.
+
+
+\section{Adoption des microservices par les leaders de l'industrie}
+
+Les microservices sont de plus en plus sollicités. Les géants de l’industrie les ont adaptés dans leurs produits pour les raisons citées auparavant. On peut citer parmi eux : Amazon, Netflix et Uber.
+
+\subsection{Amazon}
+Au début des années 2000, le site de e-commerce Amazon était une application monolithique avec des connexions étroitement liées entre ses services multicouches. Cela signifiait que les développeurs devaient travailler avec précaution pour ne rien casser à chaque mise à niveau ou montée en charge. Amazon a donc divisé ses applications monolithiques en petites applications spécialisées et indépendantes pour résoudre ces problèmes. L'adoption d'une telle architecture orientée services par Amazon a été une étape décisive vers ce que l'on appelle maintenant les microservices. Aujourd'hui, Amazon développe et distribue des solutions facilitant l'adoption des microservices pour d'autres organisations, dont AWS et Apollo \parencite{nadareishvili2016microservice}.
+
+\subsection{Netflix}
+Tout comme Amazon, Netflix est un pionnier des microservices. Sa migration a commencé en 2008 lorsque la plateforme de streaming a connu de nombreux problèmes de mise à l'échelle et de disponibilité. A partir de 2009, Netflix a commencé à refondre progressivement son architecture monolithique en microservices, un service à la fois. L'adoption d'une architecture microservices a permis à Netflix de surmonter ses défis et de réduire considérablement les coûts. Aujourd'hui, Netflix dessert environ 210 millions d'abonnés dans le monde entier et continue de croître sans problèmes opérationnels majeurs, grâce en grande partie à l'adoption des microservices \parencite{nadareishvili2016microservice}.
+
+\subsection{Uber}
+Comme Amazon et Netflix, Uber a également décidé d'abandonner sa structure monolithique en raison d'obstacles à sa croissance. Les défis auxquels était confrontée la plateforme de covoiturage comprenaient l'inefficacité dans le développement et le lancement de nouvelles fonctionnalités, l'incapacité à corriger rapidement les bugs, et des problèmes avec l'intégration de ses opérations mondiales à croissance rapide. Le point a été atteint où l'architecture applicative complexe nécessitait des développeurs très expérimentés pour apporter des modifications mineures et des mises à jour au système. Pour surmonter les défis présentés par son application monolithique, Uber l'a décomposée en microservices s'exécutant dans le cloud. Rapidement, des microservices individuels ont été développés pour des fonctions métiers telles que la gestion des trajets et la gestion des passagers. Ces services communiquent entre eux via une passerelle API \parencite{gluck2020introducing}.
+
+\section{Conclusion}
+Dans ce chapitre, nous avons introduit les concepts fondamentaux relatifs aux microservices. Nous avons exploré les différents mécanismes de communication entre ces services, notamment la communication synchrone et asynchrone. Nous avons examiné les styles de communication un-à-un et un-à-plusieurs, en soulignant les avantages et les inconvénients de chaque approche. En outre, nous avons discuté du déploiement des microservices en utilisant des conteneurs et des outils d'orchestration, qui facilitent la gestion et la scalabilité des applications distribuées.
+Nous avons également comparé les microservices avec d'autres architectures, telles que l'Architecture Orientée Services (SOA) et les architectures monolithiques. Les microservices offrent une modularité et une flexibilité accrues par rapport aux architectures monolithiques, tout en étant plus légers et plus spécifiques que SOA. De cette comparaison, nous pouvons tirer que les microservices permettent une meilleure résilience et un déploiement plus agile, bien qu'ils nécessitent une gestion plus complexe de l'infrastructure.
+Dans la suite de notre étude, nous nous concentrerons sur l'aspect de la migration du monolithique vers les microservices. Nous examinerons les stratégies à mettre en œuvre, les défis à relever et les meilleures approches à adopter pour réussir cette transition de manière efficace et efficiente.
+
+
+
+
+\chapter{Migration des application monolothiques vers les microservices}
+
+\clearpage
+
+\section{Introduction }
+De nombreux systèmes d'information reposent encore sur d'anciennes applications monolithiques devenues au fil du temps complexes, rigides et coûteuses à faire évoluer. Malgré leur stabilité fonctionnelle initiale, ces monolithes dépendants de technologies obsolètes freinent désormais l'agilité et l'innovation numérique requises. Face à l'accélération de la transformation digitale, une refonte progressive vers des architectures modernes comme les microservices, via un \textbf{refactoring global}, devient incontournable pour regagner en flexibilité.
+
+Migrer un monolithe demande une \textbf{réingénierie} en profondeur pour découper et moderniser le fonctionnement interne de l'application. C'est un projet d'envergure aux enjeux techniques mais aussi organisationnels. Dans la suite, nous allons explorer les différentes stratégies et bonnes pratiques permettant de mener à bien ce type complexe de migration applicative.
+
+\section{Réingénierie et la migration}
+Dans le domaine de la réingénierie logicielle, une définition couramment utilisée est celle de Chikofsky et Cross, qui décrivent la réingénierie comme l’évaluation, l’inspection et l’altération d’un système donné pour le reconstruire dans une nouvelle forme et la mise en œuvre ultérieure de la nouvelle forme \parencite{chikofsky1990reverse}. Ce processus, également connu sous le nom de rénovation et de réclamation, vise à évaluer, inspecter et modifier un système logiciel existant en le transformant pour répondre à de nouvelles exigences ou pour améliorer ses performances et sa maintenabilité. \newline
+
+Quant à la migration de logiciels, elle est définie comme l'ingénierie inverse et la transformation de logiciels vers une nouvelle plateforme ou technologie \parencite{bisbal1999legacy}, tout en préservant leurs fonctionnalités existantes pour éviter la perte de connaissances métier. Ce processus facilite le transfert des systèmes hérités vers de nouveaux environnements, permettant ainsi une maintenance plus aisée et une adaptation aux nouvelles exigences métier, sans nécessité de reconstruction intégrale. \newline
+
+Dans le contexte où la réingénierie est étroitement liée à un changement technologique majeur, elle peut être qualifiée de migration, comme dans le cas de la migration d'un système avec une architecture monolithique vers un système basé sur des composants ou des services. En d'autres termes, la migration logicielle peut être considérée comme une variante spécifique de la réingénierie logicielle  \parencite{al2016migrating} . \newline
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/software_migration.PNG} 
+    \caption{Modèle en fer de cheval représentant le processus de migration \parencite{zaragoza2022model}}
+    \label{fig:software_migration}
+\end{figure}
+
+Le modèle Horseshoe (Fer à cheval) illustré dans la figure \ref{fig:software_migration} modélise les différentes étapes de la migration d'applications, depuis la perspective du code source jusqu'à la représentation architecturale. Dans la première phase, l'application existante est rétro-conçue (reverse engineering) pour extraire des artefacts à différents niveaux d'abstraction : le code source, la structure du code, et ultimement des modèles architecturaux. Vient ensuite la phase de transformation, où les artefacts de l'ancienne application sont convertis en nouveaux artefacts grâce à un ensemble défini de règles de transformation. L'étape finale est la génération de code source cible (forward engineering) à partir des modèles architecturaux de haut niveau précédemment élaborés. Le processus de migration peut donc être résumé en trois grandes étapes : la rétro-conception, la transformation et la génération de code qui est perçue comme la mise en œuvre technique de l'étape de transformation.
+
+
+\section{Processus de la migration}
+Le processus de migration se divise en trois étapes fondamentales, symbolisées par un modèle en fer à cheval comme illustré à la figure \ref{fig:software_migration} qui englobe trois niveaux d'abstraction distincts : la représentation du code, la représentation des fonctionnalités, et la représentation de l'architecture. Dans ce qui suit, nous présenterons ces trois étapes 
+
+\subsection{Rétro-ingénierie } 
+La rétro-ingénierie est un processus visant à analyser et à comprendre un logiciel existant en examinant son code source, sa structure et son comportement. Ce procédé permet de découvrir les composants du logiciel, d'identifier les relations entre eux, et de dévoiler ses fonctionnalités, le tout accompagné de la création de représentations abstraites pour une meilleure compréhension \parencite{daoud2021vers}. La modèle conceptuel de rétro-ingénierie est illustré dans la figure \ref{fig:software_reverse_engeneering} . 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/software_reverse_engeneering.PNG} 
+    \caption{Modèle conceptuel de rétro-ingénierie \parencite{chikofsky1990reverse} .}
+    \label{fig:software_reverse_engeneering}
+\end{figure}
+
+À partir de cette définition, le processus de rétro-ingénierie peut être délimité en deux étapes distinctes \textbf{l'extraction d'informations} et \textbf{la représentation abstraite}.
+
+
+\begin{itemize}
+    \item Tout d'abord, l'extraction d'informations, qui englobe une analyse approfondie des artefacts logiciels pour découvrir des données brutes et recueillir des informations pertinentes concernant le système existant.
+    \item Ensuite, la représentation abstraite vise à créer une vision de plus haut niveau du logiciel, se concentrant sur son architecture, sa conception et sa fonctionnalité. Ces deux étapes combinées permettent une approche systématique pour comprendre et améliorer des systèmes logiciels existants.
+\end{itemize}
+
+Au cours de cette période, plusieurs techniques d'ingénierie inverse ont été élaborées pour extraire des structures basées sur des éléments et leurs composants à partir de systèmes logiciels orientés objet. Parmi ces terminologies figurent l'extraction \parencite{chardigny2009extraction} , l'exploration \parencite{dehghani2022facilitating} , l'identification \parencite{correia2022identification}, \parencite{daoud2021vers} et la récupération \parencite{al2016migrating}.
+
+\subsection{Transformation}
+La phase de transformation logicielle implique la conversion d'une représentation du logiciel vers une autre, tout en préservant sa fonctionnalité et sa sémantique  (source-to-source, model-to-model, etc.) \parencite{wagner2014model}. Cette conversion peut s'effectuer à différents niveaux d'abstraction, tels que :
+
+\paragraph{Code source (transformation source-vers-source) :}
+Une méthode purement axée sur la mise en œuvre qui implique d'établir une correspondance entre les éléments source et cible.
+
+\paragraph{Représentation architecturale (transformation modèle-vers-modèle) : }
+Une technique qui consiste à convertir un modèle source en un modèle cible. Ces modèles servent d'outils pour une transformation plus efficace en appliquant les principes de l'ingénierie dirigée par les modèles. \newline
+
+Cette phase requiert l'utilisation de règles et de schémas de transformation qui guident le processus. L'objectif est de créer une nouvelle représentation du logiciel équivalente sur le plan sémantique à l'original, tout en répondant aux besoins de la migration. Cette étape cruciale permet d'adapter les anciens systèmes logiciels à de nouvelles exigences sans nécessité de reconstruction complète. \newline
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/software_transformation.PNG} 
+    \caption{Relation entre la rétro-ingénierie et la transformation dans la migration \parencite{al2016migrating} }
+    \label{fig:software_transformation}
+\end{figure}
+
+Un exemple concret de cette transformation est observable dans le passage de l'architecture d'une application monolithique, obtenue lors de la rétro-ingénierie, vers une architecture de microservices. Au cours de cette transformation, la structure du système peut être améliorée, un processus connu sous le nom de « refactoring ». Le refactoring consiste à modifier un système logiciel sans altérer son comportement externe, mais en améliorant sa structure. Il s'agit d'une approche disciplinée visant à optimiser le code tout en minimisant les risques d'introduction de bogues.
+
+\subsection{Ingénierie directe}
+Une fois les phases de rétro-ingénierie et de transformation réalisées, la dernière étape consiste à générer le nouveau système cible : c'est ce qu'on appelle l'ingénierie directe (forward engineering).
+
+Concrètement, après avoir extrait une compréhension abstraite du système existant, puis défini la cible et les règles de passage, il faut reconstruire tous les artefacts concrets de la nouvelle application. Cette reconstruction se base sur les modèles et spécifications de haut niveau élaborés précédemment.
+
+Par exemple, dans le cas d'une migration de monolithe vers microservices, les livrables de l'ingénierie directe seraient :
+
+\begin{itemize}
+    \item Le code source des différents microservices générés à partir des modèles de données et de traitements
+    \item Les tests unitaires et d'intégration couvrant chacun des microservices
+    \item La documentation utilisateur et technique associée 
+    \item Les configs d'infrastructure pour le déploiement et l'exploitation (scripts d'administration, dashboards...)
+    \item Les jeux de données et plans de test pour valider le fonctionnement
+\end{itemize}
+
+Contrairement à la réécriture d'un système de zéro, cette génération dirigée par les modèles de conception garantis un niveau élevé de complétude fonctionnelle et de couverture des cas d'usage. Elle s'appuie sur la représentation abstraite du behavior métier.
+
+Bien sûr, cette étape reste une opération complexe, longue et diffuse. Des problèmes peuvent être découverts sur la nouvelle architecture une fois confrontée à la réalité du déploiement et de l'utilisation opérationnelle. Une phase itérative d'affinage et d'optimisation est donc à prévoir avant la mise en production complète.
+
+
+\section{Défis de la migration}
+La migration des systèmes monolithiques vers les microservices représente un changement de paradigme majeur en architecture logicielle. Cependant, migrer depuis un système monolithique existant vers des microservices est loin d'être une tâche simple. Cette migration nécessite de relever de nombreux défis : comprendre et modéliser le domaine, décomposer le monolithe, gérer les données, la communication et l'infrastructure. Surmonter ces défis est indispensable pour une telle transition. \parencite{velepucha2023survey} .
+
+\subsection{Comprendre et modéliser le domaine}
+La compréhension approfondie du domaine métier est un prérequis critique pour réussir la mise en place d'une architecture microservices. Chaque microservice doit encapsuler un sous-domaine cohérent et respecter des frontières bien délimitées \parencite{velepucha2023survey}.
+
+Trop souvent, les organisations sous-estiment l'importance cruciale d'une modélisation rigoureuse du domaine métier. Ceci conduit fréquemment à un découpage inadéquat des services, compromettant la suite du processus de migration. C'est pourquoi des ateliers collaboratifs réunissant experts métiers, développeurs et parties prenantes sont indispensables. Ils permettront d'établir un langage ubiquitaire, d'identifier les différents contextes bornés (bounded contexts) ainsi que les relations entre domaines. Une telle compréhension partagée et approfondie du domaine constitue la pierre angulaire sur laquelle reposera la réussite d'une architecture microservices alignée aux réalités opérationnelles. 
+
+Il est essentiel aussi d'adopter les principes de \textbf{Domain-Driven Design} \parencite{newman2019monolith} . afin de modéliser avec précision le domaine applicatif. Le DDD permet d'identifier les modèles métiers de base - entités, objets valeur, agrégats - qui serviront ensuite à établir les contours des futurs microservices.
+
+
+\subsection{Décomposer le monolithe}
+Décomposer une application est essentiel pour migrer d'une architecture monolithique vers des microservices. Cependant, décomposer un monolithe soulève des défis, comme déterminer la taille et la portée adéquates de chaque microservice \parencite{newman2019monolith}.
+
+Une approche éprouvée consiste à appliquer \textbf{le principe de responsabilité unique (SRP)}  lors de la définition des contours des microservices. Chaque service doit encapsuler une seule capacité métier et être isolé des changements affectant les autres services. Le respect du SRP assure un faible couplage entre services et une forte cohésion interne. Concernant la stratégie de découpage, le pattern \textbf{Strangler Application } \parencite{newman2019monolith}, \parencite{richardson2018refactoring} préconise une transition progressive du monolithe. L'approche incrémentale évite de devoir opérer une refonte complète risquée en une seule fois. En résumé, décomposer finement le monolithe requiert une planification méticuleuse et une communication étroite entre les équipes pour garantir une migration réussie vers l'architecture cible.
+
+\subsection{Gestion des données}
+Migrer d'une architecture monolithique vers des microservices soulève de nombreux défis concernant la gestion des données. Un monolithe utilise généralement une base de données unique partagée par tous ses composants. À l'inverse, les microservices prônent une gestion décentralisée où chacun dispose de son propre stockage. Cela engendre plusieurs problématiques :
+
+\begin{itemize}
+    \item Partitionnement des données : Le partitionnement des données requiert de décomposer la base monolithique en fragments adaptés à chaque microservice, nécessitant une analyse poussée pour préserver l'intégrité et la cohérence.
+    \item Cohérence des données : Assurer la cohérence entre les différents stocks de données devient complexe, notamment pour les transactions distribuées. Des stratégies comme l'architecture événementielle ou le modèle de saga sont nécessaires.
+    \item Transactions distribuées : Lorsqu'une application adopte une architecture de microservices, le traitement des transactions est réparti entre différents services, contrairement aux systèmes monolithiques où les propriétés ACID peuvent être appliquées facilement au sein d'une base de données unique. Cette décentralisation rend la gestion des transactions distribuées plus complexe. Pour relever ce défi, les développeurs doivent recourir à des modèles comme le modèle Saga ou le protocole de validation en deux phases, permettant ainsi de coordonner les transactions à travers plusieurs services
+\end{itemize}
+
+Il existe plusieurs patterns qui peuvent aider à résoudre les problèmes de gestion des données dans les architectures de microservices : 
+
+\begin{itemize}
+    \item Le patron \textbf{Data-Driven Design} : Ce patron repose sur la modélisation, la normalisation et la sécurisation des données. En dissociant la manipulation des données de la logique métier, il optimise les performances, assure l'évolutivité et confère à l'application une flexibilité pour s'adapter aux changements commerciaux. Ces pratiques sont essentielles pour les microservices, car elles facilitent la prise de décision concernant la répartition des charges de travail, contribuant ainsi à améliorer les performances globales du système \parencite{velepucha2023survey} .
+    \item Le pattern \textbf{Shared Data Microservice} peut être utile temporairement pendant la transition depuis le monolithe. Il permet de conserver provisoirement une base de données partagée, le temps de décomposer progressivement le schéma \parencite{velepucha2023survey}.
+\end{itemize}
+
+\subsection{Assurer la communication et l’intégration}
+Dans un système monolithique, les composants communiquent en interne par appels de méthodes et fonctions. À l'inverse, les microservices interagissent via des API et protocoles réseau \parencite{lewis2014microservices}. Cette communication et intégration entre les services peut être facile par l'utilisation du pattern de \textbf{découverte de services (Service Discovery)} \parencite{velepucha2023survey}. Ce concept permet aux microservices de détecter dynamiquement les autres services avec lesquels ils doivent interagir dans un environnement distribué.
+
+Pour garantir une communication fluide en contexte de microservices, plusieurs stratégies sont possibles :
+\begin{itemize}
+    \item Conception et documentation d'API : des API bien conçues et documentées sont indispensables aux interactions entre microservices. Les équipes doivent investir dans la création d'API intuitives, et les maintenir à jour via tests et versionnage.
+    \item Communication asynchrone : L'adoption de modèles de communication asynchrones \parencite{velepucha2023survey}, tels que les files d'attente de messages ou les architectures événementielles, peut renforcer la résilience, l'évolutivité et la réactivité des microservices. Grâce à ces approches, les services peuvent poursuivre leur fonctionnement malgré l'indisponibilité d'un composant, minimisant ainsi l'impact sur l'ensemble du système.
+    \item  Orchestration et chorégraphie des services : Afin de simplifier la communication entre les microservices et de réduire les dépendances, il est nécessaire d'utiliser l'orchestration ou la chorégraphie. L'orchestration repose sur un composant central, appelé orchestrateur, qui coordonne et séquence les appels aux différents microservices en fonction des opérations métier . Il gère également les transactions, erreurs et dépendances entre les services. La chorégraphie consiste en une approche décentralisée où les microservices communiquent directement entre eux via des événements et du messaging asynchrone, sans composant central. Chaque service gère sa propre logique de coordination. Cette stratégie permet un couplage plus faible des services qui peuvent évoluer et être déployés indépendamment \parencite{lewis2014microservices}.
+\end{itemize}
+
+\subsection{Gérer le déploiement et l'infrastructure}
+Le déploiement et la gestion d'infrastructure sont complexifiés dans une architecture microservices du fait de l'indépendance de chaque service, contrairement à une application monolithique centralisée. Cela pose plusieurs défis :
+\begin{itemize}
+    \item Mise à l'échelle et allocation des ressources : Avec de nombreux services indépendants, il est indispensable d'allouer des ressources et de gérer efficacement la mise à l'échelle de chaque service \parencite{richardson2018refactoring}. Cela implique de surveiller les performances et l'utilisation des ressources de chaque service, et d'ajuster dynamiquement les ressources allouées en fonction de la demande.
+    \item Gestion des versions et compatibilité ascendante : Puisque les microservices sont développés et déployés de manière autonome, il est impératif d'assurer la compatibilité ascendante et de gérer les versions de manière cohérente sur tous les services. Les développeurs doivent établir des politiques claires de gestion des versions et de compatibilité des API, et les partager avec l'équipe de développement.
+\end{itemize}
+
+\newline
+
+Outre les défis abordés précédemment, la transition d'une architecture monolithique vers des microservices engendre d'autres difficultés. Divers patrons sont alors mobilisés pour simplifier ce processus de migration. Parmi ces patrons : 
+\paragraph{Backend for Frontend (BFF) :} Ce patron utilise un médiateur (BFF) entre le frontend et le backend, facilitant les modifications ou ajouts de services sans altérer le backend ni le frontend.
+\paragraph{Adapter Microservices Pattern : }
+Ce modèle permet l'intégration fluide d'anciens systèmes basés sur des technologies traditionnelles avec une architecture de microservices moderne. Il sert également de modèle de conception visant à désaccoupler des interfaces ou des systèmes incompatibles, permettant ainsi une collaboration transparente. L'adaptateur agit comme un intermédiaire, traduisant les demandes des domaines externes dans un format compréhensible par le service de domaine surchargé \parencite{velepucha2023survey} .
+\paragraph{Aggregator Microservice Design Pattern : }
+Le modèle de conception Aggregator Microservice est une approche qui vise à simplifier l'accès aux informations dans un environnement basé sur des microservices en centralisant la logique d'agrégation. Plutôt que d'avoir chaque client gérer la récupération et l'agrégation des données à partir de plusieurs microservices, un microservice dédié, l'agrégateur, prend en charge cette tâche complexe \parencite{velepucha2023survey}.
+
+
+\section{Stratégies de migration}
+La migration d'un application monolithique vers les microservices nécessite une planification stratégique, une analyse minutieuse et l'adoption de bonnes pratiques pour garantir le succès du projet. Dans cette section, nous explorerons différentes stratégies de migration qui peuvent être utilisées pour faciliter cette transition, en mettant l'accent sur les principaux aspects à prendre en compte et les meilleures pratiques à suivre. Nous examinerons également comment ces stratégies peuvent être adaptées aux besoins spécifiques de chaque organisation, afin de maximiser les avantages de l'adoption d'une architecture basée sur des microservices.
+\subsection{Big Bang}
+La stratégie de migration \textbf{Big Bang} est une approche audacieuse dans laquelle l'ensemble du système est migré d'un seul coup vers la nouvelle architecture ou la nouvelle plateforme. Cette méthode implique généralement l'arrêt temporaire du système existant, suivi de la migration complète vers la nouvelle solution \parencite{newman2019monolith}.
+
+\subsection{Strangler Application}
+La stratégie dite Strangler Application, également appelée le Strangler Pattern par Martin Fowler, est une approche de migration progressive et incrémentale qui vise à remplacer graduellement un système existant par une nouvelle architecture  . Cette approche est particulièrement adaptée aux systèmes monolithiques,  en leur permettant d'évoluer tout en restant opérationnels en production \parencite{richardson2018refactoring}.
+Contrairement à une refonte complète du système existant, le Strangler Pattern offre aux équipes de développement la possibilité de mettre à jour de manière progressive des sections de code et de fonctionnalités sans nécessiter l'arrêt complet du système comme illustré à la figure \ref{fig:strangler_application}. Au fil du temps, l'ensemble des services et composants est refactoré pour s'intégrer à un nouveau système d'application, permettant ainsi la mise hors service du système hérité. 
+Cette approche favorise un processus de migration itératif plutôt qu'une refonte complexe et totale. Les équipes de développement peuvent se concentrer sur la refonte d'un service ou d'une fonction à la fois, évitant la nécessité de gérer deux bases de code distinctes. De plus, elle élimine la nécessité de constituer deux équipes distinctes, l'une gérant le code ancien et l'autre gérant le nouveau code.
+Il existe trois principales stratégies pour étrangler le monolithe et le remplacer progressivement par des microservices : 
+\begin{itemize}
+    \item Implémenter de nouvelles fonctionnalités sous forme de services (arrêter de creuser)
+    \item Séparer la couche de présentation et l'arrière-plan.
+    \item Démanteler le monolithe en extrayant des fonctionnalités pour les transformer en services.
+\end{itemize}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/strangler_application.jpeg}
+    \caption{Stratégie de strangler application \parencite{richardson2018refactoring}}
+    \label{fig:strangler_application}
+\end{figure}
+
+\subsubsection{arrêter de creuser  : }
+Cette stratégie consiste à arrêter l'expansion du monolithe. C'est généralement une manière rapide de démontrer la valeur des microservices, contribuant ainsi à obtenir un soutien pour l'effort de migration. En d'autres termes, si une application monolithique est large et complexe, il ne faut pas implémenter de nouvelles fonctionnalités en ajoutant du code au monolithe existant. Cela augmenterait davantage la taille du monolithe et le rendrait encore plus difficile à gérer. À la place, l'idée principale de cette stratégie est d'ajouter le nouveau code à un microservice autonome \parencite{richardson2018refactoring} comme illustré à la figure \ref{fig:new_feature_as_service} . 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/new_feature_as_service.PNG}
+    \caption{ Architecture d’un système résultant en appliquant la stratégie - arrêter de creuser - \parencite{richardson2018refactoring}
+}
+    \label{fig:new_feature_as_service}
+\end{figure}
+
+Un autre composant important est le code de liaison (glue code), qui intègre le service au monolithe. Les services ne sont généralement pas isolés et doivent souvent accéder aux données du monolithe. Le code de liaison, situé dans le monolithe, le service, ou les deux, est responsable de l'intégration des données. Le service utilise ce code pour lire et écrire des données appartenant au monolithe. Il existe trois stratégies qu'un service peut utiliser pour accéder aux données du monolithe : 
+\begin{itemize}
+    \item Appeler une API distante fournie par le monolithe.
+    \item Accéder directement à la base de données du monolithe.
+    \item Maintenir sa propre copie des données, synchronisée avec la base de données du monolithe.
+\end{itemize}
+
+Bien que cette approche n'apporte pas de solution aux problèmes liés au monolithe, elle peut être considérée comme un premier pas vers la migration et une façon d'éviter d'aggraver la situation du monolithe. Pour résoudre réellement ces problèmes, il est nécessaire de décomposer le monolithe. C'est la raison pour laquelle d'autres stratégies, présentées ci-après, visent à le fragmenter.
+
+
+
+\subsubsection{Séparer le frontend du backend }
+Cette stratégie de réduction d'une application monolithique consiste à séparer la couche de présentation des couches de logique métier et d'accès aux données \parencite{richardson2018refactoring}  comme illustré à la figure \ref{fig:seprate_presentaion_from_backend}. La couche de présentation  Comprend des modules qui gèrent les requêtes HTTP et génèrent des pages HTML implémentant une interface utilisateur web. La couche de logique métier Implémente les règles et processus métier, définissant le comportement fonctionnel. Et enfin la coude d'accès aux données qui gère la récupération et la manipulation des données nécessaires à l'application.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/seprate_presentaion_from_backend.PNG}
+    \caption{ Architecture d’un système résultant en appliquant la stratégie - Séparer le frontend du backend  - \parencite{richardson2018refactoring}}
+    \label{fig:seprate_presentaion_from_backend}
+\end{figure}
+
+Cette séparation offre des avantages majeurs. Elle permet un développement indépendant des équipes, une évolutivité optimale, des déploiements flexibles, la réutilisation du backend, des tests simplifiés, l'utilisation de technologies diverses et une gestion efficace des ressources.
+
+Cependant, cette stratégie n'est qu'une solution partielle, car il est probable qu'une ou les deux applications résultantes soient toujours des monolithes difficiles à gérer. Pour éliminer complètement le ou les monolithes restants, la troisième stratégie doit être utilisée.
+
+
+
+\subsubsection{Extraction des services}
+Cette approche consiste à décomposer le monolithe et à transférer de manière progressive les fonctionnalités métier vers des services autonomes comme illustré dans la figure \ref{fig:extraction_of_services}. À chaque extraction, le monolithe diminue de taille, se transformant soit en un ensemble de services autonomes, soit disparaissant complètement \parencite{richardson2018refactoring}  . 
+
+ \begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/extraction_of_services.PNG}
+    \caption{Architecture d’un système résultant en appliquant la stratégie - L'extraction des services - \parencite{richardson2018refactoring}}
+    \label{fig:extraction_of_services}
+\end{figure}
+
+Les grandes applications monolithiques complexes contiennent de nombreux modules candidats à l'extraction. Une bonne approche consiste à commencer par des modules facilement extractibles, pour acquérir de l'expérience. Ensuite, extraire en priorité les modules apportant le plus d’avantages : ceux qui changent souvent pour accélérer le développement, ou ayant des besoins en ressources très spécifiques pour faciliter la scalabilité. Enfin, chercher les frontières à gros grain existantes qui permettent de transformer les modules à moindre coût.
+  
+ Le processus commence par identifier les fonctionnalités métier du monolithe à extraire. La première étape pour extraire un module du monolithe consiste à définir une interface de communication à gros grain entre le module et le reste de l'application monolithique. Il s'agit probablement d'une API bidirectionnelle, le monolithe ayant besoin de données du service et vice-versa. La mise en place d'une telle API peut s'avérer complexe en raison des dépendances étroitement imbriquées et des interactions à grain fin entre le module et le monolithe. La logique métier, implémentée par un modèle de domaine, est difficile à refactoriser en raison des nombreuses associations entre les classes. Des changements de code importants sont souvent nécessaires pour supprimer ces dépendances. Une fois l'interface à gros grain implémentée, le module peut être transformé en un service autonome. Pour cela, il faut développer le code permettant les communications entre le monolithe et le service via une API utilisant un mécanisme de communication inter-processus (IPC) \parencite{richardson2018refactoring}  .
+
+Le diagramme figure \ref{fig:steps_of_extraction_of_services} montre l’architecture avant, pendant et
+après le refactoring. Dans cet exemple, le module Z est le module candidat à l'extraction. Ses composants sont utilisés par le module X et il utilise le module Y. La première étape de refactoring consiste à définir une paire d'API à gros grain. La première interface est une interface entrante utilisée par le module X pour invoquer le module Z. La seconde est une interface sortante utilisée par le module Z pour invoquer le module Y.
+
+La deuxième étape de refactoring transforme le module en un service autonome. Les interfaces entrantes et sortantes sont implémentées par du code qui utilise un mécanisme de communication inter-processus (IPC). Il faudra très probablement construire le service en combinant le module Z avec un framework de base de microservice qui gère les problématiques transversales comme la découverte de service.
+
+Une fois qu'un module est extrait, on dispose d'un service supplémentaire qui peut être développé, déployé et mis à l'échelle de façon indépendante du monolithe et des autres services. On peut même réécrire le service from scratch ; dans ce cas, le code d'API qui intègre le service au monolithe devient une couche anti-corruption qui traduit entre les deux modèles de domaine. Chaque extraction de service rapproche un peu plus de l'architecture microservice. Au fil du temps, le monolithe va rétrécir et on aura de plus en plus de microservices.
+
+
+ \begin{figure}[p]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/steps_of_extraction_of_services.PNG}
+    \caption{Processus de réfactoring en appliquant la stratégie - extraction des services \parencite{richardson2016microservices}}
+    \label{fig:steps_of_extraction_of_services}
+\end{figure}
+
+
+
+
+\section{Approches de migration automatique (taxonomie)}
+Pour les développeurs et les propriétaires d'applications, la migration d'une architecture monolithique vers une architecture de microservices représente souvent un défi complexe. Cependant, la possibilité de réaliser cette transition de manière automatique, sans intervention humaine ou avec une intervention minimale, suscite un intérêt considérable. Une telle approche offre l'avantage de conserver toutes les fonctionnalités de l'application initiale tout en adoptant une architecture plus flexible et évolutive.
+
+L'idée d'une migration automatique évoque l'image d'une solution magique, capable de transformer une application monolithique en une architecture de microservices en un clin d'œil. Cette approche évite la nécessité d'une analyse approfondie de l'architecture initiale et du développement de services individuels, ce qui la rend attrayante pour de nombreuses entreprises.
+
+Dans cette section, nous explorerons les différentes approches utilisées pour la migration automatique des applications monolithiques vers des microservices. Nous concentrerons sur les méthodes d'extraction et d'identification des microservices résultants, qui constituent une partie cruciale de la migration automatique. 
+
+
+\subsection{Taxonomie de l'identification des microservices}
+Les méthodes d'identification de microservices peuvent être catégorisées en deux principales catégories : les approches techniques, qui impliquent des méthodologies systématiques pour découvrir les architectures de microservices ou extraire des workflows (algorithmes génétiques , de regroupement ...etc), et les approches de retour d'information, qui fournissent des informations et des retours d'expérience issus de la migration d'applications monolithiques vers des microservices (analyse statique, dynamique ...etc) . Ces approches offrent une documentation complète et un processus structuré pour atteindre le résultat architectural souhaité, discutant des défis, des leçons apprises et de l'impact des méthodologies de recherche.
+
+La figure \ref{fig:taxonomie_approches} illustre les différents approches d'identification des microservices, comprenant les objectifs, les entrées, les résultats et les techniques utilisées. 
+
+ \begin{figure}[p]
+    \centering
+    \includegraphics[width=\textwidth]{assets/fig/taxonomie_approches.jpeg}
+    \caption{Taxonomie générale des approches d'identification des microservices}
+    \label{fig:taxonomie_approches}
+\end{figure}
+
+
+\subsection{Objectif des approches d’identification des microservices}
+Les approches d'identification de microservices visent principalement 5 objectifs : 
+\begin{itemize}
+    \item Maintenabilité : capacité du système à évoluer et s'adapter aux changements (corrections, améliorations) sans introduire de régressions, grâce à la taille réduite des microservices \parencite{dehghani2022facilitating}.
+    \item Évolutivité : processus continu d'amélioration et d'adaptation du logiciel au fil du temps. Accélérée par la petite taille des microservices \parencite{al2016migrating}.
+    \item Extensibilité : aptitude à gérer des charges croissantes en allouant des ressources supplémentaires tout en maintenant la qualité de service.
+    \item Migration cloud : adéquation avec le cloud permise par la reconfigurabilité dynamique des microservices face aux évolutions d'exigences à l'exécution.
+    \item Intégration des pratiques DevOps : l'automatisation et le déploiement continu inhérents aux microservices facilitent l'adoption de méthodologies DevOps \parencite{zaragoza2022model}.
+\end{itemize}
+
+\subsection{Entrées des approches d’identification des microservices}
+Les approches d'identification de microservices s'appuient sur des entrées spécifiques pour analyser et décomposer efficacement les systèmes monolithiques. Ces entrées englobent diverses sources, notamment :
+
+\paragraph{Code source : }
+utilisé par plus de 60\% des approches, il permet d'analyser les dépendances entre classes, méthodes et attributs via l'ingénierie inverse. Plusieurs travaux extraient les classes, puis les catégorisent par niveaux de cohésion afin d'identifier les futures responsabilités des microservices comme \parencite{dehghani2022facilitating} , \parencite{zaragoza2022model} .
+
+\paragraph{Documentation : }
+les documents de spécifications fonctionnelles, modèles de cas d'utilisation, modèles de données, diagrammes de flux, etc. expliquent le fonctionnement du système sous différentes perspectives. Certains travaux analysent les processus métiers ou les échanges de données entre entités pour comprendre les interactions. Un exemple de ca , \parencite{chen2017monolith} utilise des diagrammes de flux de données pour représenter le flux de données et les opérations dans le système.
+
+\paragraph{Expertise humaine : }
+bien que peu présente, l'intervention d'experts métiers et techniques guide de manière cruciale la décomposition, en fournissant une compréhension approfondie du système et de ses exigences , exemple de cela \parencite{zaragoza2022model} , \parencite{chen2017monolith} nécessitent l’intervention directe d’un expert,.
+
+\paragraph{Combinaisons d'entrées : }
+certains travaux fusionnent diverses sources comme le code et la documentation pour accroître la précision de l'identification.
+
+\subsection{Niveaux d’automatisation des approches d’identification des microservices}
+La process d'identification des microservices est classé en trois niveaux d’automatisation : les processus entièrement automatisés, semi-automatisés et manuels en fonction de leur degré d’automatisation . 
+
+\paragraph{Automatique : }
+Les approches pleinement automatiques fonctionnent sans aucune intervention humaine, ou avec une implication minimale. Par exemple, certaines méthodes utilisent des algorithmes de clustering pour décomposer automatiquement une application monolithique en microservices comme \parencite{chaieb2023automate}. Bien qu'aucune approche ne soit complètement dénuée d'apports humains (ne serait-ce que la conception initiale), Les méthodes automatisées minimisent l'interaction humaine durant le processus d'identification. L'incorporation d'une expertise métier ou technique reste cependant précieuse pour enrichir les résultats dans certains travaux.
+
+\paragraph{Semi-automatiques : }
+Ces approches font intervenir ponctuellement des experts à certaines étapes clés \parencite{al2016migrating}, leur connaissance du système guidant le processus pour générer les livrables finaux. Par exemple, une phase manuelle de purification des modèles, ou la recommendation de décompositions candidates par les développeurs initiaux. L'interaction humaine est alors bien délimitée et son périmètre généralement confiné pour limiter la charge de travail.
+
+\paragraph{Manulle : }
+Les approches dépendant entièrement d'experts pour réaliser toutes les étapes et produire les livrables sont chronophages, coûteuses et risquées.
+
+\subsection{Techniques d’identification des microservices}
+Les techniques d'identification des microservices utilisent des algorithmes pour décrire l'architecture orientée microservices, en classifiant et extrayant les MIAs en fonction de leurs méthodes d'identification, notamment les approches génétiques, de clustering, d'heuristiques personnalisées et hybrides.
+
+
+\subsubsection{Algorithmes génétiques}
+Les algorithmes génétiques, également connus sous le nom d'algorithmes évolutifs, sont des techniques méta-heuristiques utilisées dans de vastes espaces de recherche pour évaluer la qualité des solutions candidates à travers une fonction de fitness. Ces algorithmes imitent l'évolution naturelle et visent à trouver des résultats optimaux en faisant évoluer de manière itérative un ensemble de solutions. L'Approche d'Identification de Microservices (MIAs) \parencite{selmadji2019monolithic} a utilisé des algorithmes génétiques dans sa méthodologie, en utilisant le concept de sélection naturelle pour favoriser les meilleures solutions à travers les itérations.
+
+\subsubsection{Clustering algorithms}
+Les algorithmes de regroupement, quant à eux, servent à catégoriser les artefacts de programme en clusters selon des critères spécifiques, optimisant la cohésion au sein des clusters et minimisant le couplage entre eux. Ces algorithmes peuvent prendre différentes formes, telles que des méthodes basées sur les graphes \parencite{selmadji2019monolithic} pour dériver des partitions de services potentielles à partir du modèle Entité-Relation (ER) et du modèle de cas d'utilisation d'un système monolithique ou des méthodes basées sur la similarité \parencite{correia2022identification}.
+
+\subsubsection{Heuristiques personnalisées}
+Les heuristiques personnalisées sont intégrées par certaines MIAs et ne correspondent pas parfaitement aux catégories précédemment mentionnées. Par exemple, dans une étude, un algorithme de décomposition basé sur le flux de données est utilisé \parencite{chen2017monolith}. Cet algorithme consolide des opérations similaires et leurs données de sortie correspondantes dans un flux de données abstrait virtuel, puis extrait des modules individuels, appelés opérations et leurs données de sortie, pour représenter les candidats microservices identifiés.
+
+\subsubsection{Identification hybrides}
+Les approches d'identification hybrides impliquent la combinaison de plusieurs techniques mentionnées précédemment. Par exemple, certaines méthodes utilisent un mélange d'algorithmes génétiques et de regroupement hiérarchique pour identifier des clusters potentiels. Une autre approche, ROMANTIC, intègre des algorithmes évolutifs avec des techniques de regroupement à différents stades du processus d'identification.
+
+
+
+\subsection{Analysis technique}
+Les approches d’identification des microservices ( MIA ) utilisent une variété d’algorithmes pour traiter les données d’entrée et générer des microservices. Ces MIA sont classés en quatre groupes différents en fonction de leurs techniques d’analyse : statique, dynamique, de domaine et hybride . 
+
+\subsubsection{Analyse pilotée par les modèles : }
+L'approche de migration basée sur la Conception Driven par les Modèles (Domain-Driven Design ou DDD) s'appuie principalement sur l'analyse des artefacts du domaine métier pour identifier les microservices. Cette approche se concentre sur la modélisation détaillée du domaine fonctionnel. Les modèles métier obtenus, tels que les diagrammes de flux de données \parencite{chen2017monolith}, servent d'entrée principale pour identifier les futurs microservices. L'objectif est d'assurer un alignement étroit entre les microservices identifiés et les concepts du domaine modélisé.
+
+\subsubsection{Analyse statique :} 
+L'analyse statique consiste à étudier le code source du logiciel sans exécuter le système. En se basant sur la structure arborescente abstraite du code, il repère les liens statiques entre les classes, modules ou composants logiciels. 
+La majorité des approches examinées repose essentiellement sur des techniques d'analyse statique \parencite{eski2018automatic}, \parencite{selmadji2019monolithic} et \parencite{correia2022identification}. Dans ces études,
+l'analyse statique est utilisée pour manipuler le code source et extraire des données cruciales, souvent en utilisant des méthodes telles que des arbres de syntaxe abstraite et des techniques similaires.
+Cependant, l'analyse statique présente des limitations, notamment en ne capturant pas les informations liées au polymorphisme et à la liaison dynamique. Ces aspects peuvent ne pas être entièrement représentés dans le résultat de l'analyse, ce qui nécessite une prise de conscience de ces limitations lors de la planification de la migration vers une architecture de microservices.
+
+
+\subsubsection{Analyse dynamique   :}
+L'analyse dynamique représente des approches qui examinent les fonctionnalités d'un système pendant son exécution. Cette méthode offre une compréhension précise du comportement en temps d'exécution, nécessitant un ensemble varié de cas de test pour une couverture complète. Contrairement à l'analyse statique, l'analyse dynamique prend en compte des scénarios tels que le polymorphisme et la liaison dynamique.
+À titre d'exemple, dans \parencite{dehghani2022facilitating} , des traces d'exécution sont utilisées pour orienter le regroupement des entités du code source dédiées à la même fonctionnalité. Ils adoptent une méthode de clustering orientée exécution pour regrouper les fonctionnalités similaires, formant ainsi un service (les traces d'exécution étant générées à l'aide des cas de test spécifiés).
+
+\subsubsection{Analyse hybride : }
+L'analyse hybride combine deux ou plusieurs techniques au sein d'une seule approche, ces techniques se complétant et se renforçant mutuellement. Toutes les approches MIA hybrides examinées impliquent une combinaison d'analyse statique et dynamique \parencite{ren2018migrating}. L'analyse statique découvre les dépendances statiques, comme les appels de méthodes, en examinant le code, tandis que l'analyse dynamique identifie les dépendances au moment de l'exécution, y compris celles liées au polymorphisme et à la liaison dynamique .
+
+On peut identifier quelques approches proposées dans la littérature dans le tableau suivant :
+
+\renewcommand*{\arraystretch}{3}
+\begin{longtable}{|p{\dimexpr0.7\linewidth-2\tabcolsep}|>{\centering\arraybackslash}m{\dimexpr0.3\linewidth-2\tabcolsep}|}
+\caption{Approches proposées dans la littérature}\\
+\hline
+\textbf{Titre de papier } & \textbf{Technique Utilisé} \\
+\hline
+\endfirsthead
+
+\multicolumn{3}{c}%
+{\tablename\ \thetable\ -- \textit{Suite de la page précédente}} \\
+\hline
+\textbf{Titre de papier } & \textbf{Technique Utilisé} \\
+\hline
+\endhead
+
+\hline \multicolumn{3}{r}{\textit{Suite à la page suivante}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+From monolith to microservices: A dataflow-driven approach \parencite{chen2017monolith} & MD \\
+\hline
+
+
+
+Facilitating the Migration to the Microservice Architecture via Model-Driven Reverse Engineering and Reinforcement Learning \parencite{dehghani2022facilitating} & SA \\ 
+\hline
+
+From Monolithic Systems to Microservices : A Decomposition Framework based on Process Mining \parencite{taibi2019monolithic} &  DA  \\
+\hline
+
+Functionality-oriented Microservice Extraction Based on Execution Trace Clustering \parencite{jin2018functionality} &  DA  \\
+\hline
+
+Extraction of Microservices from Monolithic Software Architectures \parencite{mazlami2017extraction}  &  SA  \\
+\hline
+
+Microservices Identification Through Interface AnalysiS \parencite{baresi2017microservices} & SA \\
+\hline
+
+Migrating Web Applications from Monolithic Structure to Microservices Architecture \parencite{ren2018migrating} & SA + DA  \\
+\hline
+
+A probabilistic approach for obtaining an optimized number of services using weighted matrix and multidimensional scaling \parencite{sayara2017probabilistic} & SA
+\hline
+
+Discovering Microservices in Enterprise Systems Using a Business Object Containment Heuristic \parencite{de2018discovering} & MD + SA + DA
+\hline
+
+Using Microservices for Legacy Software Modernization \parencite{knoche2018using} & MD + SA
+\hline
+
+
+Automate migration to microservices architecture using Machine Learning techniques \parencite{chaieb2023automate} & SA
+\hline
+
+Migrating Object-Oriented Software into Component-Based Ones \parencite{al2016migrating} & SA
+\end{longtable}
+
+\subsection{Validation}
+Plusieurs méthodes ont été utilisées pour valider les MIAs extraites, notamment des expérimentations à grande échelle et des études de cas.
+
+\subsubsection{Expérimentations à grande échelle}
+Ces expériences sont généralement menées pour répondre à des questions de recherche spécifiques formulées par l'approche proposée et ses défis. Elles servent de banc d'essai dans le monde réel pour évaluer la scalabilité, la fiabilité et les performances. Ces expériences fournissent des données et des perspectives approfondies sur l'adéquation de l'approche pour différents scénarios. Le processus implique la collecte de données substantielles en mettant en œuvre l'approche à travers diverses études de cas et en les analysant pour répondre aux questions de recherche. Parmi les MIAs extraites, seule une a mené des expériences à grande échelle \parencite{correia2022identification} .
+
+\subsubsection{Étude de cas}
+Lorsqu'il n'est pas possible de traiter un grand nombre d'études de cas, la validation d'une approche peut être prouvée à l'aide d'une étude de cas. De telles expériences fournissent une vue d'ensemble complète, soutiennent les améliorations itératives et garantissent la persistance à travers différents domaines de recherche et d'application. Des exemples d'utilisation d'études de cas peuvent être trouvés dans différents articles \parencite{al2016migrating} , \parencite{daoud2021vers} ,  \parencite{chen2017monolith} .
+
+
+\section{Conclusion}
+Dans ce chapitre, nous avons introduit les concepts clés liés à la migration logicielle, en mettant particulièrement l'accent sur les phases cruciales de rétro-ingénierie et de transformation. Nous avons vu les principaux patterns et stratégies de migration, les défis de la migration ainsi qu'une taxonomie de la littérature sur les techniques d'identification de microservices .
+
+Il est important de noter qu'aucune étude ne traite la migration d'une application monolithique vers des microservices de manière entièrement automatique. L'expérience des architectes reste un atout majeur dans toutes les approches existantes. Chaque méthode présente ses forces et ses limites, et aucune ne peut être considérée comme parfaite ou universelle pour identifier les microservices. La stratégie la plus prometteuse combine intelligemment plusieurs techniques complémentaires, exploitant à la fois l'analyse statique et dynamique du code, la modélisation du domaine métier, et l'expertise humaine, afin de produire un découpage pertinent et durable.
+
+Dans les chapitres suivants, nous explorerons et détaillerons notre approche visant à combiner de manière semi-automatique l'analyse statique du code source, la modélisation selon les principes du Domain-Driven Design (DDD) et l'expertise humaine. En utilisant le code source comme entrée principale pour identifier les microservices candidates.

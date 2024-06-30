@@ -1,20 +1,14 @@
-import React from "react";
-import { FaSearch } from "react-icons/fa";
 import "./headerPage.css";
 
 type Props = {
   title: string;
   descr: string;
-  value?: string;
-  handleSearch?: () => void;
-  handleFocusInput?: () => void;
-  handleChangeInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isSeach?: boolean;
-  searchPlaceHolder? : string
+  onHandleGlobalCallGraph : () => void;
+  handleOpenFormIdentifierMs: () => void
 
 };
 
-const HeaderPage = ({descr , title , handleChangeInput , handleFocusInput , handleSearch , isSeach , value , searchPlaceHolder}: Props)  => {
+const HeaderPage = ({descr , title , onHandleGlobalCallGraph , handleOpenFormIdentifierMs }: Props)  => {
 
 
   return (
@@ -23,22 +17,15 @@ const HeaderPage = ({descr , title , handleChangeInput , handleFocusInput , hand
         <div className="title">{title}</div>
         <div className="descr">{descr}</div>
       </div>
-
-      {isSeach ? (
         <div className="header-right">
-          <div onClick={handleSearch} className="search-icon-container">
-            <FaSearch />
+          <div onClick={onHandleGlobalCallGraph} className="global-call-graph action">
+            Global Call Graph
           </div>
-          <div className="search-bar-container">
-            <input
-              value={value}
-              onFocus={handleFocusInput}
-              onChange={handleChangeInput}
-              placeholder={searchPlaceHolder || "Search by uuid" }
-            />
+          <div onClick={handleOpenFormIdentifierMs} className="ms-candidates action">
+            Microservices Candidates
           </div>
         </div>
-      ) : null}
+
     </div>
   );
 }

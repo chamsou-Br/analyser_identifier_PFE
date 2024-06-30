@@ -1,0 +1,53 @@
+
+/* --------------------
+    trasaction note 
+-------------------------------- */
+
+.msCandidatesModal .label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #010101aa;
+    margin: 5px 0;
+  }
+  
+  .msCandidatesModal .content {
+    padding: 0 20px;
+  }
+  .msCandidatesModal .button {
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 10px 30px;
+  }
+
+  .msCandidatesModal .callGraphPicture {
+    display: flex;
+    justify-content: center;
+  }
+
+  .msCandidatesModal .callGraphPicture img {
+    max-height: 60vh;
+  }
+  
+
+  .clusters {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    overflow-y: auto;
+  }
+
+  .cluster{
+    padding: 10px;
+    text-align: start;
+    border: 2px solid #3782ec77;
+    border-radius: 0.5rem;
+    min-width: 200px;
+  }
+
+  .cluster .label {
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid #3782ec77;
+    padding-bottom: 5px;
+    color: #3782ec;
+  }
